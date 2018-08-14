@@ -1,0 +1,79 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.4.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'maven-publish'
+
+group = 'com.bytehonor.standard'
+version = '2.6.0.RELEASE'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven {
+		url = "http://118.25.24.22:8081/repository/bytehonor-releases/"
+	}
+}
+
+dependencies {
+    compile('cglib:cglib:3.2.7')
+    compile('com.bytehonor.standard:server-api-protocol:2.7.0')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	runtime('org.springframework.boot:spring-boot-devtools')
+	compileOnly('org.springframework.boot:spring-boot-configuration-processor')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+jar {
+	enabled = true
+}
+
+//打包源码
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            //指定group/artifact/version信息，可以不填。默认使用项目group/name/version作为groupId/artifactId/version
+            groupId project.group
+            artifactId project.name
+            version project.version
+            //如果是war包填写components.web，如果是jar包填写components.java
+            from components.java
+
+            //配置上传源码
+            artifact sourceJar {
+                classifier "sources"
+            }
+
+        }
+    }
+    repositories {
+        maven {
+            //指定要上传的maven私服仓库
+            url = "http://118.25.24.22:8081/repository/bytehonor-releases/"
+            //认证用户和密码
+            credentials {
+                username 'bytehonor-user'
+                password 'bytehonor_pwd'
+            }
+        }
+    }
+}
