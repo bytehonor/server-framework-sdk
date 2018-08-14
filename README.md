@@ -1,7 +1,7 @@
-# Spring Boot 核心库
+# Spring Boot 约定标注库
 
 ## 启用
-启动类加注解 @StandardSpringBoot
+启动类加注解 @SpringBootStandard
 
 ## 打包
 // http://blog.csdn.net/formularoom/article/details/70354562
