@@ -12,19 +12,18 @@ import com.bytehonor.standard.spring.boot.web.error.stragety.ExceptionStragety;
 
 @ControllerAdvice
 public class GlobalErrorAdvisor {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(GlobalErrorAdvisor.class);
-	
-	
+
 	@ResponseBody
-    @ExceptionHandler(value = Exception.class)
-    public final ExceptionEntity defaultErrorHandler(Exception ex) {
+	@ExceptionHandler(value = Exception.class)
+	public final ExceptionEntity defaultErrorHandler(Exception ex) {
 		if (LOG.isWarnEnabled()) {
 			// 错误栈太多无用信息, 只打4行
 			StackTraceElement[] stackTrace = ex.getStackTrace();
 			StringBuilder sb = new StringBuilder("\n [***Standard Print Exception Stack Begin >>>>]");
-			for (int i=0;i<4;i++) {
-				if (stackTrace[0] == null) {
+			for (int i = 0; i < 4; i++) {
+				if (stackTrace[i] == null) {
 					continue;
 				}
 				sb.append("\n [***Stack (").append(i).append(")]:").append(stackTrace[i].toString());
@@ -33,8 +32,8 @@ public class GlobalErrorAdvisor {
 			LOG.warn(sb.toString());
 		}
 		ExceptionStragety exceptionStragety = ExceptionStragetyFactory.build(ex);
-    	ExceptionEntity error = exceptionStragety.process();
-        return error;
-    }
+		ExceptionEntity error = exceptionStragety.process();
+		return error;
+	}
 
 }

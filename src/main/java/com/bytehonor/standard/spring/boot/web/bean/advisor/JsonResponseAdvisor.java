@@ -11,7 +11,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import com.bytehonor.standard.spring.boot.config.StandardSpringBootProperties;
+import com.bytehonor.standard.spring.boot.config.SpringBootStandardProperties;
 import com.bytehonor.standard.spring.boot.web.restful.factory.ResponseStragetyFactory;
 import com.bytehonor.standard.spring.boot.web.restful.stragety.ResponseStragety;
 
@@ -19,13 +19,13 @@ import com.bytehonor.standard.spring.boot.web.restful.stragety.ResponseStragety;
 public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
 	
 	@Autowired
-	private StandardSpringBootProperties standardSpringBootProperties;
+	private SpringBootStandardProperties springBootStandardProperties;
 	
 	private static final Logger LOG = LoggerFactory.getLogger(JsonResponseAdvisor.class);
 	
 	@Override
 	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-		return standardSpringBootProperties.isResponseAdvisorEnable();
+		return springBootStandardProperties.isResponseAdvisorEnable();
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
 		if (MediaType.TEXT_HTML.equals(selectedContentType)) {
 			return body;
 		}
-		ResponseStragety responseStragety = ResponseStragetyFactory.build(body, response, returnType, standardSpringBootProperties);
+		ResponseStragety responseStragety = ResponseStragetyFactory.build(body, response, returnType, springBootStandardProperties);
 		
 		return responseStragety.process(request);
 	}

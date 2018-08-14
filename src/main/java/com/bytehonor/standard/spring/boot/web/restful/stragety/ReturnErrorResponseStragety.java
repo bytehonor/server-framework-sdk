@@ -11,7 +11,7 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 
 import com.bytehonor.standard.api.protocol.result.JsonResponse;
-import com.bytehonor.standard.spring.boot.config.StandardSpringBootProperties;
+import com.bytehonor.standard.spring.boot.config.SpringBootStandardProperties;
 import com.bytehonor.standard.spring.boot.web.error.exception.entity.ExceptionEntity;
 import com.bytehonor.standard.spring.boot.web.error.message.DebugErrorMessage;
 import com.bytehonor.standard.spring.boot.web.error.message.NormalErrorMessage;
@@ -25,14 +25,14 @@ public final class ReturnErrorResponseStragety implements ResponseStragety {
 
 	private final ServerHttpResponse response;
 
-	private final StandardSpringBootProperties standardSpringBootProperties;
+	private final SpringBootStandardProperties standardSpringBootProperties;
 
 	private final boolean enableDebugRequest;
 
 	private final boolean enableForceStatus;
 
 	public ReturnErrorResponseStragety(ExceptionEntity error, ServerHttpResponse response,
-			StandardSpringBootProperties standardSpringBootProperties) {
+			SpringBootStandardProperties standardSpringBootProperties) {
 		this.response = response;
 		this.error = error;
 		this.standardSpringBootProperties = standardSpringBootProperties;
@@ -165,7 +165,7 @@ public final class ReturnErrorResponseStragety implements ResponseStragety {
 		return enableDebugRequest;
 	}
 
-	public StandardSpringBootProperties getStandardSpringBootProperties() {
+	public SpringBootStandardProperties getStandardSpringBootProperties() {
 		return standardSpringBootProperties;
 	}
 

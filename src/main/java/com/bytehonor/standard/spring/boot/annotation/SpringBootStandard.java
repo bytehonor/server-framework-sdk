@@ -1,6 +1,6 @@
 package com.bytehonor.standard.spring.boot.annotation;
 
-import com.bytehonor.standard.spring.boot.selector.StandardSpringBootImportSelector;
+import com.bytehonor.standard.spring.boot.selector.SpringBootStandardImportSelector;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;
@@ -16,6 +16,6 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(StandardSpringBootImportSelector.class)
-public @interface StandardSpringBoot {
+@Import(SpringBootStandardImportSelector.class)
+public @interface SpringBootStandard {
 }

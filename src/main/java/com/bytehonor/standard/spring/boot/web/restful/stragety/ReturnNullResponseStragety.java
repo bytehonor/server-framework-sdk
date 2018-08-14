@@ -8,7 +8,7 @@ import org.springframework.http.server.ServerHttpResponse;
 
 import com.bytehonor.standard.api.protocol.code.StandardCode;
 import com.bytehonor.standard.api.protocol.result.JsonResponse;
-import com.bytehonor.standard.spring.boot.config.StandardSpringBootProperties;
+import com.bytehonor.standard.spring.boot.config.SpringBootStandardProperties;
 
 public final class ReturnNullResponseStragety implements ResponseStragety {
 	
@@ -18,9 +18,9 @@ public final class ReturnNullResponseStragety implements ResponseStragety {
 
 	private final boolean enableDebugRequest;
 	
-	private final StandardSpringBootProperties standardSpringBootProperties;
+	private final SpringBootStandardProperties standardSpringBootProperties;
 
-	public ReturnNullResponseStragety(ServerHttpResponse response, StandardSpringBootProperties standardSpringBootProperties) {
+	public ReturnNullResponseStragety(ServerHttpResponse response, SpringBootStandardProperties standardSpringBootProperties) {
 		this.response = response;
 		this.standardSpringBootProperties = standardSpringBootProperties;
 		this.enableDebugRequest = standardSpringBootProperties != null ? standardSpringBootProperties.isRestfulDebugEnable() : false;
@@ -57,7 +57,7 @@ public final class ReturnNullResponseStragety implements ResponseStragety {
 		return response;
 	}
 
-	public StandardSpringBootProperties getStandardSpringBootProperties() {
+	public SpringBootStandardProperties getStandardSpringBootProperties() {
 		return standardSpringBootProperties;
 	}
 

@@ -17,7 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'maven-publish'
 
 group = 'com.bytehonor.standard'
-version = '2.6.0.RELEASE'
+version = '2.7.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'

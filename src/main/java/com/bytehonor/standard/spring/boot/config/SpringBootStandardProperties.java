@@ -3,7 +3,7 @@ package com.bytehonor.standard.spring.boot.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "standard.springboot")
-public class StandardSpringBootProperties {
+public class SpringBootStandardProperties {
 
 	/**
 	 * Server Response Handler Use Global Advisor, default true

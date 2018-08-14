@@ -33,17 +33,17 @@ import com.bytehonor.standard.spring.boot.web.bean.mvc.WebMvcCustom;
 @ConditionalOnWebApplication
 @ConditionalOnClass({ Servlet.class, DispatcherServlet.class })
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
-@EnableConfigurationProperties({ ResourceProperties.class, StandardSpringBootProperties.class})
-public class StandardSpringBootConfiguration {
+@EnableConfigurationProperties({ ResourceProperties.class, SpringBootStandardProperties.class})
+public class SpringBootStandardConfiguration {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(StandardSpringBootConfiguration.class);
+	private static final Logger LOG = LoggerFactory.getLogger(SpringBootStandardConfiguration.class);
 	
 	@Autowired(required = false)
 	private List<ErrorViewResolver> errorViewResolvers;
 
 	private final ServerProperties serverProperties;
 
-	public StandardSpringBootConfiguration(ServerProperties serverProperties) {
+	public SpringBootStandardConfiguration(ServerProperties serverProperties) {
 		this.serverProperties = serverProperties;
 	}
 
