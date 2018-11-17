@@ -1,8 +1,8 @@
 package com.bytehonor.standard.boot.spring.web.error.exception;
 
 
-import com.bytehonor.protocol.api.server.code.StandardCode;
-import com.bytehonor.protocol.api.server.error.StandardException;
+import com.bytehonor.protocol.common.server.code.StandardCode;
+import com.bytehonor.protocol.common.server.error.StandardException;
 
 public class ServerDefinedException extends StandardException {
 

@@ -2,7 +2,7 @@ package com.bytehonor.standard.boot.spring.web.error.stragety;
 
 import org.springframework.http.HttpStatus;
 
-import com.bytehonor.protocol.api.server.code.StandardCode;
+import com.bytehonor.protocol.common.server.code.StandardCode;
 import com.bytehonor.standard.boot.spring.web.error.exception.entity.ExceptionEntity;
 
 public class DefaultExceptionStragety implements ExceptionStragety {
