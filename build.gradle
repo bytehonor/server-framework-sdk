@@ -17,7 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 apply from: 'repository.gradle'
 
 group = 'com.bytehonor.standard'
-version = '2.8.1'
+version = '3.0.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
