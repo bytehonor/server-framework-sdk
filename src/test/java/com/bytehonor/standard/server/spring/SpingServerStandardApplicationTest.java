@@ -2,13 +2,13 @@ package com.bytehonor.standard.server.spring;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.bytehonor.standard.server.sping.SpingServerStandardApplication;
-
+@SpringBootConfiguration
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SpingServerStandardApplication.class)
+@SpringBootTest
 public class SpingServerStandardApplicationTest {
 
 	@Test

@@ -56,6 +56,7 @@ public class SpringBootStandardConfiguration {
 	
 	@Bean
 	@ConditionalOnProperty(prefix = "server.core.web", name = "error.advisor.enable", matchIfMissing = true)
+	@ConditionalOnMissingBean(value = GlobalErrorAdvisor.class)
 	public GlobalErrorAdvisor globalErrorAdvisor() {
 		LOG.info("[standard boot bean] GlobalErrorAdvisor");
 		return new GlobalErrorAdvisor();
@@ -63,6 +64,7 @@ public class SpringBootStandardConfiguration {
 	
 	@Bean
 	@ConditionalOnProperty(prefix = "server.core.web", name = "response.advisor.enable", matchIfMissing = true)
+	@ConditionalOnMissingBean(value = JsonResponseAdvisor.class)
 	public JsonResponseAdvisor jsonResponseAdvisor() {
 		LOG.info("[standard boot bean] JsonResponseAdvisor");
 		return new JsonResponseAdvisor();

@@ -36,7 +36,7 @@ public class CustomErrorController extends AbstractErrorController {
 	
 //	@Autowired
 //	private ApplicationContext applicationContext;
-
+	
 	/**
 	 * Create a new
 	 * {@link org.springframework.boot.autoconfigure.web.BasicErrorController}
