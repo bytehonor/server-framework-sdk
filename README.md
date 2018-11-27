@@ -1,4 +1,4 @@
-# Spring Server 约定标注库
+# Spring 约定标注库
 
 ## 启用
 启动类加注解 @SpringBootStandard  
