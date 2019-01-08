@@ -34,7 +34,7 @@ ext {
 
 dependencies {
     implementation('cglib:cglib:3.2.9')
-    implementation('com.bytehonor.protocol:server-common-protocol:3.0.2')
+    implementation('com.bytehonor.protocol:server-common-protocol:3.0.3')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
 	implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
