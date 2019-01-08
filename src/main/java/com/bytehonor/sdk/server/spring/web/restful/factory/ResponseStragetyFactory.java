@@ -3,7 +3,7 @@ package com.bytehonor.sdk.server.spring.web.restful.factory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.server.ServerHttpResponse;
 
-import com.bytehonor.protocol.common.server.result.JsonResponse;
+import com.bytehonor.protocol.core.server.result.JsonResponse;
 import com.bytehonor.sdk.server.spring.config.SpringBootStandardProperties;
 import com.bytehonor.sdk.server.spring.web.error.exception.entity.ExceptionEntity;
 import com.bytehonor.sdk.server.spring.web.restful.stragety.ResponseStragety;

@@ -1,7 +1,7 @@
 package com.bytehonor.sdk.server.spring.web.error.exception;
 
-import com.bytehonor.protocol.common.server.code.StandardCode;
-import com.bytehonor.protocol.common.server.error.StandardException;
+import com.bytehonor.protocol.core.server.code.StandardCode;
+import com.bytehonor.protocol.core.server.error.StandardException;
 
 public class InternalRestfulException extends StandardException {
 

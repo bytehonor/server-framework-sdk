@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 
-import com.bytehonor.protocol.common.server.code.StandardCode;
-import com.bytehonor.protocol.common.server.result.JsonResponse;
+import com.bytehonor.protocol.core.server.code.StandardCode;
+import com.bytehonor.protocol.core.server.result.JsonResponse;
 
 public final class ReturnNormalResponseStragety implements ResponseStragety {
 	

@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.server.spring.web.error.exception;
 
-import com.bytehonor.protocol.common.server.code.StandardCode;
+import com.bytehonor.protocol.core.server.code.StandardCode;
 
 public class FrameworkException extends RuntimeException {
 

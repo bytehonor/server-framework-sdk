@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.server.spring.util;
 
-import com.bytehonor.protocol.common.server.util.MD5Utils;
+import com.bytehonor.protocol.core.server.util.MD5Utils;
 
 /**
  * 密码加密

@@ -9,9 +9,9 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.bytehonor.protocol.common.server.constant.ForceStatusHeader;
-import com.bytehonor.protocol.common.server.constant.HeaderKey;
-import com.bytehonor.protocol.common.server.util.MD5Utils;
+import com.bytehonor.protocol.core.server.constant.ForceStatusHeader;
+import com.bytehonor.protocol.core.server.constant.HeaderKey;
+import com.bytehonor.protocol.core.server.util.MD5Utils;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

@@ -2,7 +2,7 @@ package com.bytehonor.sdk.server.spring.web.restful.helper;
 
 import org.springframework.http.HttpHeaders;
 
-import com.bytehonor.protocol.common.server.constant.ForceStatusHeader;
+import com.bytehonor.protocol.core.server.constant.ForceStatusHeader;
 
 public class ResponseStragetyHelper {
 	
