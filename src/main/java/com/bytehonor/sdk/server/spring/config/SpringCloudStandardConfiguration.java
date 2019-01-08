@@ -35,7 +35,7 @@ public class SpringCloudStandardConfiguration {
 	@ConditionalOnProperty(prefix = "server.core.cloud", name = "feign-strategy-enable", matchIfMissing = true)
 	@ConditionalOnClass({ HystrixConcurrencyStrategy.class })
 	public FeignHystrixConcurrencyStrategy feignHystrixConcurrencyStrategy() {
-		LOG.info("[standard core bean] FeignHystrixConcurrencyStrategy");
+		LOG.info("[standard cloud bean] FeignHystrixConcurrencyStrategy");
 		return new FeignHystrixConcurrencyStrategy();
 	}
 	
@@ -44,7 +44,7 @@ public class SpringCloudStandardConfiguration {
 	@ConditionalOnMissingBean
 	@ConditionalOnClass({ RequestInterceptor.class })
 	public FeignCoreInterceptor feignCoreInterceptor() {
-		LOG.info("[standard core bean] FeignCoreInterceptor");
+		LOG.info("[standard cloud bean] FeignCoreInterceptor");
 		return new FeignCoreInterceptor();
 	}
 
