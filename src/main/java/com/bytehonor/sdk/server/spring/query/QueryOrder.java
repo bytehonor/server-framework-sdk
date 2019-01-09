@@ -2,45 +2,54 @@ package com.bytehonor.sdk.server.spring.query;
 
 public class QueryOrder {
 
-	public static final String ASC = "ASC";
+    public static final String DESC = "DESC";
 
-	public static final String DESC = "DESC";
+    public static final String ASC = "ASC";
 
-	public static final String BLANK = " ";
+    public static final String BLANK = " ";
 
-	private String column;
+    private String column;
 
-	private boolean asc;
+    private boolean desc;
 
-	public String getColumn() {
-		return column;
-	}
+    public QueryOrder() {
+        this("id", false);
+    }
 
-	public void setColumn(String column) {
-		this.column = column;
-	}
+    public QueryOrder(String column, boolean desc) {
+        this.column = column;
+        this.desc = desc;
+    }
 
-	public boolean isAsc() {
-		return asc;
-	}
+    public String getColumn() {
+        return column;
+    }
 
-	public void setAsc(boolean asc) {
-		this.asc = asc;
-	}
+    public void setColumn(String column) {
+        this.column = column;
+    }
 
-	public String toSql() {
-		StringBuilder sb = new StringBuilder(BLANK).append(column).append(BLANK);
-		if (asc) {
-			sb.append(ASC);
-		} else {
-			sb.append(DESC);
-		}
-		sb.append(BLANK);
-		return sb.toString();
-	}
+    public boolean isDesc() {
+        return desc;
+    }
 
-	@Override
-	public String toString() {
-		return toSql();
-	}
+    public void setDesc(boolean desc) {
+        this.desc = desc;
+    }
+
+    public String toSql() {
+        StringBuilder sb = new StringBuilder(" ORDER BY ").append(column).append(BLANK);
+        if (desc) {
+            sb.append(DESC);
+        } else {
+            sb.append(ASC);
+        }
+        sb.append(BLANK);
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return toSql();
+    }
 }
