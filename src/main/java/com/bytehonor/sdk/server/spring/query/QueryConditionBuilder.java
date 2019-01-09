@@ -10,10 +10,13 @@ public class QueryConditionBuilder {
 
 	public static <T> QueryCondition<T> build(HttpServletRequest request, T model) {
 		Objects.requireNonNull(request, "request");
-		Objects.requireNonNull(model, "model");
 		int offset = RequestGetter.getOffset(request);
 		int limit = RequestGetter.getLimit(request);
 		return build(offset, limit, model);
+	}
+
+	public static <T> QueryCondition<T> build(T model) {
+		return build(0, Integer.MAX_VALUE, model);
 	}
 
 	public static <T> QueryCondition<T> build(int offset, int limit, T model) {
