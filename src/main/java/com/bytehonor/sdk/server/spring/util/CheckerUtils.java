@@ -25,47 +25,4 @@ public class CheckerUtils {
 		Matcher m = p.matcher(mobile);
 		return m.matches();
 	}
-
-	/**
-	 * @param src
-	 * @param minLength
-	 * @param maxLength
-	 * @return
-	 */
-	public static boolean checkLength(String src, int minLength, int maxLength) {
-		if (src == null) {
-			return false;
-		}
-		int len = src.trim().length();
-		return (len >= minLength && len <= maxLength);
-	}
-
-	/**
-	 * @param src
-	 * @param min
-	 * @param max
-	 * @return
-	 */
-	public static boolean checkInteger(Integer src, int min, int max) {
-		if (src == null) {
-			return false;
-		}
-		int iv = src.intValue();
-		return (iv >= min && iv <= max);
-	}
-
-	/**
-	 * @param src
-	 * @param min
-	 * @param max
-	 * @return
-	 */
-	public static boolean checkLong(Long src, long min, long max) {
-		if (src == null) {
-			return false;
-		}
-		long lv = src.longValue();
-		return (lv >= min && lv <= max);
-	}
-
 }

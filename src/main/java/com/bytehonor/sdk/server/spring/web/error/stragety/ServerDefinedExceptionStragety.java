@@ -2,8 +2,8 @@ package com.bytehonor.sdk.server.spring.web.error.stragety;
 
 import org.springframework.http.HttpStatus;
 
-import com.bytehonor.sdk.server.spring.web.error.exception.ServerDefinedException;
-import com.bytehonor.sdk.server.spring.web.error.exception.entity.ExceptionEntity;
+import com.bytehonor.sdk.server.spring.exception.ServerDefinedException;
+import com.bytehonor.sdk.server.spring.web.error.entity.ExceptionEntity;
 
 public class ServerDefinedExceptionStragety implements ExceptionStragety {
 	

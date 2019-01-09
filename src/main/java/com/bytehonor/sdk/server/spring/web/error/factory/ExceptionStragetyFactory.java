@@ -3,8 +3,8 @@ package com.bytehonor.sdk.server.spring.web.error.factory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.server.spring.web.error.exception.InternalRestfulException;
-import com.bytehonor.sdk.server.spring.web.error.exception.ServerDefinedException;
+import com.bytehonor.sdk.server.spring.exception.InternalRestfulException;
+import com.bytehonor.sdk.server.spring.exception.ServerDefinedException;
 import com.bytehonor.sdk.server.spring.web.error.stragety.DefaultExceptionStragety;
 import com.bytehonor.sdk.server.spring.web.error.stragety.ExceptionStragety;
 import com.bytehonor.sdk.server.spring.web.error.stragety.InternalRestfulExceptionStragety;

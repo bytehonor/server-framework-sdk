@@ -4,11 +4,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.bytehonor.sdk.server.spring.web.error.exception.entity.ExceptionEntity;
-import com.bytehonor.sdk.server.spring.web.restful.factory.ResponseStragetyFactory;
-import com.bytehonor.sdk.server.spring.web.restful.stragety.ResponseStragety;
-import com.bytehonor.sdk.server.spring.web.restful.stragety.ReturnErrorResponseStragety;
-import com.bytehonor.sdk.server.spring.web.restful.stragety.ReturnNullResponseStragety;
+import com.bytehonor.sdk.server.spring.web.error.entity.ExceptionEntity;
+import com.bytehonor.sdk.server.spring.web.response.factory.ResponseStragetyFactory;
+import com.bytehonor.sdk.server.spring.web.response.stragety.ResponseStragety;
+import com.bytehonor.sdk.server.spring.web.response.stragety.ReturnErrorResponseStragety;
+import com.bytehonor.sdk.server.spring.web.response.stragety.ReturnNullResponseStragety;
 
 public class ResponseStragetyFactoryTest {
 

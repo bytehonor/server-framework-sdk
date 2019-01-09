@@ -4,9 +4,9 @@ public class HttpConstant {
 	
 	public static final String COUNT_KEY = "$count";
 	
-	public static final String COUNT_YES = "true";
-    
 	public static final String LIMIT_KEY = "$limit";
+	
+	public static final Integer LIMIT_DEF = 20;
 
     public static final Integer LIMIT_MAX = 100;
 

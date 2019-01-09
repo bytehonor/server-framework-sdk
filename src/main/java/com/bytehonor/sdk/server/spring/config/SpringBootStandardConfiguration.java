@@ -23,10 +23,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import com.bytehonor.sdk.server.spring.web.bean.advisor.GlobalErrorAdvisor;
-import com.bytehonor.sdk.server.spring.web.bean.advisor.JsonResponseAdvisor;
-import com.bytehonor.sdk.server.spring.web.bean.controller.CustomErrorController;
-import com.bytehonor.sdk.server.spring.web.bean.mvc.WebMvcCustom;
+import com.bytehonor.sdk.server.spring.web.advisor.GlobalErrorAdvisor;
+import com.bytehonor.sdk.server.spring.web.advisor.JsonResponseAdvisor;
+import com.bytehonor.sdk.server.spring.web.controller.CustomErrorController;
+import com.bytehonor.sdk.server.spring.web.mvc.WebMvcCustom;
 
 @Configuration
 @ConditionalOnWebApplication
