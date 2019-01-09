@@ -28,7 +28,8 @@ public final class ReturnDirectResponseStragety implements ResponseStragety {
 		this.response = response;
 		this.jsonResponse = jsonResponse;
 		this.standardSpringBootProperties = standardSpringBootProperties;
-		this.enableForceStatus = standardSpringBootProperties != null ? standardSpringBootProperties.isForceHttpStatus() : false;
+		this.enableForceStatus = standardSpringBootProperties != null ? standardSpringBootProperties.isForceHttpStatus()
+				: false;
 	}
 
 	@Override

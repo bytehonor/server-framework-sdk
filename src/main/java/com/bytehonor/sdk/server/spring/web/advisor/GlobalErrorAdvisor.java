@@ -21,15 +21,15 @@ public class GlobalErrorAdvisor {
 		if (LOG.isWarnEnabled()) {
 			// 错误栈太多无用信息, 只打4行
 			StackTraceElement[] stackTrace = ex.getStackTrace();
-			StringBuilder sb = new StringBuilder("\n [***Print ").append(ex.getClass().getSimpleName())
+			StringBuilder sb = new StringBuilder("\n [*** Print ").append(ex.getClass().getSimpleName())
 					.append(" Stack]");
 			for (int i = 0; i < 4; i++) {
 				if (stackTrace[i] == null) {
 					continue;
 				}
-				sb.append("\n [***Stack (").append(i).append(")]:").append(stackTrace[i].toString());
+				sb.append("\n [*** ").append(i).append(" ]:").append(stackTrace[i].toString());
 			}
-			sb.append("\n [***Print Exception Stack End] \n");
+			sb.append("\n [*** Print Exception Stack End] \n");
 			LOG.warn(sb.toString());
 		}
 		ExceptionStragety exceptionStragety = ExceptionStragetyFactory.build(ex);

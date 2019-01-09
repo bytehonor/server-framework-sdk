@@ -11,19 +11,22 @@ import com.bytehonor.protocol.core.server.result.JsonResponse;
 import com.bytehonor.sdk.server.spring.config.SpringBootStandardProperties;
 
 public final class ReturnNullResponseStragety implements ResponseStragety {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ReturnNullResponseStragety.class);
 
 	private final ServerHttpResponse response;
 
 	private final boolean enableDebugRequest;
-	
+
 	private final SpringBootStandardProperties standardSpringBootProperties;
 
-	public ReturnNullResponseStragety(ServerHttpResponse response, SpringBootStandardProperties standardSpringBootProperties) {
+	public ReturnNullResponseStragety(ServerHttpResponse response,
+			SpringBootStandardProperties standardSpringBootProperties) {
 		this.response = response;
 		this.standardSpringBootProperties = standardSpringBootProperties;
-		this.enableDebugRequest = standardSpringBootProperties != null ? standardSpringBootProperties.isRestfulDebugEnable() : false;
+		this.enableDebugRequest = standardSpringBootProperties != null
+				? standardSpringBootProperties.isRestfulDebugEnable()
+				: false;
 	}
 
 	@Override
@@ -31,7 +34,7 @@ public final class ReturnNullResponseStragety implements ResponseStragety {
 		JsonResponse<Object> jsonResponse = new JsonResponse<Object>();
 		jsonResponse.setCode(StandardCode.UNDEFINED_ERROR);
 		String nullTIp = "METHOD_RETURN_NULL";
-		
+
 		if (enableDebugRequest) {
 			jsonResponse.setMessage(buildDebugNullMessage(request, nullTIp));
 		} else {

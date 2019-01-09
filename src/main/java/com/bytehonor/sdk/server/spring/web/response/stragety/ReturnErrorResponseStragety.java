@@ -36,9 +36,11 @@ public final class ReturnErrorResponseStragety implements ResponseStragety {
 		this.response = response;
 		this.error = error;
 		this.standardSpringBootProperties = standardSpringBootProperties;
-		this.enableDebugRequest = standardSpringBootProperties != null ? standardSpringBootProperties.isRestfulDebugEnable()
+		this.enableDebugRequest = standardSpringBootProperties != null
+				? standardSpringBootProperties.isRestfulDebugEnable()
 				: false;
-		this.enableForceStatus = standardSpringBootProperties != null ? standardSpringBootProperties.isForceHttpStatus() : false;
+		this.enableForceStatus = standardSpringBootProperties != null ? standardSpringBootProperties.isForceHttpStatus()
+				: false;
 	}
 
 	@Override
@@ -55,7 +57,7 @@ public final class ReturnErrorResponseStragety implements ResponseStragety {
 		// NormalErrorMessage normalMessage = buildNormalErrorMessage(error);
 		// showTip = normalMessage.toString();
 		// }
-		
+
 		if (enableDebugRequest) {
 			// 打印错误栈
 			jsonResponse.setTrace(buildDebugErrorTrace(error));
@@ -65,7 +67,7 @@ public final class ReturnErrorResponseStragety implements ResponseStragety {
 
 		jsonResponse.setCode(error.getCode());
 		jsonResponse.setMessage(filterShowTip(showTip));
-		
+
 		// 重置Http status code 200
 		if (enableForceStatus || ResponseStragetyHelper.isForceHttpStatusOk(request.getHeaders())) {
 			httpStatus = HttpStatus.OK;

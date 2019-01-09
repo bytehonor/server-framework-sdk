@@ -17,12 +17,12 @@ import com.bytehonor.sdk.server.spring.web.response.stragety.ResponseStragety;
 
 @ControllerAdvice
 public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
-	
+
 	@Autowired
 	private SpringBootStandardProperties springBootStandardProperties;
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(JsonResponseAdvisor.class);
-	
+
 	@Override
 	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
 		return springBootStandardProperties.isResponseAdvisorEnable();
@@ -38,8 +38,9 @@ public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
 		if (MediaType.TEXT_HTML.equals(selectedContentType)) {
 			return body;
 		}
-		ResponseStragety responseStragety = ResponseStragetyFactory.build(body, response, returnType, springBootStandardProperties);
-		
+		ResponseStragety responseStragety = ResponseStragetyFactory.build(body, response, returnType,
+				springBootStandardProperties);
+
 		return responseStragety.process(request);
 	}
 }

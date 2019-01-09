@@ -8,9 +8,9 @@ import com.bytehonor.protocol.core.server.result.JsonResponse;
 import com.bytehonor.sdk.server.spring.exception.InternalRestfulException;
 
 public class JsonResponseParser {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(JsonResponseParser.class);
-	
+
 	public static <T> T safeGet(JsonResponse<T> response) {
 		if (response == null) {
 			throw new InternalRestfulException(StandardCode.INTERNAL_ERROR, "RESPONSE NULL");

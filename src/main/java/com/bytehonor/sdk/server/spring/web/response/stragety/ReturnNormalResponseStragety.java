@@ -9,7 +9,7 @@ import com.bytehonor.protocol.core.server.code.StandardCode;
 import com.bytehonor.protocol.core.server.result.JsonResponse;
 
 public final class ReturnNormalResponseStragety implements ResponseStragety {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ReturnNormalResponseStragety.class);
 
 	private final Object body;
@@ -27,7 +27,7 @@ public final class ReturnNormalResponseStragety implements ResponseStragety {
 		jsonResponse.setCode(StandardCode.OK);
 		jsonResponse.setMessage(StandardCode.SUCCESS);
 		jsonResponse.setData(body);
-		
+
 		if (LOG.isDebugEnabled()) {
 			LOG.debug("ErrorCode:{}", jsonResponse.getCode());
 		}
@@ -41,6 +41,5 @@ public final class ReturnNormalResponseStragety implements ResponseStragety {
 	public ServerHttpResponse getResponse() {
 		return response;
 	}
-
 
 }
