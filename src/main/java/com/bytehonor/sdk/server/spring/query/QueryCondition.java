@@ -48,4 +48,9 @@ public final class QueryCondition<T> {
 		this.order = order;
 	}
 
+	public String offsetLimitSql() {
+		StringBuilder sb = new StringBuilder(" LIMIT ").append(offset).append(",").append(limit);
+		return sb.toString();
+	}
+
 }
