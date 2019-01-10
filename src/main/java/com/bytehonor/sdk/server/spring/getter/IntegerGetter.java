@@ -40,11 +40,15 @@ public class IntegerGetter {
 		}
 	}
 
-	public static Integer require(String src, Integer defVal) {
+	public static Integer require(String src, Integer def) {
 		try {
 			return parse(src);
 		} catch (Exception e) {
-			return defVal;
+			return def;
 		}
+	}
+	
+	public static Integer require(Integer src, Integer def) {
+		return src != null ? src : def;
 	}
 }

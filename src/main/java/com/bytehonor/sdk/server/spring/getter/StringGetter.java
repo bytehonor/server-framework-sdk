@@ -19,4 +19,7 @@ public class StringGetter {
 		return src;
 	}
 
+	public static String require(String src, String def) {
+		return src != null ? src : def;
+	}
 }

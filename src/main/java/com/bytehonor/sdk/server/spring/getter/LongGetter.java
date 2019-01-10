@@ -40,11 +40,15 @@ public class LongGetter {
 		}
 	}
 
-	public static Long require(String src, Long defVal) {
+	public static Long require(String src, Long def) {
 		try {
 			return parse(src);
 		} catch (Exception e) {
-			return defVal;
+			return def;
 		}
+	}
+	
+	public static Long require(Long val, Long def) {
+		return val != null ? val : def;
 	}
 }

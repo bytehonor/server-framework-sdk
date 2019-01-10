@@ -18,4 +18,8 @@ public class BooleanGetter {
 		}
 		return YES.contains(src.toLowerCase());
 	}
+	
+	public static Boolean require(Boolean src, Boolean def) {
+		return src != null ? src : def;
+	}
 }
