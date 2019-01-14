@@ -1,5 +1,10 @@
 package com.bytehonor.sdk.server.spring.query;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.bytehonor.sdk.server.spring.constant.HttpConstants;
+
 /**
  * 
  * @author lijianqiang
@@ -7,6 +12,8 @@ package com.bytehonor.sdk.server.spring.query;
  * @param <T>
  */
 public final class QueryCondition<T> {
+
+	private static final Logger LOG = LoggerFactory.getLogger(QueryCondition.class);
 
 	private int offset;
 
@@ -48,7 +55,18 @@ public final class QueryCondition<T> {
 		this.order = order;
 	}
 
+	public String orderBySql() {
+		if (order != null) {
+			return order.toSql();
+		}
+		return "";
+	}
+
 	public String offsetLimitSql() {
+		if (limit > HttpConstants.LIMIT_MAX_TOP) {
+			LOG.warn("limit:{} > {}, has reset", limit, HttpConstants.LIMIT_MAX_TOP);
+			limit = HttpConstants.LIMIT_MAX_TOP;
+		}
 		StringBuilder sb = new StringBuilder(" LIMIT ").append(offset).append(",").append(limit);
 		return sb.toString();
 	}

@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bytehonor.sdk.server.spring.constant.HttpConstants;
 import com.bytehonor.sdk.server.spring.getter.RequestGetter;
 
 public class QueryConditionBuilder {
@@ -16,7 +17,7 @@ public class QueryConditionBuilder {
 	}
 
 	public static <T> QueryCondition<T> build(T model) {
-		return build(0, Integer.MAX_VALUE, model);
+		return build(0, HttpConstants.LIMIT_MAX_TOP, model);
 	}
 
 	public static <T> QueryCondition<T> build(int offset, int limit, T model) {

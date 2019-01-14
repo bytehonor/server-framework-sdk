@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.server.spring.constant;
 
-public class HttpConstant {
+public class HttpConstants {
 	
 	public static final String COUNT_KEY = "$count";
 	
@@ -8,7 +8,9 @@ public class HttpConstant {
 	
 	public static final Integer LIMIT_DEF = 20;
 
-    public static final Integer LIMIT_MAX = 100;
+    public static final Integer LIMIT_MAX = 200;
+    
+    public static final Integer LIMIT_MAX_TOP = 5000;
 
     public static final String OFFSET_KEY = "$offset";
 

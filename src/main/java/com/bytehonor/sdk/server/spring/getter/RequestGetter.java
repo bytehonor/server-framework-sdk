@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.bytehonor.sdk.server.spring.constant.HttpConstant;
+import com.bytehonor.sdk.server.spring.constant.HttpConstants;
 
 /**
  * @author lijianqiang
@@ -17,7 +17,7 @@ public class RequestGetter {
 	 * @return
 	 */
 	public static boolean isCount(HttpServletRequest request) {
-		return BooleanGetter.require(request.getParameter(HttpConstant.COUNT_KEY));
+		return BooleanGetter.require(request.getParameter(HttpConstants.COUNT_KEY));
 	}
 
 	/**
@@ -25,9 +25,9 @@ public class RequestGetter {
 	 * @return
 	 */
 	public static int getLimit(HttpServletRequest request) {
-		int res = IntegerGetter.require(request.getParameter(HttpConstant.LIMIT_KEY), HttpConstant.LIMIT_DEF);
-		if (res > HttpConstant.LIMIT_MAX) {
-			res = HttpConstant.LIMIT_MAX;
+		int res = IntegerGetter.require(request.getParameter(HttpConstants.LIMIT_KEY), HttpConstants.LIMIT_DEF);
+		if (res > HttpConstants.LIMIT_MAX) {
+			res = HttpConstants.LIMIT_MAX;
 		}
 		return res;
 	}
@@ -37,7 +37,7 @@ public class RequestGetter {
 	 * @return
 	 */
 	public static int getOffset(HttpServletRequest request) {
-		return IntegerGetter.require(request.getParameter(HttpConstant.OFFSET_KEY), HttpConstant.OFFSET_DEFAULT);
+		return IntegerGetter.require(request.getParameter(HttpConstants.OFFSET_KEY), HttpConstants.OFFSET_DEFAULT);
 	}
 
 	/**
