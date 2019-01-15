@@ -1,5 +1,7 @@
 package com.bytehonor.sdk.server.spring.query;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class QueryOrder {
 
     public static final String DESC = "DESC";
@@ -38,13 +40,15 @@ public class QueryOrder {
     }
 
     public String toSql() {
+        if (StringUtils.isEmpty(column)) {
+            return "";
+        }
         StringBuilder sb = new StringBuilder(" ORDER BY ").append(column).append(BLANK);
         if (desc) {
             sb.append(DESC);
         } else {
             sb.append(ASC);
         }
-        sb.append(BLANK);
         return sb.toString();
     }
 
