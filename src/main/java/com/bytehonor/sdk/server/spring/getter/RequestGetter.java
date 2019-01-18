@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.bytehonor.sdk.server.spring.constant.HttpConstants;
+import com.bytehonor.protocol.core.server.constant.HttpConstants;
 
 /**
  * @author lijianqiang

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.server.spring.constant.HttpConstants;
+import com.bytehonor.protocol.core.server.constant.HttpConstants;
 import com.bytehonor.sdk.server.spring.getter.RequestGetter;
 import com.bytehonor.sdk.server.spring.string.StringCreator;
 
