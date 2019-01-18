@@ -15,9 +15,9 @@ public class QueryConditionTest {
     @Test
     public void test() {
         QueryCondition condition = QueryCondition.create();
-        condition.appendColumn(TableColumn.eq("eq", "111")).appendColumn(TableColumn.neq("neq", 222))
-                .appendColumn(TableColumn.lt("lt", "333")).appendColumn(TableColumn.elt("elt", 4444))
-                .appendColumn(TableColumn.gt("gt", "5")).appendColumn(TableColumn.eq("name", "john"));
+        condition.and(TableColumn.eq("eq", "111")).and(TableColumn.neq("neq", 222))
+                .and(TableColumn.lt("lt", "333")).and(TableColumn.elt("elt", 4444))
+                .and(TableColumn.gt("gt", "5")).and(TableColumn.eq("name", "john"));
 
         condition.setOffset(10);
         condition.setOrder(QueryOrder.descOf("id"));

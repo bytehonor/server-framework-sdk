@@ -61,7 +61,7 @@ public final class QueryCondition {
         return codition;
     }
 
-    public QueryCondition appendColumn(TableColumn column) {
+    public QueryCondition and(TableColumn column) {
         columnAndHolder.append(column);
         return this;
     }
