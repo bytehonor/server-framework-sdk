@@ -121,8 +121,12 @@ public final class QueryCondition {
         return columnAndHolder.toAndSql();
     }
 
-    public String conditionSql() {
+    public String conditionListSql() {
         return StringCreator.create().append(columnAndSql()).append(orderBySql()).append(offsetLimitSql()).toString();
+    }
+
+    public String conditionCountSql() {
+        return StringCreator.create().append(columnAndSql()).toString();
     }
 
     public List<Object> conditionArgs() {
@@ -134,6 +138,6 @@ public final class QueryCondition {
 
     @Override
     public String toString() {
-        return conditionSql();
+        return conditionListSql();
     }
 }

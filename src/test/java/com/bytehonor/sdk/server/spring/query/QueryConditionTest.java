@@ -22,7 +22,8 @@ public class QueryConditionTest {
         condition.setOffset(10);
         condition.setOrder(QueryOrder.descOf("id"));
 
-        LOG.info("sql:{}", condition.conditionSql());
+        LOG.info("list:{}", condition.conditionListSql());
+        LOG.info("count:{}", condition.conditionCountSql());
 
         List<Object> args = condition.conditionArgs();
         LOG.info("args:{}", args);
