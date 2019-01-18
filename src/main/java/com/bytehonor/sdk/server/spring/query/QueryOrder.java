@@ -1,18 +1,24 @@
 package com.bytehonor.sdk.server.spring.query;
 
+import java.util.Objects;
+
 import org.springframework.util.StringUtils;
 
 public class QueryOrder {
 
-    public static final String DESC = "DESC";
-
-    public static final String ASC = "ASC";
-
-    public static final String BLANK = " ";
-
     private String column;
 
     private boolean desc;
+
+    public static QueryOrder descOf(String column) {
+        Objects.requireNonNull(column, "column");
+        return new QueryOrder(column, true);
+    }
+
+    public static QueryOrder ascOf(String column) {
+        Objects.requireNonNull(column, "column");
+        return new QueryOrder(column, false);
+    }
 
     public QueryOrder() {
         this("id", false);
@@ -43,11 +49,11 @@ public class QueryOrder {
         if (StringUtils.isEmpty(column)) {
             return "";
         }
-        StringBuilder sb = new StringBuilder(" ORDER BY ").append(column).append(BLANK);
+        StringBuilder sb = new StringBuilder(" ORDER BY ").append(column).append(SqlConstants.BLANK);
         if (desc) {
-            sb.append(DESC);
+            sb.append(SqlConstants.DESC);
         } else {
-            sb.append(ASC);
+            sb.append(SqlConstants.ASC);
         }
         return sb.toString();
     }
