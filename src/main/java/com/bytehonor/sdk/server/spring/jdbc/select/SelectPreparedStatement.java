@@ -3,6 +3,7 @@ package com.bytehonor.sdk.server.spring.jdbc.select;
 import java.util.List;
 import java.util.Objects;
 
+import com.bytehonor.sdk.server.spring.exception.ServerDefinedException;
 import com.bytehonor.sdk.server.spring.jdbc.SqlConstants;
 import com.bytehonor.sdk.server.spring.query.QueryCondition;
 import com.bytehonor.sdk.server.spring.string.StringCreator;
@@ -54,6 +55,9 @@ public class SelectPreparedStatement {
     }
 
     public List<Object> args() {
+        if (condition.getMatchHolder().getArgs().isEmpty()) {
+            throw new ServerDefinedException(44, "select but without any match condition");
+        }
         return condition.getMatchHolder().getArgs();
     }
 
