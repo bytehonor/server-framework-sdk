@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.server.spring.query.QueryColumn;
 import com.bytehonor.sdk.server.spring.query.QueryCondition;
+import com.bytehonor.sdk.server.spring.query.QueryOrder;
 
 public class SelectPreparedStatementTest {
 
@@ -18,11 +19,12 @@ public class SelectPreparedStatementTest {
     @Test
     public void test() {
         QueryCondition condition = QueryCondition.create(0, 10).and(QueryColumn.eq("name", "john"));
+        condition.setOrder(QueryOrder.descOf("age"));
         SelectPreparedStatement statement = SelectPreparedStatement.create("tbl_user", condition);
 
         LOG.info("sql:{}", statement.toSelectSql("name,age"));
-        LOG.info("count:{}", statement.toSelectCountSql("name"));
-        List<Object> args = statement.selectArgs();
+        LOG.info("count:{}", statement.toCountSql("name"));
+        List<Object> args = statement.args();
         LOG.info("args:{}", args);
         assertTrue("test", args.size() == 1);
     }

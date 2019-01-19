@@ -1,21 +1,21 @@
-package com.bytehonor.sdk.server.spring.jdbc.update;
+package com.bytehonor.sdk.server.spring.jdbc;
 
-public class UpdateColumn {
+public class ColumnValue {
     private String key;
 
     private Object value;
 
-    public UpdateColumn() {
+    public ColumnValue() {
         this(null, null);
     }
 
-    public UpdateColumn(String key, Object value) {
+    public ColumnValue(String key, Object value) {
         this.key = key;
         this.value = value;
     }
 
-    public static UpdateColumn of(String key, Object value) {
-        return new UpdateColumn(key, value);
+    public static ColumnValue of(String key, Object value) {
+        return new ColumnValue(key, value);
     }
 
     public String getKey() {

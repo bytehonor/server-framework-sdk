@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.query;
+package com.bytehonor.sdk.server.spring.jdbc;
 
 import static org.junit.Assert.assertTrue;
 
@@ -8,13 +8,15 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ColumnAndHolderTest {
+import com.bytehonor.sdk.server.spring.jdbc.MatchColumnHolder;
 
-    private static final Logger LOG = LoggerFactory.getLogger(ColumnAndHolderTest.class);
+public class MatchColumnHolderTest {
+
+    private static final Logger LOG = LoggerFactory.getLogger(MatchColumnHolderTest.class);
 
     @Test
     public void test() {
-        ColumnAndHolder sac = ColumnAndHolder.create();
+        MatchColumnHolder sac = MatchColumnHolder.create();
         sac.eq("name", "john").neq("neq", 1).egt("egt", 2).elt("elt", 3).lt("lt", 4).between("age", 5, 6);
 
         LOG.info("sql:{}", sac.toAndSql());

@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.springframework.util.StringUtils;
 
 import com.bytehonor.sdk.server.spring.jdbc.SqlConstants;
+import com.bytehonor.sdk.server.spring.jdbc.ColumnValue;
 
 public class UpdateColumnHolder {
 
@@ -23,8 +24,8 @@ public class UpdateColumnHolder {
         return new UpdateColumnHolder();
     }
 
-    public UpdateColumnHolder append(String key, Object value) {
-        this.append(new UpdateColumn(key, value));
+    public UpdateColumnHolder set(String key, Object value) {
+        this.set(new ColumnValue(key, value));
         return this;
     }
 
@@ -34,7 +35,7 @@ public class UpdateColumnHolder {
      * @param column
      * @return
      */
-    public UpdateColumnHolder append(UpdateColumn column) {
+    public UpdateColumnHolder set(ColumnValue column) {
         Objects.requireNonNull(column, "column");
         if (StringUtils.isEmpty(column.getKey()) || column.getValue() == null) {
             return this;

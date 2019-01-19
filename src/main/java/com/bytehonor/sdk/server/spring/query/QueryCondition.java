@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.protocol.core.server.constant.HttpConstants;
 import com.bytehonor.sdk.server.spring.getter.RequestGetter;
+import com.bytehonor.sdk.server.spring.jdbc.MatchColumnHolder;
 import com.bytehonor.sdk.server.spring.string.StringCreator;
 
 /**
@@ -28,16 +29,16 @@ public final class QueryCondition {
 
     private QueryOrder order;
 
-    private final ColumnAndHolder columnAndHolder;
+    private final MatchColumnHolder matchHolder;
 
-    private QueryCondition(ColumnAndHolder columnAndHolder) {
+    private QueryCondition(MatchColumnHolder matchHolder) {
         this.offset = 0;
         this.limit = HttpConstants.LIMIT_MAX;
-        this.columnAndHolder = columnAndHolder;
+        this.matchHolder = matchHolder;
     }
 
     public static QueryCondition create() {
-        return create(ColumnAndHolder.create(), 0, HttpConstants.LIMIT_MAX, null);
+        return create(MatchColumnHolder.create(), 0, HttpConstants.LIMIT_MAX, null);
     }
 
     public static QueryCondition create(HttpServletRequest request) {
@@ -48,12 +49,12 @@ public final class QueryCondition {
     }
 
     public static QueryCondition create(int offset, int limit) {
-        return create(ColumnAndHolder.create(), offset, limit, null);
+        return create(MatchColumnHolder.create(), offset, limit, null);
     }
 
-    public static QueryCondition create(ColumnAndHolder columnAndHolder, int offset, int limit, QueryOrder order) {
-        Objects.requireNonNull(columnAndHolder, "columnAndHolder");
-        QueryCondition codition = new QueryCondition(columnAndHolder);
+    public static QueryCondition create(MatchColumnHolder matchHolder, int offset, int limit, QueryOrder order) {
+        Objects.requireNonNull(matchHolder, "matchHolder");
+        QueryCondition codition = new QueryCondition(matchHolder);
         codition.setLimit(limit);
         codition.setOffset(offset);
         codition.setOrder(order);
@@ -61,7 +62,7 @@ public final class QueryCondition {
     }
 
     public QueryCondition and(QueryColumn column) {
-        columnAndHolder.append(column);
+        matchHolder.and(column);
         return this;
     }
 
@@ -89,8 +90,8 @@ public final class QueryCondition {
         this.order = order;
     }
 
-    public ColumnAndHolder getColumnAndHolder() {
-        return columnAndHolder;
+    public MatchColumnHolder getMatchHolder() {
+        return matchHolder;
     }
 
     private String orderBySql() {
@@ -100,9 +101,9 @@ public final class QueryCondition {
         return order.toSql();
     }
 
-    private String offsetLimitSql() {
+    public String offsetLimitSql() {
         if (limit > HttpConstants.LIMIT_MAX_TOP) {
-            LOG.warn("limit:{} > {}, has reset", limit, HttpConstants.LIMIT_MAX_TOP);
+            LOG.warn("[WARN] limit:{} cann't exceed {}", limit, HttpConstants.LIMIT_MAX_TOP);
             limit = HttpConstants.LIMIT_MAX_TOP;
         }
         StringBuilder sb = new StringBuilder(" LIMIT ").append(offset).append(",").append(limit);
@@ -110,10 +111,10 @@ public final class QueryCondition {
     }
 
     private String columnAndSql() {
-        if (columnAndHolder == null) {
+        if (matchHolder == null) {
             return null;
         }
-        return columnAndHolder.toAndSql();
+        return matchHolder.toAndSql();
     }
 
     public String conditionListSql() {
@@ -125,10 +126,10 @@ public final class QueryCondition {
     }
 
     public List<Object> conditionArgs() {
-        if (columnAndHolder == null) {
+        if (matchHolder == null) {
             return new ArrayList<Object>();
         }
-        return columnAndHolder.getArgs();
+        return matchHolder.getArgs();
     }
 
     @Override

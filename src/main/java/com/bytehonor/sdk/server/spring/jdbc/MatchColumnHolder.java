@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.query;
+package com.bytehonor.sdk.server.spring.jdbc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,55 +6,54 @@ import java.util.Objects;
 
 import org.springframework.util.StringUtils;
 
-import com.bytehonor.sdk.server.spring.jdbc.SqlConstants;
-import com.bytehonor.sdk.server.spring.jdbc.SqlOperator;
+import com.bytehonor.sdk.server.spring.query.QueryColumn;
 
-public class ColumnAndHolder {
+public class MatchColumnHolder {
 
     private StringBuilder sb;
 
     private List<Object> args;
 
-    private ColumnAndHolder() {
+    private MatchColumnHolder() {
         sb = new StringBuilder();
         args = new ArrayList<Object>();
     }
 
-    public static ColumnAndHolder create() {
-        return new ColumnAndHolder();
+    public static MatchColumnHolder create() {
+        return new MatchColumnHolder();
     }
 
-    public ColumnAndHolder eq(String key, Object value) {
+    public MatchColumnHolder eq(String key, Object value) {
         this.append(key, value, SqlOperator.EQ);
         return this;
     }
 
-    public ColumnAndHolder neq(String key, Object value) {
+    public MatchColumnHolder neq(String key, Object value) {
         this.append(key, value, SqlOperator.NEQ);
         return this;
     }
 
-    public ColumnAndHolder gt(String key, Object value) {
+    public MatchColumnHolder gt(String key, Object value) {
         this.append(key, value, SqlOperator.GT);
         return this;
     }
 
-    public ColumnAndHolder egt(String key, Object value) {
+    public MatchColumnHolder egt(String key, Object value) {
         this.append(key, value, SqlOperator.EGT);
         return this;
     }
 
-    public ColumnAndHolder lt(String key, Object value) {
+    public MatchColumnHolder lt(String key, Object value) {
         this.append(key, value, SqlOperator.LT);
         return this;
     }
 
-    public ColumnAndHolder elt(String key, Object value) {
+    public MatchColumnHolder elt(String key, Object value) {
         this.append(key, value, SqlOperator.ELT);
         return this;
     }
 
-    public ColumnAndHolder between(String key, Object begin, Object end) {
+    public MatchColumnHolder between(String key, Object begin, Object end) {
         if (StringUtils.isEmpty(key) || begin == null || end == null) {
             return this;
         }
@@ -66,8 +65,8 @@ public class ColumnAndHolder {
         return this;
     }
 
-    public ColumnAndHolder append(String key, Object value, SqlOperator operator) {
-        this.append(new QueryColumn(key, value, operator));
+    public MatchColumnHolder append(String key, Object value, SqlOperator operator) {
+        this.and(new QueryColumn(key, value, operator));
         return this;
     }
 
@@ -77,7 +76,7 @@ public class ColumnAndHolder {
      * @param column
      * @return
      */
-    public ColumnAndHolder append(QueryColumn column) {
+    public MatchColumnHolder and(QueryColumn column) {
         Objects.requireNonNull(column, "column");
         Objects.requireNonNull(column.getOperator(), "operator");
         if (StringUtils.isEmpty(column.getKey()) || column.getValue() == null) {

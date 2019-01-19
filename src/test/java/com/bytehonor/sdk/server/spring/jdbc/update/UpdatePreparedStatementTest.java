@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.server.spring.query.QueryColumn;
+
 public class UpdatePreparedStatementTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(UpdatePreparedStatementTest.class);
@@ -19,11 +21,12 @@ public class UpdatePreparedStatementTest {
         statement.set("age", 13);
         statement.set("school", null);
         statement.set("create_at", System.currentTimeMillis());
+        statement.match(QueryColumn.eq("id", 3333));
 
         LOG.info("sql:{}", statement.toUpdateSql());
-        List<Object> args = statement.updateArgs();
+        List<Object> args = statement.args();
         LOG.info("args:{}", args);
-        assertTrue("test", args.size() == 3);
+        assertTrue("test", args.size() == 4);
     }
 
 }

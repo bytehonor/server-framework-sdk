@@ -34,19 +34,27 @@ public class SelectPreparedStatement {
 
     public String toSelectSql(String keys) {
         Objects.requireNonNull(keys, "keys");
-        return StringCreator.create().append(SqlConstants.SELECT).append(keys).append(SqlConstants.FROM).append(table)
-                .append(" WHERE 1=1 ").append(condition.conditionListSql()).toString();
+        StringCreator creator = StringCreator.create();
+        creator.append(SqlConstants.SELECT).append(keys).append(SqlConstants.FROM).append(table);
+        creator.append(" WHERE 1=1").append(condition.getMatchHolder().toAndSql());
+        if (condition.getOrder() != null) {
+            creator.append(condition.getOrder().toSql());
+        }
+        creator.append(condition.offsetLimitSql());
+        return creator.toString();
     }
 
-    public String toSelectCountSql(String key) {
+    public String toCountSql(String key) {
         Objects.requireNonNull(key, "key");
-        return StringCreator.create().append(SqlConstants.SELECT).append("count(").append(key).append(")")
-                .append(SqlConstants.FROM).append(table).append(" WHERE 1=1 ").append(condition.conditionCountSql())
-                .toString();
+        StringCreator creator = StringCreator.create();
+        creator.append(SqlConstants.SELECT).append("count(").append(key).append(")").append(SqlConstants.FROM)
+                .append(table);
+        creator.append(" WHERE 1=1").append(condition.getMatchHolder().toAndSql());
+        return creator.toString();
     }
 
-    public List<Object> selectArgs() {
-        return condition.conditionArgs();
+    public List<Object> args() {
+        return condition.getMatchHolder().getArgs();
     }
 
 }
