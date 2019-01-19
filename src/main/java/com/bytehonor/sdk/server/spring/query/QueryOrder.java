@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import org.springframework.util.StringUtils;
 
+import com.bytehonor.sdk.server.spring.jdbc.SqlConstants;
+
 public class QueryOrder {
 
     private String column;

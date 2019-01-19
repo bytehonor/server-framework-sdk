@@ -26,14 +26,14 @@ public final class QueryCondition {
 
     private int limit;
 
-    private ColumnAndHolder columnAndHolder;
-
     private QueryOrder order;
 
-    private QueryCondition() {
+    private final ColumnAndHolder columnAndHolder;
+
+    private QueryCondition(ColumnAndHolder columnAndHolder) {
         this.offset = 0;
         this.limit = HttpConstants.LIMIT_MAX;
-        this.columnAndHolder = ColumnAndHolder.create();
+        this.columnAndHolder = columnAndHolder;
     }
 
     public static QueryCondition create() {
@@ -53,15 +53,14 @@ public final class QueryCondition {
 
     public static QueryCondition create(ColumnAndHolder columnAndHolder, int offset, int limit, QueryOrder order) {
         Objects.requireNonNull(columnAndHolder, "columnAndHolder");
-        QueryCondition codition = new QueryCondition();
-        codition.setColumnAndHolder(columnAndHolder);
+        QueryCondition codition = new QueryCondition(columnAndHolder);
         codition.setLimit(limit);
         codition.setOffset(offset);
         codition.setOrder(order);
         return codition;
     }
 
-    public QueryCondition and(TableColumn column) {
+    public QueryCondition and(QueryColumn column) {
         columnAndHolder.append(column);
         return this;
     }
@@ -92,10 +91,6 @@ public final class QueryCondition {
 
     public ColumnAndHolder getColumnAndHolder() {
         return columnAndHolder;
-    }
-
-    public void setColumnAndHolder(ColumnAndHolder columnAndHolder) {
-        this.columnAndHolder = columnAndHolder;
     }
 
     private String orderBySql() {

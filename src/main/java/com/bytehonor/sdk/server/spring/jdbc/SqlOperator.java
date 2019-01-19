@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.query;
+package com.bytehonor.sdk.server.spring.jdbc;
 
 /**
  * <pre>

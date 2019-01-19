@@ -15,9 +15,9 @@ public class QueryConditionTest {
     @Test
     public void test() {
         QueryCondition condition = QueryCondition.create();
-        condition.and(TableColumn.eq("eq", "111")).and(TableColumn.neq("neq", 222))
-                .and(TableColumn.lt("lt", "333")).and(TableColumn.elt("elt", 4444))
-                .and(TableColumn.gt("gt", "5")).and(TableColumn.eq("name", "john"));
+        condition.and(QueryColumn.eq("eq", "111")).and(QueryColumn.neq("neq", 222))
+                .and(QueryColumn.lt("lt", "333")).and(QueryColumn.elt("elt", 4444))
+                .and(QueryColumn.gt("gt", "5")).and(QueryColumn.eq("name", "john"));
 
         condition.setOffset(10);
         condition.setOrder(QueryOrder.descOf("id"));

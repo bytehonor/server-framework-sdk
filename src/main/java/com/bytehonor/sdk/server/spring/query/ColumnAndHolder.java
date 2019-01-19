@@ -6,10 +6,10 @@ import java.util.Objects;
 
 import org.springframework.util.StringUtils;
 
+import com.bytehonor.sdk.server.spring.jdbc.SqlConstants;
+import com.bytehonor.sdk.server.spring.jdbc.SqlOperator;
 
 public class ColumnAndHolder {
-
-    private static final String PARA = "?";
 
     private StringBuilder sb;
 
@@ -59,14 +59,15 @@ public class ColumnAndHolder {
             return this;
         }
         this.sb.append(SqlConstants.AND).append(key).append(SqlConstants.BLANK).append(SqlOperator.BETWEEN)
-                .append(SqlConstants.BLANK).append(PARA).append(SqlConstants.AND).append(PARA);
+                .append(SqlConstants.BLANK).append(SqlConstants.PARA).append(SqlConstants.AND)
+                .append(SqlConstants.PARA);
         this.args.add(begin);
         this.args.add(end);
         return this;
     }
 
     public ColumnAndHolder append(String key, Object value, SqlOperator operator) {
-        this.append(new TableColumn(key, value, operator));
+        this.append(new QueryColumn(key, value, operator));
         return this;
     }
 
@@ -76,7 +77,7 @@ public class ColumnAndHolder {
      * @param column
      * @return
      */
-    public ColumnAndHolder append(TableColumn column) {
+    public ColumnAndHolder append(QueryColumn column) {
         Objects.requireNonNull(column, "column");
         Objects.requireNonNull(column.getOperator(), "operator");
         if (StringUtils.isEmpty(column.getKey()) || column.getValue() == null) {
@@ -84,7 +85,7 @@ public class ColumnAndHolder {
         }
         // TODO value inject filter
         this.sb.append(SqlConstants.AND).append(column.getKey()).append(SqlConstants.BLANK)
-                .append(column.getOperator().getOpt()).append(SqlConstants.BLANK).append(PARA);
+                .append(column.getOperator().getOpt()).append(SqlConstants.BLANK).append(SqlConstants.PARA);
         this.args.add(column.getValue());
         return this;
     }
