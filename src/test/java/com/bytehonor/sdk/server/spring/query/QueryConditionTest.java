@@ -15,17 +15,16 @@ public class QueryConditionTest {
     @Test
     public void test() {
         QueryCondition condition = QueryCondition.create();
-        condition.and(MatchColumn.eq("eq", "111")).and(MatchColumn.neq("neq", 222))
-                .and(MatchColumn.lt("lt", "333")).and(MatchColumn.elt("elt", 4444))
-                .and(MatchColumn.gt("gt", "5")).and(MatchColumn.eq("name", "john"));
+        condition.and(MatchColumn.eq("eq", "111")).and(MatchColumn.neq("neq", 222)).and(MatchColumn.lt("lt", "333"))
+                .and(MatchColumn.elt("elt", 4444)).and(MatchColumn.gt("gt", "5")).and(MatchColumn.eq("name", "john"));
 
         condition.setOffset(10);
         condition.setOrder(QueryOrder.descOf("id"));
 
-        LOG.info("list:{}", condition.selectConditionSql());
-        LOG.info("count:{}", condition.countConditionSql());
-
-        List<Object> args = condition.args();
+        LOG.info("offset:{}", condition.offsetLimitSql());
+        LOG.info("order:{}", condition.getOrder().toSql());
+        LOG.info("conditon:{}", condition.getMatchHolder().toAndSql());
+        List<Object> args = condition.getMatchHolder().getArgs();
         LOG.info("args:{}", args);
         assertTrue("test", args.size() == 6);
     }

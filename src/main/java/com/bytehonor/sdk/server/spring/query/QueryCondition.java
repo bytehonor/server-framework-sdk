@@ -1,7 +1,5 @@
 package com.bytehonor.sdk.server.spring.query;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.protocol.core.server.constant.HttpConstants;
 import com.bytehonor.sdk.server.spring.getter.RequestGetter;
 import com.bytehonor.sdk.server.spring.jdbc.MatchColumnHolder;
-import com.bytehonor.sdk.server.spring.string.StringCreator;
 
 /**
  * 
@@ -94,13 +91,6 @@ public final class QueryCondition {
         return matchHolder;
     }
 
-    private String orderBySql() {
-        if (order == null) {
-            return null;
-        }
-        return order.toSql();
-    }
-
     public String offsetLimitSql() {
         if (limit > HttpConstants.LIMIT_MAX_TOP) {
             LOG.warn("[WARN] limit:{} cann't exceed {}", limit, HttpConstants.LIMIT_MAX_TOP);
@@ -108,28 +98,6 @@ public final class QueryCondition {
         }
         StringBuilder sb = new StringBuilder(" LIMIT ").append(offset).append(",").append(limit);
         return sb.toString();
-    }
-
-    private String matchAndSql() {
-        if (matchHolder == null) {
-            return null;
-        }
-        return matchHolder.toAndSql();
-    }
-
-    public String selectConditionSql() {
-        return StringCreator.create().append(matchAndSql()).append(orderBySql()).append(offsetLimitSql()).toString();
-    }
-
-    public String countConditionSql() {
-        return StringCreator.create().append(matchAndSql()).toString();
-    }
-
-    public List<Object> args() {
-        if (matchHolder == null) {
-            return new ArrayList<Object>();
-        }
-        return matchHolder.getArgs();
     }
 
 }
