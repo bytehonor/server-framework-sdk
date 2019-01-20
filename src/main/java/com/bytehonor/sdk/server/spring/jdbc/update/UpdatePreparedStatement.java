@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import com.bytehonor.sdk.server.spring.exception.ServerDefinedException;
 import com.bytehonor.sdk.server.spring.jdbc.MatchColumnHolder;
-import com.bytehonor.sdk.server.spring.jdbc.SqlConstants;
 import com.bytehonor.sdk.server.spring.query.MatchColumn;
 import com.bytehonor.sdk.server.spring.string.StringCreator;
 
@@ -52,8 +51,8 @@ public class UpdatePreparedStatement {
     }
 
     public String toUpdateSql() {
-        return StringCreator.create().append(SqlConstants.UPDATE).append(table).append(updateHolder.toSql())
-                .append(" WHERE 1=1").append(matchHolder.toAndSql()).toString();
+        return StringCreator.create().append("UPDATE ").append(table).append(updateHolder.toSql()).append(" WHERE 1=1")
+                .append(matchHolder.toAndSql()).toString();
     }
 
     public List<Object> args() {

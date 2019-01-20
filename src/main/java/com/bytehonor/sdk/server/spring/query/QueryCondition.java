@@ -110,7 +110,7 @@ public final class QueryCondition {
         return sb.toString();
     }
 
-    private String columnAndSql() {
+    private String matchAndSql() {
         if (matchHolder == null) {
             return null;
         }
@@ -118,11 +118,11 @@ public final class QueryCondition {
     }
 
     public String selectConditionSql() {
-        return StringCreator.create().append(columnAndSql()).append(orderBySql()).append(offsetLimitSql()).toString();
+        return StringCreator.create().append(matchAndSql()).append(orderBySql()).append(offsetLimitSql()).toString();
     }
 
     public String countConditionSql() {
-        return StringCreator.create().append(columnAndSql()).toString();
+        return StringCreator.create().append(matchAndSql()).toString();
     }
 
     public List<Object> args() {
@@ -132,8 +132,4 @@ public final class QueryCondition {
         return matchHolder.getArgs();
     }
 
-    @Override
-    public String toString() {
-        return selectConditionSql();
-    }
 }
