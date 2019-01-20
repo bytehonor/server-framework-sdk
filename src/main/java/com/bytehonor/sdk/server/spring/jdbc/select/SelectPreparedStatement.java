@@ -35,7 +35,11 @@ public class SelectPreparedStatement {
             QueryCondition condition) {
         Objects.requireNonNull(table, "table");
         Objects.requireNonNull(primary, "primary");
+        Objects.requireNonNull(columns, "columns");
         Objects.requireNonNull(condition, "condition");
+        if (columns.startsWith(primary) == false) {
+            columns = StringCreator.create().append(primary).append(",").append(columns).toString();
+        }
         return new SelectPreparedStatement(table, primary, columns, condition);
     }
 
