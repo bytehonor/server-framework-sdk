@@ -34,6 +34,8 @@ public enum SqlOperator {
 
     BETWEEN("between", "BETWEEN"),
 
+    IN("in", "IN"),
+
     ;
 
     private String key;

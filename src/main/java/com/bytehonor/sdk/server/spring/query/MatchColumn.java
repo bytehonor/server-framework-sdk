@@ -1,6 +1,10 @@
 package com.bytehonor.sdk.server.spring.query;
 
+import java.util.List;
+
 import com.bytehonor.sdk.server.spring.jdbc.SqlOperator;
+import com.bytehonor.sdk.server.spring.string.StringCreator;
+import com.bytehonor.sdk.server.spring.util.ListParamUtils;
 
 public class MatchColumn {
 
@@ -32,6 +36,14 @@ public class MatchColumn {
 
     public static MatchColumn elt(String key, Object value) {
         return new MatchColumn(key, value, SqlOperator.ELT);
+    }
+
+    public static MatchColumn in(String key, List<String> value) {
+        String src = null;
+        if (value != null && value.isEmpty() == false) {
+            src = StringCreator.create().append("(").append(ListParamUtils.joinString(value)).append(")").toString();
+        }
+        return new MatchColumn(key, src, SqlOperator.IN);
     }
 
     public MatchColumn() {
