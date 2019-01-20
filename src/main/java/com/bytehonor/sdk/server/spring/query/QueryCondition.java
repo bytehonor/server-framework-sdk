@@ -117,15 +117,15 @@ public final class QueryCondition {
         return matchHolder.toAndSql();
     }
 
-    public String conditionListSql() {
+    public String selectConditionSql() {
         return StringCreator.create().append(columnAndSql()).append(orderBySql()).append(offsetLimitSql()).toString();
     }
 
-    public String conditionCountSql() {
+    public String countConditionSql() {
         return StringCreator.create().append(columnAndSql()).toString();
     }
 
-    public List<Object> conditionArgs() {
+    public List<Object> args() {
         if (matchHolder == null) {
             return new ArrayList<Object>();
         }
@@ -134,6 +134,6 @@ public final class QueryCondition {
 
     @Override
     public String toString() {
-        return conditionListSql();
+        return selectConditionSql();
     }
 }

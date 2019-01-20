@@ -22,10 +22,10 @@ public class QueryConditionTest {
         condition.setOffset(10);
         condition.setOrder(QueryOrder.descOf("id"));
 
-        LOG.info("list:{}", condition.conditionListSql());
-        LOG.info("count:{}", condition.conditionCountSql());
+        LOG.info("list:{}", condition.selectConditionSql());
+        LOG.info("count:{}", condition.countConditionSql());
 
-        List<Object> args = condition.conditionArgs();
+        List<Object> args = condition.args();
         LOG.info("args:{}", args);
         assertTrue("test", args.size() == 6);
     }
