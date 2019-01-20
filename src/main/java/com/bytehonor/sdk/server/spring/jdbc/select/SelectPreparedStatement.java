@@ -3,7 +3,6 @@ package com.bytehonor.sdk.server.spring.jdbc.select;
 import java.util.List;
 import java.util.Objects;
 
-import com.bytehonor.sdk.server.spring.exception.ServerDefinedException;
 import com.bytehonor.sdk.server.spring.jdbc.SqlConstants;
 import com.bytehonor.sdk.server.spring.query.QueryCondition;
 import com.bytehonor.sdk.server.spring.string.StringCreator;
@@ -36,8 +35,8 @@ public class SelectPreparedStatement {
     public String toSelectSql(String keys) {
         Objects.requireNonNull(keys, "keys");
         StringCreator creator = StringCreator.create();
-        creator.append(SqlConstants.SELECT).append(keys).append(SqlConstants.FROM).append(table);
-        creator.append(" WHERE 1=1").append(condition.getMatchHolder().toAndSql());
+        creator.append("SELECT ").append(keys).append(" FROM ").append(table).append(SqlConstants.BLANK);
+        creator.append("WHERE 1=1").append(condition.getMatchHolder().toAndSql());
         if (condition.getOrder() != null) {
             creator.append(condition.getOrder().toSql());
         }
@@ -48,17 +47,17 @@ public class SelectPreparedStatement {
     public String toCountSql(String key) {
         Objects.requireNonNull(key, "key");
         StringCreator creator = StringCreator.create();
-        creator.append(SqlConstants.SELECT).append("count(").append(key).append(")").append(SqlConstants.FROM)
-                .append(table);
-        creator.append(" WHERE 1=1").append(condition.getMatchHolder().toAndSql());
+        creator.append("SELECT count(").append(key).append(") FROM ").append(table).append(SqlConstants.BLANK);
+        creator.append("WHERE 1=1").append(condition.getMatchHolder().toAndSql());
         return creator.toString();
     }
 
     public List<Object> args() {
-        if (condition.getMatchHolder().getArgs().isEmpty()) {
-            throw new ServerDefinedException(44, "select but without any match condition");
-        }
         return condition.getMatchHolder().getArgs();
+    }
+
+    public void clear() {
+        condition.getMatchHolder().clear();
     }
 
 }

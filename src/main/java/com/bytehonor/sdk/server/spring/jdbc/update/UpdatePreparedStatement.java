@@ -65,4 +65,8 @@ public class UpdatePreparedStatement {
         return args;
     }
 
+    public void clear() {
+        matchHolder.clear();
+    }
+
 }
