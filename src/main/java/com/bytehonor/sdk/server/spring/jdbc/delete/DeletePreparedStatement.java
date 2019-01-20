@@ -51,8 +51,4 @@ public class DeletePreparedStatement {
         return matchHolder.getArgs();
     }
 
-    public void clear() {
-        matchHolder.clear();
-    }
-
 }

@@ -20,10 +20,10 @@ public class SelectPreparedStatementTest {
     public void test() {
         QueryCondition condition = QueryCondition.create(0, 10).and(MatchColumn.eq("name", "john"));
         condition.setOrder(QueryOrder.descOf("age"));
-        SelectPreparedStatement statement = SelectPreparedStatement.create("tbl_user", condition);
+        SelectPreparedStatement statement = SelectPreparedStatement.create("tbl_user", "id", "id,name,age", condition);
 
-        LOG.info("sql:{}", statement.toSelectSql("name,age"));
-        LOG.info("count:{}", statement.toCountSql("name"));
+        LOG.info("sql:{}", statement.toSelectSql());
+        LOG.info("count:{}", statement.toCountSql());
         List<Object> args = statement.args();
         LOG.info("args:{}", args);
         assertTrue("test", args.size() == 1);

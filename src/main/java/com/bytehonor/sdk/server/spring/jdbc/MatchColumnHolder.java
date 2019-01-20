@@ -102,8 +102,4 @@ public class MatchColumnHolder {
         return args;
     }
 
-    public void clear() {
-        this.sb = new StringBuilder();
-        this.args.clear();
-    }
 }
