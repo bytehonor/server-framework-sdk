@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.server.spring.query.QueryColumn;
+import com.bytehonor.sdk.server.spring.query.MatchColumn;
 
 public class UpdatePreparedStatementTest {
 
@@ -21,7 +21,7 @@ public class UpdatePreparedStatementTest {
         statement.set("age", 13);
         statement.set("school", null);
         statement.set("create_at", System.currentTimeMillis());
-        statement.match(QueryColumn.eq("id", 3333));
+        statement.match(MatchColumn.eq("id", 3333));
 
         LOG.info("sql:{}", statement.toUpdateSql());
         List<Object> args = statement.args();

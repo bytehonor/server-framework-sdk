@@ -6,7 +6,7 @@ import java.util.Objects;
 import com.bytehonor.sdk.server.spring.exception.ServerDefinedException;
 import com.bytehonor.sdk.server.spring.jdbc.MatchColumnHolder;
 import com.bytehonor.sdk.server.spring.jdbc.SqlConstants;
-import com.bytehonor.sdk.server.spring.query.QueryColumn;
+import com.bytehonor.sdk.server.spring.query.MatchColumn;
 import com.bytehonor.sdk.server.spring.string.StringCreator;
 
 public class UpdatePreparedStatement {
@@ -33,7 +33,7 @@ public class UpdatePreparedStatement {
         return this;
     }
 
-    public UpdatePreparedStatement match(QueryColumn column) {
+    public UpdatePreparedStatement match(MatchColumn column) {
         this.matchHolder.and(column);
         return this;
     }

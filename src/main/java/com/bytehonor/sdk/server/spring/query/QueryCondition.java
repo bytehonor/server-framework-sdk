@@ -61,7 +61,7 @@ public final class QueryCondition {
         return codition;
     }
 
-    public QueryCondition and(QueryColumn column) {
+    public QueryCondition and(MatchColumn column) {
         matchHolder.and(column);
         return this;
     }

@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import org.springframework.util.StringUtils;
 
-import com.bytehonor.sdk.server.spring.query.QueryColumn;
+import com.bytehonor.sdk.server.spring.query.MatchColumn;
 
 public class MatchColumnHolder {
 
@@ -66,7 +66,7 @@ public class MatchColumnHolder {
     }
 
     public MatchColumnHolder append(String key, Object value, SqlOperator operator) {
-        this.and(new QueryColumn(key, value, operator));
+        this.and(new MatchColumn(key, value, operator));
         return this;
     }
 
@@ -76,7 +76,7 @@ public class MatchColumnHolder {
      * @param column
      * @return
      */
-    public MatchColumnHolder and(QueryColumn column) {
+    public MatchColumnHolder and(MatchColumn column) {
         Objects.requireNonNull(column, "column");
         Objects.requireNonNull(column.getOperator(), "operator");
         if (StringUtils.isEmpty(column.getKey()) || column.getValue() == null) {

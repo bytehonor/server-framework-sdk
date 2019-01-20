@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.server.spring.query.QueryColumn;
+import com.bytehonor.sdk.server.spring.query.MatchColumn;
 import com.bytehonor.sdk.server.spring.query.QueryCondition;
 import com.bytehonor.sdk.server.spring.query.QueryOrder;
 
@@ -18,7 +18,7 @@ public class SelectPreparedStatementTest {
 
     @Test
     public void test() {
-        QueryCondition condition = QueryCondition.create(0, 10).and(QueryColumn.eq("name", "john"));
+        QueryCondition condition = QueryCondition.create(0, 10).and(MatchColumn.eq("name", "john"));
         condition.setOrder(QueryOrder.descOf("age"));
         SelectPreparedStatement statement = SelectPreparedStatement.create("tbl_user", condition);
 
