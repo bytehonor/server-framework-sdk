@@ -64,6 +64,7 @@ public class InsertPreparedStatement {
         if (!rowEnd) {
             throw new ServerDefinedException(44, "row does not end");
         }
+        rowEnd = false;
         columnIndex = 0;
         rowSize++;
         if (rowSize > 1) {

@@ -13,17 +13,17 @@ public class InsertPreparedStatementTest {
     @Test
     public void test() {
         InsertPreparedStatement statement = InsertPreparedStatement.create("tbl_user", "name,age,school");
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
             statement.rowBegin();
             statement.setColumn("name" + i);
-            statement.setColumn("age" + i);
-            statement.setColumn("school" + i);
+            statement.setColumn(i);
+            statement.setColumn("school';drop table tbl_other;--");
             statement.rowEnd();
         }
 
         LOG.info("sql:{}", statement.toInsertSql());
         LOG.info("rowsSize:{}", statement.getRowSize());
-        assertTrue("test", statement.getRowSize() == 3);
+        assertTrue("test", statement.getRowSize() == 1);
     }
 
 }
