@@ -59,6 +59,7 @@ public final class QueryCondition {
     }
 
     public QueryCondition and(MatchColumn column) {
+        Objects.requireNonNull(column, "column");
         matchHolder.and(column);
         return this;
     }
