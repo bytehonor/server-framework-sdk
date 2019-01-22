@@ -16,10 +16,11 @@ public class UpdatePreparedStatementTest {
 
     @Test
     public void test() {
+        String sc = null;
         UpdatePreparedStatement statement = UpdatePreparedStatement.create("tbl_user");
         statement.set("name", "john");
         statement.set("age", 13);
-        statement.set("school", null);
+        statement.set("school", sc);
         statement.set("create_at", System.currentTimeMillis());
         statement.match(MatchColumn.eq("id", 3333));
 

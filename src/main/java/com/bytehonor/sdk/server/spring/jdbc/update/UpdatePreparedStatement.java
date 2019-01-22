@@ -3,6 +3,8 @@ package com.bytehonor.sdk.server.spring.jdbc.update;
 import java.util.List;
 import java.util.Objects;
 
+import org.springframework.util.StringUtils;
+
 import com.bytehonor.sdk.server.spring.exception.ServerDefinedException;
 import com.bytehonor.sdk.server.spring.jdbc.MatchColumnHolder;
 import com.bytehonor.sdk.server.spring.query.MatchColumn;
@@ -27,7 +29,30 @@ public class UpdatePreparedStatement {
         return new UpdatePreparedStatement(table);
     }
 
-    public UpdatePreparedStatement set(String key, Object value) {
+    public UpdatePreparedStatement set(String key, String value) {
+        if (StringUtils.isEmpty(value)) {
+            return this;
+        }
+        this.updateHolder.set(key, value);
+        return this;
+    }
+
+    public UpdatePreparedStatement set(String key, Long value) {
+        this.updateHolder.set(key, value);
+        return this;
+    }
+
+    public UpdatePreparedStatement set(String key, Integer value) {
+        this.updateHolder.set(key, value);
+        return this;
+    }
+
+    public UpdatePreparedStatement set(String key, Boolean value) {
+        this.updateHolder.set(key, value);
+        return this;
+    }
+
+    public UpdatePreparedStatement set(String key, Double value) {
         this.updateHolder.set(key, value);
         return this;
     }
