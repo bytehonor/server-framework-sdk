@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.server.spring.jdbc;
 
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.StringUtils;
 
 public class SqlInjectUtils {
 
