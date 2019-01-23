@@ -2,7 +2,10 @@ package com.bytehonor.sdk.server.spring.jdbc.insert;
 
 import java.util.Objects;
 
+import org.springframework.util.StringUtils;
+
 import com.bytehonor.sdk.server.spring.exception.ServerDefinedException;
+import com.bytehonor.sdk.server.spring.jdbc.SqlInjectUtils;
 import com.bytehonor.sdk.server.spring.string.StringCreator;
 
 public class InsertPreparedStatement {
@@ -86,6 +89,9 @@ public class InsertPreparedStatement {
 
     public InsertPreparedStatement setColumn(String value) {
         Objects.requireNonNull(value, "value");
+        if (StringUtils.isEmpty(value) == false) {
+            value = SqlInjectUtils.escape(value);
+        }
         return setColumnValue(value);
     }
 
