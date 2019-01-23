@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.server.spring.jdbc.MatchColumnHolder;
+import com.bytehonor.sdk.server.spring.query.MatchColumn;
 
 public class MatchColumnHolderTest {
 
@@ -16,14 +16,17 @@ public class MatchColumnHolderTest {
 
     @Test
     public void test() {
-        MatchColumnHolder sac = MatchColumnHolder.create();
-        sac.eq("name", "john").neq("neq", 1).egt("egt", 2).elt("elt", 3).lt("lt", 4).between("age", 5, 6);
+        MatchColumnHolder holder = MatchColumnHolder.create();
+        holder.and(MatchColumn.eq("name", "john"));
+        holder.and(MatchColumn.neq("neq", 1));
+        holder.and(MatchColumn.elt("elt", 3));
+        holder.and(MatchColumn.lt("lt", 4));
 
-        LOG.info("sql:{}", sac.toAndSql());
+        LOG.info("sql:{}", holder.toAndSql());
 
-        List<Object> args = sac.getArgs();
+        List<Object> args = holder.getArgs();
         LOG.info("args:{}", args);
-        assertTrue("test", args.size() == 7);
+        assertTrue("test", args.size() == 4);
     }
 
 }

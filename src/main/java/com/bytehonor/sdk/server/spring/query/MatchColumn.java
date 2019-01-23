@@ -2,6 +2,9 @@ package com.bytehonor.sdk.server.spring.query;
 
 import java.util.List;
 
+import org.springframework.util.StringUtils;
+
+import com.bytehonor.sdk.server.spring.jdbc.SqlInjectUtils;
 import com.bytehonor.sdk.server.spring.jdbc.SqlOperator;
 import com.bytehonor.sdk.server.spring.string.StringCreator;
 import com.bytehonor.sdk.server.spring.util.ListParamUtils;
@@ -15,6 +18,9 @@ public class MatchColumn {
     private SqlOperator operator;
 
     public static MatchColumn eq(String key, String value) {
+        if (StringUtils.isEmpty(value) == false) {
+            value = SqlInjectUtils.escape(value);
+        }
         return new MatchColumn(key, value, SqlOperator.EQ);
     }
 
@@ -86,15 +92,7 @@ public class MatchColumn {
         return new MatchColumn(key, src, SqlOperator.IN);
     }
 
-    public MatchColumn() {
-        this(null, null, null);
-    }
-
-    public MatchColumn(String key, Object value) {
-        this(key, value, SqlOperator.EQ);
-    }
-
-    public MatchColumn(String key, Object value, SqlOperator operator) {
+    private MatchColumn(String key, Object value, SqlOperator operator) {
         this.key = key;
         this.value = value;
         this.operator = operator;
