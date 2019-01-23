@@ -84,7 +84,32 @@ public class InsertPreparedStatement {
         return this;
     }
 
-    public InsertPreparedStatement setColumn(Object value) {
+    public InsertPreparedStatement setColumn(String value) {
+        Objects.requireNonNull(value, "value");
+        return setColumnValue(value);
+    }
+
+    public InsertPreparedStatement setColumn(Long value) {
+        Objects.requireNonNull(value, "value");
+        return setColumnValue(value);
+    }
+
+    public InsertPreparedStatement setColumn(Integer value) {
+        Objects.requireNonNull(value, "value");
+        return setColumnValue(value);
+    }
+
+    public InsertPreparedStatement setColumn(Boolean value) {
+        Objects.requireNonNull(value, "value");
+        return setColumnValue(value);
+    }
+
+    public InsertPreparedStatement setColumn(Double value) {
+        Objects.requireNonNull(value, "value");
+        return setColumnValue(value);
+    }
+
+    private InsertPreparedStatement setColumnValue(Object value) {
         Objects.requireNonNull(value, "value");
         columnIndex++;
         if (columnIndex > 1) {
