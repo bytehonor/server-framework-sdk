@@ -121,7 +121,7 @@ public class InsertPreparedStatement {
         if (columnIndex > 1) {
             values.append(",");
         }
-        values.append("'").append(value).append("'");
+        values.append(value);
         return this;
     }
 
