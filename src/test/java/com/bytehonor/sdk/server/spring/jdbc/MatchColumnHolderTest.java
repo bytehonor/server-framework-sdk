@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.server.spring.query.MatchColumn;
+import com.google.common.collect.Lists;
 
 public class MatchColumnHolderTest {
 
@@ -21,6 +22,7 @@ public class MatchColumnHolderTest {
         holder.and(MatchColumn.neq("neq", 1));
         holder.and(MatchColumn.elt("elt", 3));
         holder.and(MatchColumn.lt("lt", 4));
+        holder.and(MatchColumn.in("in", Lists.newArrayList("xxx", "yyy")));
 
         LOG.info("sql:{}", holder.toAndSql());
 

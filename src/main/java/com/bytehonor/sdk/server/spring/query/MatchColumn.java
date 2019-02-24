@@ -86,6 +86,22 @@ public class MatchColumn {
         return new MatchColumn(key, src, SqlOperator.IN);
     }
 
+    public static MatchColumn inLong(String key, List<Long> value) {
+        String src = null;
+        if (value != null && value.isEmpty() == false) {
+            src = StringCreator.create().append("(").append(ListParamUtils.joinLong(value)).append(")").toString();
+        }
+        return new MatchColumn(key, src, SqlOperator.IN);
+    }
+
+    public static MatchColumn inInt(String key, List<Integer> value) {
+        String src = null;
+        if (value != null && value.isEmpty() == false) {
+            src = StringCreator.create().append("(").append(ListParamUtils.joinInteger(value)).append(")").toString();
+        }
+        return new MatchColumn(key, src, SqlOperator.IN);
+    }
+
     private MatchColumn(String key, Object value, SqlOperator operator) {
         this.key = key;
         this.value = value;
