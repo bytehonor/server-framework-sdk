@@ -23,7 +23,8 @@ public class GlobalErrorAdvisor {
 			StackTraceElement[] stackTrace = ex.getStackTrace();
 			StringBuilder sb = new StringBuilder("\n [*** Print ").append(ex.getClass().getSimpleName())
 					.append(" Stack]");
-			for (int i = 0; i < 4; i++) {
+			sb.append("\n [*** 0 ]:").append(ex.getMessage());
+			for (int i = 1; i < 5; i++) {
 				if (stackTrace[i] == null) {
 					continue;
 				}
