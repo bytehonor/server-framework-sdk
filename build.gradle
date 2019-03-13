@@ -25,7 +25,7 @@ targetCompatibility = 1.8
 repositories {
 	mavenCentral()
 	maven { url "https://repo.spring.io/milestone" }
-	maven { url "http://118.25.24.22:8081/repository/bytehonor-releases/" }
+	maven { url "http://maven.huajietaojin.cn/repository/bytehonor-releases/" }
 }
 
 ext {
