@@ -41,6 +41,9 @@ public class LongGetter {
 	}
 
 	public static Long require(String src, Long def) {
+	    if (src == null) {
+            return def;
+        }
 		try {
 			return parse(src);
 		} catch (Exception e) {

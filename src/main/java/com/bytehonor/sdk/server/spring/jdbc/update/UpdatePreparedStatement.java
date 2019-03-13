@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import org.springframework.util.StringUtils;
 
-import com.bytehonor.sdk.server.spring.exception.ServerDefinedException;
+import com.bytehonor.sdk.server.spring.exception.SpringServerException;
 import com.bytehonor.sdk.server.spring.jdbc.MatchColumnHolder;
 import com.bytehonor.sdk.server.spring.query.MatchColumn;
 import com.bytehonor.sdk.server.spring.string.StringCreator;
@@ -82,7 +82,7 @@ public class UpdatePreparedStatement {
 
     public List<Object> args() {
         if (matchHolder.getArgs().isEmpty()) {
-            throw new ServerDefinedException(44, "update but without any match condition");
+            throw new SpringServerException(44, "update but without any match condition");
         }
         List<Object> args = updateHolder.getArgs();
         args.addAll(matchHolder.getArgs());

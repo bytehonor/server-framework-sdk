@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.server.spring.exception.InternalRestfulException;
-import com.bytehonor.sdk.server.spring.exception.ServerDefinedException;
+import com.bytehonor.sdk.server.spring.exception.SpringServerException;
 import com.bytehonor.sdk.server.spring.web.error.stragety.DefaultExceptionStragety;
 import com.bytehonor.sdk.server.spring.web.error.stragety.ExceptionStragety;
 import com.bytehonor.sdk.server.spring.web.error.stragety.InternalRestfulExceptionStragety;
@@ -17,11 +17,11 @@ public class ExceptionStragetyFactory {
 
 	public static final ExceptionStragety build(Exception e) {
 
-		if (e instanceof ServerDefinedException) {
+		if (e instanceof SpringServerException) {
 			if (LOG.isDebugEnabled()) {
 				LOG.debug("ServerDefinedException process");
 			}
-			return new ServerDefinedExceptionStragety((ServerDefinedException) e);
+			return new ServerDefinedExceptionStragety((SpringServerException) e);
 		}
 
 		if (e instanceof InternalRestfulException) {

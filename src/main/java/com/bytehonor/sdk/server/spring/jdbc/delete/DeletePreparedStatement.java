@@ -3,7 +3,7 @@ package com.bytehonor.sdk.server.spring.jdbc.delete;
 import java.util.List;
 import java.util.Objects;
 
-import com.bytehonor.sdk.server.spring.exception.ServerDefinedException;
+import com.bytehonor.sdk.server.spring.exception.SpringServerException;
 import com.bytehonor.sdk.server.spring.jdbc.MatchColumnHolder;
 import com.bytehonor.sdk.server.spring.jdbc.SqlConstants;
 import com.bytehonor.sdk.server.spring.query.MatchColumn;
@@ -46,7 +46,7 @@ public class DeletePreparedStatement {
 
     public List<Object> args() {
         if (matchHolder.getArgs().isEmpty()) {
-            throw new ServerDefinedException(44, "delete but without any match condition");
+            throw new SpringServerException(44, "delete but without any match condition");
         }
         return matchHolder.getArgs();
     }

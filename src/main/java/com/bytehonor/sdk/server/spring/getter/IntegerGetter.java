@@ -41,6 +41,9 @@ public class IntegerGetter {
 	}
 
 	public static Integer require(String src, Integer def) {
+	    if (src == null) {
+            return def;
+        }
 		try {
 			return parse(src);
 		} catch (Exception e) {

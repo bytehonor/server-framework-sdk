@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import org.springframework.util.StringUtils;
 
-import com.bytehonor.sdk.server.spring.exception.ServerDefinedException;
+import com.bytehonor.sdk.server.spring.exception.SpringServerException;
 import com.bytehonor.sdk.server.spring.jdbc.SqlInjectUtils;
 import com.bytehonor.sdk.server.spring.string.StringCreator;
 
@@ -65,7 +65,7 @@ public class InsertPreparedStatement {
 
     public InsertPreparedStatement rowBegin() {
         if (!rowEnd) {
-            throw new ServerDefinedException(44, "row does not end");
+            throw new SpringServerException(44, "row does not end");
         }
         rowEnd = false;
         columnIndex = 0;
@@ -80,7 +80,7 @@ public class InsertPreparedStatement {
 
     public InsertPreparedStatement rowEnd() {
         if (columnIndex != columnSize) {
-            throw new ServerDefinedException(44, "columnSize not fit");
+            throw new SpringServerException(44, "columnSize not fit");
         }
         rowEnd = true;
         values.append(")");
@@ -127,7 +127,7 @@ public class InsertPreparedStatement {
 
     public String toInsertSql() {
         if (rowSize < 1) {
-            throw new ServerDefinedException(44, "rows empty");
+            throw new SpringServerException(44, "rows empty");
         }
         return StringCreator.create().append("INSERT INTO ").append(table).append(" (").append(columns)
                 .append(") VALUES ").append(values.toString()).toString();
