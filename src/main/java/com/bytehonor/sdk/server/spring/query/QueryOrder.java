@@ -5,6 +5,7 @@ import java.util.Objects;
 import org.springframework.util.StringUtils;
 
 import com.bytehonor.sdk.server.spring.jdbc.SqlConstants;
+import com.bytehonor.sdk.server.spring.jdbc.SqlInjectUtils;
 
 public class QueryOrder {
 
@@ -51,7 +52,8 @@ public class QueryOrder {
         if (StringUtils.isEmpty(column)) {
             return "";
         }
-        StringBuilder sb = new StringBuilder(" ORDER BY ").append(column).append(SqlConstants.BLANK);
+        StringBuilder sb = new StringBuilder(" ORDER BY ").append(SqlInjectUtils.escape(column))
+                .append(SqlConstants.BLANK);
         if (desc) {
             sb.append(SqlConstants.DESC);
         } else {

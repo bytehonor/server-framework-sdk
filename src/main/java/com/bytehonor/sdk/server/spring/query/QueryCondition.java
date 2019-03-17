@@ -63,6 +63,11 @@ public final class QueryCondition {
         matchHolder.and(column);
         return this;
     }
+    
+    public QueryCondition orderBy(QueryOrder order) {
+        this.order = order;
+        return this;
+    }
 
     public int getOffset() {
         return offset;
