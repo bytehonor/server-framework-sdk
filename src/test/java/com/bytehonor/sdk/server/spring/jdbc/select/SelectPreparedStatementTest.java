@@ -18,8 +18,8 @@ public class SelectPreparedStatementTest {
 
     @Test
     public void test() {
-        QueryCondition condition = QueryCondition.create(0, 10).and(MatchColumn.eq("name", "john';drop table tbl_other;--"));
-        condition.setOrder(QueryOrder.descOf("age"));
+        QueryCondition condition = QueryCondition.create(0, 10)
+                .and(MatchColumn.eq("name", "john';drop table tbl_other;--")).orderBy(QueryOrder.descOf("age"));
         SelectPreparedStatement statement = SelectPreparedStatement.create("tbl_user", "id", "id,name,age", condition);
 
         LOG.info("sql:{}", statement.toSelectSql());

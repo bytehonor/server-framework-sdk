@@ -32,4 +32,25 @@ public class SqlInjectUtils {
         }
         return StringCreator.create().append(TA).append(src).append(TA).toString();
     }
+    
+    public static String column(String src) {
+        if (StringUtils.isEmpty(src)) {
+            return src;
+        }
+        int len = src.length();
+        char[] target = new char[len * 2];
+        boolean find = false;
+        int at = 0;
+        for (int i = 0; i < len; i++) {
+            if (';' == src.charAt(i)) {
+                find = true;
+                continue;
+            }
+            target[at++] = src.charAt(i);
+        }
+        if (find) {
+            return new String(target, 0, at);
+        }
+        return src;
+    }
 }

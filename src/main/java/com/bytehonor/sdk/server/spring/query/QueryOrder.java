@@ -52,7 +52,7 @@ public class QueryOrder {
         if (StringUtils.isEmpty(column)) {
             return "";
         }
-        StringBuilder sb = new StringBuilder(" ORDER BY ").append(SqlInjectUtils.escape(column))
+        StringBuilder sb = new StringBuilder(" ORDER BY ").append(SqlInjectUtils.column(column))
                 .append(SqlConstants.BLANK);
         if (desc) {
             sb.append(SqlConstants.DESC);
