@@ -22,6 +22,11 @@ public class QueryOrder {
         Objects.requireNonNull(column, "column");
         return new QueryOrder(column, false);
     }
+    
+    public static QueryOrder of(String column, boolean desc) {
+        Objects.requireNonNull(column, "column");
+        return new QueryOrder(column, desc);
+    }
 
     public QueryOrder() {
         this("id", false);
