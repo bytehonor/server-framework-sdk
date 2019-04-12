@@ -5,82 +5,95 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "standard.springboot")
 public class SpringBootStandardProperties {
 
-	/**
-	 * Server Response Handler Use Global Advisor, default true
-	 */
-	private boolean responseAdvisorEnable = true;
+    /**
+     * Server Response Handler Use Global Advisor, default true
+     */
+    private boolean responseAdvisorEnable = true;
 
-	/**
-	 * Server Error Handler Use Global Advisor, default true
-	 */
-	private boolean errorAdvisorEnable = true;
+    /**
+     * Server Error Handler Use Global Advisor, default true
+     */
+    private boolean errorAdvisorEnable = true;
 
-	/**
-	 * Server Use Global Error Controller, default true
-	 */
-	private boolean errorControllerEnable = true;
+    /**
+     * Server Use Global Error Controller, default true
+     */
+    private boolean errorControllerEnable = true;
 
-	/**
-	 * Server Enable Global Json Converter, default true
-	 */
-	private boolean mvcCustomEnable = true;
+    /**
+     * Server Enable Global Json Converter, default true
+     */
+    private boolean mvcCustomEnable = true;
 
-	/**
-	 * Server Api Resfult Debug Enable, default false
-	 */
-	private boolean restfulDebugEnable = false;
+    /**
+     * Server Api Resfult Debug Enable, default false
+     */
+    private boolean restfulDebugEnable = false;
 
-	/**
-	 * Server Api Resfult Http Status force 200, default true
-	 */
-	private boolean forceHttpStatus = true;
+    /**
+     * Server Api Resfult Http Status force 200, default true
+     */
+    private boolean forceHttpStatus = true;
 
-	public boolean isResponseAdvisorEnable() {
-		return responseAdvisorEnable;
-	}
+    /**
+     * Server Print Error Trace Lines, default 8
+     */
+    private int errorTraceLines = 8;
 
-	public void setResponseAdvisorEnable(boolean responseAdvisorEnable) {
-		this.responseAdvisorEnable = responseAdvisorEnable;
-	}
+    public boolean isResponseAdvisorEnable() {
+        return responseAdvisorEnable;
+    }
 
-	public boolean isErrorAdvisorEnable() {
-		return errorAdvisorEnable;
-	}
+    public void setResponseAdvisorEnable(boolean responseAdvisorEnable) {
+        this.responseAdvisorEnable = responseAdvisorEnable;
+    }
 
-	public void setErrorAdvisorEnable(boolean errorAdvisorEnable) {
-		this.errorAdvisorEnable = errorAdvisorEnable;
-	}
+    public boolean isErrorAdvisorEnable() {
+        return errorAdvisorEnable;
+    }
 
-	public boolean isErrorControllerEnable() {
-		return errorControllerEnable;
-	}
+    public void setErrorAdvisorEnable(boolean errorAdvisorEnable) {
+        this.errorAdvisorEnable = errorAdvisorEnable;
+    }
 
-	public void setErrorControllerEnable(boolean errorControllerEnable) {
-		this.errorControllerEnable = errorControllerEnable;
-	}
+    public boolean isErrorControllerEnable() {
+        return errorControllerEnable;
+    }
 
-	public boolean isMvcCustomEnable() {
-		return mvcCustomEnable;
-	}
+    public void setErrorControllerEnable(boolean errorControllerEnable) {
+        this.errorControllerEnable = errorControllerEnable;
+    }
 
-	public void setMvcCustomEnable(boolean mvcCustomEnable) {
-		this.mvcCustomEnable = mvcCustomEnable;
-	}
+    public boolean isMvcCustomEnable() {
+        return mvcCustomEnable;
+    }
 
-	public boolean isRestfulDebugEnable() {
-		return restfulDebugEnable;
-	}
+    public void setMvcCustomEnable(boolean mvcCustomEnable) {
+        this.mvcCustomEnable = mvcCustomEnable;
+    }
 
-	public void setRestfulDebugEnable(boolean restfulDebugEnable) {
-		this.restfulDebugEnable = restfulDebugEnable;
-	}
+    public boolean isRestfulDebugEnable() {
+        return restfulDebugEnable;
+    }
 
-	public boolean isForceHttpStatus() {
-		return forceHttpStatus;
-	}
+    public void setRestfulDebugEnable(boolean restfulDebugEnable) {
+        this.restfulDebugEnable = restfulDebugEnable;
+    }
 
-	public void setForceHttpStatus(boolean forceHttpStatus) {
-		this.forceHttpStatus = forceHttpStatus;
-	}
+    public boolean isForceHttpStatus() {
+        return forceHttpStatus;
+    }
+
+    public void setForceHttpStatus(boolean forceHttpStatus) {
+        this.forceHttpStatus = forceHttpStatus;
+    }
+
+    public int getErrorTraceLines() {
+        return errorTraceLines;
+    }
+
+    public void setErrorTraceLines(int errorTraceLines) {
+        this.errorTraceLines = errorTraceLines;
+    }
 
 }
