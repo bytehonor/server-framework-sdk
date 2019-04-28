@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import com.bytehonor.protocol.core.server.constant.HttpConstants;
+import com.bytehonor.sdk.server.spring.exception.SpringServerException;
 import com.bytehonor.sdk.server.spring.getter.RequestGetter;
 import com.bytehonor.sdk.server.spring.jdbc.MatchColumnHolder;
 
@@ -61,9 +62,10 @@ public final class QueryCondition {
 
     public QueryCondition and(MatchColumn column) {
         Objects.requireNonNull(column, "column");
-        if (StringUtils.isEmpty(column.getKey()) == false) {
-            matchHolder.and(column);
+        if (StringUtils.isEmpty(column.getKey())) {
+            throw new SpringServerException(44, "column key cann't be empty");
         }
+        matchHolder.and(column);
         return this;
     }
 
