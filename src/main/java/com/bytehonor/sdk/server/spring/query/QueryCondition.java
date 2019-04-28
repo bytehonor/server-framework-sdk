@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 import com.bytehonor.protocol.core.server.constant.HttpConstants;
 import com.bytehonor.sdk.server.spring.getter.RequestGetter;
@@ -60,10 +61,12 @@ public final class QueryCondition {
 
     public QueryCondition and(MatchColumn column) {
         Objects.requireNonNull(column, "column");
-        matchHolder.and(column);
+        if (StringUtils.isEmpty(column.getKey()) == false) {
+            matchHolder.and(column);
+        }
         return this;
     }
-    
+
     public QueryCondition orderBy(QueryOrder order) {
         this.order = order;
         return this;
