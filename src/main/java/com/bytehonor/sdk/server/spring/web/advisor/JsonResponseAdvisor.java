@@ -1,5 +1,7 @@
 package com.bytehonor.sdk.server.spring.web.advisor;
 
+import java.lang.annotation.Annotation;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
 		}
 		if (MediaType.TEXT_HTML.equals(selectedContentType)) {
 			return body;
+		}
+		for (Annotation ann : returnType.getMethodAnnotations()) {
+		    LOG.info("method:{}, annotation:{}", returnType.getMethod().getName(), ann);
 		}
 		ResponseStragety responseStragety = ResponseStragetyFactory.build(body, response, returnType,
 				springBootStandardProperties);
