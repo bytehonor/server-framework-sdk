@@ -43,7 +43,10 @@ public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
         }
         for (Annotation ann : returnType.getMethodAnnotations()) {
             if (ann instanceof ResponseNotWrap) {
-                LOG.info("method:{}, annotation:{}", returnType.getMethod().getName(), ann.getClass().getSimpleName());
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("method:{}, annotation:{}", returnType.getMethod().getName(),
+                            ann.getClass().getSimpleName());
+                }
                 return body;
             }
         }
