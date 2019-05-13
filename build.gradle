@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.1.0.RELEASE'
+		springBootVersion = '2.1.4.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -17,19 +17,18 @@ apply plugin: 'io.spring.dependency-management'
 apply from: 'repository.gradle'
 
 group = 'com.bytehonor.sdk'
-version = '3.3.27'
+version = '3.4.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
 repositories {
 	mavenCentral()
-	maven { url "https://repo.spring.io/milestone" }
 	maven { url "http://maven.huajietaojin.cn/repository/bytehonor-releases/" }
 }
 
 ext {
-	springCloudVersion = 'Greenwich.M3'
+	springCloudVersion = 'Greenwich.SR1'
 }
 
 dependencies {

@@ -13,6 +13,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import com.bytehonor.sdk.server.spring.annotation.ResponseNotWrap;
 import com.bytehonor.sdk.server.spring.config.SpringBootStandardProperties;
 import com.bytehonor.sdk.server.spring.web.response.factory.ResponseStragetyFactory;
 import com.bytehonor.sdk.server.spring.web.response.stragety.ResponseStragety;
@@ -20,32 +21,35 @@ import com.bytehonor.sdk.server.spring.web.response.stragety.ResponseStragety;
 @ControllerAdvice
 public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
 
-	@Autowired
-	private SpringBootStandardProperties springBootStandardProperties;
+    @Autowired
+    private SpringBootStandardProperties springBootStandardProperties;
 
-	private static final Logger LOG = LoggerFactory.getLogger(JsonResponseAdvisor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JsonResponseAdvisor.class);
 
-	@Override
-	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-		return springBootStandardProperties.isResponseAdvisorEnable();
-	}
+    @Override
+    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+        return springBootStandardProperties.isResponseAdvisorEnable();
+    }
 
-	@Override
-	public final Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
-			Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
-			ServerHttpResponse response) {
-		if (LOG.isDebugEnabled()) {
-			LOG.debug("MediaType: {}", selectedContentType.toString());
-		}
-		if (MediaType.TEXT_HTML.equals(selectedContentType)) {
-			return body;
-		}
-		for (Annotation ann : returnType.getMethodAnnotations()) {
-		    LOG.info("method:{}, annotation:{}", returnType.getMethod().getName(), ann);
-		}
-		ResponseStragety responseStragety = ResponseStragetyFactory.build(body, response, returnType,
-				springBootStandardProperties);
+    @Override
+    public final Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
+            Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
+            ServerHttpResponse response) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("MediaType: {}", selectedContentType.toString());
+        }
+        if (MediaType.TEXT_HTML.equals(selectedContentType)) {
+            return body;
+        }
+        for (Annotation ann : returnType.getMethodAnnotations()) {
+            if (ann instanceof ResponseNotWrap) {
+                LOG.info("method:{}, annotation:{}", returnType.getMethod().getName(), ann.getClass().getSimpleName());
+                return body;
+            }
+        }
+        ResponseStragety responseStragety = ResponseStragetyFactory.build(body, response, returnType,
+                springBootStandardProperties);
 
-		return responseStragety.process(request);
-	}
+        return responseStragety.process(request);
+    }
 }
