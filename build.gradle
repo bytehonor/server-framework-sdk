@@ -17,7 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 apply from: 'repository.gradle'
 
 group = 'com.bytehonor.sdk'
-version = '3.4.1'
+version = '3.4.2'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -33,7 +33,7 @@ ext {
 
 dependencies {
     implementation('cglib:cglib:3.2.9')
-    implementation('com.bytehonor.protocol:server-core-protocol:3.2.0')
+    implementation('com.bytehonor.protocol:server-core-protocol:3.2.1')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
 	implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
