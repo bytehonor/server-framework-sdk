@@ -3,8 +3,8 @@ package com.bytehonor.sdk.server.spring.web.response.parser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.protocol.core.server.code.StandardCode;
-import com.bytehonor.protocol.core.server.result.JsonResponse;
+import com.bytehonor.sdk.protocol.common.code.StandardCode;
+import com.bytehonor.sdk.protocol.common.result.JsonResponse;
 import com.bytehonor.sdk.server.spring.exception.InternalRestfulException;
 
 public class JsonResponseParser {

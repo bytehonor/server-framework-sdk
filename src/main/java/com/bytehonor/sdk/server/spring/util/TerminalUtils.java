@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.util.StringUtils;
 
-import com.bytehonor.protocol.core.server.constant.HeaderKey;
+import com.bytehonor.sdk.protocol.common.constant.HeaderKey;
 
 
 public class TerminalUtils {

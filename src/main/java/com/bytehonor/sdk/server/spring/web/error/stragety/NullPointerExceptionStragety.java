@@ -2,7 +2,7 @@ package com.bytehonor.sdk.server.spring.web.error.stragety;
 
 import org.springframework.http.HttpStatus;
 
-import com.bytehonor.protocol.core.server.code.StandardCode;
+import com.bytehonor.sdk.protocol.common.code.StandardCode;
 import com.bytehonor.sdk.server.spring.web.error.entity.ExceptionEntity;
 
 public class NullPointerExceptionStragety implements ExceptionStragety {

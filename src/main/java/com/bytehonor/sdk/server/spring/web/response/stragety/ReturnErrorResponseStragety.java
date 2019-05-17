@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 
-import com.bytehonor.protocol.core.server.result.JsonResponse;
+import com.bytehonor.sdk.protocol.common.result.JsonResponse;
 import com.bytehonor.sdk.server.spring.config.SpringBootStandardProperties;
 import com.bytehonor.sdk.server.spring.web.error.entity.ExceptionEntity;
 import com.bytehonor.sdk.server.spring.web.error.message.DebugErrorMessage;
