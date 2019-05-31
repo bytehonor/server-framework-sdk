@@ -5,6 +5,8 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.protocol.common.code.StandardCode;
+import com.bytehonor.sdk.server.spring.exception.SpringServerException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -27,7 +29,7 @@ public class JacksonUtils {
             return JACKSON_MAPPER.readValue(json, valueType);
         } catch (Exception e) {
             LOG.error("error:{}, json:{}", e.getMessage(), json);
-            return null;
+            throw new SpringServerException(StandardCode.FRAMEWORK_ERROR, e.getMessage());
         }
     }
 
@@ -38,7 +40,7 @@ public class JacksonUtils {
             return JACKSON_MAPPER.readValue(json, valueTypeRef);
         } catch (Exception e) {
             LOG.error("error:{}, json:{}", e.getMessage(), json);
-            return null;
+            throw new SpringServerException(StandardCode.FRAMEWORK_ERROR, e.getMessage());
         }
     }
 
