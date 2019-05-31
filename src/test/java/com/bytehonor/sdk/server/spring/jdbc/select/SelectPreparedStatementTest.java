@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.server.spring.jdbc.select.SelectPreparedStatement;
 import com.bytehonor.sdk.server.spring.query.MatchColumn;
 import com.bytehonor.sdk.server.spring.query.QueryCondition;
 import com.bytehonor.sdk.server.spring.query.QueryOrder;

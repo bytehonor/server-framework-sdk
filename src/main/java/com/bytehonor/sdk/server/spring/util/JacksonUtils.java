@@ -1,16 +1,13 @@
 package com.bytehonor.sdk.server.spring.util;
 
-import java.io.IOException;
 import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JacksonUtils {
@@ -23,18 +20,26 @@ public class JacksonUtils {
         JACKSON_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    public static <T> T fromJson(String json, Class<T> valueType)
-            throws JsonParseException, JsonMappingException, IOException {
+    public static <T> T fromJson(String json, Class<T> valueType) {
         Objects.requireNonNull(json, "json");
         Objects.requireNonNull(valueType, "valueType");
-        return JACKSON_MAPPER.readValue(json, valueType);
+        try {
+            return JACKSON_MAPPER.readValue(json, valueType);
+        } catch (Exception e) {
+            LOG.error("error:{}, json:{}", e.getMessage(), json);
+            return null;
+        }
     }
 
-    public static <T> T fromJson(String json, TypeReference<T> valueTypeRef)
-            throws JsonParseException, JsonMappingException, IOException {
+    public static <T> T fromJson(String json, TypeReference<T> valueTypeRef) {
         Objects.requireNonNull(json, "json");
         Objects.requireNonNull(valueTypeRef, "valueTypeRef");
-        return JACKSON_MAPPER.readValue(json, valueTypeRef);
+        try {
+            return JACKSON_MAPPER.readValue(json, valueTypeRef);
+        } catch (Exception e) {
+            LOG.error("error:{}, json:{}", e.getMessage(), json);
+            return null;
+        }
     }
 
     public static String toJson(Object value) {

@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.server.spring.jdbc.MatchColumnHolder;
 import com.bytehonor.sdk.server.spring.query.MatchColumn;
 import com.google.common.collect.Lists;
 
