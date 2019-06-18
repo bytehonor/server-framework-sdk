@@ -26,9 +26,9 @@ public class SpringBootStandardProperties {
     private boolean mvcCustomEnable = true;
 
     /**
-     * Server Api Resfult Debug Enable, default false
+     * Server Api Resfult Debug Enable, default true
      */
-    private boolean restfulDebugEnable = false;
+    private boolean restfulDebugEnable = true;
 
     /**
      * Server Api Resfult Http Status force 200, default true

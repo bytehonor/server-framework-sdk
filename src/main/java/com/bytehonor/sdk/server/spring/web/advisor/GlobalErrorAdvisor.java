@@ -37,8 +37,8 @@ public class GlobalErrorAdvisor {
             LOG.warn(sb.toString());
         }
         ExceptionStragety exceptionStragety = ExceptionStragetyFactory.build(ex);
-        ExceptionHolder error = exceptionStragety.process();
-        return error;
+        ExceptionHolder holder = exceptionStragety.hold();
+        return holder;
     }
 
 }

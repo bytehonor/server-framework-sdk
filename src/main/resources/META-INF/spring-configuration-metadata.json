@@ -57,9 +57,9 @@
     {
       "name": "standard.springboot.restful-debug-enable",
       "type": "java.lang.Boolean",
-      "description": "Server Api Resfult Debug Enable, default false",
+      "description": "Server Api Resfult Debug Enable, default true",
       "sourceType": "com.bytehonor.sdk.server.spring.config.SpringBootStandardProperties",
-      "defaultValue": false
+      "defaultValue": true
     },
     {
       "name": "standard.springcloud.feign-interceptor-enable",

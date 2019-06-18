@@ -15,7 +15,7 @@ public class InternalRestfulExceptionStragety implements ExceptionStragety {
 	}
 
 	@Override
-	public ExceptionHolder process() {
+	public ExceptionHolder hold() {
 		ExceptionHolder error = new ExceptionHolder();
 		error.setStatus(HttpStatus.BAD_REQUEST.value());
 		error.setCode(exception.getCode());
