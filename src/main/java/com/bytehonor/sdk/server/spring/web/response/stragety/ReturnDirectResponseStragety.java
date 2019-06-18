@@ -9,6 +9,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import com.bytehonor.sdk.protocol.common.code.StandardCode;
 import com.bytehonor.sdk.protocol.common.result.JsonResponse;
 import com.bytehonor.sdk.server.spring.config.SpringBootStandardProperties;
+import com.bytehonor.sdk.server.spring.web.response.ResponseStragety;
 import com.bytehonor.sdk.server.spring.web.response.helper.ResponseStragetyHelper;
 
 public final class ReturnDirectResponseStragety implements ResponseStragety {

@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.web.response.stragety;
+package com.bytehonor.sdk.server.spring.web.response;
 
 import org.springframework.http.server.ServerHttpRequest;
 

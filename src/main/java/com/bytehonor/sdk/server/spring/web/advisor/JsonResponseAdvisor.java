@@ -13,8 +13,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import com.bytehonor.sdk.server.spring.annotation.ResponseNotWrap;
 import com.bytehonor.sdk.server.spring.config.SpringBootStandardProperties;
-import com.bytehonor.sdk.server.spring.web.response.factory.ResponseStragetyFactory;
-import com.bytehonor.sdk.server.spring.web.response.stragety.ResponseStragety;
+import com.bytehonor.sdk.server.spring.web.response.ResponseStragety;
+import com.bytehonor.sdk.server.spring.web.response.ResponseStragetyFactory;
 
 @ControllerAdvice
 public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {

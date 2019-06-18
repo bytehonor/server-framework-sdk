@@ -12,16 +12,17 @@ import org.springframework.http.server.ServerHttpResponse;
 
 import com.bytehonor.sdk.protocol.common.result.JsonResponse;
 import com.bytehonor.sdk.server.spring.config.SpringBootStandardProperties;
-import com.bytehonor.sdk.server.spring.web.error.entity.ExceptionEntity;
+import com.bytehonor.sdk.server.spring.web.error.ExceptionHolder;
 import com.bytehonor.sdk.server.spring.web.error.message.DebugErrorMessage;
 import com.bytehonor.sdk.server.spring.web.error.message.NormalErrorMessage;
+import com.bytehonor.sdk.server.spring.web.response.ResponseStragety;
 import com.bytehonor.sdk.server.spring.web.response.helper.ResponseStragetyHelper;
 
 public final class ReturnErrorResponseStragety implements ResponseStragety {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ReturnErrorResponseStragety.class);
 
-	private ExceptionEntity error;
+	private ExceptionHolder error;
 
 	private final ServerHttpResponse response;
 
@@ -31,7 +32,7 @@ public final class ReturnErrorResponseStragety implements ResponseStragety {
 
 	private final boolean enableForceStatus;
 
-	public ReturnErrorResponseStragety(ExceptionEntity error, ServerHttpResponse response,
+	public ReturnErrorResponseStragety(ExceptionHolder error, ServerHttpResponse response,
 			SpringBootStandardProperties standardSpringBootProperties) {
 		this.response = response;
 		this.error = error;
@@ -84,7 +85,7 @@ public final class ReturnErrorResponseStragety implements ResponseStragety {
 		return jsonResponse;
 	}
 
-	private List<String> buildDebugErrorTrace(ExceptionEntity error) {
+	private List<String> buildDebugErrorTrace(ExceptionHolder error) {
 		List<String> trace = new ArrayList<String>();
 		Exception e = error.getException();
 		if (e == null) {
@@ -100,7 +101,7 @@ public final class ReturnErrorResponseStragety implements ResponseStragety {
 	}
 
 	@SuppressWarnings("unused")
-	private DebugErrorMessage buildDebugErrorMessage(ExceptionEntity error, ServerHttpRequest request) {
+	private DebugErrorMessage buildDebugErrorMessage(ExceptionHolder error, ServerHttpRequest request) {
 		DebugErrorMessage message = new DebugErrorMessage();
 		Exception ex = error.getException();
 		message.setUri(formatUri(request.getURI()));
@@ -113,7 +114,7 @@ public final class ReturnErrorResponseStragety implements ResponseStragety {
 		return message;
 	}
 
-	private NormalErrorMessage buildNormalErrorMessage(ExceptionEntity error) {
+	private NormalErrorMessage buildNormalErrorMessage(ExceptionHolder error) {
 		NormalErrorMessage message = new NormalErrorMessage();
 		Exception ex = error.getException();
 		if (ex != null) {
@@ -151,11 +152,11 @@ public final class ReturnErrorResponseStragety implements ResponseStragety {
 		return sb.toString();
 	}
 
-	public ExceptionEntity getError() {
+	public ExceptionHolder getError() {
 		return error;
 	}
 
-	public void setError(ExceptionEntity error) {
+	public void setError(ExceptionHolder error) {
 		this.error = error;
 	}
 

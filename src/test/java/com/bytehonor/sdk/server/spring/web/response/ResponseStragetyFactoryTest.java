@@ -1,12 +1,12 @@
-package com.bytehonor.sdk.server.spring.web.restful.factory;
+package com.bytehonor.sdk.server.spring.web.response;
 
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.bytehonor.sdk.server.spring.web.error.entity.ExceptionEntity;
-import com.bytehonor.sdk.server.spring.web.response.factory.ResponseStragetyFactory;
-import com.bytehonor.sdk.server.spring.web.response.stragety.ResponseStragety;
+import com.bytehonor.sdk.server.spring.web.error.ExceptionHolder;
+import com.bytehonor.sdk.server.spring.web.response.ResponseStragety;
+import com.bytehonor.sdk.server.spring.web.response.ResponseStragetyFactory;
 import com.bytehonor.sdk.server.spring.web.response.stragety.ReturnErrorResponseStragety;
 import com.bytehonor.sdk.server.spring.web.response.stragety.ReturnNullResponseStragety;
 
@@ -18,7 +18,7 @@ public class ResponseStragetyFactoryTest {
 
 		boolean t1 = s1 instanceof ReturnNullResponseStragety;
 
-		ResponseStragety s2 = ResponseStragetyFactory.build(new ExceptionEntity(), null, null, null);
+		ResponseStragety s2 = ResponseStragetyFactory.build(new ExceptionHolder(), null, null, null);
 
 		boolean t2 = s2 instanceof ReturnErrorResponseStragety;
 

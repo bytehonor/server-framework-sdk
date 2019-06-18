@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.web.error.factory;
+package com.bytehonor.sdk.server.spring.web.error;
 
 import static org.junit.Assert.*;
 
@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import com.bytehonor.sdk.server.spring.exception.InternalRestfulException;
 import com.bytehonor.sdk.server.spring.exception.SpringServerException;
-import com.bytehonor.sdk.server.spring.web.error.factory.ExceptionStragetyFactory;
-import com.bytehonor.sdk.server.spring.web.error.stragety.ExceptionStragety;
+import com.bytehonor.sdk.server.spring.web.error.ExceptionStragety;
+import com.bytehonor.sdk.server.spring.web.error.ExceptionStragetyFactory;
 import com.bytehonor.sdk.server.spring.web.error.stragety.InternalRestfulExceptionStragety;
 import com.bytehonor.sdk.server.spring.web.error.stragety.NullPointerExceptionStragety;
 import com.bytehonor.sdk.server.spring.web.error.stragety.ServerDefinedExceptionStragety;

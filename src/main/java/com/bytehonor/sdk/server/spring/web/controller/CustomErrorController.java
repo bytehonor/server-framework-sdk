@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bytehonor.sdk.protocol.common.code.StandardCode;
 import com.bytehonor.sdk.server.spring.exception.FrameworkException;
-import com.bytehonor.sdk.server.spring.web.error.entity.ExceptionEntity;
+import com.bytehonor.sdk.server.spring.web.error.ExceptionHolder;
 
 @Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")
@@ -87,7 +87,7 @@ public class CustomErrorController extends AbstractErrorController {
 
 	@RequestMapping
 	@ResponseBody
-	public ResponseEntity<ExceptionEntity> error(HttpServletRequest request) {
+	public ResponseEntity<ExceptionHolder> error(HttpServletRequest request) {
 		Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
 		HttpStatus status = getStatus(request);
 		
@@ -95,9 +95,9 @@ public class CustomErrorController extends AbstractErrorController {
 		
 		FrameworkException exception = new FrameworkException(formatErrorMessage(body));
 		
-		ExceptionEntity error = new ExceptionEntity(StandardCode.FRAMEWORK_ERROR, exception);
+		ExceptionHolder error = new ExceptionHolder(StandardCode.FRAMEWORK_ERROR, exception);
 		error.setStatus(status.value());
-		return new ResponseEntity<ExceptionEntity>(error, status);
+		return new ResponseEntity<ExceptionHolder>(error, status);
 	}
 	
 	private String formatErrorMessage(Map<String, Object> body) {

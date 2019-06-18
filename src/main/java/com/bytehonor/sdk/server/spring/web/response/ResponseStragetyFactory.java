@@ -1,12 +1,11 @@
-package com.bytehonor.sdk.server.spring.web.response.factory;
+package com.bytehonor.sdk.server.spring.web.response;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.server.ServerHttpResponse;
 
 import com.bytehonor.sdk.protocol.common.result.JsonResponse;
 import com.bytehonor.sdk.server.spring.config.SpringBootStandardProperties;
-import com.bytehonor.sdk.server.spring.web.error.entity.ExceptionEntity;
-import com.bytehonor.sdk.server.spring.web.response.stragety.ResponseStragety;
+import com.bytehonor.sdk.server.spring.web.error.ExceptionHolder;
 import com.bytehonor.sdk.server.spring.web.response.stragety.ReturnDirectResponseStragety;
 import com.bytehonor.sdk.server.spring.web.response.stragety.ReturnErrorResponseStragety;
 import com.bytehonor.sdk.server.spring.web.response.stragety.ReturnNormalResponseStragety;
@@ -21,8 +20,8 @@ public class ResponseStragetyFactory {
 			return new ReturnNullResponseStragety(response, standardSpringBootProperties);
 		}
 
-		if (body instanceof ExceptionEntity) {
-			return new ReturnErrorResponseStragety((ExceptionEntity) body, response, standardSpringBootProperties);
+		if (body instanceof ExceptionHolder) {
+			return new ReturnErrorResponseStragety((ExceptionHolder) body, response, standardSpringBootProperties);
 		}
 
 		if (body instanceof JsonResponse) {

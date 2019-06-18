@@ -1,6 +1,6 @@
-package com.bytehonor.sdk.server.spring.web.error.entity;
+package com.bytehonor.sdk.server.spring.web.error;
 
-public final class ExceptionEntity {
+public final class ExceptionHolder {
 	
 	/**
 	 * Http Status
@@ -17,12 +17,12 @@ public final class ExceptionEntity {
 	 */
 	private Exception exception;
 	
-	public ExceptionEntity(Integer code, Exception exception) {
+	public ExceptionHolder(Integer code, Exception exception) {
 		this.code = code;
 		this.exception = exception;
 	}
 
-	public ExceptionEntity() {
+	public ExceptionHolder() {
 		this(null, null);
 	}
 	
