@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.web.response.parser;
+package com.bytehonor.sdk.server.spring.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,9 +7,9 @@ import com.bytehonor.sdk.protocol.common.code.StandardCode;
 import com.bytehonor.sdk.protocol.common.result.JsonResponse;
 import com.bytehonor.sdk.server.spring.exception.InternalRestfulException;
 
-public class JsonResponseParser {
+public class JsonResponseUtils {
 
-	private static final Logger LOG = LoggerFactory.getLogger(JsonResponseParser.class);
+	private static final Logger LOG = LoggerFactory.getLogger(JsonResponseUtils.class);
 
 	public static <T> T safeGet(JsonResponse<T> response) {
 		if (response == null) {
@@ -27,5 +27,13 @@ public class JsonResponseParser {
 		}
 		return data;
 	}
+	
+	public static <S> JsonResponse<S> feignFallback() {
+        JsonResponse<S> result = new JsonResponse<S>();
+        result.setCode(StandardCode.FEIGN_FALLBACK);
+        result.setMessage("远程服务不可用");
+        return result;
+    }
+
 
 }
