@@ -29,114 +29,108 @@ import com.bytehonor.sdk.server.spring.web.error.ExceptionHolder;
 @Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")
 public class CustomErrorController extends AbstractErrorController {
-	
-	private final ErrorProperties errorProperties;
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(CustomErrorController.class);
-	
+
+    private final ErrorProperties errorProperties;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomErrorController.class);
+
 //	@Autowired
 //	private ApplicationContext applicationContext;
-	
-	/**
-	 * Create a new
-	 * {@link org.springframework.boot.autoconfigure.web.BasicErrorController}
-	 * instance.
-	 *
-	 * @param errorAttributes
-	 *            the error attributes
-	 * @param errorProperties
-	 *            configuration properties
-	 */
-	public CustomErrorController(ErrorAttributes errorAttributes, ErrorProperties errorProperties) {
-		this(errorAttributes, errorProperties, Collections.<ErrorViewResolver>emptyList());
-	}
 
-	/**
-	 * Create a new
-	 * {@link org.springframework.boot.autoconfigure.web.BasicErrorController}
-	 * instance.
-	 *
-	 * @param errorAttributes
-	 *            the error attributes
-	 * @param errorProperties
-	 *            configuration properties
-	 * @param errorViewResolvers
-	 *            error view resolvers
-	 */
-	public CustomErrorController(ErrorAttributes errorAttributes, ErrorProperties errorProperties,
-			List<ErrorViewResolver> errorViewResolvers) {
-		super(errorAttributes, errorViewResolvers);
-		Assert.notNull(errorProperties, "ErrorProperties must not be null");
-		this.errorProperties = errorProperties;
-	}
+    /**
+     * Create a new
+     * {@link org.springframework.boot.autoconfigure.web.BasicErrorController}
+     * instance.
+     *
+     * @param errorAttributes the error attributes
+     * @param errorProperties configuration properties
+     */
+    public CustomErrorController(ErrorAttributes errorAttributes, ErrorProperties errorProperties) {
+        this(errorAttributes, errorProperties, Collections.<ErrorViewResolver>emptyList());
+    }
 
-	@Override
-	public String getErrorPath() {
-		return this.errorProperties.getPath();
-	}
+    /**
+     * Create a new
+     * {@link org.springframework.boot.autoconfigure.web.BasicErrorController}
+     * instance.
+     *
+     * @param errorAttributes    the error attributes
+     * @param errorProperties    configuration properties
+     * @param errorViewResolvers error view resolvers
+     */
+    public CustomErrorController(ErrorAttributes errorAttributes, ErrorProperties errorProperties,
+            List<ErrorViewResolver> errorViewResolvers) {
+        super(errorAttributes, errorViewResolvers);
+        Assert.notNull(errorProperties, "ErrorProperties must not be null");
+        this.errorProperties = errorProperties;
+    }
 
-	@RequestMapping(produces = "text/html")
-	public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
-		HttpStatus status = getStatus(request);
-		Map<String, Object> model = Collections
-				.unmodifiableMap(getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML)));
-		response.setStatus(status.value());
-		ModelAndView modelAndView = resolveErrorView(request, response, status, model);
-		return modelAndView == null ? new ModelAndView("error", model) : modelAndView;
-	}
+    @Override
+    public String getErrorPath() {
+        return this.errorProperties.getPath();
+    }
 
-	@RequestMapping
-	@ResponseBody
-	public ResponseEntity<ExceptionHolder> error(HttpServletRequest request) {
-		Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
-		HttpStatus status = getStatus(request);
-		
-		LOGGER.error("Framework Error, status:{}, phrase:{}", status.value(), status.getReasonPhrase());
-		
-		FrameworkException exception = new FrameworkException(formatErrorMessage(body));
-		
-		ExceptionHolder error = new ExceptionHolder(StandardCode.FRAMEWORK_ERROR, exception);
-		error.setStatus(status.value());
-		return new ResponseEntity<ExceptionHolder>(error, status);
-	}
-	
-	private String formatErrorMessage(Map<String, Object> body) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("[").append(body.get("error"));
-		Object path = body.get("path");
-		if (path != null) {
-			sb.append(", ").append("path:").append(path);
-		}
-		sb.append("]");
-		return sb.toString();
-	}
+    @RequestMapping(produces = "text/html")
+    public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
+        HttpStatus status = getStatus(request);
+        Map<String, Object> model = Collections
+                .unmodifiableMap(getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML)));
+        response.setStatus(status.value());
+        ModelAndView modelAndView = resolveErrorView(request, response, status, model);
+        return modelAndView == null ? new ModelAndView("error", model) : modelAndView;
+    }
 
-	/**
-	 * Determine if the stacktrace attribute should be included.
-	 *
-	 * @param request
-	 *            the source request
-	 * @param produces
-	 *            the media type produced (or {@code MediaType.ALL})
-	 * @return if the stacktrace attribute should be included
-	 */
-	protected boolean isIncludeStackTrace(HttpServletRequest request, MediaType produces) {
-		ErrorProperties.IncludeStacktrace include = getErrorProperties().getIncludeStacktrace();
-		if (include == ErrorProperties.IncludeStacktrace.ALWAYS) {
-			return true;
-		}
-		if (include == ErrorProperties.IncludeStacktrace.ON_TRACE_PARAM) {
-			return getTraceParameter(request);
-		}
-		return false;
-	}
+    @RequestMapping
+    @ResponseBody
+    public ResponseEntity<ExceptionHolder> error(HttpServletRequest request) {
+        Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
+        HttpStatus status = getStatus(request);
 
-	/**
-	 * Provide access to the error properties.
-	 *
-	 * @return the error properties
-	 */
-	protected ErrorProperties getErrorProperties() {
-		return this.errorProperties;
-	}
+        LOGGER.error("Framework Error, path:{}, status:{}, phrase:{}", request.getRemoteAddr(), status.value(),
+                status.getReasonPhrase());
+
+        FrameworkException exception = new FrameworkException(formatErrorMessage(body));
+
+        ExceptionHolder error = new ExceptionHolder(StandardCode.FRAMEWORK_ERROR, exception);
+        error.setStatus(status.value());
+        return new ResponseEntity<ExceptionHolder>(error, status);
+    }
+
+    private String formatErrorMessage(Map<String, Object> body) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[").append(body.get("error"));
+        Object path = body.get("path");
+        if (path != null) {
+            sb.append(", ").append("path:").append(path);
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    /**
+     * Determine if the stacktrace attribute should be included.
+     *
+     * @param request  the source request
+     * @param produces the media type produced (or {@code MediaType.ALL})
+     * @return if the stacktrace attribute should be included
+     */
+    protected boolean isIncludeStackTrace(HttpServletRequest request, MediaType produces) {
+        ErrorProperties.IncludeStacktrace include = getErrorProperties().getIncludeStacktrace();
+        if (include == ErrorProperties.IncludeStacktrace.ALWAYS) {
+            return true;
+        }
+        if (include == ErrorProperties.IncludeStacktrace.ON_TRACE_PARAM) {
+            return getTraceParameter(request);
+        }
+        return false;
+    }
+
+    /**
+     * Provide access to the error properties.
+     *
+     * @return the error properties
+     */
+    protected ErrorProperties getErrorProperties() {
+        return this.errorProperties;
+    }
 }
