@@ -86,8 +86,8 @@ public class CustomErrorController extends AbstractErrorController {
         Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
         HttpStatus status = getStatus(request);
 
-        LOGGER.error("Framework Error, path:{}, status:{}, phrase:{}", request.getRemoteAddr(), status.value(),
-                status.getReasonPhrase());
+        LOGGER.error("Framework Error, method:{}, uri:{}, status:{}, phrase:{}", request.getMethod(),
+                request.getRequestURI(), status.value(), status.getReasonPhrase());
 
         FrameworkException exception = new FrameworkException(formatErrorMessage(body));
 
