@@ -15,7 +15,7 @@ public class TerminalUtils {
 			from = request.getHeader(HeaderKey.X_FROM_TERMINAL);
 		}
 		if (StringUtils.isEmpty(from)) {
-			from = "unknown";
+			from = "browser";
 		}
 		return from;
 	}
