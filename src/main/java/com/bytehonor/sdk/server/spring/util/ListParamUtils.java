@@ -18,6 +18,18 @@ public class ListParamUtils {
         return str.substring(0, str.length() - 1);
     }
 
+    public static String joinStringUnsafe(List<String> list) {
+        if (list == null || list.isEmpty()) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (String val : list) {
+            sb.append(val).append(",");
+        }
+        String str = sb.toString();
+        return str.substring(0, str.length() - 1);
+    }
+
     public static String joinLong(List<Long> list) {
         if (list == null || list.isEmpty()) {
             return "";
