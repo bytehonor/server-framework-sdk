@@ -81,7 +81,7 @@ public class MatchColumn {
     public static MatchColumn in(String key, List<String> value) {
         String src = null;
         if (value != null && value.isEmpty() == false) {
-            src = StringCreator.create().append("(").append(ListParamUtils.joinString(value)).append(")").toString();
+            src = StringCreator.create().append("(").append(ListParamUtils.joinStringSafe(value)).append(")").toString();
         }
         return new MatchColumn(key, src, SqlOperator.IN);
     }

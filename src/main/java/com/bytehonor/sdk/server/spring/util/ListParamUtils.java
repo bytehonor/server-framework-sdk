@@ -6,7 +6,13 @@ public class ListParamUtils {
 
     private static final String CON = ",";
 
-    public static String joinString(List<String> list) {
+    /**
+     * with quote ''
+     * 
+     * @param list
+     * @return
+     */
+    public static String joinStringSafe(List<String> list) {
         if (list == null || list.isEmpty()) {
             return "";
         }
@@ -18,7 +24,7 @@ public class ListParamUtils {
         return str.substring(0, str.length() - 1);
     }
 
-    public static String joinStringUnsafe(List<String> list) {
+    public static String joinString(List<String> list) {
         if (list == null || list.isEmpty()) {
             return "";
         }

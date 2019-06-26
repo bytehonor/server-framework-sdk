@@ -18,7 +18,7 @@ public class ListParamUtilsTest {
     @Test
     public void testJoinString() {
         List<String> list = Lists.newArrayList("xxx", "yyy");
-        LOG.info("testJoinString:{}", ListParamUtils.joinString(list));
+        LOG.info("testJoinString:{}", ListParamUtils.joinStringSafe(list));
         assertTrue("testJoinString", true);
     }
 
