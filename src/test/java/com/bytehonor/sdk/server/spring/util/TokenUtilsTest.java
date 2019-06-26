@@ -12,11 +12,11 @@ public class TokenUtilsTest {
 
     @Test
     public void test() {
-        String fromTerminal = "browser";
+        String fromTerminal = "browsersssasdfasfd";
         long now = System.currentTimeMillis();
         for (int i = 200; i < 205; i++) {
             String token = TokenUtils.generate(now + i, fromTerminal);
-            LOG.info("ok:{}, token:{}", TokenUtils.check(token, fromTerminal), token);
+            LOG.info("ok:{}, length:{}, token:{}", TokenUtils.check(token, fromTerminal), token.length(), token);
 
         }
         assertTrue("test", true);

@@ -26,16 +26,20 @@ public final class TokenUtils {
 
     public static boolean check(String value, String fromTerminal) {
         Objects.requireNonNull(value, "value");
-        String dec = base64Decode(value);
-        int at = dec.indexOf('&');
-        if (at < 1) {
+        // MTU2MTU1MzIxNzYxNF8xNTYxNTUzMjE3NDE0XzExNTQ4JjJmMzkzNjgxZjMyMzgwZjgyNmE5MThmOTc3NzNkZWM0
+        if (value.length() != 88) {
             return false;
         }
-        String text = dec.substring(0, at);
+        String dec = base64Decode(value);
+        // 1561553217614_1561553217414_11548&2f393681f32380f826a918f97773dec4
+        if ('&' != dec.charAt(33)) {
+            return false;
+        }
+        String text = dec.substring(0, 33);
         if (text.length() < 15) {
             return false;
         }
-        String sign = dec.substring(at + 1, dec.length());
+        String sign = dec.substring(34, dec.length());
         String md5 = MD5Utils.md5(new StringBuilder().append(text).append("+").append(fromTerminal).toString());
         if (md5.equals(sign) == false) {
             return false;
