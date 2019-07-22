@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,15 @@ import com.bytehonor.sdk.server.spring.exception.SpringServerException;
 public class FileUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(FileUtils.class);
+
+    public static String getFileSubfixWithDot(String path) {
+        Objects.requireNonNull(path, "path");
+        int at = path.lastIndexOf('.');
+        if (at < 0) {
+            return ".jpg";
+        }
+        return path.substring(at);
+    }
 
     /**
      * 获得指定文件的byte数组
