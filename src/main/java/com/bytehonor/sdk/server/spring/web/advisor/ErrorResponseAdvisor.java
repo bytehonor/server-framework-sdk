@@ -13,9 +13,9 @@ import com.bytehonor.sdk.server.spring.web.error.ExceptionStragety;
 import com.bytehonor.sdk.server.spring.web.error.ExceptionStragetyFactory;
 
 @ControllerAdvice
-public class GlobalErrorAdvisor {
+public class ErrorResponseAdvisor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GlobalErrorAdvisor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ErrorResponseAdvisor.class);
 
     @Autowired
     private SpringBootStandardProperties springBootStandardProperties;

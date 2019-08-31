@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import com.bytehonor.sdk.server.spring.web.advisor.GlobalErrorAdvisor;
+import com.bytehonor.sdk.server.spring.web.advisor.ErrorResponseAdvisor;
 import com.bytehonor.sdk.server.spring.web.advisor.JsonResponseAdvisor;
 import com.bytehonor.sdk.server.spring.web.controller.CustomErrorController;
 import com.bytehonor.sdk.server.spring.web.mvc.WebMvcCustom;
@@ -32,48 +32,48 @@ import com.bytehonor.sdk.server.spring.web.mvc.WebMvcCustom;
 @ConditionalOnWebApplication
 @ConditionalOnClass({ Servlet.class, DispatcherServlet.class })
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
-@EnableConfigurationProperties({ ResourceProperties.class, SpringBootStandardProperties.class})
+@EnableConfigurationProperties({ ResourceProperties.class, SpringBootStandardProperties.class })
 public class SpringBootStandardConfiguration {
-	
-	private static final Logger LOG = LoggerFactory.getLogger(SpringBootStandardConfiguration.class);
-	
-	@Autowired(required = false)
-	private List<ErrorViewResolver> errorViewResolvers;
 
-	private final ServerProperties serverProperties;
+    private static final Logger LOG = LoggerFactory.getLogger(SpringBootStandardConfiguration.class);
 
-	public SpringBootStandardConfiguration(ServerProperties serverProperties) {
-		this.serverProperties = serverProperties;
-	}
+    @Autowired(required = false)
+    private List<ErrorViewResolver> errorViewResolvers;
 
-	@Bean
-	@ConditionalOnProperty(prefix = "server.core.web", name = "error-controller-enable", matchIfMissing = true)
-	@ConditionalOnMissingBean(value = ErrorController.class)
-	public CustomErrorController basicErrorController(ErrorAttributes errorAttributes) {
-		LOG.info("[standard boot bean] CustomErrorController");
-		return new CustomErrorController(errorAttributes, this.serverProperties.getError(), this.errorViewResolvers);
-	}
-	
-	@Bean
-	@ConditionalOnProperty(prefix = "server.core.web", name = "error.advisor.enable", matchIfMissing = true)
-	@ConditionalOnMissingBean(value = GlobalErrorAdvisor.class)
-	public GlobalErrorAdvisor globalErrorAdvisor() {
-		LOG.info("[standard boot bean] GlobalErrorAdvisor");
-		return new GlobalErrorAdvisor();
-	}
-	
-	@Bean
-	@ConditionalOnProperty(prefix = "server.core.web", name = "response.advisor.enable", matchIfMissing = true)
-	@ConditionalOnMissingBean(value = JsonResponseAdvisor.class)
-	public JsonResponseAdvisor jsonResponseAdvisor() {
-		LOG.info("[standard boot bean] JsonResponseAdvisor");
-		return new JsonResponseAdvisor();
-	}
-	
-	@Bean
-	@ConditionalOnProperty(prefix = "server.core.web", name = "mvc-custom-enable", matchIfMissing = true)
-	public WebMvcCustom webMvcCustom() {
-		LOG.info("[standard boot bean] WebMvcCustom");
-		return new WebMvcCustom();
-	}
+    private final ServerProperties serverProperties;
+
+    public SpringBootStandardConfiguration(ServerProperties serverProperties) {
+        this.serverProperties = serverProperties;
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "server.core.web", name = "error-controller-enable", matchIfMissing = true)
+    @ConditionalOnMissingBean(value = ErrorController.class)
+    public CustomErrorController basicErrorController(ErrorAttributes errorAttributes) {
+        LOG.info("[standard boot bean] CustomErrorController");
+        return new CustomErrorController(errorAttributes, this.serverProperties.getError(), this.errorViewResolvers);
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "server.core.web", name = "error.advisor.enable", matchIfMissing = true)
+    @ConditionalOnMissingBean(value = ErrorResponseAdvisor.class)
+    public ErrorResponseAdvisor errorResponseAdvisor() {
+        LOG.info("[standard boot bean] ErrorResponseAdvisor");
+        return new ErrorResponseAdvisor();
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "server.core.web", name = "response.advisor.enable", matchIfMissing = true)
+    @ConditionalOnMissingBean(value = JsonResponseAdvisor.class)
+    public JsonResponseAdvisor jsonResponseAdvisor() {
+        LOG.info("[standard boot bean] JsonResponseAdvisor");
+        return new JsonResponseAdvisor();
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "server.core.web", name = "mvc-custom-enable", matchIfMissing = true)
+    public WebMvcCustom webMvcCustom() {
+        LOG.info("[standard boot bean] WebMvcCustom");
+        return new WebMvcCustom();
+    }
 }
