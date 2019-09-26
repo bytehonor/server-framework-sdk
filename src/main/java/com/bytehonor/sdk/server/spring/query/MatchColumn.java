@@ -77,6 +77,10 @@ public class MatchColumn {
     public static MatchColumn elt(String key, Integer value) {
         return new MatchColumn(key, value, SqlOperator.ELT);
     }
+    
+    public static MatchColumn like(String key, String value) {
+        return new MatchColumn(key, value, SqlOperator.LIKE);
+    }
 
     public static MatchColumn in(String key, List<String> value) {
         String src = null;

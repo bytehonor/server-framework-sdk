@@ -21,7 +21,7 @@ public class QueryConditionTest {
         QueryCondition condition = QueryCondition.create();
         condition.and(MatchColumn.eq("eq", "111")).and(MatchColumn.neq("neq", 222)).and(MatchColumn.lt("lt", 333))
                 .and(MatchColumn.elt("elt", 4444)).and(MatchColumn.gt("gt", 5)).and(MatchColumn.eq("name", "john"))
-                .orderBy(QueryOrder.descOf("xxx"));
+                .and(MatchColumn.like("like", "%xxx%")).orderBy(QueryOrder.descOf("xxx"));
 
         condition.setOffset(10);
 //        condition.setOrder(QueryOrder.descOf("id"));
@@ -31,7 +31,7 @@ public class QueryConditionTest {
         LOG.info("conditon:{}", condition.getMatchHolder().toAndSql());
         List<Object> args = condition.getMatchHolder().getArgs();
         LOG.info("args:{}", args);
-        assertTrue("test", args.size() == 6);
+        assertTrue("test", args.size() == 7);
     }
 
 }
