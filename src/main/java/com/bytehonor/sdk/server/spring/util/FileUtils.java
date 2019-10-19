@@ -157,7 +157,7 @@ public class FileUtils {
             throw new SpringServerException(1, "download file param is invalid");
         }
         isExistDir(savePath);
-        LOG.info("download savePath:{}, fileName:{}", savePath, fileName);
+        LOG.debug("download savePath:{}, fileName:{}", savePath, fileName);
         File file = new File(savePath + fileName);
         // 获取连接
         InputStream in = null;
