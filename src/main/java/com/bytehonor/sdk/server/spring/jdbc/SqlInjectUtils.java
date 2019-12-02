@@ -2,7 +2,7 @@ package com.bytehonor.sdk.server.spring.jdbc;
 
 import org.springframework.util.StringUtils;
 
-import com.bytehonor.sdk.server.spring.string.StringCreator;
+import com.bytehonor.sdk.basic.lang.string.StringCreator;
 
 public class SqlInjectUtils {
 

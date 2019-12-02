@@ -3,9 +3,9 @@ package com.bytehonor.sdk.server.spring.jdbc.select;
 import java.util.List;
 import java.util.Objects;
 
+import com.bytehonor.sdk.basic.lang.string.StringCreator;
 import com.bytehonor.sdk.server.spring.jdbc.SqlConstants;
 import com.bytehonor.sdk.server.spring.query.QueryCondition;
-import com.bytehonor.sdk.server.spring.string.StringCreator;
 
 public class SelectPreparedStatement {
 

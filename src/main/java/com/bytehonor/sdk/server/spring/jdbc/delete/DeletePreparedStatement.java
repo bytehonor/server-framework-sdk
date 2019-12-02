@@ -3,11 +3,11 @@ package com.bytehonor.sdk.server.spring.jdbc.delete;
 import java.util.List;
 import java.util.Objects;
 
+import com.bytehonor.sdk.basic.lang.string.StringCreator;
 import com.bytehonor.sdk.server.spring.exception.SpringServerException;
 import com.bytehonor.sdk.server.spring.jdbc.MatchColumnHolder;
 import com.bytehonor.sdk.server.spring.jdbc.SqlConstants;
 import com.bytehonor.sdk.server.spring.query.MatchColumn;
-import com.bytehonor.sdk.server.spring.string.StringCreator;
 
 public class DeletePreparedStatement {
 

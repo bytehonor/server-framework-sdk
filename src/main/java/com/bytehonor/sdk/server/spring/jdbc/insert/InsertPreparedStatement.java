@@ -4,9 +4,9 @@ import java.util.Objects;
 
 import org.springframework.util.StringUtils;
 
+import com.bytehonor.sdk.basic.lang.string.StringCreator;
 import com.bytehonor.sdk.server.spring.exception.SpringServerException;
 import com.bytehonor.sdk.server.spring.jdbc.SqlInjectUtils;
-import com.bytehonor.sdk.server.spring.string.StringCreator;
 
 public class InsertPreparedStatement {
 

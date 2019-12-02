@@ -2,8 +2,8 @@ package com.bytehonor.sdk.server.spring.validate;
 
 import java.util.Objects;
 
+import com.bytehonor.sdk.basic.lang.string.StringCreator;
 import com.bytehonor.sdk.server.spring.exception.ParameterExcption;
-import com.bytehonor.sdk.server.spring.string.StringCreator;
 
 public class LongValidate {
 
