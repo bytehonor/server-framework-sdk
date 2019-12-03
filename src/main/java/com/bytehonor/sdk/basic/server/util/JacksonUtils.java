@@ -5,7 +5,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.basic.server.exception.SpringServerException;
+import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
 import com.bytehonor.sdk.protocol.common.code.StandardCode;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -29,7 +29,7 @@ public class JacksonUtils {
             return JACKSON_MAPPER.readValue(json, valueType);
         } catch (Exception e) {
             LOG.error("error:{}, json:{}", e.getMessage(), json);
-            throw new SpringServerException(StandardCode.FRAMEWORK_ERROR, e.getMessage());
+            throw new ServerBasicException(StandardCode.FRAMEWORK_ERROR, e.getMessage());
         }
     }
 
@@ -40,7 +40,7 @@ public class JacksonUtils {
             return JACKSON_MAPPER.readValue(json, valueTypeRef);
         } catch (Exception e) {
             LOG.error("error:{}, json:{}", e.getMessage(), json);
-            throw new SpringServerException(StandardCode.FRAMEWORK_ERROR, e.getMessage());
+            throw new ServerBasicException(StandardCode.FRAMEWORK_ERROR, e.getMessage());
         }
     }
 

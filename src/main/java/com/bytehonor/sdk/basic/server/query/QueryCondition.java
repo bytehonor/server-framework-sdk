@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
-import com.bytehonor.sdk.basic.server.exception.SpringServerException;
+import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
 import com.bytehonor.sdk.basic.server.getter.RequestGetter;
 import com.bytehonor.sdk.basic.server.jdbc.MatchColumnHolder;
 import com.bytehonor.sdk.protocol.common.constant.HttpConstants;
@@ -63,7 +63,7 @@ public final class QueryCondition {
     public QueryCondition and(MatchColumn column) {
         Objects.requireNonNull(column, "column");
         if (StringUtils.isEmpty(column.getKey())) {
-            throw new SpringServerException(44, "column key cann't be empty");
+            throw new ServerBasicException(44, "column key cann't be empty");
         }
         matchHolder.and(column);
         return this;

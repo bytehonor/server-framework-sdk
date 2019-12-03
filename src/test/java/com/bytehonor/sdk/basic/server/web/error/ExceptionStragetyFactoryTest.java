@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.bytehonor.sdk.basic.server.exception.InternalRestfulException;
-import com.bytehonor.sdk.basic.server.exception.SpringServerException;
+import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
 import com.bytehonor.sdk.basic.server.web.error.ExceptionStragety;
 import com.bytehonor.sdk.basic.server.web.error.ExceptionStragetyFactory;
 import com.bytehonor.sdk.basic.server.web.error.stragety.InternalRestfulExceptionStragety;
@@ -23,7 +23,7 @@ public class ExceptionStragetyFactoryTest {
 		ExceptionStragety s2 = ExceptionStragetyFactory.build(new InternalRestfulException());
 		boolean t2 = s2 instanceof InternalRestfulExceptionStragety;
 
-		ExceptionStragety s3 = ExceptionStragetyFactory.build(new SpringServerException());
+		ExceptionStragety s3 = ExceptionStragetyFactory.build(new ServerBasicException());
 		boolean t3 = s3 instanceof ServerDefinedExceptionStragety;
 
 		boolean isOk = t1 && t2 && t3;

@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
-import com.bytehonor.sdk.basic.server.exception.SpringServerException;
+import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
 
 public class FileUtils {
 
@@ -82,7 +82,7 @@ public class FileUtils {
      */
     public static File byte2File(byte[] bfile, String filePath, String fileName) {
         if (StringUtils.isEmpty(filePath) || StringUtils.isEmpty(fileName)) {
-            throw new SpringServerException(1, "byte2File param is invalid");
+            throw new ServerBasicException(1, "byte2File param is invalid");
         }
         isExistDir(filePath);// 判断文件目录是否存在
         File file = new File(filePath + fileName);
@@ -154,7 +154,7 @@ public class FileUtils {
 
     public static File download(String fileUrl, String savePath, String fileName) {
         if (StringUtils.isEmpty(fileUrl) || StringUtils.isEmpty(savePath) || StringUtils.isEmpty(fileName)) {
-            throw new SpringServerException(1, "download file param is invalid");
+            throw new ServerBasicException(1, "download file param is invalid");
         }
         isExistDir(savePath);
         LOG.debug("download savePath:{}, fileName:{}", savePath, fileName);
@@ -179,7 +179,7 @@ public class FileUtils {
             }
         } catch (Exception e) {
             LOG.error("byte2File error", e);
-            throw new SpringServerException(1, "下载文件失败");
+            throw new ServerBasicException(1, "下载文件失败");
         } finally {
             try {
                 if (out != null) {
