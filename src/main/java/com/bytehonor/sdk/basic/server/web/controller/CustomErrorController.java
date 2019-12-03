@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bytehonor.sdk.basic.define.code.StandardCode;
 import com.bytehonor.sdk.basic.server.exception.FrameworkException;
 import com.bytehonor.sdk.basic.server.web.error.ExceptionHolder;
-import com.bytehonor.sdk.protocol.common.code.StandardCode;
 
 @Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")

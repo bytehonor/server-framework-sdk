@@ -3,9 +3,9 @@ package com.bytehonor.sdk.basic.server.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.basic.define.code.StandardCode;
+import com.bytehonor.sdk.basic.define.result.JsonResponse;
 import com.bytehonor.sdk.basic.server.exception.InternalRestfulException;
-import com.bytehonor.sdk.protocol.common.code.StandardCode;
-import com.bytehonor.sdk.protocol.common.result.JsonResponse;
 
 public class JsonResponseUtils {
 

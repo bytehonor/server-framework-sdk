@@ -8,10 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
+import com.bytehonor.sdk.basic.define.constant.HttpConstants;
 import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
 import com.bytehonor.sdk.basic.server.getter.RequestGetter;
 import com.bytehonor.sdk.basic.server.jdbc.MatchColumnHolder;
-import com.bytehonor.sdk.protocol.common.constant.HttpConstants;
 
 /**
  * 

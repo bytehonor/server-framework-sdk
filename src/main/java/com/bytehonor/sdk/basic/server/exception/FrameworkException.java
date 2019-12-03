@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.basic.server.exception;
 
-import com.bytehonor.sdk.protocol.common.code.StandardCode;
+import com.bytehonor.sdk.basic.define.code.StandardCode;
 
 public class FrameworkException extends RuntimeException {
 

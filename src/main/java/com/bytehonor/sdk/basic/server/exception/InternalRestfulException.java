@@ -1,7 +1,7 @@
 package com.bytehonor.sdk.basic.server.exception;
 
-import com.bytehonor.sdk.protocol.common.code.StandardCode;
-import com.bytehonor.sdk.protocol.common.error.StandardException;
+import com.bytehonor.sdk.basic.define.code.StandardCode;
+import com.bytehonor.sdk.basic.define.error.StandardException;
 
 public class InternalRestfulException extends StandardException {
 

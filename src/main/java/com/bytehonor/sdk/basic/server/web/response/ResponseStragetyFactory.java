@@ -3,13 +3,13 @@ package com.bytehonor.sdk.basic.server.web.response;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.server.ServerHttpResponse;
 
+import com.bytehonor.sdk.basic.define.result.JsonResponse;
 import com.bytehonor.sdk.basic.server.config.SpringBootStandardProperties;
 import com.bytehonor.sdk.basic.server.web.error.ExceptionHolder;
 import com.bytehonor.sdk.basic.server.web.response.stragety.ReturnDirectResponseStragety;
 import com.bytehonor.sdk.basic.server.web.response.stragety.ReturnErrorResponseStragety;
 import com.bytehonor.sdk.basic.server.web.response.stragety.ReturnNormalResponseStragety;
 import com.bytehonor.sdk.basic.server.web.response.stragety.ReturnNullResponseStragety;
-import com.bytehonor.sdk.protocol.common.result.JsonResponse;
 
 public class ResponseStragetyFactory {
 

@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.basic.server.exception;
 
-import com.bytehonor.sdk.protocol.common.error.StandardException;
+import com.bytehonor.sdk.basic.define.error.StandardException;
 
 public class ParameterExcption extends StandardException {
 

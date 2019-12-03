@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.1.4.RELEASE'
+		springBootVersion = '2.2.1.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -17,7 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 apply from: 'repository.gradle'
 
 group = 'com.bytehonor.sdk'
-version = '4.0.0'
+version = '4.1.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -28,13 +28,13 @@ repositories {
 }
 
 ext {
-	springCloudVersion = 'Greenwich.SR1'
+	springCloudVersion = 'Hoxton.RELEASE'
 }
 
 dependencies {
-    implementation('cglib:cglib:3.2.12')
-    implementation('com.bytehonor.sdk:common-protocol-sdk:3.4.5')
-    implementation('com.bytehonor.sdk:lang-basic-sdk:0.0.2')
+    implementation('cglib:cglib:3.3.0')
+    implementation('com.bytehonor.sdk:define-basic-sdk:3.5.0')
+    implementation('com.bytehonor.sdk:lang-basic-sdk:0.1.0')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
 	implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
