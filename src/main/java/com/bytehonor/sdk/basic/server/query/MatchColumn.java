@@ -3,8 +3,8 @@ package com.bytehonor.sdk.basic.server.query;
 import java.util.List;
 
 import com.bytehonor.sdk.basic.lang.string.StringCreator;
+import com.bytehonor.sdk.basic.lang.util.ListJoinUtils;
 import com.bytehonor.sdk.basic.server.jdbc.SqlOperator;
-import com.bytehonor.sdk.basic.server.util.ListParamUtils;
 
 public class MatchColumn {
 
@@ -85,7 +85,7 @@ public class MatchColumn {
     public static MatchColumn in(String key, List<String> value) {
         String src = null;
         if (value != null && value.isEmpty() == false) {
-            src = StringCreator.create().append("(").append(ListParamUtils.joinStringSafe(value)).append(")").toString();
+            src = StringCreator.create().append("(").append(ListJoinUtils.joinStringSafe(value)).append(")").toString();
         }
         return new MatchColumn(key, src, SqlOperator.IN);
     }
@@ -93,7 +93,7 @@ public class MatchColumn {
     public static MatchColumn inLong(String key, List<Long> value) {
         String src = null;
         if (value != null && value.isEmpty() == false) {
-            src = StringCreator.create().append("(").append(ListParamUtils.joinLong(value)).append(")").toString();
+            src = StringCreator.create().append("(").append(ListJoinUtils.joinLong(value)).append(")").toString();
         }
         return new MatchColumn(key, src, SqlOperator.IN);
     }
@@ -101,7 +101,7 @@ public class MatchColumn {
     public static MatchColumn inInt(String key, List<Integer> value) {
         String src = null;
         if (value != null && value.isEmpty() == false) {
-            src = StringCreator.create().append("(").append(ListParamUtils.joinInteger(value)).append(")").toString();
+            src = StringCreator.create().append("(").append(ListJoinUtils.joinInteger(value)).append(")").toString();
         }
         return new MatchColumn(key, src, SqlOperator.IN);
     }
