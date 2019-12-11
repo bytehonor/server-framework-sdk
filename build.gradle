@@ -31,7 +31,7 @@ ext {
 dependencies {
     implementation('cglib:cglib:3.3.0')
     implementation('com.bytehonor.sdk:define-basic-sdk:3.5.10')
-    implementation('com.bytehonor.sdk:lang-basic-sdk:0.1.4')
+    implementation('com.bytehonor.sdk:lang-basic-sdk:0.1.5')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
 	implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
