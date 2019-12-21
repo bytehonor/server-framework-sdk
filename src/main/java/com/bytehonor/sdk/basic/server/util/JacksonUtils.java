@@ -28,7 +28,7 @@ public class JacksonUtils {
         try {
             return JACKSON_MAPPER.readValue(json, valueType);
         } catch (Exception e) {
-            LOG.error("error:{}, json:{}", e.getMessage(), json);
+            LOG.error("json:{}, error", json, e);
             throw new ServerBasicException(StandardCode.FRAMEWORK_ERROR, e.getMessage());
         }
     }
@@ -39,7 +39,7 @@ public class JacksonUtils {
         try {
             return JACKSON_MAPPER.readValue(json, valueTypeRef);
         } catch (Exception e) {
-            LOG.error("error:{}, json:{}", e.getMessage(), json);
+            LOG.error("json:{}, error", json, e);
             throw new ServerBasicException(StandardCode.FRAMEWORK_ERROR, e.getMessage());
         }
     }
