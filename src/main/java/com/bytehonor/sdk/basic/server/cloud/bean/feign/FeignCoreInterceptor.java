@@ -4,8 +4,6 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -19,7 +17,7 @@ import feign.RequestTemplate;
 
 public class FeignCoreInterceptor implements RequestInterceptor {
     
-    private static final Logger LOG = LoggerFactory.getLogger(FeignCoreInterceptor.class);
+//    private static final Logger LOG = LoggerFactory.getLogger(FeignCoreInterceptor.class);
 
 	@Value("${spring.application.name:UNDEFINED}")
 	private String applicationName;
@@ -45,9 +43,9 @@ public class FeignCoreInterceptor implements RequestInterceptor {
 			while (headerNames.hasMoreElements()) {
 				String name = headerNames.nextElement();
 				String value = request.getHeader(name);
-				if (LOG.isDebugEnabled()) {
-				    LOG.info("key:{}, value:{}",name, value);
-				}
+//				if (LOG.isDebugEnabled()) {
+//				    LOG.info("key:{}, value:{}",name, value);
+//				}
 				requestTemplate.header(name, value);
 			}
 		}
