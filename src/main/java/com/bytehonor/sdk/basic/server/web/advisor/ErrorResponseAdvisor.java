@@ -28,7 +28,11 @@ public class ErrorResponseAdvisor {
             StackTraceElement[] stackTrace = ex.getStackTrace();
             StringBuilder sb = new StringBuilder("\n *** ").append(ex.getClass().getSimpleName()).append(" : ")
                     .append(ex.getMessage());
-            for (int i = 0; i < springBootStandardProperties.getErrorTraceLines(); i++) {
+            int errorTraceLines = springBootStandardProperties.getErrorTraceLines();
+            if (errorTraceLines > stackTrace.length) {
+                errorTraceLines = stackTrace.length;
+            }
+            for (int i = 0; i < errorTraceLines; i++) {
                 if (stackTrace[i] == null) {
                     continue;
                 }
