@@ -4,6 +4,8 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -11,12 +13,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.bytehonor.sdk.basic.define.constant.ForceStatusHeader;
 import com.bytehonor.sdk.basic.define.constant.HeaderKey;
-import com.bytehonor.sdk.basic.lang.util.MD5Utils;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 
 public class FeignCoreInterceptor implements RequestInterceptor {
+    
+    private static final Logger LOG = LoggerFactory.getLogger(FeignCoreInterceptor.class);
 
 	@Value("${spring.application.name:UNDEFINED}")
 	private String applicationName;
@@ -26,9 +29,9 @@ public class FeignCoreInterceptor implements RequestInterceptor {
 		requestTemplate.header(HeaderKey.X_FROM_TERMINAL, applicationName);
 		requestTemplate.header(ForceStatusHeader.FORCE_STATUS_OK_KEY, ForceStatusHeader.FORCE_STATUS_OK_VALUE);
 
-		long now = System.currentTimeMillis();
-		requestTemplate.header(HeaderKey.X_RPC_TIME, String.valueOf(now));
-		requestTemplate.header(HeaderKey.X_RPC_SIGN, buildSign(now));
+//		long now = System.currentTimeMillis();
+//		requestTemplate.header(HeaderKey.X_RPC_TIME, String.valueOf(now));
+//		requestTemplate.header(HeaderKey.X_RPC_SIGN, buildSign(now));
 		
 		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
 		if (requestAttributes == null) {
@@ -41,15 +44,18 @@ public class FeignCoreInterceptor implements RequestInterceptor {
 		if (headerNames != null) {
 			while (headerNames.hasMoreElements()) {
 				String name = headerNames.nextElement();
-				String values = request.getHeader(name);
-				requestTemplate.header(name, values);
+				String value = request.getHeader(name);
+				if (LOG.isDebugEnabled()) {
+				    LOG.info("key:{}, value:{}",name, value);
+				}
+				requestTemplate.header(name, value);
 			}
 		}
 	}
 	
-	private String buildSign(long time) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(applicationName).append("&").append(time);
-		return MD5Utils.md5(sb.toString()).toLowerCase();
-	}
+//	private String buildSign(long time) {
+//		StringBuilder sb = new StringBuilder();
+//		sb.append(applicationName).append("&").append(time);
+//		return MD5Utils.md5(sb.toString()).toLowerCase();
+//	}
 }
