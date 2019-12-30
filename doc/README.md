@@ -17,3 +17,6 @@ CREATE TABLE `tbl_other` (
   `school` varchar(64) NULL DEFAULT '' comment 'string',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci comment 'tbl_other';
+
+
+implementation('com.fasterxml.jackson.module:jackson-module-kotlin')
