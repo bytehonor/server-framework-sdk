@@ -17,7 +17,7 @@ public class RequestGetter {
      * @return
      */
     public static boolean isCount(HttpServletRequest request) {
-        return BooleanGetter.optional(request.getParameter(HttpConstants.COUNT_KEY));
+        return BooleanGetter.optional(getValue(request, HttpConstants.COUNT_KEY), false);
     }
 
     /**
@@ -25,7 +25,7 @@ public class RequestGetter {
      * @return
      */
     public static int getLimit(HttpServletRequest request) {
-        int res = IntegerGetter.optional(request.getParameter(HttpConstants.LIMIT_KEY), HttpConstants.LIMIT_DEF);
+        int res = IntegerGetter.optional(getValue(request, HttpConstants.LIMIT_KEY), HttpConstants.LIMIT_DEF);
         if (res > HttpConstants.LIMIT_MAX) {
             res = HttpConstants.LIMIT_MAX;
         }
@@ -37,7 +37,7 @@ public class RequestGetter {
      * @return
      */
     public static int getOffset(HttpServletRequest request) {
-        return IntegerGetter.optional(request.getParameter(HttpConstants.OFFSET_KEY), HttpConstants.OFFSET_DEFAULT);
+        return IntegerGetter.optional(getValue(request, HttpConstants.OFFSET_KEY), HttpConstants.OFFSET_DEFAULT);
     }
 
     /**
