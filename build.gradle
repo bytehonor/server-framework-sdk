@@ -1,13 +1,14 @@
 plugins {
-    id 'org.springframework.boot' version '2.2.1.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id 'java-library'
 }
 
 apply from: 'repository.gradle'
 
 group = 'com.bytehonor.sdk'
-version = '4.3.3'
+version = '4.4.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -17,6 +18,9 @@ configurations {
     runtimeClasspath {
         extendsFrom developmentOnly
     }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
@@ -25,13 +29,13 @@ repositories {
 }
 
 ext {
-    set('springCloudVersion', "Hoxton.RELEASE")
+    set('springCloudVersion', "Hoxton.SR3")
 }
 
 dependencies {
-    implementation('cglib:cglib:3.3.0')
-    implementation('com.bytehonor.sdk:define-basic-sdk:3.5.10')
-    implementation('com.bytehonor.sdk:lang-basic-sdk:0.1.10')
+    api('cglib:cglib:3.3.0')
+    api('com.bytehonor.sdk:define-basic-sdk:3.5.10')
+    api('com.bytehonor.sdk:lang-basic-sdk:0.1.10')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
     implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
