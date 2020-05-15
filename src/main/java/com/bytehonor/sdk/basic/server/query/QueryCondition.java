@@ -58,7 +58,10 @@ public final class QueryCondition {
     }
 
     public static QueryCondition create(int offset, int limit, QueryOrder order) {
-        QueryCondition codition = new QueryCondition(limit, offset, order);
+        QueryCondition codition = new QueryCondition();
+        codition.setOffset(offset);
+        codition.setLimit(limit);
+        codition.setOrder(order);
         return codition;
     }
 
