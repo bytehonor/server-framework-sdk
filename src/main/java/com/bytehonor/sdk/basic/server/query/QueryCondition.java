@@ -1,5 +1,6 @@
 package com.bytehonor.sdk.basic.server.query;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +29,7 @@ public final class QueryCondition {
 
     private QueryOrder order;
 
-    private final MatchColumnHolder matchHolder;
+    private final MatchColumnHolder columnHolder;
 
     private QueryCondition() {
         this(0, HttpConstants.LIMIT_MAX, null);
@@ -38,7 +39,7 @@ public final class QueryCondition {
         this.offset = offset;
         this.limit = limit;
         this.order = order;
-        this.matchHolder = MatchColumnHolder.create();
+        this.columnHolder = MatchColumnHolder.create();
     }
 
     public static QueryCondition create() {
@@ -66,7 +67,107 @@ public final class QueryCondition {
         if (StringUtils.isEmpty(column.getKey())) {
             throw new ServerBasicException(44, "column key cann't be empty");
         }
-        matchHolder.and(column);
+        columnHolder.and(column);
+        return this;
+    }
+    
+    public QueryCondition eq(String key, String value) {
+        columnHolder.and(MatchColumn.eq(key, value));
+        return this;
+    }
+
+    public QueryCondition eq(String key, Long value) {
+        columnHolder.and(MatchColumn.eq(key, value));
+        return this;
+    }
+
+    public QueryCondition eq(String key, Integer value) {
+        columnHolder.and(MatchColumn.eq(key, value));
+        return this;
+    }
+
+    public QueryCondition eq(String key, Boolean value) {
+        columnHolder.and(MatchColumn.eq(key, value));
+        return this;
+    }
+
+    public QueryCondition neq(String key, String value) {
+        columnHolder.and(MatchColumn.eq(key, value));
+        return this;
+    }
+
+    public QueryCondition neq(String key, Long value) {
+        columnHolder.and(MatchColumn.neq(key, value));
+        return this;
+    }
+
+    public QueryCondition neq(String key, Integer value) {
+        columnHolder.and(MatchColumn.neq(key, value));
+        return this;
+    }
+
+    public QueryCondition neq(String key, Boolean value) {
+        columnHolder.and(MatchColumn.neq(key, value));
+        return this;
+    }
+
+    public QueryCondition gt(String key, Long value) {
+        columnHolder.and(MatchColumn.gt(key, value));
+        return this;
+    }
+
+    public QueryCondition gt(String key, Integer value) {
+        columnHolder.and(MatchColumn.gt(key, value));
+        return this;
+    }
+
+    public QueryCondition egt(String key, Long value) {
+        columnHolder.and(MatchColumn.egt(key, value));
+        return this;
+    }
+
+    public QueryCondition egt(String key, Integer value) {
+        columnHolder.and(MatchColumn.egt(key, value));
+        return this;
+    }
+
+    public QueryCondition lt(String key, Long value) {
+        columnHolder.and(MatchColumn.lt(key, value));
+        return this;
+    }
+
+    public QueryCondition lt(String key, Integer value) {
+        columnHolder.and(MatchColumn.lt(key, value));
+        return this;
+    }
+
+    public QueryCondition elt(String key, Long value) {
+        columnHolder.and(MatchColumn.elt(key, value));
+        return this;
+    }
+
+    public QueryCondition elt(String key, Integer value) {
+        columnHolder.and(MatchColumn.elt(key, value));
+        return this;
+    }
+
+    public QueryCondition like(String key, String value) {
+        columnHolder.and(MatchColumn.like(key, value));
+        return this;
+    }
+
+    public QueryCondition in(String key, List<String> value) {
+        columnHolder.and(MatchColumn.in(key, value));
+        return this;
+    }
+
+    public QueryCondition inLong(String key, List<Long> value) {
+        columnHolder.and(MatchColumn.inLong(key, value));
+        return this;
+    }
+
+    public QueryCondition inInt(String key, List<Integer> value) {
+        columnHolder.and(MatchColumn.inInt(key, value));
         return this;
     }
 
@@ -100,7 +201,7 @@ public final class QueryCondition {
     }
 
     public MatchColumnHolder getMatchHolder() {
-        return matchHolder;
+        return columnHolder;
     }
 
     public String offsetLimitSql() {

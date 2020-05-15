@@ -1,5 +1,6 @@
 package com.bytehonor.sdk.basic.server.jdbc.delete;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.util.StringUtils;
@@ -17,7 +18,7 @@ public final class DeleteCondition {
 
     private Integer limit;
 
-    private final MatchColumnHolder matchHolder;
+    private final MatchColumnHolder columnHolder;
 
     private DeleteCondition() {
         this(null);
@@ -25,7 +26,7 @@ public final class DeleteCondition {
 
     private DeleteCondition(Integer limit) {
         this.limit = limit;
-        this.matchHolder = MatchColumnHolder.create();
+        this.columnHolder = MatchColumnHolder.create();
     }
 
     public static DeleteCondition create() {
@@ -42,7 +43,107 @@ public final class DeleteCondition {
         if (StringUtils.isEmpty(column.getKey())) {
             throw new ServerBasicException(44, "column key cann't be empty");
         }
-        matchHolder.and(column);
+        columnHolder.and(column);
+        return this;
+    }
+    
+    public DeleteCondition eq(String key, String value) {
+        columnHolder.and(MatchColumn.eq(key, value));
+        return this;
+    }
+
+    public DeleteCondition eq(String key, Long value) {
+        columnHolder.and(MatchColumn.eq(key, value));
+        return this;
+    }
+
+    public DeleteCondition eq(String key, Integer value) {
+        columnHolder.and(MatchColumn.eq(key, value));
+        return this;
+    }
+
+    public DeleteCondition eq(String key, Boolean value) {
+        columnHolder.and(MatchColumn.eq(key, value));
+        return this;
+    }
+
+    public DeleteCondition neq(String key, String value) {
+        columnHolder.and(MatchColumn.eq(key, value));
+        return this;
+    }
+
+    public DeleteCondition neq(String key, Long value) {
+        columnHolder.and(MatchColumn.neq(key, value));
+        return this;
+    }
+
+    public DeleteCondition neq(String key, Integer value) {
+        columnHolder.and(MatchColumn.neq(key, value));
+        return this;
+    }
+
+    public DeleteCondition neq(String key, Boolean value) {
+        columnHolder.and(MatchColumn.neq(key, value));
+        return this;
+    }
+
+    public DeleteCondition gt(String key, Long value) {
+        columnHolder.and(MatchColumn.gt(key, value));
+        return this;
+    }
+
+    public DeleteCondition gt(String key, Integer value) {
+        columnHolder.and(MatchColumn.gt(key, value));
+        return this;
+    }
+
+    public DeleteCondition egt(String key, Long value) {
+        columnHolder.and(MatchColumn.egt(key, value));
+        return this;
+    }
+
+    public DeleteCondition egt(String key, Integer value) {
+        columnHolder.and(MatchColumn.egt(key, value));
+        return this;
+    }
+
+    public DeleteCondition lt(String key, Long value) {
+        columnHolder.and(MatchColumn.lt(key, value));
+        return this;
+    }
+
+    public DeleteCondition lt(String key, Integer value) {
+        columnHolder.and(MatchColumn.lt(key, value));
+        return this;
+    }
+
+    public DeleteCondition elt(String key, Long value) {
+        columnHolder.and(MatchColumn.elt(key, value));
+        return this;
+    }
+
+    public DeleteCondition elt(String key, Integer value) {
+        columnHolder.and(MatchColumn.elt(key, value));
+        return this;
+    }
+
+    public DeleteCondition like(String key, String value) {
+        columnHolder.and(MatchColumn.like(key, value));
+        return this;
+    }
+
+    public DeleteCondition in(String key, List<String> value) {
+        columnHolder.and(MatchColumn.in(key, value));
+        return this;
+    }
+
+    public DeleteCondition inLong(String key, List<Long> value) {
+        columnHolder.and(MatchColumn.inLong(key, value));
+        return this;
+    }
+
+    public DeleteCondition inInt(String key, List<Integer> value) {
+        columnHolder.and(MatchColumn.inInt(key, value));
         return this;
     }
 
@@ -55,7 +156,7 @@ public final class DeleteCondition {
     }
 
     public MatchColumnHolder getMatchHolder() {
-        return matchHolder;
+        return columnHolder;
     }
 
 }
