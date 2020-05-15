@@ -19,7 +19,7 @@ public class QueryConditionTest {
     @Test
     public void test() {
         QueryCondition condition = QueryCondition.create();
-        condition.and(MatchColumn.eq("eq", "111")).and(MatchColumn.neq("neq", 222)).and(MatchColumn.lt("lt", 333))
+        condition.eq("eq", "111").and(MatchColumn.neq("neq", 222)).and(MatchColumn.lt("lt", 333))
                 .and(MatchColumn.elt("elt", 4444)).and(MatchColumn.gt("gt", 5)).and(MatchColumn.eq("name", "john"))
                 .and(MatchColumn.like("like", "%xxx%")).orderBy(QueryOrder.descOf("xxx"));
 
