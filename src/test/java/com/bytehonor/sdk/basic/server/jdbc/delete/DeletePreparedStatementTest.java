@@ -27,4 +27,18 @@ public class DeletePreparedStatementTest {
         assertTrue("test", args.size() == 2);
     }
 
+    @Test
+    public void test2() {
+        DeleteCondition condition = DeleteCondition.create();
+        condition.eq("name", "john").egt("create_at", System.currentTimeMillis());
+        condition.setLimit(1);
+        DeletePreparedStatement statement = DeletePreparedStatement.create("tbl_user", condition);
+
+        LOG.info("sql:{}", statement.toDeleteRealSql());
+        LOG.info("sql:{}", statement.toDeleteLogicSql());
+        List<Object> args = statement.args();
+        LOG.info("args:{}", args);
+        assertTrue("test2", args.size() == 2);
+    }
+
 }
