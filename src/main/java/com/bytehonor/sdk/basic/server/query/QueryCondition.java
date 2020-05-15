@@ -30,14 +30,19 @@ public final class QueryCondition {
 
     private final MatchColumnHolder matchHolder;
 
-    private QueryCondition(MatchColumnHolder matchHolder) {
-        this.offset = 0;
-        this.limit = HttpConstants.LIMIT_MAX;
-        this.matchHolder = matchHolder;
+    private QueryCondition() {
+        this(0, HttpConstants.LIMIT_MAX, null);
+    }
+
+    private QueryCondition(int offset, int limit, QueryOrder order) {
+        this.offset = offset;
+        this.limit = limit;
+        this.order = order;
+        this.matchHolder = MatchColumnHolder.create();
     }
 
     public static QueryCondition create() {
-        return create(MatchColumnHolder.create(), 0, HttpConstants.LIMIT_MAX, null);
+        return create(0, HttpConstants.LIMIT_MAX, null);
     }
 
     public static QueryCondition create(HttpServletRequest request) {
@@ -48,15 +53,11 @@ public final class QueryCondition {
     }
 
     public static QueryCondition create(int offset, int limit) {
-        return create(MatchColumnHolder.create(), offset, limit, null);
+        return create(offset, limit, null);
     }
 
-    public static QueryCondition create(MatchColumnHolder matchHolder, int offset, int limit, QueryOrder order) {
-        Objects.requireNonNull(matchHolder, "matchHolder");
-        QueryCondition codition = new QueryCondition(matchHolder);
-        codition.setLimit(limit);
-        codition.setOffset(offset);
-        codition.setOrder(order);
+    public static QueryCondition create(int offset, int limit, QueryOrder order) {
+        QueryCondition codition = new QueryCondition(limit, offset, order);
         return codition;
     }
 

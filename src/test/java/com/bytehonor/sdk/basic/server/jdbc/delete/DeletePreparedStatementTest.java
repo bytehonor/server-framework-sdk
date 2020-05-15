@@ -18,6 +18,7 @@ public class DeletePreparedStatementTest {
         DeletePreparedStatement statement = DeletePreparedStatement.create("tbl_user");
         statement.match(MatchColumn.eq("name", "john"));
         statement.match(MatchColumn.egt("create_at", System.currentTimeMillis()));
+        statement.setLimit(1);
 
         LOG.info("sql:{}", statement.toDeleteRealSql());
         LOG.info("sql:{}", statement.toDeleteLogicSql());

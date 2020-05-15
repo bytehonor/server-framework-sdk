@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import com.bytehonor.sdk.basic.lang.string.StringCreator;
 import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
-import com.bytehonor.sdk.basic.server.jdbc.MatchColumnHolder;
 import com.bytehonor.sdk.basic.server.jdbc.SqlConstants;
 import com.bytehonor.sdk.basic.server.query.MatchColumn;
 
@@ -13,42 +12,63 @@ public class DeletePreparedStatement {
 
     private final String table;
 
-    private final MatchColumnHolder matchHolder;
+    private final DeleteCondition condition;
 
-    private DeletePreparedStatement(String table) {
+    private DeletePreparedStatement() {
+        this(null, DeleteCondition.create());
+    }
+
+    private DeletePreparedStatement(String table, DeleteCondition condition) {
         this.table = table;
-        this.matchHolder = MatchColumnHolder.create();
+        this.condition = condition;
     }
 
     public static DeletePreparedStatement create(String table) {
+        return create(table, DeleteCondition.create());
+    }
+
+    public static DeletePreparedStatement create(String table, DeleteCondition condition) {
         Objects.requireNonNull(table, "table");
-        return new DeletePreparedStatement(table);
+        Objects.requireNonNull(condition, "condition");
+        return new DeletePreparedStatement(table, condition);
     }
 
     public DeletePreparedStatement match(MatchColumn column) {
-        this.matchHolder.and(column);
+        this.condition.and(column);
         return this;
     }
 
     public String getTable() {
         return table;
     }
+    
+    public void setLimit(Integer limit) {
+        condition.setLimit(limit);
+    }
 
     public String toDeleteRealSql() {
-        return StringCreator.create().append("DELETE FROM ").append(table).append(" WHERE 1=1")
-                .append(matchHolder.toAndSql()).toString();
+        StringCreator sc = StringCreator.create().append("DELETE FROM ").append(table).append(" WHERE 1=1")
+                .append(condition.getMatchHolder().toAndSql());
+        if (condition.getLimit() != null) {
+            sc.append(" LIMIT ").append(condition.getLimit());
+        }
+        return sc.toString();
     }
 
     public String toDeleteLogicSql() {
-        return StringCreator.create().append(SqlConstants.UPDATE).append(table).append(" SET deleted = 1 WHERE 1=1")
-                .append(matchHolder.toAndSql()).toString();
+        StringCreator sc = StringCreator.create().append(SqlConstants.UPDATE).append(table)
+                .append(" SET deleted = 1 WHERE 1=1").append(condition.getMatchHolder().toAndSql());
+        if (condition.getLimit() != null) {
+            sc.append(" LIMIT ").append(condition.getLimit());
+        }
+        return sc.toString();
     }
 
     public List<Object> args() {
-        if (matchHolder.getArgs().isEmpty()) {
+        if (condition.getMatchHolder().getArgs().isEmpty()) {
             throw new ServerBasicException(44, "delete but without any match condition");
         }
-        return matchHolder.getArgs();
+        return condition.getMatchHolder().getArgs();
     }
 
 }

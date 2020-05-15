@@ -57,5 +57,4 @@ public class MatchColumnHolder {
     public List<Object> getArgs() {
         return args;
     }
-
 }

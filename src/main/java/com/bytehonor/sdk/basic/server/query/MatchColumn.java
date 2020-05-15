@@ -46,38 +46,110 @@ public class MatchColumn {
         return new MatchColumn(key, value, SqlOperator.NEQ);
     }
 
+    /**
+     * <pre>
+     * >
+     * </pre>
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
     public static MatchColumn gt(String key, Long value) {
         return new MatchColumn(key, value, SqlOperator.GT);
     }
 
+    /**
+     * <pre>
+     * >
+     * </pre>
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
     public static MatchColumn gt(String key, Integer value) {
         return new MatchColumn(key, value, SqlOperator.GT);
     }
 
+    /**
+     * <pre>
+     * >=
+     * </pre>
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
     public static MatchColumn egt(String key, Long value) {
         return new MatchColumn(key, value, SqlOperator.EGT);
     }
 
+    /**
+     * <pre>
+     * >=
+     * </pre>
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
     public static MatchColumn egt(String key, Integer value) {
         return new MatchColumn(key, value, SqlOperator.EGT);
     }
 
+    /**
+     * <pre>
+     * <
+     * </pre>
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
     public static MatchColumn lt(String key, Long value) {
         return new MatchColumn(key, value, SqlOperator.LT);
     }
 
+    /**
+     * <pre>
+     * <
+     * </pre>
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
     public static MatchColumn lt(String key, Integer value) {
         return new MatchColumn(key, value, SqlOperator.LT);
     }
 
+    /**
+     * <pre>
+     * <=
+     * </pre>
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
     public static MatchColumn elt(String key, Long value) {
         return new MatchColumn(key, value, SqlOperator.ELT);
     }
 
+    /**
+     * <pre>
+     * <=
+     * </pre>
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
     public static MatchColumn elt(String key, Integer value) {
         return new MatchColumn(key, value, SqlOperator.ELT);
     }
-    
+
     public static MatchColumn like(String key, String value) {
         return new MatchColumn(key, value, SqlOperator.LIKE);
     }
