@@ -13,11 +13,13 @@ import com.bytehonor.sdk.basic.server.getter.RequestGetter;
 public class RequestUtils {
     
     public static String string(HttpServletRequest request, String key) {
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(key, "key");
         return request.getParameter(key);
     }
 
     public static String stringRequired(HttpServletRequest request, String key) {
-        String val = request.getParameter(key);
+        String val = string(request, key);
         Objects.requireNonNull(val, key);
         if (val.length() < 1) {
             throw new NullPointerException(key);
@@ -26,8 +28,7 @@ public class RequestUtils {
     }
 
     public static Long longRequired(HttpServletRequest request, String key) {
-        String val = request.getParameter(key);
-        Objects.requireNonNull(val, key);
+        String val = stringRequired(request, key);
         try {
             return Long.valueOf(val);
         } catch (Exception e) {
@@ -40,7 +41,7 @@ public class RequestUtils {
     }
 
     public static Long longOptional(HttpServletRequest request, String key, Long def) {
-        String val = request.getParameter(key);
+        String val = string(request, key);
         if (StringUtils.isEmpty(val)) {
             return def;
         }
@@ -52,8 +53,7 @@ public class RequestUtils {
     }
 
     public static Integer integerRequired(HttpServletRequest request, String key) {
-        String val = request.getParameter(key);
-        Objects.requireNonNull(val, key);
+        String val = stringRequired(request, key);
         try {
             return Integer.valueOf(val);
         } catch (Exception e) {
@@ -66,7 +66,7 @@ public class RequestUtils {
     }
 
     public static Integer integerOptional(HttpServletRequest request, String key, Integer def) {
-        String val = request.getParameter(key);
+        String val = string(request, key);
         if (StringUtils.isEmpty(val)) {
             return def;
         }
