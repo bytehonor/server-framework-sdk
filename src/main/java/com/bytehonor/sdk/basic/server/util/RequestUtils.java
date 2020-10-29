@@ -11,6 +11,10 @@ import org.springframework.util.StringUtils;
 import com.bytehonor.sdk.basic.server.getter.RequestGetter;
 
 public class RequestUtils {
+    
+    public static String string(HttpServletRequest request, String key) {
+        return request.getParameter(key);
+    }
 
     public static String stringRequired(HttpServletRequest request, String key) {
         String val = request.getParameter(key);
@@ -81,7 +85,7 @@ public class RequestUtils {
         return RequestGetter.getOffset(request);
     }
 
-    public static List<Long> string2Longs(String src) {
+    public static List<Long> longs(String src) {
         List<Long> list = new ArrayList<Long>();
         if (StringUtils.isEmpty(src)) {
             return list;
@@ -93,7 +97,7 @@ public class RequestUtils {
         return list;
     }
 
-    public static List<Integer> string2Integers(String src) {
+    public static List<Integer> integers(String src) {
         List<Integer> list = new ArrayList<Integer>();
         if (StringUtils.isEmpty(src)) {
             return list;

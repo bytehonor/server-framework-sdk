@@ -8,7 +8,7 @@ plugins {
 apply from: 'repository.gradle'
 
 group = 'com.bytehonor.sdk'
-version = '4.4.5'
+version = '4.4.6'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -35,13 +35,14 @@ ext {
 dependencies {
     api('cglib:cglib:3.3.0')
     api('com.bytehonor.sdk:define-basic-sdk:3.6.0')
-    api('com.bytehonor.sdk:lang-basic-sdk:0.2.5')
+    api('com.bytehonor.sdk:lang-basic-sdk:0.2.6')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
     implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
     developmentOnly('org.springframework.boot:spring-boot-devtools')
     annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.junit.platform:junit-platform-launcher')
 }
 
 dependencyManagement {

@@ -8,10 +8,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.basic.server.query.MatchColumn;
-import com.bytehonor.sdk.basic.server.query.QueryCondition;
-import com.bytehonor.sdk.basic.server.query.QueryOrder;
-
 public class QueryConditionTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(QueryConditionTest.class);

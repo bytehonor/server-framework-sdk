@@ -1,13 +1,11 @@
 package com.bytehonor.sdk.basic.server.web.error;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import com.bytehonor.sdk.basic.server.exception.InternalRestfulException;
 import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
-import com.bytehonor.sdk.basic.server.web.error.ExceptionStragety;
-import com.bytehonor.sdk.basic.server.web.error.ExceptionStragetyFactory;
 import com.bytehonor.sdk.basic.server.web.error.stragety.InternalRestfulExceptionStragety;
 import com.bytehonor.sdk.basic.server.web.error.stragety.NullPointerExceptionStragety;
 import com.bytehonor.sdk.basic.server.web.error.stragety.ServerDefinedExceptionStragety;

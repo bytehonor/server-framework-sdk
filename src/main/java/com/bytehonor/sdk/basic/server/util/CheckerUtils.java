@@ -17,7 +17,7 @@ public class CheckerUtils {
 	 * @param mobile
 	 * @return
 	 */
-	public static boolean checkMobile(String mobile) {
+	public static boolean isMobile(String mobile) {
 		if (StringUtils.isEmpty(mobile) || mobile.length() < 11) {
 			return false;
 		}

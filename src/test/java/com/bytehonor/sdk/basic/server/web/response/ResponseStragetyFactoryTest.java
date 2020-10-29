@@ -5,8 +5,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.bytehonor.sdk.basic.server.web.error.ExceptionHolder;
-import com.bytehonor.sdk.basic.server.web.response.ResponseStragety;
-import com.bytehonor.sdk.basic.server.web.response.ResponseStragetyFactory;
 import com.bytehonor.sdk.basic.server.web.response.stragety.ReturnErrorResponseStragety;
 import com.bytehonor.sdk.basic.server.web.response.stragety.ReturnNullResponseStragety;
 
