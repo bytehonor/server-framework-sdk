@@ -1,5 +1,6 @@
 package com.bytehonor.sdk.basic.server.query;
 
+import java.sql.Types;
 import java.util.List;
 
 import com.bytehonor.sdk.basic.lang.string.StringCreator;
@@ -8,204 +9,216 @@ import com.bytehonor.sdk.basic.server.jdbc.SqlOperator;
 
 public class MatchColumn {
 
-    private String key;
+	private String key;
 
-    private Object value;
+	private Object value;
 
-    private SqlOperator operator;
+	private int type;
 
-    public static MatchColumn eq(String key, String value) {
-        return new MatchColumn(key, value, SqlOperator.EQ);
-    }
+	private SqlOperator operator;
 
-    public static MatchColumn eq(String key, Long value) {
-        return new MatchColumn(key, value, SqlOperator.EQ);
-    }
+	public static MatchColumn eq(String key, String value) {
+		return new MatchColumn(key, value, Types.VARCHAR, SqlOperator.EQ);
+	}
 
-    public static MatchColumn eq(String key, Integer value) {
-        return new MatchColumn(key, value, SqlOperator.EQ);
-    }
+	public static MatchColumn eq(String key, Long value) {
+		return new MatchColumn(key, value, Types.BIGINT, SqlOperator.EQ);
+	}
 
-    public static MatchColumn eq(String key, Boolean value) {
-        return new MatchColumn(key, value, SqlOperator.EQ);
-    }
+	public static MatchColumn eq(String key, Integer value) {
+		return new MatchColumn(key, value, Types.INTEGER, SqlOperator.EQ);
+	}
 
-    public static MatchColumn neq(String key, String value) {
-        return new MatchColumn(key, value, SqlOperator.NEQ);
-    }
+	public static MatchColumn eq(String key, Boolean value) {
+		return new MatchColumn(key, value, Types.BOOLEAN, SqlOperator.EQ);
+	}
 
-    public static MatchColumn neq(String key, Long value) {
-        return new MatchColumn(key, value, SqlOperator.NEQ);
-    }
+	public static MatchColumn neq(String key, String value) {
+		return new MatchColumn(key, value, Types.VARCHAR, SqlOperator.NEQ);
+	}
 
-    public static MatchColumn neq(String key, Integer value) {
-        return new MatchColumn(key, value, SqlOperator.NEQ);
-    }
+	public static MatchColumn neq(String key, Long value) {
+		return new MatchColumn(key, value, Types.BIGINT, SqlOperator.NEQ);
+	}
 
-    public static MatchColumn neq(String key, Boolean value) {
-        return new MatchColumn(key, value, SqlOperator.NEQ);
-    }
+	public static MatchColumn neq(String key, Integer value) {
+		return new MatchColumn(key, value, Types.INTEGER, SqlOperator.NEQ);
+	}
 
-    /**
-     * <pre>
-     * >
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static MatchColumn gt(String key, Long value) {
-        return new MatchColumn(key, value, SqlOperator.GT);
-    }
+	public static MatchColumn neq(String key, Boolean value) {
+		return new MatchColumn(key, value, Types.BOOLEAN, SqlOperator.NEQ);
+	}
 
-    /**
-     * <pre>
-     * >
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static MatchColumn gt(String key, Integer value) {
-        return new MatchColumn(key, value, SqlOperator.GT);
-    }
+	/**
+	 * <pre>
+	 * >
+	 * </pre>
+	 * 
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public static MatchColumn gt(String key, Long value) {
+		return new MatchColumn(key, value, Types.BIGINT, SqlOperator.GT);
+	}
 
-    /**
-     * <pre>
-     * >=
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static MatchColumn egt(String key, Long value) {
-        return new MatchColumn(key, value, SqlOperator.EGT);
-    }
+	/**
+	 * <pre>
+	 * >
+	 * </pre>
+	 * 
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public static MatchColumn gt(String key, Integer value) {
+		return new MatchColumn(key, value, Types.INTEGER, SqlOperator.GT);
+	}
 
-    /**
-     * <pre>
-     * >=
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static MatchColumn egt(String key, Integer value) {
-        return new MatchColumn(key, value, SqlOperator.EGT);
-    }
+	/**
+	 * <pre>
+	 * >=
+	 * </pre>
+	 * 
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public static MatchColumn egt(String key, Long value) {
+		return new MatchColumn(key, value, Types.BIGINT, SqlOperator.EGT);
+	}
 
-    /**
-     * <pre>
-     * <
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static MatchColumn lt(String key, Long value) {
-        return new MatchColumn(key, value, SqlOperator.LT);
-    }
+	/**
+	 * <pre>
+	 * >=
+	 * </pre>
+	 * 
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public static MatchColumn egt(String key, Integer value) {
+		return new MatchColumn(key, value, Types.INTEGER, SqlOperator.EGT);
+	}
 
-    /**
-     * <pre>
-     * <
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static MatchColumn lt(String key, Integer value) {
-        return new MatchColumn(key, value, SqlOperator.LT);
-    }
+	/**
+	 * <pre>
+	 * <
+	 * </pre>
+	 * 
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public static MatchColumn lt(String key, Long value) {
+		return new MatchColumn(key, value, Types.BIGINT, SqlOperator.LT);
+	}
 
-    /**
-     * <pre>
-     * <=
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static MatchColumn elt(String key, Long value) {
-        return new MatchColumn(key, value, SqlOperator.ELT);
-    }
+	/**
+	 * <pre>
+	 * <
+	 * </pre>
+	 * 
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public static MatchColumn lt(String key, Integer value) {
+		return new MatchColumn(key, value, Types.INTEGER, SqlOperator.LT);
+	}
 
-    /**
-     * <pre>
-     * <=
-     * </pre>
-     * 
-     * @param key
-     * @param value
-     * @return
-     */
-    public static MatchColumn elt(String key, Integer value) {
-        return new MatchColumn(key, value, SqlOperator.ELT);
-    }
+	/**
+	 * <pre>
+	 * <=
+	 * </pre>
+	 * 
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public static MatchColumn elt(String key, Long value) {
+		return new MatchColumn(key, value, Types.BIGINT, SqlOperator.ELT);
+	}
 
-    public static MatchColumn like(String key, String value) {
-        return new MatchColumn(key, value, SqlOperator.LIKE);
-    }
+	/**
+	 * <pre>
+	 * <=
+	 * </pre>
+	 * 
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public static MatchColumn elt(String key, Integer value) {
+		return new MatchColumn(key, value, Types.INTEGER, SqlOperator.ELT);
+	}
 
-    public static MatchColumn in(String key, List<String> value) {
-        String src = null;
-        if (value != null && value.isEmpty() == false) {
-            src = StringCreator.create().append("(").append(ListJoinUtils.joinStringSafe(value)).append(")").toString();
-        }
-        return new MatchColumn(key, src, SqlOperator.IN);
-    }
+	public static MatchColumn like(String key, String value) {
+		return new MatchColumn(key, value, Types.VARCHAR, SqlOperator.LIKE);
+	}
 
-    public static MatchColumn inLong(String key, List<Long> value) {
-        String src = null;
-        if (value != null && value.isEmpty() == false) {
-            src = StringCreator.create().append("(").append(ListJoinUtils.joinLong(value)).append(")").toString();
-        }
-        return new MatchColumn(key, src, SqlOperator.IN);
-    }
+	public static MatchColumn in(String key, List<String> value) {
+		String src = null;
+		if (value != null && value.isEmpty() == false) {
+			src = StringCreator.create().append("(").append(ListJoinUtils.joinStringSafe(value)).append(")").toString();
+		}
+		return new MatchColumn(key, src, Types.VARCHAR, SqlOperator.IN);
+	}
 
-    public static MatchColumn inInt(String key, List<Integer> value) {
-        String src = null;
-        if (value != null && value.isEmpty() == false) {
-            src = StringCreator.create().append("(").append(ListJoinUtils.joinInteger(value)).append(")").toString();
-        }
-        return new MatchColumn(key, src, SqlOperator.IN);
-    }
+	public static MatchColumn inLong(String key, List<Long> value) {
+		String src = null;
+		if (value != null && value.isEmpty() == false) {
+			src = StringCreator.create().append("(").append(ListJoinUtils.joinLong(value)).append(")").toString();
+		}
+		return new MatchColumn(key, src, Types.BIGINT, SqlOperator.IN);
+	}
 
-    private MatchColumn(String key, Object value, SqlOperator operator) {
-        this.key = key;
-        this.value = value;
-        this.operator = operator;
-    }
+	public static MatchColumn inInt(String key, List<Integer> value) {
+		String src = null;
+		if (value != null && value.isEmpty() == false) {
+			src = StringCreator.create().append("(").append(ListJoinUtils.joinInteger(value)).append(")").toString();
+		}
+		return new MatchColumn(key, src, Types.INTEGER, SqlOperator.IN);
+	}
 
-    public String getKey() {
-        return key;
-    }
+	
+	private MatchColumn(String key, Object value, int type, SqlOperator operator) {
+		this.key = key;
+		this.value = value;
+		this.type = type;
+		this.operator = operator;
+	}
 
-    public void setKey(String key) {
-        this.key = key;
-    }
+	public String getKey() {
+		return key;
+	}
 
-    public Object getValue() {
-        return value;
-    }
+	public void setKey(String key) {
+		this.key = key;
+	}
 
-    public void setValue(Object value) {
-        this.value = value;
-    }
+	public Object getValue() {
+		return value;
+	}
 
-    public SqlOperator getOperator() {
-        return operator;
-    }
+	public void setValue(Object value) {
+		this.value = value;
+	}
 
-    public void setOperator(SqlOperator operator) {
-        this.operator = operator;
-    }
+	public SqlOperator getOperator() {
+		return operator;
+	}
+
+	public void setOperator(SqlOperator operator) {
+		this.operator = operator;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
 
 }

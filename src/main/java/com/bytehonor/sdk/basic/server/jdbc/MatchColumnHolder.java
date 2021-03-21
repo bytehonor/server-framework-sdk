@@ -12,10 +12,13 @@ public class MatchColumnHolder {
     private StringBuilder sb;
 
     private List<Object> args;
+    
+    private List<Integer> argTypes;
 
     private MatchColumnHolder() {
         sb = new StringBuilder();
         args = new ArrayList<Object>();
+        argTypes = new ArrayList<Integer>();
     }
 
     public static MatchColumnHolder create() {
@@ -41,6 +44,7 @@ public class MatchColumnHolder {
         this.sb.append(SqlConstants.AND).append(column.getKey()).append(SqlConstants.BLANK)
                 .append(column.getOperator().getOpt()).append(SqlConstants.BLANK).append(SqlConstants.PARA);
         this.args.add(column.getValue());
+        this.argTypes.add(column.getType());
         return this;
     }
 
@@ -55,5 +59,9 @@ public class MatchColumnHolder {
 
     public List<Object> getArgs() {
         return args;
+    }
+    
+    public List<Integer> getArgTypes() {
+    	return argTypes;
     }
 }
