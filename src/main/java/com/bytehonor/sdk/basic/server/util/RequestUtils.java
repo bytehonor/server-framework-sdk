@@ -6,8 +6,6 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.util.StringUtils;
-
 import com.bytehonor.sdk.basic.server.getter.RequestGetter;
 
 public class RequestUtils {
@@ -42,7 +40,7 @@ public class RequestUtils {
 
     public static Long longOptional(HttpServletRequest request, String key, Long def) {
         String val = string(request, key);
-        if (StringUtils.isEmpty(val)) {
+        if (StringObject.isEmpty(val)) {
             return def;
         }
         try {
@@ -67,7 +65,7 @@ public class RequestUtils {
 
     public static Integer integerOptional(HttpServletRequest request, String key, Integer def) {
         String val = string(request, key);
-        if (StringUtils.isEmpty(val)) {
+        if (StringObject.isEmpty(val)) {
             return def;
         }
         try {
@@ -87,7 +85,7 @@ public class RequestUtils {
 
     public static List<Long> longs(String src) {
         List<Long> list = new ArrayList<Long>();
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return list;
         }
         String[] arr = src.split(",");
@@ -99,7 +97,7 @@ public class RequestUtils {
 
     public static List<Integer> integers(String src) {
         List<Integer> list = new ArrayList<Integer>();
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return list;
         }
         String[] arr = src.split(",");
@@ -111,12 +109,12 @@ public class RequestUtils {
 
     public static List<String> strings(String src) {
         List<String> list = new ArrayList<String>();
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return list;
         }
         String[] arr = src.split(",");
         for (String a : arr) {
-            if (StringUtils.isEmpty(a)) {
+            if (StringObject.isEmpty(a)) {
                 continue;
             }
             list.add(a.trim());

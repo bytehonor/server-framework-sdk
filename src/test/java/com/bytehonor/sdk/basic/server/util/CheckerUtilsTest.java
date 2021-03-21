@@ -1,8 +1,9 @@
 package com.bytehonor.sdk.basic.server.util;
 
-import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 public class CheckerUtilsTest {
 
@@ -16,7 +17,7 @@ public class CheckerUtilsTest {
 		boolean t6 = CheckerUtils.isMobile(null) == false;
 		boolean t7 = CheckerUtils.isMobile("13805901234");
 		boolean isOk = t1 & t2 && t3 && t4 && t5 && t6 && t7;
-		assertTrue("testCheckMobile", isOk);
+		assertTrue(isOk, "testCheckMobile");
 	}
 
 }

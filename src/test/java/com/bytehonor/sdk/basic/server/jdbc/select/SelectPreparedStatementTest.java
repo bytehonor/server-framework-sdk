@@ -1,6 +1,7 @@
 package com.bytehonor.sdk.basic.server.jdbc.select;
 
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class SelectPreparedStatementTest {
         LOG.info("count:{}", statement.toCountSql());
         List<Object> args = statement.args();
         LOG.info("args:{}", args);
-        assertTrue("test", args.size() == 1);
+        assertTrue(args.size() == 1, "test");
     }
 
 }

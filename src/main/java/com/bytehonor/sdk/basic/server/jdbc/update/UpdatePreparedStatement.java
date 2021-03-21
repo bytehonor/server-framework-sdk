@@ -3,12 +3,11 @@ package com.bytehonor.sdk.basic.server.jdbc.update;
 import java.util.List;
 import java.util.Objects;
 
-import org.springframework.util.StringUtils;
-
 import com.bytehonor.sdk.basic.lang.string.StringCreator;
 import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
 import com.bytehonor.sdk.basic.server.jdbc.MatchColumnHolder;
 import com.bytehonor.sdk.basic.server.query.MatchColumn;
+import com.bytehonor.sdk.basic.server.util.StringObject;
 
 public class UpdatePreparedStatement {
 
@@ -30,7 +29,7 @@ public class UpdatePreparedStatement {
     }
 
     public UpdatePreparedStatement set(String key, String value) {
-        if (StringUtils.isEmpty(value)) {
+        if (StringObject.isEmpty(value)) {
             return this;
         }
         this.updateHolder.set(key, value);

@@ -1,8 +1,9 @@
 package com.bytehonor.sdk.basic.server.validate;
 
-import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 public class IntegerValidateTest {
 
@@ -14,7 +15,7 @@ public class IntegerValidateTest {
 		} catch (Exception e) {
 			isOk = false;
 		}
-		assertTrue("testCheckLength", isOk);
+		assertTrue(isOk, "testCheckLength");
 	}
 
 }

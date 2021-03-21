@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import org.springframework.util.StringUtils;
-
 import com.bytehonor.sdk.basic.server.jdbc.ColumnValue;
 import com.bytehonor.sdk.basic.server.jdbc.SqlConstants;
+import com.bytehonor.sdk.basic.server.util.StringObject;
 
 public class UpdateColumnHolder {
 
@@ -37,7 +36,7 @@ public class UpdateColumnHolder {
      */
     public UpdateColumnHolder set(ColumnValue column) {
         Objects.requireNonNull(column, "column");
-        if (StringUtils.isEmpty(column.getKey()) || column.getValue() == null) {
+        if (StringObject.isEmpty(column.getKey()) || column.getValue() == null) {
             return this;
         }
         // TODO value inject filter

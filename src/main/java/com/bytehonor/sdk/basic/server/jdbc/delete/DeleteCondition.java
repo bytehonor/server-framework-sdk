@@ -3,11 +3,10 @@ package com.bytehonor.sdk.basic.server.jdbc.delete;
 import java.util.List;
 import java.util.Objects;
 
-import org.springframework.util.StringUtils;
-
 import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
 import com.bytehonor.sdk.basic.server.jdbc.MatchColumnHolder;
 import com.bytehonor.sdk.basic.server.query.MatchColumn;
+import com.bytehonor.sdk.basic.server.util.StringObject;
 
 /**
  * 
@@ -40,7 +39,7 @@ public final class DeleteCondition {
 
     public DeleteCondition and(MatchColumn column) {
         Objects.requireNonNull(column, "column");
-        if (StringUtils.isEmpty(column.getKey())) {
+        if (StringObject.isEmpty(column.getKey())) {
             throw new ServerBasicException(44, "column key cann't be empty");
         }
         columnHolder.and(column);

@@ -1,6 +1,7 @@
 package com.bytehonor.sdk.basic.server.jdbc.delete;
 
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class DeletePreparedStatementTest {
         LOG.info("sql:{}", statement.toDeleteLogicSql());
         List<Object> args = statement.args();
         LOG.info("args:{}", args);
-        assertTrue("test", args.size() == 2);
+        assertTrue(args.size() == 2, "test");
     }
 
     @Test
@@ -38,7 +39,7 @@ public class DeletePreparedStatementTest {
         LOG.info("sql:{}", statement.toDeleteLogicSql());
         List<Object> args = statement.args();
         LOG.info("args:{}", args);
-        assertTrue("test2", args.size() == 2);
+        assertTrue(args.size() == 2, "test2");
     }
 
 }

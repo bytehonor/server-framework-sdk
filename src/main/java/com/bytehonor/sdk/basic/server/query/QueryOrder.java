@@ -2,10 +2,9 @@ package com.bytehonor.sdk.basic.server.query;
 
 import java.util.Objects;
 
-import org.springframework.util.StringUtils;
-
 import com.bytehonor.sdk.basic.server.jdbc.SqlConstants;
 import com.bytehonor.sdk.basic.server.jdbc.SqlInjectUtils;
+import com.bytehonor.sdk.basic.server.util.StringObject;
 
 public class QueryOrder {
 
@@ -54,7 +53,7 @@ public class QueryOrder {
     }
 
     public String toSql() {
-        if (StringUtils.isEmpty(column)) {
+        if (StringObject.isEmpty(column)) {
             return "";
         }
         StringBuilder sb = new StringBuilder(" ORDER BY ").append(SqlInjectUtils.column(column))

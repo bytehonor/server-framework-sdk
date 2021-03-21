@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.basic.server.jdbc.insert;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ public class InsertPreparedStatementTest {
 
         LOG.info("sql:{}", statement.toInsertSql());
         LOG.info("rowsSize:{}", statement.getRowSize());
-        assertTrue("test", statement.getRowSize() == 3);
+        assertTrue(statement.getRowSize() == 3, "test");
     }
 
 }

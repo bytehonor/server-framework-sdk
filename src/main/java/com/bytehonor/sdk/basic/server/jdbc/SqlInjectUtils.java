@@ -1,15 +1,14 @@
 package com.bytehonor.sdk.basic.server.jdbc;
 
-import org.springframework.util.StringUtils;
-
 import com.bytehonor.sdk.basic.lang.string.StringCreator;
+import com.bytehonor.sdk.basic.server.util.StringObject;
 
 public class SqlInjectUtils {
 
     private static final char TA = '\'';
 
     public static String escape(String src) {
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return src;
         }
         int len = src.length();
@@ -34,7 +33,7 @@ public class SqlInjectUtils {
     }
     
     public static String column(String src) {
-        if (StringUtils.isEmpty(src)) {
+        if (StringObject.isEmpty(src)) {
             return src;
         }
         int len = src.length();

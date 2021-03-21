@@ -1,8 +1,9 @@
 package com.bytehonor.sdk.basic.server.web.response;
 
-import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import com.bytehonor.sdk.basic.server.web.error.ExceptionHolder;
 import com.bytehonor.sdk.basic.server.web.response.stragety.ReturnErrorResponseStragety;
@@ -22,7 +23,7 @@ public class ResponseStragetyFactoryTest {
 
 		boolean isOk = t1 && t2;
 
-		assertTrue("testBuild", isOk);
+		assertTrue(isOk, "testBuild");
 	}
 
 }

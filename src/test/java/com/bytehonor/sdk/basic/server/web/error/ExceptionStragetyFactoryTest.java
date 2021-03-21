@@ -1,8 +1,9 @@
 package com.bytehonor.sdk.basic.server.web.error;
 
-import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import com.bytehonor.sdk.basic.server.exception.InternalRestfulException;
 import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
@@ -25,7 +26,7 @@ public class ExceptionStragetyFactoryTest {
 		boolean t3 = s3 instanceof ServerDefinedExceptionStragety;
 
 		boolean isOk = t1 && t2 && t3;
-		assertTrue("testBuild", isOk);
+		assertTrue(isOk, "testBuild");
 	}
 
 }

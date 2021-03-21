@@ -2,18 +2,16 @@ package com.bytehonor.sdk.basic.server.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.util.StringUtils;
-
 import com.bytehonor.sdk.basic.define.constant.HeaderKey;
 
 public class TerminalUtils {
 
     public static String getFromTerminal(HttpServletRequest request) {
         String from = request.getParameter(HeaderKey.X_FROM_TERMINAL);
-        if (StringUtils.isEmpty(from)) {
+        if (StringObject.isEmpty(from)) {
             from = request.getHeader(HeaderKey.X_FROM_TERMINAL);
         }
-        if (StringUtils.isEmpty(from)) {
+        if (StringObject.isEmpty(from)) {
             from = "browser";
         }
         return from;
@@ -21,11 +19,11 @@ public class TerminalUtils {
 
     public static String getFromIp(HttpServletRequest request) {
         String ip = request.getHeader(HeaderKey.X_REAL_IP);
-        if (StringUtils.isEmpty(ip) == false) {
+        if (StringObject.isEmpty(ip) == false) {
             return ip;
         }
         ip = request.getHeader(HeaderKey.X_FORWARDED_FOR);
-        if (StringUtils.isEmpty(ip) == false) {
+        if (StringObject.isEmpty(ip) == false) {
             int at = ip.indexOf(",");
             if (at < 0) {
                 return ip;
@@ -38,7 +36,7 @@ public class TerminalUtils {
 
     public static String getFromUuid(HttpServletRequest request) {
         String from = request.getParameter(HeaderKey.X_FROM_UUID);
-        if (StringUtils.isEmpty(from)) {
+        if (StringObject.isEmpty(from)) {
             from = request.getHeader(HeaderKey.X_FROM_UUID);
         }
         return from;

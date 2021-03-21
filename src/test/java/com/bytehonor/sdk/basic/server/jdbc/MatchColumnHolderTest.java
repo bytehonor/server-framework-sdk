@@ -1,6 +1,7 @@
 package com.bytehonor.sdk.basic.server.jdbc;
 
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class MatchColumnHolderTest {
 
         List<Object> args = holder.getArgs();
         LOG.info("args:{}", args);
-        assertTrue("test", args.size() == 4);
+        assertTrue(args.size() == 4, "test");
     }
 
 }

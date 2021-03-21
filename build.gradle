@@ -1,6 +1,6 @@
 plugins {
-    id 'org.springframework.boot' version '2.2.6.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'org.springframework.boot' version '2.4.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'java-library'
 }
@@ -8,7 +8,7 @@ plugins {
 apply from: 'repository.gradle'
 
 group = 'com.bytehonor.sdk'
-version = '4.4.8'
+version = '5.0.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -29,24 +29,28 @@ repositories {
 }
 
 ext {
-    set('springCloudVersion', "Hoxton.SR3")
+    set('springCloudVersion', "2020.0.2")
 }
 
 dependencies {
     api('cglib:cglib:3.3.0')
     api('com.bytehonor.sdk:define-basic-sdk:3.7.0')
     api('com.bytehonor.sdk:lang-basic-sdk:0.2.6')
+    api('com.google.guava:guava:30.1.1-jre')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
-    implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+    implementation('org.springframework.cloud:spring-cloud-starter-consul-discovery')
     developmentOnly('org.springframework.boot:spring-boot-devtools')
     annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testImplementation('org.junit.platform:junit-platform-launcher')
 }
 
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
+}
+
+test {
+	useJUnitPlatform()
 }

@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import org.springframework.util.StringUtils;
-
 import com.bytehonor.sdk.basic.server.query.MatchColumn;
+import com.bytehonor.sdk.basic.server.util.StringObject;
 
 public class MatchColumnHolder {
 
@@ -31,7 +30,7 @@ public class MatchColumnHolder {
     public MatchColumnHolder and(MatchColumn column) {
         Objects.requireNonNull(column, "column");
         Objects.requireNonNull(column.getOperator(), "operator");
-        if (StringUtils.isEmpty(column.getKey()) || column.getValue() == null) {
+        if (StringObject.isEmpty(column.getKey()) || column.getValue() == null) {
             return this;
         }
         if (SqlOperator.IN.getKey().equals(column.getOperator().getKey())) {

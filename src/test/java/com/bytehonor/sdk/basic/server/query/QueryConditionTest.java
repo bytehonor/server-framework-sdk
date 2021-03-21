@@ -1,10 +1,11 @@
 package com.bytehonor.sdk.basic.server.query;
 
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,7 @@ public class QueryConditionTest {
         LOG.info("conditon:{}", condition.getMatchHolder().toAndSql());
         List<Object> args = condition.getMatchHolder().getArgs();
         LOG.info("args:{}", args);
-        assertTrue("test", args.size() == 7);
+        assertTrue(args.size() == 7, "test");
     }
 
 }

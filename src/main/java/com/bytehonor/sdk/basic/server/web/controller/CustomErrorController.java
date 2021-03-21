@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
+import org.springframework.boot.web.error.ErrorAttributeOptions.Include;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -74,7 +76,7 @@ public class CustomErrorController extends AbstractErrorController {
     public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
         HttpStatus status = getStatus(request);
         Map<String, Object> model = Collections
-                .unmodifiableMap(getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML)));
+                .unmodifiableMap(getErrorAttributes(request, ErrorAttributeOptions.of(Include.STACK_TRACE)));
         response.setStatus(status.value());
         ModelAndView modelAndView = resolveErrorView(request, response, status, model);
         return modelAndView == null ? new ModelAndView("error", model) : modelAndView;
@@ -83,7 +85,7 @@ public class CustomErrorController extends AbstractErrorController {
     @RequestMapping
     @ResponseBody
     public ResponseEntity<ExceptionHolder> error(HttpServletRequest request) {
-        Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
+        Map<String, Object> body = getErrorAttributes(request, ErrorAttributeOptions.of(Include.STACK_TRACE));
         HttpStatus status = getStatus(request);
 
         LOGGER.error("Framework Error, method:{}, uri:{}, status:{}, phrase:{}", request.getMethod(),
@@ -119,7 +121,7 @@ public class CustomErrorController extends AbstractErrorController {
         if (include == ErrorProperties.IncludeStacktrace.ALWAYS) {
             return true;
         }
-        if (include == ErrorProperties.IncludeStacktrace.ON_TRACE_PARAM) {
+        if (include == ErrorProperties.IncludeStacktrace.ON_PARAM) {
             return getTraceParameter(request);
         }
         return false;
