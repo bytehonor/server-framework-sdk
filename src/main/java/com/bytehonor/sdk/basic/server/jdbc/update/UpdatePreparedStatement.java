@@ -5,11 +5,12 @@ import java.util.Objects;
 
 import com.bytehonor.sdk.basic.lang.string.StringCreator;
 import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
+import com.bytehonor.sdk.basic.server.jdbc.AbstractStatement;
 import com.bytehonor.sdk.basic.server.jdbc.MatchColumnHolder;
 import com.bytehonor.sdk.basic.server.query.MatchColumn;
 import com.bytehonor.sdk.basic.server.util.StringObject;
 
-public class UpdatePreparedStatement {
+public class UpdatePreparedStatement implements AbstractStatement {
 
     private final String table;
 
@@ -87,5 +88,10 @@ public class UpdatePreparedStatement {
         args.addAll(matchHolder.getArgs());
         return args;
     }
+
+	@Override
+	public List<Integer> types() {
+		return matchHolder.getArgTypes();
+	}
 
 }

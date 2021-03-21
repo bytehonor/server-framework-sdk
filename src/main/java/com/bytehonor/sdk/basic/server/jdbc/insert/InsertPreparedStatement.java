@@ -1,13 +1,15 @@
 package com.bytehonor.sdk.basic.server.jdbc.insert;
 
+import java.util.List;
 import java.util.Objects;
 
 import com.bytehonor.sdk.basic.lang.string.StringCreator;
 import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
+import com.bytehonor.sdk.basic.server.jdbc.AbstractStatement;
 import com.bytehonor.sdk.basic.server.jdbc.SqlInjectUtils;
 import com.bytehonor.sdk.basic.server.util.StringObject;
 
-public class InsertPreparedStatement {
+public class InsertPreparedStatement implements AbstractStatement {
 
     private final String table;
 
@@ -131,5 +133,15 @@ public class InsertPreparedStatement {
         return StringCreator.create().append("INSERT INTO ").append(table).append(" (").append(columns)
                 .append(") VALUES ").append(values.toString()).toString();
     }
+
+	@Override
+	public List<Object> args() {
+		return null;
+	}
+
+	@Override
+	public List<Integer> types() {
+		return null;
+	}
 
 }

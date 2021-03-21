@@ -5,10 +5,11 @@ import java.util.Objects;
 
 import com.bytehonor.sdk.basic.lang.string.StringCreator;
 import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
+import com.bytehonor.sdk.basic.server.jdbc.AbstractStatement;
 import com.bytehonor.sdk.basic.server.jdbc.SqlConstants;
 import com.bytehonor.sdk.basic.server.query.MatchColumn;
 
-public class DeletePreparedStatement {
+public class DeletePreparedStatement implements AbstractStatement {
 
     private final String table;
 
@@ -64,11 +65,17 @@ public class DeletePreparedStatement {
         return sc.toString();
     }
 
+    @Override
     public List<Object> args() {
         if (condition.getMatchHolder().getArgs().isEmpty()) {
             throw new ServerBasicException(44, "delete but without any match condition");
         }
         return condition.getMatchHolder().getArgs();
     }
+
+	@Override
+	public List<Integer> types() {
+		return condition.getMatchHolder().getArgTypes();
+	}
 
 }

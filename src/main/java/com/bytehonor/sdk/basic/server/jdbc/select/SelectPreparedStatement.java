@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Objects;
 
 import com.bytehonor.sdk.basic.lang.string.StringCreator;
+import com.bytehonor.sdk.basic.server.jdbc.AbstractStatement;
 import com.bytehonor.sdk.basic.server.jdbc.SqlConstants;
 import com.bytehonor.sdk.basic.server.query.QueryCondition;
 
-public class SelectPreparedStatement {
+public class SelectPreparedStatement implements AbstractStatement {
 
     private final String table;
 
@@ -77,8 +78,14 @@ public class SelectPreparedStatement {
         return creator.toString();
     }
 
+    @Override
     public List<Object> args() {
         return condition.getMatchHolder().getArgs();
     }
+
+    @Override
+	public List<Integer> types() {
+		return condition.getMatchHolder().getArgTypes();
+	}
 
 }
