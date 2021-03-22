@@ -3,6 +3,8 @@ package com.bytehonor.sdk.basic.server.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.bytehonor.sdk.basic.lang.string.StringObject;
+
 /**
  * @author lijianqiang
  *

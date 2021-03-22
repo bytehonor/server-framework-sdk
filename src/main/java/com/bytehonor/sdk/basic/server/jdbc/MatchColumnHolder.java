@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.bytehonor.sdk.basic.lang.string.StringObject;
 import com.bytehonor.sdk.basic.server.query.MatchColumn;
-import com.bytehonor.sdk.basic.server.util.StringObject;
 
 public class MatchColumnHolder {
 

@@ -3,10 +3,10 @@ package com.bytehonor.sdk.basic.server.jdbc.delete;
 import java.util.List;
 import java.util.Objects;
 
+import com.bytehonor.sdk.basic.lang.string.StringObject;
 import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
 import com.bytehonor.sdk.basic.server.jdbc.MatchColumnHolder;
 import com.bytehonor.sdk.basic.server.query.MatchColumn;
-import com.bytehonor.sdk.basic.server.util.StringObject;
 
 /**
  * 

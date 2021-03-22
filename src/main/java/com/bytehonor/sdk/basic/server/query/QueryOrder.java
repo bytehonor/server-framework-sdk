@@ -2,9 +2,9 @@ package com.bytehonor.sdk.basic.server.query;
 
 import java.util.Objects;
 
+import com.bytehonor.sdk.basic.lang.string.StringObject;
 import com.bytehonor.sdk.basic.server.jdbc.SqlConstants;
 import com.bytehonor.sdk.basic.server.jdbc.SqlInjectUtils;
-import com.bytehonor.sdk.basic.server.util.StringObject;
 
 public class QueryOrder {
 

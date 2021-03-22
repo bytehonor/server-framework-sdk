@@ -3,6 +3,7 @@ package com.bytehonor.sdk.basic.server.util;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bytehonor.sdk.basic.define.constant.HeaderKey;
+import com.bytehonor.sdk.basic.lang.string.StringObject;
 
 public class TerminalUtils {
 

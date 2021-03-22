@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Objects;
 
 import com.bytehonor.sdk.basic.lang.string.StringCreator;
+import com.bytehonor.sdk.basic.lang.string.StringObject;
 import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
 import com.bytehonor.sdk.basic.server.jdbc.AbstractStatement;
 import com.bytehonor.sdk.basic.server.jdbc.SqlInjectUtils;
-import com.bytehonor.sdk.basic.server.util.StringObject;
 
 public class InsertPreparedStatement implements AbstractStatement {
 

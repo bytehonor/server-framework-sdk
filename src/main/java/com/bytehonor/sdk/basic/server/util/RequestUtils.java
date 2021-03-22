@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bytehonor.sdk.basic.lang.string.StringObject;
 import com.bytehonor.sdk.basic.server.getter.RequestGetter;
 
 public class RequestUtils {

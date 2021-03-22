@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.basic.lang.string.StringCreator;
+import com.bytehonor.sdk.basic.lang.string.StringObject;
 import com.bytehonor.sdk.basic.server.exception.ParameterExcption;
-import com.bytehonor.sdk.basic.server.util.StringObject;
 
 public class SqlInjectUtils {
 

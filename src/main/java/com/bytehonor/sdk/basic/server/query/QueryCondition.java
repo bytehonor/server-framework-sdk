@@ -9,10 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.basic.define.constant.HttpConstants;
+import com.bytehonor.sdk.basic.lang.string.StringObject;
 import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
 import com.bytehonor.sdk.basic.server.getter.RequestGetter;
 import com.bytehonor.sdk.basic.server.jdbc.MatchColumnHolder;
-import com.bytehonor.sdk.basic.server.util.StringObject;
 
 /**
  * 
