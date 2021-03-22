@@ -25,8 +25,9 @@ public class SelectPreparedStatementTest {
 
         LOG.info("sql:{}", statement.toSelectSql());
         LOG.info("count:{}", statement.toCountSql());
-        List<Object> args = statement.args();
-        LOG.info("args:{}", args);
+        List<Object> args = statement.listArgs();
+        int[] typesArr = statement.types();
+		LOG.info("args:{}, types:{}", args, typesArr);
         assertTrue(args.size() == 1, "test");
     }
 

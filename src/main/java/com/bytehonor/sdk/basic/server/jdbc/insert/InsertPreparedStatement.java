@@ -135,12 +135,24 @@ public class InsertPreparedStatement implements AbstractStatement {
     }
 
 	@Override
-	public List<Object> args() {
+	public List<Object> listArgs() {
 		return null;
 	}
 
 	@Override
-	public List<Integer> types() {
+	public List<Integer> listTypes() {
+		return null;
+	}
+
+	@Override
+	public Object[] args() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int[] types() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

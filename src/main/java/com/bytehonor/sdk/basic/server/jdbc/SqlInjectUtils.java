@@ -1,6 +1,11 @@
 package com.bytehonor.sdk.basic.server.jdbc;
 
+import java.util.List;
+
+import org.springframework.util.CollectionUtils;
+
 import com.bytehonor.sdk.basic.lang.string.StringCreator;
+import com.bytehonor.sdk.basic.server.exception.ParameterExcption;
 import com.bytehonor.sdk.basic.server.util.StringObject;
 
 public class SqlInjectUtils {
@@ -51,5 +56,17 @@ public class SqlInjectUtils {
             return new String(target, 0, at);
         }
         return src;
+    }
+    
+    public static int[] listArray(List<Integer> list) {
+    	if (CollectionUtils.isEmpty(list)) {
+    		throw new ParameterExcption();
+    	}
+    	int size = list.size();
+    	int arr[] = new int[size];
+    	for (int i=0;i<size;i++) {
+    		arr[i] = list.get(i);
+    	}
+    	return arr;
     }
 }

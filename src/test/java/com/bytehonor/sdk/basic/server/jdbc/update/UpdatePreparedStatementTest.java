@@ -26,7 +26,7 @@ public class UpdatePreparedStatementTest {
         statement.match(MatchColumn.eq("id", 3333));
 
         LOG.info("sql:{}", statement.toUpdateSql());
-        List<Object> args = statement.args();
+        List<Object> args = statement.listArgs();
         LOG.info("args:{}", args);
         assertTrue(args.size() == 4, "test");
     }

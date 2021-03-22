@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.basic.server.jdbc.SqlInjectUtils;
+
 public class QueryConditionTest {
 
 	private static final Logger LOG = LoggerFactory.getLogger(QueryConditionTest.class);
@@ -29,7 +31,8 @@ public class QueryConditionTest {
 		LOG.info("conditon:{}", condition.getMatchHolder().toAndSql());
 		List<Object> args = condition.getMatchHolder().getArgs();
 		List<Integer> types = condition.getMatchHolder().getArgTypes();
-		LOG.info("args:{}, types:{}", args, types);
+		int[] typesArr = SqlInjectUtils.listArray(types);
+		LOG.info("args:{}, types:{}", args, typesArr);
 		assertTrue(args.size() == 7, "test");
 	}
 

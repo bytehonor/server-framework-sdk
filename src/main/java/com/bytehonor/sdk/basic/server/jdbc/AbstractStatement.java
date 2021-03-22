@@ -4,7 +4,11 @@ import java.util.List;
 
 public interface AbstractStatement {
 
-	public List<Object> args();
+	public List<Object> listArgs();
 	
-	public List<Integer> types();
+	public Object[] args();
+	
+	public List<Integer> listTypes();
+
+	public int[] types();
 }

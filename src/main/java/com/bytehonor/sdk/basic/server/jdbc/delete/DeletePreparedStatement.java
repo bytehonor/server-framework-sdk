@@ -7,6 +7,7 @@ import com.bytehonor.sdk.basic.lang.string.StringCreator;
 import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
 import com.bytehonor.sdk.basic.server.jdbc.AbstractStatement;
 import com.bytehonor.sdk.basic.server.jdbc.SqlConstants;
+import com.bytehonor.sdk.basic.server.jdbc.SqlInjectUtils;
 import com.bytehonor.sdk.basic.server.query.MatchColumn;
 
 public class DeletePreparedStatement implements AbstractStatement {
@@ -66,7 +67,7 @@ public class DeletePreparedStatement implements AbstractStatement {
     }
 
     @Override
-    public List<Object> args() {
+    public List<Object> listArgs() {
         if (condition.getMatchHolder().getArgs().isEmpty()) {
             throw new ServerBasicException(44, "delete but without any match condition");
         }
@@ -74,8 +75,18 @@ public class DeletePreparedStatement implements AbstractStatement {
     }
 
 	@Override
-	public List<Integer> types() {
+	public List<Integer> listTypes() {
 		return condition.getMatchHolder().getArgTypes();
+	}
+
+	@Override
+	public Object[] args() {
+		return listArgs().toArray();
+	}
+
+	@Override
+	public int[] types() {
+		return SqlInjectUtils.listArray(listTypes());
 	}
 
 }

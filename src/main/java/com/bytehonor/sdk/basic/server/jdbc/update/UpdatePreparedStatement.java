@@ -7,6 +7,7 @@ import com.bytehonor.sdk.basic.lang.string.StringCreator;
 import com.bytehonor.sdk.basic.server.exception.ServerBasicException;
 import com.bytehonor.sdk.basic.server.jdbc.AbstractStatement;
 import com.bytehonor.sdk.basic.server.jdbc.MatchColumnHolder;
+import com.bytehonor.sdk.basic.server.jdbc.SqlInjectUtils;
 import com.bytehonor.sdk.basic.server.query.MatchColumn;
 import com.bytehonor.sdk.basic.server.util.StringObject;
 
@@ -80,7 +81,7 @@ public class UpdatePreparedStatement implements AbstractStatement {
                 .append(matchHolder.toAndSql()).toString();
     }
 
-    public List<Object> args() {
+    public List<Object> listArgs() {
         if (matchHolder.getArgs().isEmpty()) {
             throw new ServerBasicException(44, "update but without any match condition");
         }
@@ -90,8 +91,18 @@ public class UpdatePreparedStatement implements AbstractStatement {
     }
 
 	@Override
-	public List<Integer> types() {
+	public List<Integer> listTypes() {
 		return matchHolder.getArgTypes();
+	}
+
+	@Override
+	public Object[] args() {
+		return listArgs().toArray();
+	}
+
+	@Override
+	public int[] types() {
+		return SqlInjectUtils.listArray(listTypes());
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.Objects;
 import com.bytehonor.sdk.basic.lang.string.StringCreator;
 import com.bytehonor.sdk.basic.server.jdbc.AbstractStatement;
 import com.bytehonor.sdk.basic.server.jdbc.SqlConstants;
+import com.bytehonor.sdk.basic.server.jdbc.SqlInjectUtils;
 import com.bytehonor.sdk.basic.server.query.QueryCondition;
 
 public class SelectPreparedStatement implements AbstractStatement {
@@ -79,13 +80,23 @@ public class SelectPreparedStatement implements AbstractStatement {
     }
 
     @Override
-    public List<Object> args() {
+    public List<Object> listArgs() {
         return condition.getMatchHolder().getArgs();
     }
 
     @Override
-	public List<Integer> types() {
+	public List<Integer> listTypes() {
 		return condition.getMatchHolder().getArgTypes();
+	}
+
+    @Override
+	public Object[] args() {
+		return listArgs().toArray();
+	}
+
+	@Override
+	public int[] types() {
+		return SqlInjectUtils.listArray(listTypes());
 	}
 
 }

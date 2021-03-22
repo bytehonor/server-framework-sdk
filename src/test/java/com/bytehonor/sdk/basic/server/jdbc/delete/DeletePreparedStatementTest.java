@@ -23,7 +23,7 @@ public class DeletePreparedStatementTest {
 
         LOG.info("sql:{}", statement.toDeleteRealSql());
         LOG.info("sql:{}", statement.toDeleteLogicSql());
-        List<Object> args = statement.args();
+        List<Object> args = statement.listArgs();
         LOG.info("args:{}", args);
         assertTrue(args.size() == 2, "test");
     }
@@ -37,7 +37,7 @@ public class DeletePreparedStatementTest {
 
         LOG.info("sql:{}", statement.toDeleteRealSql());
         LOG.info("sql:{}", statement.toDeleteLogicSql());
-        List<Object> args = statement.args();
+        List<Object> args = statement.listArgs();
         LOG.info("args:{}", args);
         assertTrue(args.size() == 2, "test2");
     }
