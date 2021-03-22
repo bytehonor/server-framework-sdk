@@ -28,6 +28,7 @@ import com.bytehonor.sdk.basic.define.code.StandardCode;
 import com.bytehonor.sdk.basic.server.exception.FrameworkException;
 import com.bytehonor.sdk.basic.server.web.error.ExceptionHolder;
 
+// 2.3.0+ https://blog.csdn.net/bufegar0/article/details/108447557
 @Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")
 public class CustomErrorController extends AbstractErrorController {

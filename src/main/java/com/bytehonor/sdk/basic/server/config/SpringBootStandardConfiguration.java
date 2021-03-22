@@ -1,12 +1,9 @@
 package com.bytehonor.sdk.basic.server.config;
 
-import java.util.List;
-
 import javax.servlet.Servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -14,17 +11,13 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
-import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.servlet.error.ErrorAttributes;
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import com.bytehonor.sdk.basic.server.web.advisor.ErrorResponseAdvisor;
 import com.bytehonor.sdk.basic.server.web.advisor.JsonResponseAdvisor;
-import com.bytehonor.sdk.basic.server.web.controller.CustomErrorController;
 import com.bytehonor.sdk.basic.server.web.mvc.WebMvcCustom;
 
 @Configuration
@@ -36,8 +29,8 @@ public class SpringBootStandardConfiguration {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringBootStandardConfiguration.class);
 
-    @Autowired(required = false)
-    private List<ErrorViewResolver> errorViewResolvers;
+//    @Autowired(required = false)
+//    private List<ErrorViewResolver> errorViewResolvers;
 
     private final ServerProperties serverProperties;
 
@@ -45,19 +38,20 @@ public class SpringBootStandardConfiguration {
         this.serverProperties = serverProperties;
     }
 
-    @Bean
-    @ConditionalOnProperty(prefix = "server.core.web", name = "error-controller-enable", matchIfMissing = true)
-    @ConditionalOnMissingBean(value = ErrorController.class)
-    public CustomErrorController basicErrorController(ErrorAttributes errorAttributes) {
-        LOG.info("[standard boot bean] CustomErrorController");
-        return new CustomErrorController(errorAttributes, this.serverProperties.getError(), this.errorViewResolvers);
-    }
+    // 2.3.0+ no used
+//    @Bean
+//    @ConditionalOnProperty(prefix = "server.core.web", name = "error-controller-enable", matchIfMissing = true)
+//    @ConditionalOnMissingBean(value = ErrorController.class)
+//    public CustomErrorController basicErrorController(ErrorAttributes errorAttributes) {
+//        LOG.info("[standard boot bean] CustomErrorController");
+//        return new CustomErrorController(errorAttributes, this.serverProperties.getError(), this.errorViewResolvers);
+//    }
 
     @Bean
     @ConditionalOnProperty(prefix = "server.core.web", name = "error.advisor.enable", matchIfMissing = true)
     @ConditionalOnMissingBean(value = ErrorResponseAdvisor.class)
     public ErrorResponseAdvisor errorResponseAdvisor() {
-        LOG.info("[standard boot bean] ErrorResponseAdvisor");
+        LOG.info("[standard boot bean] ErrorResponseAdvisor {}", serverProperties.getAddress());
         return new ErrorResponseAdvisor();
     }
 

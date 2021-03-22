@@ -12,6 +12,11 @@ import com.bytehonor.sdk.basic.server.web.error.ExceptionHolder;
 import com.bytehonor.sdk.basic.server.web.error.ExceptionStragety;
 import com.bytehonor.sdk.basic.server.web.error.ExceptionStragetyFactory;
 
+/**
+ * 
+ * @author lijianqiang
+ *
+ */
 @ControllerAdvice
 public class ErrorResponseAdvisor {
 
