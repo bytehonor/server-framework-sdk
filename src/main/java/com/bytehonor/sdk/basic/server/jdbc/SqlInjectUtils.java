@@ -6,7 +6,6 @@ import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.basic.lang.string.StringCreator;
 import com.bytehonor.sdk.basic.lang.string.StringObject;
-import com.bytehonor.sdk.basic.server.exception.ParameterExcption;
 
 public class SqlInjectUtils {
 
@@ -60,7 +59,7 @@ public class SqlInjectUtils {
     
     public static int[] listArray(List<Integer> list) {
     	if (CollectionUtils.isEmpty(list)) {
-    		throw new ParameterExcption();
+    		return new int[0];
     	}
     	int size = list.size();
     	int arr[] = new int[size];
@@ -69,4 +68,19 @@ public class SqlInjectUtils {
     	}
     	return arr;
     }
+    
+//    public static void main(String[] args) {
+//        List<Object> args1 = new ArrayList<Object>();
+//        List<Integer> argTypes = new ArrayList<Integer>();
+//        
+//        Object[] arr1 = args1.toArray();
+//        int[] arr2 = listArray(argTypes);
+//        
+//        if (arr1 == null) {
+//            System.out.println("xxxx");
+//        }
+//        if (arr1.length == arr2.length) {
+//            System.out.println("==" + arr1.length);
+//        }
+//    }
 }
