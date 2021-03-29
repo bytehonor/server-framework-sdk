@@ -51,7 +51,7 @@ public class SpringBootStandardConfiguration {
     @ConditionalOnProperty(prefix = "server.core.web", name = "error.advisor.enable", matchIfMissing = true)
     @ConditionalOnMissingBean(value = ErrorResponseAdvisor.class)
     public ErrorResponseAdvisor errorResponseAdvisor() {
-        LOG.info("[standard boot bean] ErrorResponseAdvisor {}", serverProperties.getAddress());
+        LOG.info("[standard boot bean] ErrorResponseAdvisor");
         return new ErrorResponseAdvisor();
     }
 
@@ -66,6 +66,7 @@ public class SpringBootStandardConfiguration {
     @Bean
     @ConditionalOnProperty(prefix = "server.core.web", name = "mvc-custom-enable", matchIfMissing = true)
     public WebMvcCustom webMvcCustom() {
+        serverProperties.getPort();
         LOG.info("[standard boot bean] WebMvcCustom");
         return new WebMvcCustom();
     }
