@@ -66,7 +66,7 @@ public class RequestGetter {
      */
     public static Integer integerRequried(HttpServletRequest request, String key) {
         Integer val = integerOptional(request, key);
-        Objects.requireNonNull(key, key);
+        Objects.requireNonNull(val, key);
         return val;
     }
 
@@ -96,7 +96,7 @@ public class RequestGetter {
      */
     public static Long longRequired(HttpServletRequest request, String key) {
         Long val = longOptional(request, key, null);
-        Objects.requireNonNull(key, key);
+        Objects.requireNonNull(val, key);
         return val;
     }
 
@@ -126,7 +126,7 @@ public class RequestGetter {
      */
     public static Boolean booleanRequired(HttpServletRequest request, String key) {
         Boolean val = booleanOptional(request, key, null);
-        Objects.requireNonNull(key, key);
+        Objects.requireNonNull(val, key);
         return val;
     }
 
@@ -168,7 +168,7 @@ public class RequestGetter {
      */
     public static String stringRequired(HttpServletRequest request, String key) {
         String val = stringOptional(request, key, null);
-        Objects.requireNonNull(key, key);
+        Objects.requireNonNull(val, key);
         return val;
     }
 }
