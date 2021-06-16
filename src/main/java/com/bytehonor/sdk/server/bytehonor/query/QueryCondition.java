@@ -2,6 +2,7 @@ package com.bytehonor.sdk.server.bytehonor.query;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -65,7 +66,7 @@ public final class QueryCondition {
         return codition;
     }
 
-    public QueryCondition and(MatchColumn column) {
+    private QueryCondition and(MatchColumn column) {
         Objects.requireNonNull(column, "column");
         if (StringObject.isEmpty(column.getKey())) {
             throw new ServerBasicException(44, "column key cann't be empty");
@@ -73,105 +74,97 @@ public final class QueryCondition {
         columnHolder.and(column);
         return this;
     }
-    
+
     public QueryCondition eq(String key, String value) {
-        columnHolder.and(MatchColumn.eq(key, value));
-        return this;
+        return this.and(MatchColumn.eq(key, value));
     }
 
     public QueryCondition eq(String key, Long value) {
-        columnHolder.and(MatchColumn.eq(key, value));
-        return this;
+        return this.and(MatchColumn.eq(key, value));
     }
 
     public QueryCondition eq(String key, Integer value) {
-        columnHolder.and(MatchColumn.eq(key, value));
-        return this;
+        return this.and(MatchColumn.eq(key, value));
     }
 
     public QueryCondition eq(String key, Boolean value) {
-        columnHolder.and(MatchColumn.eq(key, value));
-        return this;
+        return this.and(MatchColumn.eq(key, value));
     }
 
     public QueryCondition neq(String key, String value) {
-        columnHolder.and(MatchColumn.eq(key, value));
-        return this;
+        return this.and(MatchColumn.eq(key, value));
     }
 
     public QueryCondition neq(String key, Long value) {
-        columnHolder.and(MatchColumn.neq(key, value));
-        return this;
+        return this.and(MatchColumn.neq(key, value));
     }
 
     public QueryCondition neq(String key, Integer value) {
-        columnHolder.and(MatchColumn.neq(key, value));
-        return this;
+        return this.and(MatchColumn.neq(key, value));
     }
 
     public QueryCondition neq(String key, Boolean value) {
-        columnHolder.and(MatchColumn.neq(key, value));
-        return this;
+        return this.and(MatchColumn.neq(key, value));
     }
 
     public QueryCondition gt(String key, Long value) {
-        columnHolder.and(MatchColumn.gt(key, value));
-        return this;
+        return this.and(MatchColumn.gt(key, value));
     }
 
     public QueryCondition gt(String key, Integer value) {
-        columnHolder.and(MatchColumn.gt(key, value));
-        return this;
+        return this.and(MatchColumn.gt(key, value));
     }
 
     public QueryCondition egt(String key, Long value) {
-        columnHolder.and(MatchColumn.egt(key, value));
-        return this;
+        return this.and(MatchColumn.egt(key, value));
     }
 
     public QueryCondition egt(String key, Integer value) {
-        columnHolder.and(MatchColumn.egt(key, value));
-        return this;
+        return this.and(MatchColumn.egt(key, value));
     }
 
     public QueryCondition lt(String key, Long value) {
-        columnHolder.and(MatchColumn.lt(key, value));
-        return this;
+        return this.and(MatchColumn.lt(key, value));
     }
 
     public QueryCondition lt(String key, Integer value) {
-        columnHolder.and(MatchColumn.lt(key, value));
-        return this;
+        return this.and(MatchColumn.lt(key, value));
     }
 
     public QueryCondition elt(String key, Long value) {
-        columnHolder.and(MatchColumn.elt(key, value));
-        return this;
+        return this.and(MatchColumn.elt(key, value));
     }
 
     public QueryCondition elt(String key, Integer value) {
-        columnHolder.and(MatchColumn.elt(key, value));
-        return this;
+        return this.and(MatchColumn.elt(key, value));
     }
 
     public QueryCondition like(String key, String value) {
-        columnHolder.and(MatchColumn.like(key, value));
-        return this;
+        return this.and(MatchColumn.like(key, value));
     }
 
     public QueryCondition in(String key, List<String> value) {
-        columnHolder.and(MatchColumn.in(key, value));
-        return this;
+        return this.and(MatchColumn.in(key, value));
+    }
+
+    public QueryCondition in(String key, Set<String> value) {
+        return this.and(MatchColumn.in(key, value));
     }
 
     public QueryCondition inLong(String key, List<Long> value) {
-        columnHolder.and(MatchColumn.inLong(key, value));
-        return this;
+        return this.and(MatchColumn.inLong(key, value));
+    }
+
+    public QueryCondition inLong(String key, Set<Long> value) {
+        return this.and(MatchColumn.inLong(key, value));
     }
 
     public QueryCondition inInt(String key, List<Integer> value) {
-        columnHolder.and(MatchColumn.inInt(key, value));
-        return this;
+        return this.and(MatchColumn.inInt(key, value));
+    }
+
+    public QueryCondition inInt(String key, Set<Integer> value) {
+        return this.and(MatchColumn.inInt(key, value));
     }
 
     public QueryCondition orderBy(QueryOrder order) {

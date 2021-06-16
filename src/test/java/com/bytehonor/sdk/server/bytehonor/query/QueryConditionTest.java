@@ -13,27 +13,25 @@ import com.bytehonor.sdk.server.bytehonor.jdbc.SqlInjectUtils;
 
 public class QueryConditionTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(QueryConditionTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(QueryConditionTest.class);
 
-	@Test
-	public void test() {
-		QueryCondition condition = QueryCondition.create();
-		condition.eq("eq", "111").and(MatchColumn.neq("neq", 222)).and(MatchColumn.lt("lt", 333))
-				.and(MatchColumn.elt("elt", 4444)).and(MatchColumn.gt("gt", 5)).and(MatchColumn.eq("name", "john"))
-				.and(MatchColumn.like("like", "%xxx%")).and(MatchColumn.in("ini", Lists.list("a1", "a2")))
-				.orderBy(QueryOrder.descOf("xxx"));
+    @Test
+    public void test() {
+        QueryCondition condition = QueryCondition.create();
+        condition.eq("eq", "111").neq("neq", 222).lt("lt", 333).elt("elt", 4444).gt("gt", 5).eq("name", "john")
+                .like("like", "%xxx%").in("ini", Lists.list("a1", "a2")).orderBy(QueryOrder.descOf("xxx"));
 
-		condition.setOffset(10);
+        condition.setOffset(10);
 //        condition.setOrder(QueryOrder.descOf("id"));
 
-		LOG.info("offset:{}", condition.offsetLimitSql());
-		LOG.info("order:{}", condition.getOrder().toSql());
-		LOG.info("conditon:{}", condition.getMatchHolder().toAndSql());
-		List<Object> args = condition.getMatchHolder().getArgs();
-		List<Integer> types = condition.getMatchHolder().getArgTypes();
-		int[] typesArr = SqlInjectUtils.listArray(types);
-		LOG.info("args:{}, types:{}", args, typesArr);
-		assertTrue(args.size() == 7, "test");
-	}
+        LOG.info("offset:{}", condition.offsetLimitSql());
+        LOG.info("order:{}", condition.getOrder().toSql());
+        LOG.info("conditon:{}", condition.getMatchHolder().toAndSql());
+        List<Object> args = condition.getMatchHolder().getArgs();
+        List<Integer> types = condition.getMatchHolder().getArgTypes();
+        int[] typesArr = SqlInjectUtils.listArray(types);
+        LOG.info("args:{}, types:{}", args, typesArr);
+        assertTrue(args.size() == 7, "test");
+    }
 
 }

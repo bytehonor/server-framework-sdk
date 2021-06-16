@@ -2,9 +2,11 @@ package com.bytehonor.sdk.server.bytehonor.query;
 
 import java.sql.Types;
 import java.util.List;
+import java.util.Set;
 
 import com.bytehonor.sdk.lang.bytehonor.string.StringCreator;
 import com.bytehonor.sdk.lang.bytehonor.util.ListJoinUtils;
+import com.bytehonor.sdk.lang.bytehonor.util.SetJoinUtils;
 import com.bytehonor.sdk.server.bytehonor.jdbc.SqlOperator;
 
 public class MatchColumn {
@@ -164,6 +166,14 @@ public class MatchColumn {
 		}
 		return new MatchColumn(key, src, Types.VARCHAR, SqlOperator.IN);
 	}
+	
+	public static MatchColumn in(String key, Set<String> value) {
+        String src = null;
+        if (value != null && value.isEmpty() == false) {
+            src = StringCreator.create().append("(").append(SetJoinUtils.joinStringSafe(value)).append(")").toString();
+        }
+        return new MatchColumn(key, src, Types.VARCHAR, SqlOperator.IN);
+    }
 
 	public static MatchColumn inLong(String key, List<Long> value) {
 		String src = null;
@@ -172,6 +182,14 @@ public class MatchColumn {
 		}
 		return new MatchColumn(key, src, Types.BIGINT, SqlOperator.IN);
 	}
+	
+	public static MatchColumn inLong(String key, Set<Long> value) {
+        String src = null;
+        if (value != null && value.isEmpty() == false) {
+            src = StringCreator.create().append("(").append(SetJoinUtils.joinLong(value)).append(")").toString();
+        }
+        return new MatchColumn(key, src, Types.BIGINT, SqlOperator.IN);
+    }
 
 	public static MatchColumn inInt(String key, List<Integer> value) {
 		String src = null;
@@ -180,6 +198,14 @@ public class MatchColumn {
 		}
 		return new MatchColumn(key, src, Types.INTEGER, SqlOperator.IN);
 	}
+	
+	public static MatchColumn inInt(String key, Set<Integer> value) {
+        String src = null;
+        if (value != null && value.isEmpty() == false) {
+            src = StringCreator.create().append("(").append(SetJoinUtils.joinInteger(value)).append(")").toString();
+        }
+        return new MatchColumn(key, src, Types.INTEGER, SqlOperator.IN);
+    }
 
 	
 	private MatchColumn(String key, Object value, int type, SqlOperator operator) {
