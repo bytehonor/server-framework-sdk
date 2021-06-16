@@ -8,7 +8,7 @@ plugins {
 apply from: 'repository.gradle'
 
 group = 'com.bytehonor.sdk'
-version = '5.2.0'
+version = '5.2.1'
 sourceCompatibility = 1.8
 
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -34,7 +34,7 @@ ext {
 
 dependencies {
     api('com.bytehonor.sdk:bytehonor-define-sdk:4.0.0')
-    api('com.bytehonor.sdk:bytehonor-lang-sdk:1.0.0')
+    api('com.bytehonor.sdk:bytehonor-lang-sdk:1.1.0')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.cloud:spring-cloud-starter-openfeign')
     developmentOnly('org.springframework.boot:spring-boot-devtools')
