@@ -28,6 +28,8 @@ public final class ReturnErrorResponseStragety implements ResponseStragety {
 
     private final SpringBootStandardProperties standardSpringBootProperties;
 
+    private final boolean enableDebugRequest;
+
     private final boolean enableForceStatus;
 
     public ReturnErrorResponseStragety(ExceptionHolder error, ServerHttpResponse response,
@@ -35,6 +37,9 @@ public final class ReturnErrorResponseStragety implements ResponseStragety {
         this.response = response;
         this.error = error;
         this.standardSpringBootProperties = standardSpringBootProperties;
+        this.enableDebugRequest = standardSpringBootProperties != null
+                ? standardSpringBootProperties.isRestfulDebugEnable()
+                : false;
         this.enableForceStatus = standardSpringBootProperties != null ? standardSpringBootProperties.isForceHttpStatus()
                 : false;
     }
@@ -71,7 +76,8 @@ public final class ReturnErrorResponseStragety implements ResponseStragety {
         return jsonResponse;
     }
 
-    public List<String> buildDebugErrorTrace(ExceptionHolder error) {
+    @SuppressWarnings("unused")
+    private List<String> buildDebugErrorTrace(ExceptionHolder error) {
         List<String> trace = new ArrayList<String>();
         Exception e = error.getException();
         if (e == null) {
@@ -148,6 +154,10 @@ public final class ReturnErrorResponseStragety implements ResponseStragety {
 
     public ServerHttpResponse getResponse() {
         return response;
+    }
+
+    public boolean isEnableDebugRequest() {
+        return enableDebugRequest;
     }
 
     public SpringBootStandardProperties getStandardSpringBootProperties() {
