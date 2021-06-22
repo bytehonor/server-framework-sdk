@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.bytehonor.sdk.define.bytehonor.constant.HeaderKey;
 import com.bytehonor.sdk.lang.bytehonor.string.StringObject;
 
+@Deprecated
 public class TerminalUtils {
 
     public static String getFromTerminal(HttpServletRequest request) {
