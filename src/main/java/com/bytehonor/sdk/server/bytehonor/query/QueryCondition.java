@@ -123,6 +123,10 @@ public final class QueryCondition {
         return this.and(MatchColumn.egt(key, value));
     }
 
+    public QueryCondition lt(String key, String value) {
+        return this.and(MatchColumn.lt(key, value));
+    }
+    
     public QueryCondition lt(String key, Long value) {
         return this.and(MatchColumn.lt(key, value));
     }

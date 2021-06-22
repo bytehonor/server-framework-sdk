@@ -104,6 +104,19 @@ public class MatchColumn {
 	}
 
 	/**
+     * <pre>
+     * <
+     * </pre>
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
+    public static MatchColumn lt(String key, String value) {
+        return new MatchColumn(key, value, Types.VARCHAR, SqlOperator.LT);
+    }
+    
+	/**
 	 * <pre>
 	 * <
 	 * </pre>
