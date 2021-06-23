@@ -15,6 +15,7 @@ import com.bytehonor.sdk.server.bytehonor.config.SpringCloudStandardConfiguratio
  * @author lijianqiang
  *
  */
+@Deprecated
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Import(SpringCloudStandardConfiguration.class)
