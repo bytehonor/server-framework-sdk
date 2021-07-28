@@ -28,6 +28,14 @@ public class ErrorResponseAdvisor {
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public final ExceptionHolder defaultErrorHandler(Exception ex) {
+        // print(ex);
+        LOG.error("defaultErrorHandler", ex);
+        ExceptionStragety exceptionStragety = ExceptionStragetyFactory.build(ex);
+        ExceptionHolder holder = exceptionStragety.hold();
+        return holder;
+    }
+
+    public void print(Exception ex) {
         if (LOG.isWarnEnabled()) {
             // 错误栈太多无用信息, 只打5行
             StackTraceElement[] stackTrace = ex.getStackTrace();
@@ -45,9 +53,6 @@ public class ErrorResponseAdvisor {
             }
             LOG.warn(sb.toString());
         }
-        ExceptionStragety exceptionStragety = ExceptionStragetyFactory.build(ex);
-        ExceptionHolder holder = exceptionStragety.hold();
-        return holder;
     }
 
 }
