@@ -32,10 +32,10 @@ public class GlobalValueUtils {
         return request.getRemoteAddr();
     }
 
-    public static String getUserUuid(HttpServletRequest request) {
-        String val = request.getHeader(HeaderKey.X_USER_UUID);
+    public static String getUserGuid(HttpServletRequest request) {
+        String val = request.getHeader(HeaderKey.X_USER_GUID);
         if (StringObject.isEmpty(val)) {
-            val = request.getParameter(HeaderKey.X_USER_UUID);
+            val = request.getParameter(HeaderKey.X_USER_GUID);
         }
         return val;
     }
