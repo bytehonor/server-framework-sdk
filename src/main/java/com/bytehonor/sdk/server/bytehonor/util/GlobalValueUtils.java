@@ -3,7 +3,7 @@ package com.bytehonor.sdk.server.bytehonor.util;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bytehonor.sdk.define.bytehonor.constant.HeaderKey;
-import com.bytehonor.sdk.lang.bytehonor.string.StringObject;
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 
 public class GlobalValueUtils {
 
@@ -32,10 +32,10 @@ public class GlobalValueUtils {
         return request.getRemoteAddr();
     }
 
-    public static String getUserGuid(HttpServletRequest request) {
-        String val = request.getHeader(HeaderKey.X_USER_GUID);
+    public static String getUserUuid(HttpServletRequest request) {
+        String val = request.getHeader(HeaderKey.X_USER_UUID);
         if (StringObject.isEmpty(val)) {
-            val = request.getParameter(HeaderKey.X_USER_GUID);
+            val = request.getParameter(HeaderKey.X_USER_UUID);
         }
         return val;
     }

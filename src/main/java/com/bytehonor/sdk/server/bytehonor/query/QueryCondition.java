@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.define.bytehonor.constant.HttpConstants;
 import com.bytehonor.sdk.define.bytehonor.error.ServerBasicException;
-import com.bytehonor.sdk.lang.bytehonor.string.StringObject;
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.bytehonor.sdk.server.bytehonor.getter.RequestGetter;
 import com.bytehonor.sdk.server.bytehonor.jdbc.MatchColumnHolder;
 

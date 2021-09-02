@@ -2,7 +2,7 @@ package com.bytehonor.sdk.server.bytehonor.query;
 
 import java.util.Objects;
 
-import com.bytehonor.sdk.lang.bytehonor.string.StringObject;
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.bytehonor.sdk.server.bytehonor.jdbc.SqlConstants;
 import com.bytehonor.sdk.server.bytehonor.jdbc.SqlInjectUtils;
 

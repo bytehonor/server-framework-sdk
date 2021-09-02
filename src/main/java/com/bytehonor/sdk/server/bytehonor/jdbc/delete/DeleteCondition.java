@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.bytehonor.sdk.define.bytehonor.error.ServerBasicException;
-import com.bytehonor.sdk.lang.bytehonor.string.StringObject;
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.bytehonor.sdk.server.bytehonor.jdbc.MatchColumnHolder;
 import com.bytehonor.sdk.server.bytehonor.query.MatchColumn;
 
