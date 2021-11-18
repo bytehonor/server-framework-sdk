@@ -1,10 +1,10 @@
 package com.bytehonor.sdk.server.bytehonor.jdbc.select;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +26,7 @@ public class SelectPreparedStatementTest {
         List<Object> args = statement.listArgs();
         int[] typesArr = statement.types();
         LOG.info("args:{}, types:{}", args, typesArr);
-        assertTrue(args.size() == 1, "test");
+        assertTrue("test", args.size() == 1);
     }
 
 }

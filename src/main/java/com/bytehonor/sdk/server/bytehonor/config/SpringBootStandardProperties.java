@@ -36,9 +36,9 @@ public class SpringBootStandardProperties {
     private boolean forceHttpStatus = true;
 
     /**
-     * Server Print Error Trace Lines, default 8
+     * Server Print Error Trace Lines, default 32
      */
-    private int errorTraceLines = 8;
+    private int errorTraceLines = 32;
 
     public boolean isResponseAdvisorEnable() {
         return responseAdvisorEnable;

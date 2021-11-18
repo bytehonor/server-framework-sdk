@@ -1,11 +1,10 @@
 package com.bytehonor.sdk.server.bytehonor.jdbc.update;
 
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +27,7 @@ public class UpdatePreparedStatementTest {
         LOG.info("sql:{}", statement.toUpdateSql());
         List<Object> args = statement.listArgs();
         LOG.info("args:{}", args);
-        assertTrue(args.size() == 4, "test");
+        assertTrue("test", args.size() == 4);
     }
 
 }

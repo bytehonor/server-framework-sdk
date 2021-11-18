@@ -1,11 +1,12 @@
 package com.bytehonor.sdk.server.bytehonor.jdbc;
 
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +30,7 @@ public class MatchColumnHolderTest {
 
         List<Object> args = holder.getArgs();
         LOG.info("args:{}", args);
-        assertTrue(args.size() == 4, "test");
+        assertTrue("test", args.size() == 4);
     }
 
 }

@@ -3,19 +3,6 @@
 ## 启用
 启动类加注解 @SpringBootStandard  
 
-启动类加注解 @SpringCloudStandard
-
-## 打包
-// http://blog.csdn.net/formularoom/article/details/70354562
-
-// https://docs.spring.io/autorepo/docs/spring-boot/1.4.5.RELEASE/reference/html/build-tool-plugins-gradle-plugin.html
-
-// 必须，否则，其他springboot项目打包无法依赖此项目
-
-`jar {
-    enabled = false
-}`
-
 
 ## 核心注解
 

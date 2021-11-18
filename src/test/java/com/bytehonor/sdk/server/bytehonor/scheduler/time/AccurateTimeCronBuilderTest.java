@@ -1,14 +1,14 @@
 package com.bytehonor.sdk.server.bytehonor.scheduler.time;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class AccurateTimeCronBuilderTest {
+public class AccurateTimeCronBuilderTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(AccurateTimeCronBuilderTest.class);
 
@@ -22,7 +22,7 @@ class AccurateTimeCronBuilderTest {
             LOG.info("m:{}, h:{}, d:{}", cron.getMinute(), cron.getHour(), cron.getDay());
         }
 
-        assertTrue(isOk, "*testGet*");
+        assertTrue("*testGet*", isOk);
     }
 
 }
