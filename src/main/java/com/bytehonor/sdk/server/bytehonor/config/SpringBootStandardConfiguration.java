@@ -18,7 +18,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import com.bytehonor.sdk.server.bytehonor.web.advisor.ErrorResponseAdvisor;
 import com.bytehonor.sdk.server.bytehonor.web.advisor.JsonResponseAdvisor;
-import com.bytehonor.sdk.server.bytehonor.web.mvc.WebMvcCustom;
+import com.bytehonor.sdk.server.bytehonor.web.mvc.BytehonorWebMvcConfig;
 
 @Configuration
 @ConditionalOnWebApplication
@@ -65,9 +65,9 @@ public class SpringBootStandardConfiguration {
 
     @Bean
     @ConditionalOnProperty(prefix = "server.core.web", name = "mvc-custom-enable", matchIfMissing = true)
-    public WebMvcCustom webMvcCustom() {
+    public BytehonorWebMvcConfig bytehonorWebMvcConfig() {
         serverProperties.getPort();
-        LOG.info("[standard boot bean] WebMvcCustom");
-        return new WebMvcCustom();
+        LOG.info("[standard boot bean] BytehonorWebMvcConfig");
+        return new BytehonorWebMvcConfig();
     }
 }
