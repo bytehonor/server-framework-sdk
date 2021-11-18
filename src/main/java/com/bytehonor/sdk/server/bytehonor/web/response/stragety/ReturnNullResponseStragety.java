@@ -17,17 +17,12 @@ public final class ReturnNullResponseStragety implements ResponseStragety {
 
     private final ServerHttpResponse response;
 
-    private final boolean enableDebugRequest;
-
     private final SpringBootStandardProperties standardSpringBootProperties;
 
     public ReturnNullResponseStragety(ServerHttpResponse response,
             SpringBootStandardProperties standardSpringBootProperties) {
         this.response = response;
         this.standardSpringBootProperties = standardSpringBootProperties;
-        this.enableDebugRequest = standardSpringBootProperties != null
-                ? standardSpringBootProperties.isRestfulDebugEnable()
-                : false;
     }
 
     @Override
@@ -36,11 +31,8 @@ public final class ReturnNullResponseStragety implements ResponseStragety {
         jsonResponse.setCode(StandardCode.UNDEFINED_ERROR);
         String nullTIp = "METHOD_RETURN_NULL";
 
-        if (enableDebugRequest) {
-            jsonResponse.setMessage(buildDebugNullMessage(request, nullTIp));
-        } else {
-            jsonResponse.setMessage(nullTIp);
-        }
+        jsonResponse.setMessage(buildDebugNullMessage(request, nullTIp));
+
         HttpStatus httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
         if (response != null) {
             response.setStatusCode(httpStatus);
@@ -63,10 +55,6 @@ public final class ReturnNullResponseStragety implements ResponseStragety {
 
     public SpringBootStandardProperties getStandardSpringBootProperties() {
         return standardSpringBootProperties;
-    }
-
-    public boolean isEnableDebugRequest() {
-        return enableDebugRequest;
     }
 
 }
