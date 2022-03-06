@@ -35,7 +35,7 @@ public class GlobalValueUtils {
     public static String getUserUuid(HttpServletRequest request) {
         String val = request.getHeader(HeaderKey.X_USER_UUID);
         if (StringObject.isEmpty(val)) {
-            val = request.getParameter(HeaderKey.X_USER_UUID);
+            val = request.getParameter("uuid");
         }
         return val;
     }
@@ -43,7 +43,7 @@ public class GlobalValueUtils {
     public static String getWeixinOpenid(HttpServletRequest request) {
         String val = request.getHeader(HeaderKey.X_WEIXIN_OPENID);
         if (StringObject.isEmpty(val)) {
-            val = request.getParameter(HeaderKey.X_WEIXIN_OPENID);
+            val = request.getParameter("openid");
         }
         return val;
     }
