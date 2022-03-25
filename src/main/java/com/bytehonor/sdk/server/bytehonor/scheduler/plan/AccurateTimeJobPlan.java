@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.bytehonor.sdk.server.bytehonor.scheduler.time.TimeCron;
 
-public abstract class AccurateTimeJobPlan implements JobPlan {
+public abstract class AccurateTimeJobPlan implements SchedulerPlan {
 
     @Override
     public final boolean accept(LocalDateTime ldt) {

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import com.bytehonor.sdk.define.bytehonor.task.SafeTask;
 
-public interface JobPlan {
+public interface SchedulerPlan {
 
     public boolean accept(LocalDateTime ldt);
 
