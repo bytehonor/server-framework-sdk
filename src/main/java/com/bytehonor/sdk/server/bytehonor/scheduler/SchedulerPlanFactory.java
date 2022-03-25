@@ -7,7 +7,7 @@ import com.bytehonor.sdk.server.bytehonor.scheduler.plan.SchedulerPlan;
 
 public class SchedulerPlanFactory {
 
-    private static List<SchedulerPlan> LIST = new ArrayList<SchedulerPlan>(512);
+    private static final List<SchedulerPlan> LIST = new ArrayList<SchedulerPlan>(512);
 
     public static void put(SchedulerPlan plan) {
         if (plan != null) {

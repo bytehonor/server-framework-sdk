@@ -13,7 +13,7 @@ public class SchedulerPlanExecutor {
 
     private static final ExecutorService SERVICE = Executors.newFixedThreadPool(1);
 
-    public static void start(final LocalDateTime ldt) {
+    public static void run(final LocalDateTime ldt) {
         Objects.requireNonNull(ldt, "ldt");
 
         List<SchedulerPlan> plans = SchedulerPlanFactory.plans();
@@ -22,14 +22,17 @@ public class SchedulerPlanExecutor {
                 doRun(plan.createTask(ldt));
             }
         }
-//        JobPlanFactory.parallelStream().forEach(policy -> {
-//            if (policy.accept(ldt)) {
-//                SafeTask task = policy.createTask(ldt);
-//                if (task != null) {
-//                    doRun(task);
-//                }
-//            }
-//        });
+    }
+
+    public static void runParallel(final LocalDateTime ldt) {
+        Objects.requireNonNull(ldt, "ldt");
+
+        List<SchedulerPlan> plans = SchedulerPlanFactory.plans();
+        plans.parallelStream().forEach(plan -> {
+            if (plan.accept(ldt)) {
+                doRun(plan.createTask(ldt));
+            }
+        });
     }
 
     public static void doRun(SafeTask task) {
