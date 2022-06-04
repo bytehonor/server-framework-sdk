@@ -51,7 +51,7 @@ public class SpringBootStandardConfiguration {
     @ConditionalOnProperty(prefix = "server.core.web", name = "error.advisor.enable", matchIfMissing = true)
     @ConditionalOnMissingBean(value = ErrorResponseAdvisor.class)
     public ErrorResponseAdvisor errorResponseAdvisor() {
-        LOG.info("[standard boot bean] ErrorResponseAdvisor");
+        LOG.info("[Bytehonor] ErrorResponseAdvisor");
         return new ErrorResponseAdvisor();
     }
 
@@ -59,7 +59,7 @@ public class SpringBootStandardConfiguration {
     @ConditionalOnProperty(prefix = "server.core.web", name = "response.advisor.enable", matchIfMissing = true)
     @ConditionalOnMissingBean(value = JsonResponseAdvisor.class)
     public JsonResponseAdvisor jsonResponseAdvisor() {
-        LOG.info("[standard boot bean] JsonResponseAdvisor");
+        LOG.info("[Bytehonor] JsonResponseAdvisor");
         return new JsonResponseAdvisor();
     }
 
@@ -67,7 +67,7 @@ public class SpringBootStandardConfiguration {
     @ConditionalOnProperty(prefix = "server.core.web", name = "mvc-custom-enable", matchIfMissing = true)
     public BytehonorWebMvcConfig bytehonorWebMvcConfig() {
         serverProperties.getPort();
-        LOG.info("[standard boot bean] BytehonorWebMvcConfig");
+        LOG.info("[Bytehonor] BytehonorWebMvcConfig");
         return new BytehonorWebMvcConfig();
     }
 }
