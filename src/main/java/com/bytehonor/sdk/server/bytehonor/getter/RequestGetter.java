@@ -49,6 +49,14 @@ public class RequestGetter {
 
     /**
      * @param request
+     * @return
+     */
+    public static int getPage(HttpServletRequest request) {
+        return IntegerGetter.optional(getValue(request, HttpConstants.PAGE_KEY), HttpConstants.PAGE_DEF);
+    }
+
+    /**
+     * @param request
      * @param key
      * @return
      */
@@ -178,13 +186,13 @@ public class RequestGetter {
         Objects.requireNonNull(val, key);
         return val;
     }
-    
+
     public static int limit(HttpServletRequest request) {
-        return RequestGetter.getLimit(request);
+        return getLimit(request);
     }
 
     public static int offset(HttpServletRequest request) {
-        return RequestGetter.getOffset(request);
+        return getOffset(request);
     }
 
     public static List<Long> longs(String src) {
