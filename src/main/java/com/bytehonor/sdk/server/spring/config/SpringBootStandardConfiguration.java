@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +17,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import com.bytehonor.sdk.server.spring.web.advisor.ErrorResponseAdvisor;
 import com.bytehonor.sdk.server.spring.web.advisor.JsonResponseAdvisor;
-import com.bytehonor.sdk.server.spring.web.mvc.BytehonorWebMvcConfig;
+import com.bytehonor.sdk.server.spring.web.mvc.ServerWebMvcConfigurer;
 
 @Configuration
 @ConditionalOnWebApplication
@@ -32,11 +31,11 @@ public class SpringBootStandardConfiguration {
 //    @Autowired(required = false)
 //    private List<ErrorViewResolver> errorViewResolvers;
 
-    private final ServerProperties serverProperties;
-
-    public SpringBootStandardConfiguration(ServerProperties serverProperties) {
-        this.serverProperties = serverProperties;
-    }
+//    private final ServerProperties serverProperties;
+//
+//    public SpringBootStandardConfiguration(ServerProperties serverProperties) {
+//        this.serverProperties = serverProperties;
+//    }
 
     // 2.3.0+ no used
 //    @Bean
@@ -65,9 +64,8 @@ public class SpringBootStandardConfiguration {
 
     @Bean
     @ConditionalOnProperty(prefix = "server.core.web", name = "mvc-custom-enable", matchIfMissing = true)
-    public BytehonorWebMvcConfig bytehonorWebMvcConfig() {
-        serverProperties.getPort();
-        LOG.info("[Bytehonor] BytehonorWebMvcConfig");
-        return new BytehonorWebMvcConfig();
+    public ServerWebMvcConfigurer serverWebMvcConfigurer() {
+        LOG.info("[Bytehonor] ServerWebMvcConfigurer ");
+        return new ServerWebMvcConfigurer();
     }
 }
