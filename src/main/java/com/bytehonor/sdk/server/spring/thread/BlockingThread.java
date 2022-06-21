@@ -1,11 +1,16 @@
 package com.bytehonor.sdk.server.spring.thread;
 
+import java.util.Objects;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import com.bytehonor.sdk.define.bytehonor.util.StringObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.bytehonor.sdk.lang.bytehonor.task.WhileBlockTask;
 
 public class BlockingThread<T> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(BlockingThread.class);
 
     private final LinkedBlockingQueue<T> queue;
 
@@ -17,15 +22,17 @@ public class BlockingThread<T> {
     }
 
     public static <T> BlockingThread<T> create(WhileBlockTask task, int queueSize, String name) {
+        Objects.requireNonNull(task, "task");
+        Objects.requireNonNull(name, "name");
+
         BlockingThread<T> bt = new BlockingThread<T>(task, queueSize);
-        if (StringObject.isEmpty(name) == false) {
-            bt.thread.setName(name);
-        }
+        bt.thread.setName(name);
         return bt;
     }
 
     public void start() {
         this.thread.start();
+        LOG.info("[{}] start", thread.getName());
     }
 
     public void add(T t) {
