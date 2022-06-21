@@ -24,17 +24,6 @@ public class SchedulerPlanExecutor {
         }
     }
 
-    public static void runParallel(final LocalDateTime ldt) {
-        Objects.requireNonNull(ldt, "ldt");
-
-        List<SchedulerPlan> plans = SchedulerPlanFactory.plans();
-        plans.parallelStream().forEach(plan -> {
-            if (plan.accept(ldt)) {
-                doRun(plan.createTask(ldt));
-            }
-        });
-    }
-
     public static void doRun(SafeTask task) {
         if (task == null) {
             return;
