@@ -43,11 +43,12 @@ public class LinkedThread<T> {
         LOG.info("[{}] start", thread.getName());
     }
 
-    public void add(T t) {
-        if (t == null) {
+    public void add(T payload) {
+        if (payload == null) {
+            LOG.warn("add null");
             return;
         }
-        this.queue.add(t);
+        this.queue.add(payload);
     }
 
     public T poll() {

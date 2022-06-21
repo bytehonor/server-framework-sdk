@@ -17,8 +17,8 @@ public class LinkedTask<T> extends WhileSleepTask {
 
     @Override
     public final void runThenSleep() {
-        T t = producer.produce();
-        consumer.consume(t);
+        T payload = producer.produce();
+        consumer.consume(payload);
     }
 
     @Override

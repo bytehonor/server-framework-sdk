@@ -14,7 +14,7 @@ public class LinkedBlockingTask<T> extends WhileBlockTask {
 
     @Override
     public final void runThenBlock() throws InterruptedException {
-        T t = producer.produce();
-        consumer.consume(t);
+        T payload = producer.produce();
+        consumer.consume(payload);
     }
 }
