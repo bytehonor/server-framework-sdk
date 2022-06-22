@@ -6,12 +6,12 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bytehonor.sdk.beautify.lang.getter.BooleanGetter;
+import com.bytehonor.sdk.beautify.lang.getter.IntegerGetter;
+import com.bytehonor.sdk.beautify.lang.getter.LongGetter;
+import com.bytehonor.sdk.beautify.lang.getter.StringGetter;
 import com.bytehonor.sdk.define.bytehonor.constant.HttpConstants;
 import com.bytehonor.sdk.define.bytehonor.util.StringObject;
-import com.bytehonor.sdk.lang.bytehonor.getter.BooleanGetter;
-import com.bytehonor.sdk.lang.bytehonor.getter.IntegerGetter;
-import com.bytehonor.sdk.lang.bytehonor.getter.LongGetter;
-import com.bytehonor.sdk.lang.bytehonor.getter.StringGetter;
 
 /**
  * @author lijianqiang

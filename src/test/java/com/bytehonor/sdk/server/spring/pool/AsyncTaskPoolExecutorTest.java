@@ -4,8 +4,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.beautify.lang.thread.ThreadTaskExecutor;
 import com.bytehonor.sdk.define.bytehonor.task.SafeTask;
-import com.bytehonor.sdk.lang.bytehonor.task.ThreadTaskExecutor;
 
 public class AsyncTaskPoolExecutorTest {
 
@@ -13,7 +13,7 @@ public class AsyncTaskPoolExecutorTest {
 
     @Test
     public void test() {
-        ThreadTaskExecutor.execute(new SafeTask() {
+        ThreadTaskExecutor.put(new SafeTask() {
 
             @Override
             public void runInSafe() {
@@ -28,7 +28,7 @@ public class AsyncTaskPoolExecutorTest {
             LOG.error("sleep", e);
         }
 
-        ThreadTaskExecutor.execute(new SafeTask() {
+        ThreadTaskExecutor.put(new SafeTask() {
 
             @Override
             public void runInSafe() {
