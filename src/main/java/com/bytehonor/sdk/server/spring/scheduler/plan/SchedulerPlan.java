@@ -2,7 +2,7 @@ package com.bytehonor.sdk.server.spring.scheduler.plan;
 
 import java.time.LocalDateTime;
 
-import com.bytehonor.sdk.define.spring.lang.SafeRunner;
+import com.bytehonor.sdk.lang.spring.thread.SafeRunner;
 
 public interface SchedulerPlan {
 

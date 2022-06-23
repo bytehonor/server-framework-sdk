@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.bytehonor.sdk.define.spring.lang.SafeRunner;
+import com.bytehonor.sdk.lang.spring.thread.SafeRunner;
 import com.bytehonor.sdk.server.spring.scheduler.plan.SchedulerPlan;
 
 public class SchedulerPlanExecutor {
