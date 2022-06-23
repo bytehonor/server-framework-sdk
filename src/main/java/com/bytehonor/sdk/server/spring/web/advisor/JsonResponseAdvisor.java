@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import com.bytehonor.sdk.server.spring.annotation.ResponseNotWrap;
 import com.bytehonor.sdk.server.spring.config.SpringBootStandardProperties;
-import com.bytehonor.sdk.server.spring.web.error.ErrorConvertor;
 import com.bytehonor.sdk.server.spring.web.response.ResponseConvertor;
 
 @ControllerAdvice
@@ -44,7 +43,7 @@ public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
         if (body == null) {
             LOG.error("body null, uri{}", request.getURI().getPath());
             response.setStatusCode(HttpStatus.UNPROCESSABLE_ENTITY);
-            return ErrorConvertor.bodyNull();
+            return ResponseConvertor.bodyNull();
         }
 
         if (MediaType.TEXT_HTML.equals(selectedContentType)) {

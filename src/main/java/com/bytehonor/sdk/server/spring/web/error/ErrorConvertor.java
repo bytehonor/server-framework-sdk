@@ -28,11 +28,4 @@ public class ErrorConvertor {
         return jsonResponse;
     }
 
-    public static JsonResponse<?> bodyNull() {
-        JsonResponse<Object> jsonResponse = new JsonResponse<Object>();
-        jsonResponse.setCode(StandardCode.INTERNAL_ERROR);
-        jsonResponse.setMessage("METHOD_RETURN_NULL");
-        return jsonResponse;
-    }
-
 }
