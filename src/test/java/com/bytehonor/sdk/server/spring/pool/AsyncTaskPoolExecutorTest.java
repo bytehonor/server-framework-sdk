@@ -4,8 +4,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.beautify.lang.thread.ThreadTaskExecutor;
-import com.bytehonor.sdk.define.bytehonor.lang.SafeRunner;
+import com.bytehonor.sdk.define.spring.lang.SafeRunner;
+import com.bytehonor.sdk.lang.spring.thread.ThreadTaskExecutor;
 
 public class AsyncTaskPoolExecutorTest {
 

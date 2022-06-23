@@ -1,8 +1,8 @@
 package com.bytehonor.sdk.server.spring.web.error;
 
-import com.bytehonor.sdk.define.bytehonor.code.StandardCode;
-import com.bytehonor.sdk.define.bytehonor.exception.StandardException;
-import com.bytehonor.sdk.define.bytehonor.result.JsonResponse;
+import com.bytehonor.sdk.define.spring.code.StandardCode;
+import com.bytehonor.sdk.define.spring.exception.StandardException;
+import com.bytehonor.sdk.define.spring.result.JsonResponse;
 
 public class ErrorConvertor {
 

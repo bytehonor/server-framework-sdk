@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.bytehonor.sdk.define.bytehonor.lang.SafeRunner;
+import com.bytehonor.sdk.define.spring.lang.SafeRunner;
 import com.bytehonor.sdk.server.spring.scheduler.plan.SchedulerPlan;
 
 public class SchedulerPlanExecutor {
@@ -19,16 +19,16 @@ public class SchedulerPlanExecutor {
         List<SchedulerPlan> plans = SchedulerPlanFactory.plans();
         for (SchedulerPlan plan : plans) {
             if (plan.accept(ldt)) {
-                doRun(plan.createTask(ldt));
+                doRun(plan.create(ldt));
             }
         }
     }
 
-    public static void doRun(SafeRunner task) {
-        if (task == null) {
+    public static void doRun(SafeRunner runner) {
+        if (runner == null) {
             return;
         }
-        SERVICE.execute(task);
+        SERVICE.execute(runner);
     }
 
 }

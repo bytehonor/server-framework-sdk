@@ -6,12 +6,12 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.bytehonor.sdk.define.bytehonor.constant.HttpConstants;
-import com.bytehonor.sdk.define.bytehonor.getter.BooleanGetter;
-import com.bytehonor.sdk.define.bytehonor.getter.IntegerGetter;
-import com.bytehonor.sdk.define.bytehonor.getter.LongGetter;
-import com.bytehonor.sdk.define.bytehonor.getter.StringGetter;
-import com.bytehonor.sdk.define.bytehonor.util.StringObject;
+import com.bytehonor.sdk.define.spring.constant.HttpConstants;
+import com.bytehonor.sdk.define.spring.getter.BooleanGetter;
+import com.bytehonor.sdk.define.spring.getter.IntegerGetter;
+import com.bytehonor.sdk.define.spring.getter.LongGetter;
+import com.bytehonor.sdk.define.spring.getter.StringGetter;
+import com.bytehonor.sdk.define.spring.util.StringObject;
 
 /**
  * @author lijianqiang

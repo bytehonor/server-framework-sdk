@@ -3,8 +3,8 @@ package com.bytehonor.sdk.server.spring.scheduler.key;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import com.bytehonor.sdk.beautify.lang.constant.DateConstants;
-import com.bytehonor.sdk.beautify.lang.util.LocalDateTimeUtils;
+import com.bytehonor.sdk.define.spring.constant.DateConstants;
+import com.bytehonor.sdk.lang.spring.util.LocalDateTimeUtils;
 
 public class SchedulerKeyBuilder {
 

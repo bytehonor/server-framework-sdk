@@ -2,8 +2,8 @@ package com.bytehonor.sdk.server.spring.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.bytehonor.sdk.define.bytehonor.constant.HeaderKey;
-import com.bytehonor.sdk.define.bytehonor.util.StringObject;
+import com.bytehonor.sdk.define.spring.constant.HeaderKey;
+import com.bytehonor.sdk.define.spring.util.StringObject;
 
 public class GlobalValueUtils {
 

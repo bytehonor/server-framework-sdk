@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.server.spring.web.response;
 
-import com.bytehonor.sdk.define.bytehonor.result.JsonResponse;
+import com.bytehonor.sdk.define.spring.result.JsonResponse;
 import com.bytehonor.sdk.server.spring.web.response.builder.DefaultResponseBuilder;
 import com.bytehonor.sdk.server.spring.web.response.builder.JsonResponseBuilder;
 import com.bytehonor.sdk.server.spring.web.response.builder.NullResponseBuilder;
