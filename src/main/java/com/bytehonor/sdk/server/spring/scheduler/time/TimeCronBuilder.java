@@ -3,7 +3,7 @@ package com.bytehonor.sdk.server.spring.scheduler.time;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccurateTimeCronBuilder {
+public class TimeCronBuilder {
 
     private Integer[] minutes;
 
@@ -11,24 +11,24 @@ public class AccurateTimeCronBuilder {
 
     private Integer[] days;
 
-    private AccurateTimeCronBuilder() {
+    private TimeCronBuilder() {
     }
 
-    public static AccurateTimeCronBuilder make() {
-        return new AccurateTimeCronBuilder();
+    public static TimeCronBuilder make() {
+        return new TimeCronBuilder();
     }
 
-    public AccurateTimeCronBuilder mintueAt(Integer... minutes) {
+    public TimeCronBuilder mintueAt(Integer... minutes) {
         this.minutes = minutes;
         return this;
     }
 
-    public AccurateTimeCronBuilder hourAt(Integer... hours) {
+    public TimeCronBuilder hourAt(Integer... hours) {
         this.hours = hours;
         return this;
     }
 
-    public AccurateTimeCronBuilder dayAt(Integer... days) {
+    public TimeCronBuilder dayAt(Integer... days) {
         this.days = days;
         return this;
     }
