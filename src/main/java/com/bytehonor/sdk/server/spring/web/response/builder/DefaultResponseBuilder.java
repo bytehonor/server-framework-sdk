@@ -7,6 +7,10 @@ import com.bytehonor.sdk.define.spring.code.StandardCode;
 import com.bytehonor.sdk.define.spring.result.JsonResponse;
 import com.bytehonor.sdk.server.spring.web.response.ResponseBuilder;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public final class DefaultResponseBuilder implements ResponseBuilder {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultResponseBuilder.class);

@@ -3,6 +3,10 @@ package com.bytehonor.sdk.server.spring.scheduler.time;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class TimeCronBuilder {
 
     private Integer[] minutes;

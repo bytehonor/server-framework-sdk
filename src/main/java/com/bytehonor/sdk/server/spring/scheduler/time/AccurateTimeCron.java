@@ -2,6 +2,12 @@ package com.bytehonor.sdk.server.spring.scheduler.time;
 
 import java.time.LocalDateTime;
 
+/**
+ * 日/时/分 三级匹配
+ * 
+ * @author lijianqiang
+ *
+ */
 public class AccurateTimeCron implements TimeCron {
 
     private int minute;

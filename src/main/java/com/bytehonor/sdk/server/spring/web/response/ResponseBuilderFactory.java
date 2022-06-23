@@ -6,6 +6,10 @@ import com.bytehonor.sdk.define.spring.result.JsonResponse;
 import com.bytehonor.sdk.server.spring.web.response.builder.DefaultResponseBuilder;
 import com.bytehonor.sdk.server.spring.web.response.builder.JsonResponseBuilder;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class ResponseBuilderFactory {
 
     public static ResponseBuilder get(Object body) {

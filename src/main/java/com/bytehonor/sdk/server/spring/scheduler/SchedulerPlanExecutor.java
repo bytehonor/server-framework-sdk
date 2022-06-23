@@ -9,6 +9,10 @@ import java.util.concurrent.Executors;
 import com.bytehonor.sdk.lang.spring.thread.SafeRunner;
 import com.bytehonor.sdk.server.spring.scheduler.plan.SchedulerPlan;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class SchedulerPlanExecutor {
 
     private static final ExecutorService SERVICE = Executors.newFixedThreadPool(1);

@@ -16,6 +16,10 @@ import com.bytehonor.sdk.server.spring.annotation.ResponseNotWrap;
 import com.bytehonor.sdk.server.spring.config.SpringBootStandardProperties;
 import com.bytehonor.sdk.server.spring.web.response.ResponseConvertor;
 
+/**
+ * @author lijianqiang
+ *
+ */
 @ControllerAdvice
 public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
 
@@ -41,7 +45,7 @@ public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
         }
 
         if (body == null) {
-            LOG.error("body null, uri{}", request.getURI().getPath());
+            LOG.error("BODY NULL, uri{}", request.getURI().getPath());
             response.setStatusCode(HttpStatus.UNPROCESSABLE_ENTITY);
             return ResponseConvertor.bodyNull();
         }
@@ -56,10 +60,12 @@ public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
             return body;
         }
 
+        // 强制修改http状态头为200
         if (properties.isForceHttpStatus()) {
             response.setStatusCode(HttpStatus.OK);
         }
 
+        // 结果统一转换
         return ResponseConvertor.convert(body);
     }
 }

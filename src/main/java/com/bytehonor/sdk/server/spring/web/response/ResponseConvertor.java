@@ -6,6 +6,10 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.define.spring.code.StandardCode;
 import com.bytehonor.sdk.define.spring.result.JsonResponse;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class ResponseConvertor {
 
     private static final Logger LOG = LoggerFactory.getLogger(ResponseConvertor.class);
@@ -25,6 +29,11 @@ public class ResponseConvertor {
 
     }
 
+    /**
+     * Null响应
+     * 
+     * @return
+     */
     public static JsonResponse<?> bodyNull() {
         JsonResponse<Object> jsonResponse = new JsonResponse<Object>();
         jsonResponse.setCode(StandardCode.INTERNAL_ERROR);
@@ -32,10 +41,15 @@ public class ResponseConvertor {
         return jsonResponse;
     }
 
+    /**
+     * 系统错误
+     * 
+     * @return
+     */
     public static JsonResponse<?> error() {
         JsonResponse<Object> jsonResponse = new JsonResponse<Object>();
         jsonResponse.setCode(StandardCode.FRAMEWORK_ERROR);
-        jsonResponse.setMessage("SystemError");
+        jsonResponse.setMessage("SYSTEM_ERROR");
         return jsonResponse;
     }
 }

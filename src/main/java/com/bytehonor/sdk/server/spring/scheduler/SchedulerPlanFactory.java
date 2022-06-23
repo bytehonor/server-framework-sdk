@@ -5,6 +5,10 @@ import java.util.List;
 
 import com.bytehonor.sdk.server.spring.scheduler.plan.SchedulerPlan;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class SchedulerPlanFactory {
 
     private static final List<SchedulerPlan> LIST = new ArrayList<SchedulerPlan>(512);

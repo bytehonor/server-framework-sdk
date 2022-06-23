@@ -6,6 +6,10 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.define.spring.result.JsonResponse;
 import com.bytehonor.sdk.server.spring.web.response.ResponseBuilder;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public final class JsonResponseBuilder implements ResponseBuilder {
 
     private static final Logger LOG = LoggerFactory.getLogger(JsonResponseBuilder.class);

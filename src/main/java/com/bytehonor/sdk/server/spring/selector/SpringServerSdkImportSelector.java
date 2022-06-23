@@ -5,10 +5,14 @@ import org.springframework.core.type.AnnotationMetadata;
 
 import com.bytehonor.sdk.server.spring.config.SpringBootStandardConfiguration;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class SpringServerSdkImportSelector implements ImportSelector {
 
     @Override
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-        return new String[]{SpringBootStandardConfiguration.class.getName()};
+        return new String[] { SpringBootStandardConfiguration.class.getName() };
     }
 }

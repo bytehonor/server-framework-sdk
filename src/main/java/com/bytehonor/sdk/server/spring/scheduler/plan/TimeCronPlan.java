@@ -5,6 +5,10 @@ import java.util.List;
 
 import com.bytehonor.sdk.server.spring.scheduler.time.TimeCron;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public abstract class TimeCronPlan implements SchedulerPlan {
 
     public abstract List<TimeCron> crons();
