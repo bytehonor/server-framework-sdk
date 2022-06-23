@@ -6,11 +6,11 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.bytehonor.sdk.beautify.lang.getter.BooleanGetter;
-import com.bytehonor.sdk.beautify.lang.getter.IntegerGetter;
-import com.bytehonor.sdk.beautify.lang.getter.LongGetter;
-import com.bytehonor.sdk.beautify.lang.getter.StringGetter;
 import com.bytehonor.sdk.define.bytehonor.constant.HttpConstants;
+import com.bytehonor.sdk.define.bytehonor.getter.BooleanGetter;
+import com.bytehonor.sdk.define.bytehonor.getter.IntegerGetter;
+import com.bytehonor.sdk.define.bytehonor.getter.LongGetter;
+import com.bytehonor.sdk.define.bytehonor.getter.StringGetter;
 import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 
 /**
@@ -44,7 +44,7 @@ public class RequestGetter {
      * @return
      */
     public static int getOffset(HttpServletRequest request) {
-        return IntegerGetter.optional(getValue(request, HttpConstants.OFFSET_KEY), HttpConstants.OFFSET_DEFAULT);
+        return IntegerGetter.optional(getValue(request, HttpConstants.OFFSET_KEY), HttpConstants.OFFSET_DEF);
     }
 
     /**
