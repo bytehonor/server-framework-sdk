@@ -48,10 +48,12 @@ public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
         }
 
         if (MediaType.TEXT_HTML.equals(selectedContentType)) {
+            LOG.info("TEXT_HTML, uri{}", request.getURI().getPath());
             return body;
         }
 
         if (returnType.hasMethodAnnotation(IGNORE)) {
+            LOG.info("ResponseNotWrap, uri{}", request.getURI().getPath());
             return body;
         }
 
