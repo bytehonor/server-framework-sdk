@@ -9,11 +9,11 @@ import java.util.List;
  */
 public class TimeCronBuilder {
 
-    private Integer[] minutes;
+    private int[] minutes;
 
-    private Integer[] hours;
+    private int[] hours;
 
-    private Integer[] days;
+    private int[] days;
 
     private TimeCronBuilder() {
     }
@@ -22,30 +22,30 @@ public class TimeCronBuilder {
         return new TimeCronBuilder();
     }
 
-    public TimeCronBuilder mintueAt(Integer... minutes) {
+    public TimeCronBuilder mintueAt(int... minutes) {
         this.minutes = minutes;
         return this;
     }
 
-    public TimeCronBuilder hourAt(Integer... hours) {
+    public TimeCronBuilder hourAt(int... hours) {
         this.hours = hours;
         return this;
     }
 
-    public TimeCronBuilder dayAt(Integer... days) {
+    public TimeCronBuilder dayAt(int... days) {
         this.days = days;
         return this;
     }
 
     public List<AccurateTimeCron> build() {
         if (minutes == null || minutes.length < 1) {
-            minutes = new Integer[] { AccurateTimeCron.ANY };
+            minutes = new int[] { AccurateTimeCron.ANY };
         }
         if (hours == null || hours.length < 1) {
-            hours = new Integer[] { AccurateTimeCron.ANY };
+            hours = new int[] { AccurateTimeCron.ANY };
         }
         if (days == null || days.length < 1) {
-            days = new Integer[] { AccurateTimeCron.ANY };
+            days = new int[] { AccurateTimeCron.ANY };
         }
         int mSize = minutes.length;
         int hSize = hours.length;

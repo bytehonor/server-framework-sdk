@@ -26,13 +26,6 @@ public abstract class TimeCronPlan implements SchedulerPlan {
                 return true;
             }
         }
-//        AtomicInteger ai = new AtomicInteger(0);
-//        crons.parallelStream().forEach(item -> {
-//            if (item.match(ldt)) {
-//                ai.incrementAndGet();
-//            }
-//        });
-//        return ai.get() > 0;
         return false;
     }
 
