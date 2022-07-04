@@ -8,15 +8,15 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.lang.spring.thread.SafeRunner;
 import com.bytehonor.sdk.lang.spring.thread.ThreadSleep;
 import com.bytehonor.sdk.server.spring.scheduler.SchedulerPlanExecutor;
-import com.bytehonor.sdk.server.spring.scheduler.lock.PeriodLocker;
+import com.bytehonor.sdk.server.spring.scheduler.lock.TimeLocker;
 
 public class PeriodTask extends SafeRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(PeriodTask.class);
 
-    private final PeriodLocker locker;
+    private final TimeLocker locker;
 
-    public PeriodTask(PeriodLocker locker) {
+    public PeriodTask(TimeLocker locker) {
         this.locker = locker;
     }
 

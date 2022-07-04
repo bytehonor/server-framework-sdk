@@ -2,7 +2,7 @@ package com.bytehonor.sdk.server.spring.scheduler.lock;
 
 import com.bytehonor.sdk.server.spring.cache.CacheLocker;
 
-public class CachePeriodLocker extends PeriodLocker {
+public class CacheTimeLocker extends TimeLocker {
 
     @Override
     public boolean lock(String key) {

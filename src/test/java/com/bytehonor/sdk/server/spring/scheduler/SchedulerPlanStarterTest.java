@@ -5,13 +5,13 @@ import org.junit.Test;
 import com.bytehonor.sdk.define.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.ThreadSleep;
 import com.bytehonor.sdk.server.spring.cache.CacheLocker;
-import com.bytehonor.sdk.server.spring.scheduler.lock.PeriodLocker;
+import com.bytehonor.sdk.server.spring.scheduler.lock.TimeLocker;
 
 public class SchedulerPlanStarterTest {
 
     @Test
     public void testStart() {
-        SchedulerPlanStarter.start(new PeriodLocker() {
+        SchedulerPlanStarter.start(new TimeLocker() {
 
             @Override
             public boolean lock(String key) {
