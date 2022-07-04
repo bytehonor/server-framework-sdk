@@ -25,20 +25,25 @@ public class SchedulerPlanExecutor {
     public static void run(final LocalDateTime ldt) {
         Objects.requireNonNull(ldt, "ldt");
 
-        int accepts = 0;
         List<SchedulerPlan> plans = SchedulerPlanFactory.plans();
+        if (plans.isEmpty()) {
+            LOG.warn("plans isEmpty");
+            return;
+        }
+
+        int accepts = 0;
         for (SchedulerPlan plan : plans) {
             if (plan.accept(ldt) == false) {
                 continue;
             }
-            doRun(plan.create(ldt));
+            put(plan.create(ldt));
             accepts++;
         }
 
-        LOG.info("ldt:{}, accepts:{}, plans:{}", ldt, accepts, plans.size());
+        LOG.info("accepts:{}, plans:{}, ldt:{}", accepts, plans.size(), ldt);
     }
 
-    public static void doRun(SafeRunner runner) {
+    private static void put(SafeRunner runner) {
         if (runner == null) {
             return;
         }

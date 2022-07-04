@@ -55,15 +55,16 @@ public class AccurateTimeCron implements TimeCron {
         if (ldt == null) {
             return false;
         }
-        if (ANY != this.minute && ldt.getMinute() != this.minute) {
+        if (ANY != this.day && ldt.getDayOfMonth() != this.day) {
             return false;
         }
         if (ANY != this.hour && ldt.getHour() != this.hour) {
             return false;
         }
-        if (ANY != this.day && ldt.getDayOfMonth() != this.day) {
+        if (ANY != this.minute && ldt.getMinute() != this.minute) {
             return false;
         }
+
         return true;
     }
 
