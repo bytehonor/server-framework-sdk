@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskExecutor;
-import com.bytehonor.sdk.server.spring.scheduler.lock.CacheSchedulerLocker;
-import com.bytehonor.sdk.server.spring.scheduler.lock.SchedulerLocker;
+import com.bytehonor.sdk.server.spring.scheduler.lock.CachePeriodLocker;
+import com.bytehonor.sdk.server.spring.scheduler.lock.PeriodLocker;
 import com.bytehonor.sdk.server.spring.scheduler.task.PeriodTask;
 
 /**
@@ -24,14 +24,14 @@ public class SchedulerPlanStarter {
     private static final long PERIOD_SECONDS = 60L;
 
     public static void start() {
-        start(0, new CacheSchedulerLocker());
+        start(0, new CachePeriodLocker());
     }
 
-    public static void start(SchedulerLocker locker) {
+    public static void start(PeriodLocker locker) {
         start(0, locker);
     }
 
-    public static void start(int secondAt, SchedulerLocker locker) {
+    public static void start(int secondAt, PeriodLocker locker) {
         Objects.requireNonNull(locker, "locker");
 
         int secondNow = LocalTime.now().getSecond();

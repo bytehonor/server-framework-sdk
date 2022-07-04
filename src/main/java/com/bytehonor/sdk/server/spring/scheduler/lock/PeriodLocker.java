@@ -10,13 +10,13 @@ import com.bytehonor.sdk.lang.spring.util.StringObject;
 import com.bytehonor.sdk.server.spring.ApplicationContextHolder;
 import com.bytehonor.sdk.server.spring.scheduler.key.SchedulerKeygen;
 
-public abstract class SchedulerLocker {
+public abstract class PeriodLocker {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SchedulerLocker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PeriodLocker.class);
 
     private final String name;
 
-    public SchedulerLocker() {
+    public PeriodLocker() {
         this.name = name();
     }
 
@@ -39,7 +39,7 @@ public abstract class SchedulerLocker {
             name = getClass().getSimpleName();
         }
         if (StringObject.isEmpty(name)) {
-            name = SchedulerLocker.class.getSimpleName();
+            name = PeriodLocker.class.getSimpleName();
         }
         return name;
     }
