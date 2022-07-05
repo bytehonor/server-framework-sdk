@@ -14,11 +14,11 @@ public class TimeCronBuilderTest {
 
     @Test
     public void test() {
-        List<AccurateTimeCron> list = TimeCronBuilder.make().mintueAt(2, 11, 22, 31, 43, 52)
+        List<PeriodTimeCron> list = TimeCronBuilder.make().mintueAt(2, 11, 22, 31, 43, 52)
                 .hourAt(10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21).build();
         boolean isOk = list != null && list.size() == (6 * 11);
 
-        for (AccurateTimeCron cron : list) {
+        for (PeriodTimeCron cron : list) {
             LOG.info("m:{}, h:{}, d:{}", cron.getMinute(), cron.getHour(), cron.getDay());
         }
 

@@ -8,13 +8,13 @@ import java.time.LocalTime;
 
 import org.junit.Test;
 
-public class AccurateTimeCronTest {
+public class PeriodTimeCronTest {
 
     @Test
     public void testMatch() {
         int minute = 2;
         int hour = 3;
-        AccurateTimeCron cron = new AccurateTimeCron(minute, hour, TimeCron.ANY);
+        PeriodTimeCron cron = new PeriodTimeCron(minute, hour, TimeCron.ANY);
         LocalTime lt = LocalTime.of(hour, minute, 0);
         LocalDateTime ldt = LocalDateTime.of(LocalDate.now(), lt);
 

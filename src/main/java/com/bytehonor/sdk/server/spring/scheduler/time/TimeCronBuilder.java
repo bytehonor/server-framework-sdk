@@ -37,27 +37,27 @@ public class TimeCronBuilder {
         return this;
     }
 
-    public List<AccurateTimeCron> build() {
+    public List<PeriodTimeCron> build() {
         if (minutes == null || minutes.length < 1) {
-            minutes = new int[] { AccurateTimeCron.ANY };
+            minutes = new int[] { PeriodTimeCron.ANY };
         }
         if (hours == null || hours.length < 1) {
-            hours = new int[] { AccurateTimeCron.ANY };
+            hours = new int[] { PeriodTimeCron.ANY };
         }
         if (days == null || days.length < 1) {
-            days = new int[] { AccurateTimeCron.ANY };
+            days = new int[] { PeriodTimeCron.ANY };
         }
         int mSize = minutes.length;
         int hSize = hours.length;
         int dSize = days.length;
         int size = mSize * hSize * dSize;
 
-        List<AccurateTimeCron> result = new ArrayList<AccurateTimeCron>(size * 2);
+        List<PeriodTimeCron> result = new ArrayList<PeriodTimeCron>(size * 2);
 
         for (int m : minutes) {
             for (int h : hours) {
                 for (int d : days) {
-                    result.add(new AccurateTimeCron(m, h, d));
+                    result.add(new PeriodTimeCron(m, h, d));
                 }
             }
         }

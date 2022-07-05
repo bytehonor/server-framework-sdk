@@ -3,12 +3,12 @@ package com.bytehonor.sdk.server.spring.scheduler.time;
 import java.time.LocalDateTime;
 
 /**
- * 日/时/分 三级匹配
+ * 日/时/分 三级匹配 循环
  * 
  * @author lijianqiang
  *
  */
-public class AccurateTimeCron implements TimeCron {
+public class PeriodTimeCron implements TimeCron {
 
     private int minute;
 
@@ -16,14 +16,32 @@ public class AccurateTimeCron implements TimeCron {
 
     private int day;
 
-    public AccurateTimeCron() {
+    public PeriodTimeCron() {
         this(ANY, ANY, ANY);
     }
 
-    public AccurateTimeCron(int minute, int hour, int day) {
+    public PeriodTimeCron(int minute, int hour, int day) {
         this.minute = minute;
         this.hour = hour;
         this.day = day;
+    }
+
+    @Override
+    public boolean match(LocalDateTime ldt) {
+        if (ldt == null) {
+            return false;
+        }
+        if (ANY != this.day && ldt.getDayOfMonth() != this.day) {
+            return false;
+        }
+        if (ANY != this.hour && ldt.getHour() != this.hour) {
+            return false;
+        }
+        if (ANY != this.minute && ldt.getMinute() != this.minute) {
+            return false;
+        }
+
+        return true;
     }
 
     public int getMinute() {
@@ -48,24 +66,6 @@ public class AccurateTimeCron implements TimeCron {
 
     public void setDay(int day) {
         this.day = day;
-    }
-
-    @Override
-    public boolean match(LocalDateTime ldt) {
-        if (ldt == null) {
-            return false;
-        }
-        if (ANY != this.day && ldt.getDayOfMonth() != this.day) {
-            return false;
-        }
-        if (ANY != this.hour && ldt.getHour() != this.hour) {
-            return false;
-        }
-        if (ANY != this.minute && ldt.getMinute() != this.minute) {
-            return false;
-        }
-
-        return true;
     }
 
 }
