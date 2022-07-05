@@ -1,9 +1,7 @@
 package com.bytehonor.sdk.server.spring.scheduler.task;
 
 import java.time.LocalDateTime;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Objects;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeRunner;
 import com.bytehonor.sdk.lang.spring.thread.ThreadSleep;
@@ -12,21 +10,20 @@ import com.bytehonor.sdk.server.spring.scheduler.lock.TimeLocker;
 
 public class PeriodTask extends SafeRunner {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PeriodTask.class);
-
     private final TimeLocker locker;
 
-    public PeriodTask(TimeLocker locker) {
+    private PeriodTask(TimeLocker locker) {
         this.locker = locker;
+    }
+
+    public static PeriodTask create(TimeLocker locker) {
+        Objects.requireNonNull(locker, "locker");
+
+        return new PeriodTask(locker);
     }
 
     @Override
     public final void runInSafe() {
-        if (locker == null) {
-            LOG.error("no locker");
-            return;
-        }
-
         ThreadSleep.rand(1, 5);
 
         LocalDateTime ldt = LocalDateTime.now();

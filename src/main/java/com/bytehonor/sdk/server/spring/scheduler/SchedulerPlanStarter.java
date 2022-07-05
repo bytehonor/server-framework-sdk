@@ -38,7 +38,7 @@ public class SchedulerPlanStarter {
         int secondNow = LocalTime.now().getSecond();
         long delays = SchedulerUtils.delaySeconds(secondAt, secondNow);
         LOG.info("locker:{}, delays:{}, secondAt:{}, secondNow:{}", locker.getName(), delays, secondAt, secondNow);
-        ScheduleTaskExecutor.schedule(new PeriodTask(locker), delays, PERIOD_SECONDS);
+        ScheduleTaskExecutor.schedule(PeriodTask.create(locker), delays, PERIOD_SECONDS);
     }
 
 }
