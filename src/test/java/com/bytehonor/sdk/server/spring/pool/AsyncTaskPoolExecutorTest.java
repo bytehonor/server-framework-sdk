@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.lang.spring.thread.SafeRunner;
+import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ThreadTaskExecutor;
 
 public class AsyncTaskPoolExecutorTest {
@@ -13,7 +13,7 @@ public class AsyncTaskPoolExecutorTest {
 
     @Test
     public void test() {
-        ThreadTaskExecutor.put(new SafeRunner() {
+        ThreadTaskExecutor.put(new SafeTask() {
 
             @Override
             public void runInSafe() {
@@ -28,7 +28,7 @@ public class AsyncTaskPoolExecutorTest {
             LOG.error("sleep", e);
         }
 
-        ThreadTaskExecutor.put(new SafeRunner() {
+        ThreadTaskExecutor.put(new SafeTask() {
 
             @Override
             public void runInSafe() {

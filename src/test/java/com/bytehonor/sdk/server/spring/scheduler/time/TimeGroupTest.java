@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.server.spring.scheduler.time;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.List;

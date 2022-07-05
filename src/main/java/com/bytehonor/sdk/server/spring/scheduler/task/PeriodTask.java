@@ -3,12 +3,12 @@ package com.bytehonor.sdk.server.spring.scheduler.task;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import com.bytehonor.sdk.lang.spring.thread.SafeRunner;
+import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ThreadSleep;
 import com.bytehonor.sdk.server.spring.scheduler.TimePlanExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
 
-public class PeriodTask extends SafeRunner {
+public class PeriodTask extends SafeTask {
 
     private final TaskLocker locker;
 

@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.lang.spring.thread.SafeRunner;
+import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.server.spring.scheduler.factory.TimePlanFactory;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlan;
 
@@ -44,7 +44,7 @@ public class TimePlanExecutor {
         LOG.info("accepts:{}, plans:{}, ldt:{}", accepts, plans.size(), ldt);
     }
 
-    private static void put(SafeRunner runner) {
+    private static void put(SafeTask runner) {
         if (runner == null) {
             return;
         }
