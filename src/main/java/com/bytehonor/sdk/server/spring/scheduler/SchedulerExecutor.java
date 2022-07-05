@@ -7,10 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskExecutor;
-import com.bytehonor.sdk.server.spring.scheduler.factory.SchedulerPlanFactory;
+import com.bytehonor.sdk.server.spring.scheduler.factory.SchedulePlanFactory;
 import com.bytehonor.sdk.server.spring.scheduler.lock.CacheTaskLocker;
 import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
-import com.bytehonor.sdk.server.spring.scheduler.plan.SchedulerPlan;
+import com.bytehonor.sdk.server.spring.scheduler.plan.SchedulePlan;
 import com.bytehonor.sdk.server.spring.scheduler.task.PeriodTask;
 import com.bytehonor.sdk.server.spring.scheduler.util.SchedulerUtils;
 
@@ -20,9 +20,9 @@ import com.bytehonor.sdk.server.spring.scheduler.util.SchedulerUtils;
  * @author lijianqiang
  *
  */
-public class SchedulerPlanStarter {
+public class SchedulerExecutor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SchedulerPlanStarter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SchedulerExecutor.class);
 
     private static final long PERIOD_SECONDS = 60L;
 
@@ -43,7 +43,7 @@ public class SchedulerPlanStarter {
         ScheduleTaskExecutor.schedule(PeriodTask.create(locker), delays, PERIOD_SECONDS);
     }
 
-    public static void add(SchedulerPlan plan) {
-        SchedulerPlanFactory.add(plan);
+    public static void add(SchedulePlan plan) {
+        SchedulePlanFactory.add(plan);
     }
 }

@@ -8,7 +8,7 @@ import com.bytehonor.sdk.server.spring.scheduler.time.TimeGroup;
  * @author lijianqiang
  *
  */
-public abstract class TimeGroupPlan implements SchedulerPlan {
+public abstract class TimeGroupPlan implements SchedulePlan {
 
     public abstract TimeGroup group();
 

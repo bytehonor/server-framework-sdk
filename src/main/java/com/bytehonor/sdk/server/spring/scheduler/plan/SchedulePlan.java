@@ -8,7 +8,7 @@ import com.bytehonor.sdk.lang.spring.thread.SafeRunner;
  * @author lijianqiang
  *
  */
-public interface SchedulerPlan {
+public interface SchedulePlan {
 
     public boolean accept(LocalDateTime ldt);
 
