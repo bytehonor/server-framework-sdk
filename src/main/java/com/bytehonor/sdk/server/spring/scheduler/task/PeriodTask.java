@@ -6,17 +6,17 @@ import java.util.Objects;
 import com.bytehonor.sdk.lang.spring.thread.SafeRunner;
 import com.bytehonor.sdk.lang.spring.thread.ThreadSleep;
 import com.bytehonor.sdk.server.spring.scheduler.SchedulerPlanExecutor;
-import com.bytehonor.sdk.server.spring.scheduler.lock.TimeLocker;
+import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
 
 public class PeriodTask extends SafeRunner {
 
-    private final TimeLocker locker;
+    private final TaskLocker locker;
 
-    private PeriodTask(TimeLocker locker) {
+    private PeriodTask(TaskLocker locker) {
         this.locker = locker;
     }
 
-    public static PeriodTask create(TimeLocker locker) {
+    public static PeriodTask create(TaskLocker locker) {
         Objects.requireNonNull(locker, "locker");
 
         return new PeriodTask(locker);
