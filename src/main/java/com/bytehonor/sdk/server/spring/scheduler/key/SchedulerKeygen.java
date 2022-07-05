@@ -21,12 +21,4 @@ public class SchedulerKeygen {
 
         return make(prefix, LocalDateTimeUtils.fromTimestamp(time));
     }
-    
-    public static String consul(String prefix, LocalDateTime ldt) {
-        Objects.requireNonNull(prefix, "prefix");
-        Objects.requireNonNull(ldt, "ldt");
-
-        return new StringBuilder().append(prefix).append("/").append(ldt.format(DateConstants.YYYY_MM_DD_HH_MM))
-                .toString();
-    }
 }
