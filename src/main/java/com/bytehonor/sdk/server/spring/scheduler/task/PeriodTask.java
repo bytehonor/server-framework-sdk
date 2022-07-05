@@ -24,7 +24,7 @@ public class PeriodTask extends SafeRunner {
 
     @Override
     public final void runInSafe() {
-        ThreadSleep.rand(1, 5);
+        ThreadSleep.rand(1, 9);
 
         LocalDateTime ldt = LocalDateTime.now();
         if (locker.accept(ldt) == false) {
