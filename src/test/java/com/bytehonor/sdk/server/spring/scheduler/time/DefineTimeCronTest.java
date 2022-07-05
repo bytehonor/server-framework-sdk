@@ -8,13 +8,15 @@ import java.time.LocalTime;
 
 import org.junit.Test;
 
-public class PeriodTimeCronTest {
+import com.bytehonor.sdk.server.spring.scheduler.constant.SchedulerConstants;
+
+public class DefineTimeCronTest {
 
     @Test
     public void testMatch() {
         int minute = 2;
         int hour = 3;
-        PeriodTimeCron cron = new PeriodTimeCron(minute, hour, TimeCron.ANY);
+        DefineTimeCron cron = new DefineTimeCron(minute, hour, SchedulerConstants.ANY);
         LocalTime lt = LocalTime.of(hour, minute, 0);
         LocalDateTime ldt = LocalDateTime.of(LocalDate.now(), lt);
 

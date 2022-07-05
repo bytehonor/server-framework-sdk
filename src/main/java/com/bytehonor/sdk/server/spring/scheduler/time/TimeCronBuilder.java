@@ -3,6 +3,8 @@ package com.bytehonor.sdk.server.spring.scheduler.time;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bytehonor.sdk.server.spring.scheduler.constant.SchedulerConstants;
+
 /**
  * @author lijianqiang
  *
@@ -37,27 +39,27 @@ public class TimeCronBuilder {
         return this;
     }
 
-    public List<PeriodTimeCron> build() {
+    public List<DefineTimeCron> build() {
         if (minutes == null || minutes.length < 1) {
-            minutes = new int[] { PeriodTimeCron.ANY };
+            minutes = new int[] { SchedulerConstants.ANY };
         }
         if (hours == null || hours.length < 1) {
-            hours = new int[] { PeriodTimeCron.ANY };
+            hours = new int[] { SchedulerConstants.ANY };
         }
         if (days == null || days.length < 1) {
-            days = new int[] { PeriodTimeCron.ANY };
+            days = new int[] { SchedulerConstants.ANY };
         }
         int mSize = minutes.length;
         int hSize = hours.length;
         int dSize = days.length;
         int size = mSize * hSize * dSize;
 
-        List<PeriodTimeCron> result = new ArrayList<PeriodTimeCron>(size * 2);
+        List<DefineTimeCron> result = new ArrayList<DefineTimeCron>(size * 2);
 
         for (int m : minutes) {
             for (int h : hours) {
                 for (int d : days) {
-                    result.add(new PeriodTimeCron(m, h, d));
+                    result.add(new DefineTimeCron(m, h, d));
                 }
             }
         }

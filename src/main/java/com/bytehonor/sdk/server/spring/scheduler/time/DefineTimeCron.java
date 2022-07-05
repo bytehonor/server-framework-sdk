@@ -2,13 +2,17 @@ package com.bytehonor.sdk.server.spring.scheduler.time;
 
 import java.time.LocalDateTime;
 
+import com.bytehonor.sdk.server.spring.scheduler.constant.SchedulerConstants;
+
 /**
- * 日/时/分 三级匹配 循环
+ * 日/时/分 三级匹配
  * 
  * @author lijianqiang
  *
  */
-public class PeriodTimeCron implements TimeCron {
+public class DefineTimeCron implements TimeCron {
+
+    private static final int ANY = SchedulerConstants.ANY;
 
     private int minute;
 
@@ -16,11 +20,11 @@ public class PeriodTimeCron implements TimeCron {
 
     private int day;
 
-    public PeriodTimeCron() {
+    public DefineTimeCron() {
         this(ANY, ANY, ANY);
     }
 
-    public PeriodTimeCron(int minute, int hour, int day) {
+    public DefineTimeCron(int minute, int hour, int day) {
         this.minute = minute;
         this.hour = hour;
         this.day = day;
@@ -42,6 +46,11 @@ public class PeriodTimeCron implements TimeCron {
         }
 
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder().append(day).append(":").append(hour).append(":").append(minute).toString();
     }
 
     public int getMinute() {
