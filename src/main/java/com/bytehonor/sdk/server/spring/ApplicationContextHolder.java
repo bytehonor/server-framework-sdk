@@ -22,24 +22,19 @@ public class ApplicationContextHolder {
         return LazyHolder.SINGLE;
     }
 
-    public ConfigurableApplicationContext getApplicationContext() {
-        return applicationContext;
-    }
-
-    public void setApplicationContext(ConfigurableApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
-
     public static ConfigurableApplicationContext getContext() {
-        return self().getApplicationContext();
+        return self().applicationContext;
     }
 
-    public static void setContext(ConfigurableApplicationContext applicationContext) {
-        self().setApplicationContext(applicationContext);
+    public static void setContext(ConfigurableApplicationContext context) {
+        self().applicationContext = context;
     }
 
     public static <T> T getBean(Class<T> requiredType) {
-        return self().getApplicationContext().getBean(requiredType);
+        if (self().applicationContext == null) {
+            throw new RuntimeException("applicationContext null");
+        }
+        return self().applicationContext.getBean(requiredType);
     }
 
     public static boolean inited() {
