@@ -5,8 +5,8 @@ import java.util.Objects;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ThreadSleep;
-import com.bytehonor.sdk.server.spring.scheduler.TimePlanExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
+import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanExecutor;
 
 public class PeriodTask extends SafeTask {
 

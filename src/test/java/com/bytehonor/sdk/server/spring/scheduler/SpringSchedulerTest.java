@@ -7,11 +7,11 @@ import com.bytehonor.sdk.lang.spring.thread.ThreadSleep;
 import com.bytehonor.sdk.server.spring.cache.CacheLocker;
 import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
 
-public class SchedulerExecutorTest {
+public class SpringSchedulerTest {
 
     @Test
     public void testStart() {
-        SchedulerExecutor.start(new TaskLocker() {
+        SpringScheduler.start(new TaskLocker() {
 
             @Override
             public boolean lock(String key) {

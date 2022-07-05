@@ -20,9 +20,9 @@ import com.bytehonor.sdk.server.spring.scheduler.util.SchedulerUtils;
  * @author lijianqiang
  *
  */
-public class SchedulerExecutor {
+public class SpringScheduler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SchedulerExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringScheduler.class);
 
     private static final long PERIOD_SECONDS = 60L;
 
