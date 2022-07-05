@@ -10,6 +10,7 @@ import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.lock.CacheTimeLocker;
 import com.bytehonor.sdk.server.spring.scheduler.lock.TimeLocker;
 import com.bytehonor.sdk.server.spring.scheduler.task.PeriodTask;
+import com.bytehonor.sdk.server.spring.scheduler.util.SchedulerUtils;
 
 /**
  * 每分钟循环任务 启动类
@@ -35,17 +36,9 @@ public class SchedulerPlanStarter {
         Objects.requireNonNull(locker, "locker");
 
         int secondNow = LocalTime.now().getSecond();
-        long delays = delaySeconds(secondAt, secondNow);
+        long delays = SchedulerUtils.delaySeconds(secondAt, secondNow);
         LOG.info("locker:{}, delays:{}, secondAt:{}, secondNow:{}", locker.getName(), delays, secondAt, secondNow);
         ScheduleTaskExecutor.schedule(new PeriodTask(locker), delays, PERIOD_SECONDS);
-    }
-
-    private static long delaySeconds(int secondAt, int secondNow) {
-        int delaySeconds = secondAt - secondNow;
-        if (delaySeconds < 0) {
-            delaySeconds += 60;
-        }
-        return delaySeconds;
     }
 
 }
