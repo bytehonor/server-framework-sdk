@@ -9,7 +9,7 @@ import com.bytehonor.sdk.server.spring.scheduler.time.TimeCron;
  * @author lijianqiang
  *
  */
-public abstract class TimeCronPlan implements SchedulePlan {
+public abstract class TimeCronPlan implements TimePlan {
 
     public abstract List<TimeCron> crons();
 

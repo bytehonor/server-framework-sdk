@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeRunner;
 import com.bytehonor.sdk.lang.spring.thread.ThreadSleep;
-import com.bytehonor.sdk.server.spring.scheduler.SchedulePlanExecutor;
+import com.bytehonor.sdk.server.spring.scheduler.TimePlanExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
 
 public class PeriodTask extends SafeRunner {
@@ -31,7 +31,7 @@ public class PeriodTask extends SafeRunner {
             return;
         }
 
-        SchedulePlanExecutor.run(ldt);
+        TimePlanExecutor.run(ldt);
     }
 
 }

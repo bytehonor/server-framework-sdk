@@ -10,30 +10,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeRunner;
-import com.bytehonor.sdk.server.spring.scheduler.factory.SchedulePlanFactory;
-import com.bytehonor.sdk.server.spring.scheduler.plan.SchedulePlan;
+import com.bytehonor.sdk.server.spring.scheduler.factory.TimePlanFactory;
+import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlan;
 
 /**
  * @author lijianqiang
  *
  */
-public class SchedulePlanExecutor {
+public class TimePlanExecutor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SchedulePlanExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TimePlanExecutor.class);
 
     private static final ExecutorService SERVICE = Executors.newFixedThreadPool(2);
 
     public static void run(final LocalDateTime ldt) {
         Objects.requireNonNull(ldt, "ldt");
 
-        List<SchedulePlan> plans = SchedulePlanFactory.plans();
+        List<TimePlan> plans = TimePlanFactory.plans();
         if (plans.isEmpty()) {
             LOG.warn("plans isEmpty");
             return;
         }
 
         int accepts = 0;
-        for (SchedulePlan plan : plans) {
+        for (TimePlan plan : plans) {
             if (plan.accept(ldt) == false) {
                 continue;
             }

@@ -8,7 +8,7 @@ import com.bytehonor.sdk.server.spring.scheduler.time.TimeOnce;
  * @author lijianqiang
  *
  */
-public abstract class TimeOncePlan implements SchedulePlan {
+public abstract class TimeOncePlan implements TimePlan {
 
     public abstract TimeOnce once();
 
