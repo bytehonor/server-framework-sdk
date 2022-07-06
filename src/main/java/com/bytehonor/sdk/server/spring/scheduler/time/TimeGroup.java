@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bytehonor.sdk.server.spring.exception.SpringServerException;
 import com.bytehonor.sdk.server.spring.scheduler.constant.SchedulerConstants;
 
 /**
@@ -146,7 +147,7 @@ public class TimeGroup implements TimeCron {
             }
 
             if (list.isEmpty()) {
-                throw new RuntimeException("no crons");
+                throw new SpringServerException("no crons");
             }
 
             TimeGroup group = new TimeGroup();

@@ -5,15 +5,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
-import com.bytehonor.sdk.lang.spring.thread.ThreadTaskExecutor;
+import com.bytehonor.sdk.lang.spring.thread.SpringTaskExecutor;
 
-public class AsyncTaskPoolExecutorTest {
+public class SpringTaskExecutorTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AsyncTaskPoolExecutorTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringTaskExecutorTest.class);
 
     @Test
     public void test() {
-        ThreadTaskExecutor.put(new SafeTask() {
+        SpringTaskExecutor.put(new SafeTask() {
 
             @Override
             public void runInSafe() {
@@ -28,7 +28,7 @@ public class AsyncTaskPoolExecutorTest {
             LOG.error("sleep", e);
         }
 
-        ThreadTaskExecutor.put(new SafeTask() {
+        SpringTaskExecutor.put(new SafeTask() {
 
             @Override
             public void runInSafe() {

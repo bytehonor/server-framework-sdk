@@ -9,7 +9,7 @@ import com.bytehonor.sdk.server.spring.config.SpringBootStandardConfiguration;
  * @author lijianqiang
  *
  */
-public class SpringServerSdkImportSelector implements ImportSelector {
+public class SpringServerImportSelector implements ImportSelector {
 
     @Override
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {

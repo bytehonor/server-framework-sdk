@@ -6,7 +6,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.lang.spring.thread.ScheduledTaskExecutor;
+import com.bytehonor.sdk.lang.spring.thread.SpringScheduleExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.factory.TimePlanFactory;
 import com.bytehonor.sdk.server.spring.scheduler.lock.CacheTaskLocker;
 import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
@@ -40,7 +40,7 @@ public class SpringScheduler {
         int secondNow = LocalTime.now().getSecond();
         long delays = SchedulerUtils.delaySeconds(secondAt, secondNow);
         LOG.info("locker:{}, delays:{}, secondAt:{}, secondNow:{}", locker.getName(), delays, secondAt, secondNow);
-        ScheduledTaskExecutor.schedule(PeriodTask.create(locker), delays, PERIOD_SECONDS);
+        SpringScheduleExecutor.schedule(PeriodTask.create(locker), delays, PERIOD_SECONDS);
     }
 
     public static void add(TimePlan plan) {

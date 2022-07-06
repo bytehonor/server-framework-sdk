@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 import org.springframework.context.annotation.Import;
 
-import com.bytehonor.sdk.server.spring.selector.SpringServerSdkImportSelector;
+import com.bytehonor.sdk.server.spring.selector.SpringServerImportSelector;
 
 /**
  * 启动注解，引入自定义Bean
@@ -17,6 +17,6 @@ import com.bytehonor.sdk.server.spring.selector.SpringServerSdkImportSelector;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(SpringServerSdkImportSelector.class)
+@Import(SpringServerImportSelector.class)
 public @interface SpringBootStandard {
 }
