@@ -1,7 +1,5 @@
 package com.bytehonor.sdk.server.spring.start;
 
-import java.util.List;
-
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
@@ -15,8 +13,8 @@ public class SpringServerStarter {
 
         ServerConfig.init(ApplicationContextHolder.getBean(Environment.class));
 
-        List<SpringServerListener> listeners = SpringServerListenerFactory.list();
-        for (SpringServerListener listener : listeners) {
+        SpringServerListener listener = ApplicationContextHolder.getBean(SpringServerListener.class);
+        if (listener != null) {
             listener.onStart();
         }
     }
