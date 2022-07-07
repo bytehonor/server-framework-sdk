@@ -5,6 +5,7 @@ import javax.servlet.Servlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -23,10 +24,16 @@ import com.bytehonor.sdk.server.spring.web.mvc.ServerWebMvcConfigurer;
 @ConditionalOnWebApplication
 @ConditionalOnClass({ Servlet.class, DispatcherServlet.class })
 @AutoConfigureAfter(WebEndpointAutoConfiguration.class)
-@EnableConfigurationProperties(SpringBootStandardProperties.class)
+@EnableConfigurationProperties({ SpringBootStandardProperties.class, WebEndpointProperties.class })
 public class SpringBootStandardConfiguration {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringBootStandardConfiguration.class);
+
+    private final WebEndpointProperties webEndpointProperties;
+
+    public SpringBootStandardConfiguration(WebEndpointProperties webEndpointProperties) {
+        this.webEndpointProperties = webEndpointProperties;
+    }
 
     @Bean
     @ConditionalOnMissingBean(value = ErrorResponseAdvisor.class)
@@ -53,6 +60,7 @@ public class SpringBootStandardConfiguration {
     @ConditionalOnMissingBean(value = SchedulerControllerEndpoint.class)
     public SchedulerControllerEndpoint schedulerControllerEndpoint() {
         LOG.info("[Bytehonor] SchedulerControllerEndpoint");
+        webEndpointProperties.getExposure().getInclude().add("scheduler");
         return new SchedulerControllerEndpoint();
     }
 
