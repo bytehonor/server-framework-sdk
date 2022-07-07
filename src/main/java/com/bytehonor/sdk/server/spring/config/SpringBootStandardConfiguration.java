@@ -1,9 +1,12 @@
 package com.bytehonor.sdk.server.spring.config;
 
+import java.util.Set;
+
 import javax.servlet.Servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.actuate.autoconfigure.endpoint.expose.EndpointExposure;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -15,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.bytehonor.sdk.server.spring.constant.SpringServerConstants;
 import com.bytehonor.sdk.server.spring.scheduler.controller.SchedulerControllerEndpoint;
 import com.bytehonor.sdk.server.spring.web.advisor.ErrorResponseAdvisor;
 import com.bytehonor.sdk.server.spring.web.advisor.JsonResponseAdvisor;
@@ -33,6 +37,15 @@ public class SpringBootStandardConfiguration {
 
     public SpringBootStandardConfiguration(WebEndpointProperties webEndpointProperties) {
         this.webEndpointProperties = webEndpointProperties;
+        this.initWebEndpoint();
+    }
+
+    private void initWebEndpoint() {
+        Set<String> include = webEndpointProperties.getExposure().getInclude();
+        String[] defaults = EndpointExposure.WEB.getDefaultIncludes();
+        for (String def : defaults) {
+            include.add(def);
+        }
     }
 
     @Bean
@@ -59,8 +72,9 @@ public class SpringBootStandardConfiguration {
     @Bean
     @ConditionalOnMissingBean(value = SchedulerControllerEndpoint.class)
     public SchedulerControllerEndpoint schedulerControllerEndpoint() {
-        LOG.info("[Bytehonor] SchedulerControllerEndpoint");
-        webEndpointProperties.getExposure().getInclude().add("scheduler");
+        Set<String> include = webEndpointProperties.getExposure().getInclude();
+        include.add(SpringServerConstants.SCHEDULER_ENDPOINT);
+        LOG.info("[Bytehonor] SchedulerControllerEndpoint, include:{}", include);
         return new SchedulerControllerEndpoint();
     }
 
