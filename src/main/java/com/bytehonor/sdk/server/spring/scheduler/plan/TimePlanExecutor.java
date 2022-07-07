@@ -35,12 +35,15 @@ public class TimePlanExecutor {
         for (TimePlan plan : plans) {
             String name = plan.getClass().getSimpleName();
             if (PlanPauseCacheHolder.isPause(name)) {
+                LOG.warn("name:{} isPause", name);
                 continue;
             }
 
             if (plan.accept(ldt) == false) {
                 continue;
             }
+
+            LOG.info("accept:{}", name);
 
             put(plan.create(ldt));
 
