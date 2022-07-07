@@ -20,6 +20,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import com.bytehonor.sdk.server.spring.constant.SpringServerConstants;
 import com.bytehonor.sdk.server.spring.scheduler.controller.SchedulerControllerEndpoint;
+import com.bytehonor.sdk.server.spring.start.ApplicationReadyEventListener;
 import com.bytehonor.sdk.server.spring.web.advisor.ErrorResponseAdvisor;
 import com.bytehonor.sdk.server.spring.web.advisor.JsonResponseAdvisor;
 import com.bytehonor.sdk.server.spring.web.mvc.ServerWebMvcConfigurer;
@@ -78,4 +79,10 @@ public class SpringBootStandardConfiguration {
         return new SchedulerControllerEndpoint();
     }
 
+    @Bean
+    @ConditionalOnMissingBean(value = ApplicationReadyEventListener.class)
+    public ApplicationReadyEventListener applicationReadyEventListener() {
+        LOG.info("[Bytehonor] ApplicationReadyEventListener");
+        return new ApplicationReadyEventListener();
+    }
 }

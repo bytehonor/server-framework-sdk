@@ -11,6 +11,7 @@ import com.bytehonor.sdk.define.spring.result.IntegerResultVO;
 import com.bytehonor.sdk.define.spring.result.StringResultVO;
 import com.bytehonor.sdk.server.spring.config.SpringBootStandardConfiguration;
 import com.bytehonor.sdk.server.spring.constant.SpringServerConstants;
+import com.bytehonor.sdk.server.spring.scheduler.cache.PlanPauseCacheHolder;
 import com.bytehonor.sdk.server.spring.scheduler.stats.PlanStatsHandler;
 
 @ControllerEndpoint(id = SpringServerConstants.SCHEDULER_ENDPOINT)
@@ -30,6 +31,7 @@ public class SchedulerControllerEndpoint {
     @GetMapping("stop/{name}")
     public StringResultVO schedulerStop(@PathVariable("name") String name) {
         LOG.info("schedulerStop name:{}", name);
+        PlanPauseCacheHolder.stop(name);
         return StringResultVO.ok();
     }
 
@@ -37,6 +39,7 @@ public class SchedulerControllerEndpoint {
     @GetMapping("start/{name}")
     public StringResultVO schedulerStart(@PathVariable("name") String name) {
         LOG.info("schedulerStart name:{}", name);
+        PlanPauseCacheHolder.start(name);
         return StringResultVO.ok();
     }
 }

@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
+import com.bytehonor.sdk.server.spring.scheduler.cache.PlanPauseCacheHolder;
 import com.bytehonor.sdk.server.spring.scheduler.stats.PlanStatsHandler;
 
 /**
@@ -32,13 +33,18 @@ public class TimePlanExecutor {
         }
 
         for (TimePlan plan : plans) {
+            String name = plan.getClass().getSimpleName();
+            if (PlanPauseCacheHolder.isPause(name)) {
+                continue;
+            }
+
             if (plan.accept(ldt) == false) {
                 continue;
             }
 
             put(plan.create(ldt));
 
-            PlanStatsHandler.increase(plan.getClass().getSimpleName());
+            PlanStatsHandler.increase(name);
         }
     }
 

@@ -4,15 +4,16 @@ import java.time.LocalDateTime;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.env.Environment;
 
 import com.bytehonor.sdk.lang.spring.util.StringObject;
-import com.bytehonor.sdk.server.spring.ApplicationContextHolder;
+import com.bytehonor.sdk.server.spring.config.ServerConfig;
 import com.bytehonor.sdk.server.spring.scheduler.key.SchedulerKeygen;
 
 public abstract class TaskLocker {
 
     private static final Logger LOG = LoggerFactory.getLogger(TaskLocker.class);
+
+    private static final String CLAZZ = TaskLocker.class.getSimpleName();
 
     private final String name;
 
@@ -30,18 +31,17 @@ public abstract class TaskLocker {
     }
 
     private String name() {
-        String name = "";
-        if (ApplicationContextHolder.inited()) {
-            Environment env = ApplicationContextHolder.getBean(Environment.class);
-            name = env.getProperty("spring.application.name");
+        String name = ServerConfig.name();
+        if (StringObject.isEmpty(name) == false) {
+            return name;
         }
-        if (StringObject.isEmpty(name)) {
-            name = getClass().getSimpleName();
+
+        name = getClass().getSimpleName();
+        if (StringObject.isEmpty(name) == false) {
+            return name;
         }
-        if (StringObject.isEmpty(name)) {
-            name = TaskLocker.class.getSimpleName();
-        }
-        return name;
+
+        return CLAZZ;
     }
 
     public abstract boolean lock(String key);
