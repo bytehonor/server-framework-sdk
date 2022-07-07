@@ -21,7 +21,7 @@ public class SpringServer {
         return ServerConfig.name();
     }
 
-    public static Integer port() {
+    public static int port() {
         return ServerConfig.port();
     }
 

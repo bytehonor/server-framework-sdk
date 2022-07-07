@@ -13,12 +13,14 @@ public class ServerConfig {
 
     private String name;
 
-    private Integer port;
+    private int port;
 
     private Environment env;
 
     private ServerConfig() {
-
+        this.id = "";
+        this.name = "";
+        this.port = 0;
     }
 
     private static class LazyHolder {
@@ -33,7 +35,7 @@ public class ServerConfig {
         Objects.requireNonNull(env, "env");
         // Environment env = ApplicationContextHolder.getBean(Environment.class);
         String name = StringGetter.optional(env.getProperty("spring.application.name"), "");
-        Integer port = IntegerGetter.optional(env.getProperty("server.port"), 0);
+        int port = IntegerGetter.optional(env.getProperty("server.port"), 0);
         self().name = name;
         self().port = port;
         self().id = new StringBuilder().append(name).append("-").append(port).toString();
@@ -47,7 +49,7 @@ public class ServerConfig {
         return self().name;
     }
 
-    public static Integer port() {
+    public static int port() {
         return self().port;
     }
 
