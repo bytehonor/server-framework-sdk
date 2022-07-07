@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.start;
+package com.bytehonor.sdk.server.spring.listener;
 
 public interface SpringServerListener {
 
