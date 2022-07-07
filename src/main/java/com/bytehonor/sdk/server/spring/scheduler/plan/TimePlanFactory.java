@@ -1,10 +1,8 @@
-package com.bytehonor.sdk.server.spring.scheduler.factory;
+package com.bytehonor.sdk.server.spring.scheduler.plan;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlan;
 
 /**
  * @author lijianqiang
