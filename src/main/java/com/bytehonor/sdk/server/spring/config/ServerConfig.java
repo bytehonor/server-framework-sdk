@@ -45,25 +45,44 @@ public class ServerConfig {
         self().ip = LocalEnvUtils.localIp();
     }
 
-    public static String id() {
-        return self().id;
+    public String getId() {
+        return id;
     }
 
-    public static String ip() {
-        return self().ip;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public static String name() {
-        return self().name;
+    public String getIp() {
+        return ip;
     }
 
-    public static int port() {
-        return self().port;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
-    public static String getProperty(String key) {
-        Objects.requireNonNull(key, "key");
-
-        return self().env.getProperty(key);
+    public String getName() {
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public Environment getEnv() {
+        return env;
+    }
+
+    public void setEnv(Environment env) {
+        this.env = env;
+    }
+
 }

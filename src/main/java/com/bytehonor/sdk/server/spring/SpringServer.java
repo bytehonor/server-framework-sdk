@@ -14,22 +14,22 @@ public class SpringServer {
     }
 
     public static String id() {
-        return ServerConfig.id();
+        return ServerConfig.self().getId();
     }
 
     public static String ip() {
-        return ServerConfig.ip();
+        return ServerConfig.self().getIp();
     }
 
     public static String name() {
-        return ServerConfig.name();
+        return ServerConfig.self().getName();
     }
 
     public static int port() {
-        return ServerConfig.port();
+        return ServerConfig.self().getPort();
     }
 
     public static String getProperty(String key) {
-        return ServerConfig.getProperty(key);
+        return ServerConfig.self().getEnv().getProperty(key);
     }
 }

@@ -31,7 +31,7 @@ public abstract class TaskLocker {
     }
 
     private String name() {
-        String name = ServerConfig.name();
+        String name = ServerConfig.self().getName();
         if (StringObject.isEmpty(name) == false) {
             return name;
         }
