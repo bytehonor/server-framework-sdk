@@ -17,6 +17,10 @@ public class SpringServer {
         return ServerConfig.id();
     }
 
+    public static String ip() {
+        return ServerConfig.ip();
+    }
+
     public static String name() {
         return ServerConfig.name();
     }

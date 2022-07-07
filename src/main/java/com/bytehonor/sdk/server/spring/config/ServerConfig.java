@@ -6,10 +6,13 @@ import org.springframework.core.env.Environment;
 
 import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
 import com.bytehonor.sdk.lang.spring.getter.StringGetter;
+import com.bytehonor.sdk.server.spring.util.LocalEnvUtils;
 
 public class ServerConfig {
 
     private String id;
+
+    private String ip;
 
     private String name;
 
@@ -39,10 +42,15 @@ public class ServerConfig {
         self().name = name;
         self().port = port;
         self().id = new StringBuilder().append(name).append("-").append(port).toString();
+        self().ip = LocalEnvUtils.localIp();
     }
 
     public static String id() {
         return self().id;
+    }
+
+    public static String ip() {
+        return self().ip;
     }
 
     public static String name() {
