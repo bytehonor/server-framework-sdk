@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.bytehonor.sdk.server.spring.scheduler.controller.SchedulerControllerEndpoint;
 import com.bytehonor.sdk.server.spring.web.advisor.ErrorResponseAdvisor;
 import com.bytehonor.sdk.server.spring.web.advisor.JsonResponseAdvisor;
 import com.bytehonor.sdk.server.spring.web.mvc.ServerWebMvcConfigurer;
@@ -42,8 +43,17 @@ public class SpringBootStandardConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean(value = ServerWebMvcConfigurer.class)
     public ServerWebMvcConfigurer serverWebMvcConfigurer() {
-        LOG.info("[Bytehonor] ServerWebMvcConfigurer ");
+        LOG.info("[Bytehonor] ServerWebMvcConfigurer");
         return new ServerWebMvcConfigurer();
     }
+
+    @Bean
+    @ConditionalOnMissingBean(value = SchedulerControllerEndpoint.class)
+    public SchedulerControllerEndpoint schedulerControllerEndpoint() {
+        LOG.info("[Bytehonor] SchedulerControllerEndpoint");
+        return new SchedulerControllerEndpoint();
+    }
+
 }
