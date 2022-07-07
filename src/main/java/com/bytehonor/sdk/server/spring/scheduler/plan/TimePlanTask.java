@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.scheduler.task;
+package com.bytehonor.sdk.server.spring.scheduler.plan;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -6,20 +6,19 @@ import java.util.Objects;
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ThreadSleep;
 import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
-import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanExecutor;
 
-public class PeriodTask extends SafeTask {
+public class TimePlanTask extends SafeTask {
 
     private final TaskLocker locker;
 
-    private PeriodTask(TaskLocker locker) {
+    private TimePlanTask(TaskLocker locker) {
         this.locker = locker;
     }
 
-    public static PeriodTask create(TaskLocker locker) {
+    public static TimePlanTask of(TaskLocker locker) {
         Objects.requireNonNull(locker, "locker");
 
-        return new PeriodTask(locker);
+        return new TimePlanTask(locker);
     }
 
     @Override

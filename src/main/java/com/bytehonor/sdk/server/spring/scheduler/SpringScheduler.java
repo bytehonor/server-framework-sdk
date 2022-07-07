@@ -11,7 +11,8 @@ import com.bytehonor.sdk.server.spring.scheduler.factory.TimePlanFactory;
 import com.bytehonor.sdk.server.spring.scheduler.lock.CacheTaskLocker;
 import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlan;
-import com.bytehonor.sdk.server.spring.scheduler.task.PeriodTask;
+import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanTask;
+import com.bytehonor.sdk.server.spring.scheduler.stats.PlanStatsHandler;
 import com.bytehonor.sdk.server.spring.scheduler.util.SchedulerUtils;
 
 /**
@@ -27,7 +28,11 @@ public class SpringScheduler {
     private static final long PERIOD_SECONDS = 60L;
 
     public static void start() {
-        start(0, new CacheTaskLocker());
+        start(0);
+    }
+
+    public static void start(int secondAt) {
+        start(secondAt, new CacheTaskLocker());
     }
 
     public static void start(TaskLocker locker) {
@@ -40,10 +45,14 @@ public class SpringScheduler {
         int secondNow = LocalTime.now().getSecond();
         long delays = SchedulerUtils.delaySeconds(secondAt, secondNow);
         LOG.info("locker:{}, delays:{}, secondAt:{}, secondNow:{}", locker.getName(), delays, secondAt, secondNow);
-        SpringScheduleExecutor.schedule(PeriodTask.create(locker), delays, PERIOD_SECONDS);
+        SpringScheduleExecutor.schedule(TimePlanTask.of(locker), delays, PERIOD_SECONDS);
     }
 
     public static void add(TimePlan plan) {
         TimePlanFactory.add(plan);
+    }
+
+    public static void print() {
+        PlanStatsHandler.print();
     }
 }

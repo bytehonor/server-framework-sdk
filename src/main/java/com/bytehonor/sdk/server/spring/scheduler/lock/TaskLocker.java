@@ -25,7 +25,7 @@ public abstract class TaskLocker {
         if (lock(key) == false) {
             return false;
         }
-        LOG.info("key:{}", key);
+        LOG.info("accept:{}", key);
         return true;
     }
 

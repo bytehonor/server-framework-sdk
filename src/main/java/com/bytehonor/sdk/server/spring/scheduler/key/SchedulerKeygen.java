@@ -12,13 +12,16 @@ public class SchedulerKeygen {
         Objects.requireNonNull(prefix, "prefix");
         Objects.requireNonNull(ldt, "ldt");
 
-        return new StringBuilder().append(prefix).append(":").append(ldt.format(DateConstants.YYYY_MM_DD_HH_MM))
-                .toString();
+        return new StringBuilder().append(prefix).append(":").append(time(ldt)).toString();
     }
 
     public static String make(String prefix, long time) {
         Objects.requireNonNull(prefix, "prefix");
 
         return make(prefix, LocalDateTimeUtils.fromTimestamp(time));
+    }
+
+    private static String time(LocalDateTime ldt) {
+        return ldt.format(DateConstants.YYYY_MM_DD_HH_MM);
     }
 }

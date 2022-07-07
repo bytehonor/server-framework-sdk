@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.server.spring.scheduler.factory.TimePlanFactory;
+import com.bytehonor.sdk.server.spring.scheduler.stats.PlanStatsHandler;
 
 /**
  * @author lijianqiang
@@ -31,16 +32,15 @@ public class TimePlanExecutor {
             return;
         }
 
-        int accepts = 0;
         for (TimePlan plan : plans) {
             if (plan.accept(ldt) == false) {
                 continue;
             }
-            put(plan.create(ldt));
-            accepts++;
-        }
 
-        LOG.info("accepts:{}, plans:{}, ldt:{}", accepts, plans.size(), ldt);
+            put(plan.create(ldt));
+
+            PlanStatsHandler.increase(plan.getClass().getSimpleName());
+        }
     }
 
     private static void put(SafeTask runner) {
