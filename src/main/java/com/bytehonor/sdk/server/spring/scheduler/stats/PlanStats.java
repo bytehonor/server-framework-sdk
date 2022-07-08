@@ -1,10 +1,9 @@
 package com.bytehonor.sdk.server.spring.scheduler.stats;
 
+import com.bytehonor.sdk.lang.spring.util.LocalDateTimeUtils;
 import com.bytehonor.sdk.server.spring.config.ServerConfig;
 
 public class PlanStats {
-
-    private final String key;
 
     private final String server;
 
@@ -12,15 +11,13 @@ public class PlanStats {
 
     private final Long time;
 
-    public PlanStats(String name) {
-        this.time = System.currentTimeMillis();
-        this.name = name;
-        this.server = ServerConfig.self().getId();
-        this.key = new StringBuilder().append(this.name).append(":").append(this.time).toString();
-    }
+    private final String date;
 
-    public String getKey() {
-        return key;
+    public PlanStats(String name) {
+        this.server = ServerConfig.self().getId();
+        this.name = name;
+        this.time = System.currentTimeMillis();
+        this.date = LocalDateTimeUtils.format(this.time);
     }
 
     public String getServer() {
@@ -33,6 +30,10 @@ public class PlanStats {
 
     public Long getTime() {
         return time;
+    }
+
+    public String getDate() {
+        return date;
     }
 
 }
