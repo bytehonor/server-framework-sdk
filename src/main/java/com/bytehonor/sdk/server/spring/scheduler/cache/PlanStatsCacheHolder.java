@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
-import com.bytehonor.sdk.server.spring.scheduler.stats.PlanStats;
+import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStats;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
@@ -15,7 +15,7 @@ public class PlanStatsCacheHolder {
 
     private static int CAPACITY = 128;
 
-    private static Cache<String, PlanStats> CACHE = CacheBuilder.newBuilder().initialCapacity(CAPACITY) // 设置初始容量为100
+    private static Cache<String, TimePlanStats> CACHE = CacheBuilder.newBuilder().initialCapacity(CAPACITY) // 设置初始容量为100
             .maximumSize(10 * CAPACITY) // 设置缓存的最大容量
             .expireAfterWrite(2, TimeUnit.DAYS) // 设置缓存在写入一分钟后失效
             .concurrencyLevel(20) // 设置并发级别为10
@@ -25,18 +25,18 @@ public class PlanStatsCacheHolder {
         Objects.requireNonNull(name, "name");
 
         // 一个任务最记录最后时间
-        PlanStats stats = new PlanStats(name);
+        TimePlanStats stats = new TimePlanStats(name);
         CACHE.put(stats.getName(), stats);
     }
 
-    public static List<PlanStats> list() {
+    public static List<TimePlanStats> list() {
         if (CACHE.size() < 1L) {
-            return new ArrayList<PlanStats>();
+            return new ArrayList<TimePlanStats>();
         }
 
-        List<PlanStats> list = new ArrayList<PlanStats>();
-        ConcurrentMap<String, PlanStats> map = CACHE.asMap();
-        for (Entry<String, PlanStats> item : map.entrySet()) {
+        List<TimePlanStats> list = new ArrayList<TimePlanStats>();
+        ConcurrentMap<String, TimePlanStats> map = CACHE.asMap();
+        for (Entry<String, TimePlanStats> item : map.entrySet()) {
             list.add(item.getValue());
         }
 

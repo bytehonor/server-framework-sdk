@@ -16,9 +16,9 @@ import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlan;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanFactory;
+import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStats;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStatus;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanTask;
-import com.bytehonor.sdk.server.spring.scheduler.stats.PlanStats;
 import com.bytehonor.sdk.server.spring.scheduler.util.SchedulerUtils;
 
 /**
@@ -58,7 +58,7 @@ public class SpringScheduler {
         return TimePlanFactory.listPlanStatus();
     }
 
-    public static List<PlanStats> stats() {
+    public static List<TimePlanStats> stats() {
         return PlanStatsCacheHolder.list();
     }
 

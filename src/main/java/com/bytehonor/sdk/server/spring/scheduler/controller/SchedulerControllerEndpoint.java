@@ -14,8 +14,8 @@ import com.bytehonor.sdk.define.spring.result.StringResultVO;
 import com.bytehonor.sdk.server.spring.config.SpringBootStandardConfiguration;
 import com.bytehonor.sdk.server.spring.constant.SpringServerConstants;
 import com.bytehonor.sdk.server.spring.scheduler.SpringScheduler;
+import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStats;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStatus;
-import com.bytehonor.sdk.server.spring.scheduler.stats.PlanStats;
 
 @ControllerEndpoint(id = SpringServerConstants.SCHEDULER_ENDPOINT)
 public class SchedulerControllerEndpoint {
@@ -32,9 +32,9 @@ public class SchedulerControllerEndpoint {
     
     @ResponseBody
     @GetMapping("stats")
-    public DataListVO<PlanStats> stats() {
+    public DataListVO<TimePlanStats> stats() {
         LOG.info("stats");
-        List<PlanStats> list = SpringScheduler.stats();
+        List<TimePlanStats> list = SpringScheduler.stats();
         return DataListVO.of(list);
     }
 
