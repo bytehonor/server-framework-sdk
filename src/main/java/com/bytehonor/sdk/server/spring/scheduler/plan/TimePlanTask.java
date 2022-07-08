@@ -39,7 +39,7 @@ public class TimePlanTask extends SafeTask {
 
         List<TimePlan> plans = TimePlanFactory.listPlan(handler);
         if (plans.isEmpty()) {
-            LOG.warn("plans isEmpty");
+            LOG.debug("plans isEmpty");
             return;
         }
 

@@ -3,7 +3,7 @@ package com.bytehonor.sdk.server.spring.scheduler.handler;
 import com.bytehonor.sdk.lang.spring.cache.CacheLocker;
 import com.bytehonor.sdk.server.spring.scheduler.cache.PlanPauseCacheHolder;
 
-public class CacheTaskHandler extends TaskHandler {
+public class LocalTaskHandler extends TaskHandler {
 
     @Override
     public boolean lock(String key) {

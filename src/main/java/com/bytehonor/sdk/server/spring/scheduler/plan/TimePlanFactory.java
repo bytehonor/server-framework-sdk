@@ -32,10 +32,10 @@ public class TimePlanFactory {
         List<TimePlan> list = new ArrayList<TimePlan>();
         for (Entry<String, TimePlanHolder> item : MAP.entrySet()) {
             if (isPause(manage, item.getKey())) {
-                LOG.warn("name:{} isPause", item.getKey());
+                LOG.warn("name:{} paused", item.getKey());
                 continue;
             }
-            LOG.info("name:{} prepare", item.getKey());
+            LOG.debug("name:{} prepare", item.getKey());
             list.add(item.getValue().getPlan());
         }
         return list;

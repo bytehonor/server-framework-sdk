@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SpringScheduleExecutor;
-import com.bytehonor.sdk.server.spring.scheduler.handler.CacheTaskHandler;
+import com.bytehonor.sdk.server.spring.scheduler.handler.LocalTaskHandler;
 import com.bytehonor.sdk.server.spring.scheduler.handler.TaskHandler;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlan;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanExecutor;
@@ -45,7 +45,7 @@ public class SpringScheduler {
     }
 
     public static void start(int secondAt) {
-        start(secondAt, new CacheTaskHandler());
+        start(secondAt, new LocalTaskHandler());
     }
 
     public static void start(TaskHandler handler) {
