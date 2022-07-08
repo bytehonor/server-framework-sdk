@@ -1,36 +1,51 @@
 package com.bytehonor.sdk.server.spring.scheduler.plan;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ThreadSleep;
-import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
+import com.bytehonor.sdk.server.spring.scheduler.handler.TaskHandler;
 
 public class TimePlanTask extends SafeTask {
 
-    private final TaskLocker locker;
+    private static final Logger LOG = LoggerFactory.getLogger(TimePlanTask.class);
 
-    private TimePlanTask(TaskLocker locker) {
-        this.locker = locker;
+    private final TaskHandler handler;
+
+    private TimePlanTask(TaskHandler handler) {
+        this.handler = handler;
     }
 
-    public static TimePlanTask of(TaskLocker locker) {
-        Objects.requireNonNull(locker, "locker");
+    public static TimePlanTask of(TaskHandler handler) {
+        Objects.requireNonNull(handler, "handler");
 
-        return new TimePlanTask(locker);
+        return new TimePlanTask(handler);
     }
 
     @Override
     public final void runInSafe() {
-        ThreadSleep.rand(1, 15);
+        ThreadSleep.rand(1, 19);
 
         LocalDateTime ldt = LocalDateTime.now();
-        if (locker.accept(ldt) == false) {
+
+        if (handler.accept(ldt) == false) {
             return;
         }
 
-        TimePlanExecutor.run(ldt);
+        List<TimePlan> plans = TimePlanFactory.listPlan(handler);
+        if (plans.isEmpty()) {
+            LOG.warn("plans isEmpty");
+            return;
+        }
+
+        for (TimePlan plan : plans) {
+            TimePlanExecutor.run(plan, ldt);
+        }
     }
 
 }

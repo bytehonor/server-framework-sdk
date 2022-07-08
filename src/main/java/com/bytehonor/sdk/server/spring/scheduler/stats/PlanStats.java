@@ -4,15 +4,14 @@ import java.util.Objects;
 
 public class PlanStats {
 
+    private String key;
+
     private String name;
 
-    private Long time;
-
-    private Integer total;
+    private final Long time;
 
     public PlanStats() {
         this.time = System.currentTimeMillis();
-        this.total = 0;
     }
 
     public static PlanStats of(String name) {
@@ -20,7 +19,16 @@ public class PlanStats {
 
         PlanStats model = new PlanStats();
         model.setName(name);
+        model.setKey(new StringBuilder().append(model.getName()).append(":").append(model.getTime()).toString());
         return model;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {
@@ -33,18 +41,6 @@ public class PlanStats {
 
     public Long getTime() {
         return time;
-    }
-
-    public void setTime(Long time) {
-        this.time = time;
-    }
-
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
     }
 
 }

@@ -16,8 +16,6 @@ public class SpringSchedulerTest {
 
         ThreadSleep.sleep(TimeConstants.MINUTE * 2);
 
-        SpringScheduler.print();
-
         ThreadSleep.sleep(TimeConstants.MINUTE * 10);
     }
 

@@ -12,31 +12,31 @@ public class PlanPauseCacheHolder {
 
     private static Cache<String, Boolean> CACHE = CacheBuilder.newBuilder().initialCapacity(CAPACITY) // 设置初始容量为100
             .maximumSize(10 * CAPACITY) // 设置缓存的最大容量
-            .expireAfterWrite(12, TimeUnit.HOURS) // 设置缓存在写入一分钟后失效
+            .expireAfterWrite(2, TimeUnit.DAYS) // 设置缓存在写入一分钟后失效
             .concurrencyLevel(20) // 设置并发级别为10
             .build(); // .recordStats() // 开启缓存统计
 
-    public static void put(String key, Boolean value) {
+    private static void put(String key, Boolean value) {
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(value, "value");
         CACHE.put(key, value);
     }
 
-    public static Boolean getIfPresent(String key) {
+    private static Boolean getIfPresent(String key) {
         Objects.requireNonNull(key, "key");
         return CACHE.getIfPresent(key);
     }
 
-    public static void invalidate(String key) {
+    private static void invalidate(String key) {
         Objects.requireNonNull(key, "key");
         CACHE.invalidate(key);
     }
 
-    public static void stop(String name) {
+    public static void pause(String name) {
         put(name, true);
     }
 
-    public static void start(String name) {
+    public static void play(String name) {
         invalidate(name);
     }
 
