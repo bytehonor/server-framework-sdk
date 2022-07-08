@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SpringScheduleExecutor;
+import com.bytehonor.sdk.server.spring.scheduler.cache.PlanPauseCacheHolder;
 import com.bytehonor.sdk.server.spring.scheduler.handler.LocalTaskHandler;
 import com.bytehonor.sdk.server.spring.scheduler.handler.TaskHandler;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlan;
@@ -30,16 +31,6 @@ public class SpringScheduler {
 
     private static final long PERIOD_SECONDS = 60L;
 
-    private TaskHandler handler;
-
-    private static class LazyHolder {
-        private static SpringScheduler SINGLE = new SpringScheduler();
-    }
-
-    private static SpringScheduler self() {
-        return LazyHolder.SINGLE;
-    }
-
     public static void start() {
         start(0);
     }
@@ -58,35 +49,26 @@ public class SpringScheduler {
         int secondNow = LocalTime.now().getSecond();
         long delays = SchedulerUtils.delaySeconds(secondAt, secondNow);
         LOG.info("handler:{}, delays:{}, secondAt:{}, secondNow:{}", handler.getName(), delays, secondAt, secondNow);
-        self().handler = handler;
         SpringScheduleExecutor.schedule(TimePlanTask.of(handler), delays, PERIOD_SECONDS);
     }
 
     public static List<TimePlanStatus> plans() {
-        return TimePlanFactory.listStatus(self().handler);
+        return TimePlanFactory.listStatus();
     }
 
     public static void add(TimePlan plan) {
-        Objects.requireNonNull(plan, "plan");
-
         TimePlanFactory.add(plan);
     }
 
     public static void pause(String name) {
-        Objects.requireNonNull(name, "name");
-
-        self().handler.pause(name);
+        PlanPauseCacheHolder.pause(name);
     }
 
     public static void play(String name) {
-        Objects.requireNonNull(name, "name");
-
-        self().handler.play(name);
+        PlanPauseCacheHolder.play(name);
     }
 
     public static void run(String name) {
-        Objects.requireNonNull(name, "name");
-
         TimePlan plan = TimePlanFactory.get(name);
         TimePlanExecutor.run(plan, LocalDateTime.now());
     }

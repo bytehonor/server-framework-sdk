@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
+import com.bytehonor.sdk.server.spring.scheduler.cache.PlanStatsCacheHolder;
 
 /**
  * @author lijianqiang
@@ -24,8 +25,11 @@ public class TimePlanExecutor {
         Objects.requireNonNull(plan, "plan");
         Objects.requireNonNull(ldt, "ldt");
 
-        LOG.info("name:{} run", plan.getClass().getSimpleName());
+        String name = plan.getClass().getSimpleName();
+        LOG.info("name:{} run", name);
+
         add(plan.create(ldt));
+        PlanStatsCacheHolder.add(name);
     }
 
     private static void add(SafeTask task) {

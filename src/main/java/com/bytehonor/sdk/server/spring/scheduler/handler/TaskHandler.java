@@ -9,7 +9,7 @@ import com.bytehonor.sdk.lang.spring.util.StringObject;
 import com.bytehonor.sdk.server.spring.config.ServerConfig;
 import com.bytehonor.sdk.server.spring.scheduler.key.SchedulerKeygen;
 
-public abstract class TaskHandler implements TaskLock, TaskManage {
+public abstract class TaskHandler implements TaskLock {
 
     private static final Logger LOG = LoggerFactory.getLogger(TaskHandler.class);
 

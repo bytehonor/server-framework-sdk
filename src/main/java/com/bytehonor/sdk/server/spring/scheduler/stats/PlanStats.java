@@ -1,42 +1,34 @@
 package com.bytehonor.sdk.server.spring.scheduler.stats;
 
-import java.util.Objects;
+import com.bytehonor.sdk.server.spring.config.ServerConfig;
 
 public class PlanStats {
 
-    private String key;
+    private final String key;
 
-    private String name;
+    private final String server;
+
+    private final String name;
 
     private final Long time;
 
-    public PlanStats() {
+    public PlanStats(String name) {
         this.time = System.currentTimeMillis();
-    }
-
-    public static PlanStats of(String name) {
-        Objects.requireNonNull(name, "name");
-
-        PlanStats model = new PlanStats();
-        model.setName(name);
-        model.setKey(new StringBuilder().append(model.getName()).append(":").append(model.getTime()).toString());
-        return model;
+        this.name = name;
+        this.server = ServerConfig.self().getId();
+        this.key = new StringBuilder().append(this.name).append(":").append(this.time).toString();
     }
 
     public String getKey() {
         return key;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public String getServer() {
+        return server;
     }
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Long getTime() {

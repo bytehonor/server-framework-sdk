@@ -37,13 +37,16 @@ public class TimePlanTask extends SafeTask {
             return;
         }
 
-        List<TimePlan> plans = TimePlanFactory.listPlan(handler);
+        List<TimePlan> plans = TimePlanFactory.listPlanNonPause();
         if (plans.isEmpty()) {
             LOG.debug("plans isEmpty");
             return;
         }
 
         for (TimePlan plan : plans) {
+            if (plan.accept(ldt) == false) {
+                continue;
+            }
             TimePlanExecutor.run(plan, ldt);
         }
     }

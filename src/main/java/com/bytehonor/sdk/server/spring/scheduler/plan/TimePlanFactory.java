@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.server.spring.scheduler.handler.TaskManage;
+import com.bytehonor.sdk.server.spring.scheduler.cache.PlanPauseCacheHolder;
 
 /**
  * @author lijianqiang
@@ -28,10 +28,10 @@ public class TimePlanFactory {
         MAP.put(holder.getName(), holder);
     }
 
-    public static List<TimePlan> listPlan(TaskManage manage) {
+    public static List<TimePlan> listPlanNonPause() {
         List<TimePlan> list = new ArrayList<TimePlan>();
         for (Entry<String, TimePlanHolder> item : MAP.entrySet()) {
-            if (isPause(manage, item.getKey())) {
+            if (isPause(item.getKey())) {
                 LOG.warn("name:{} paused", item.getKey());
                 continue;
             }
@@ -41,24 +41,24 @@ public class TimePlanFactory {
         return list;
     }
 
-    public static List<TimePlanStatus> listStatus(TaskManage manage) {
+    public static List<TimePlanStatus> listStatus() {
         List<TimePlanStatus> list = new ArrayList<TimePlanStatus>();
         for (Entry<String, TimePlanHolder> item : MAP.entrySet()) {
-            list.add(new TimePlanStatus(item.getKey(), isPause(manage, item.getKey())));
+            list.add(new TimePlanStatus(item.getKey(), isPause(item.getKey())));
         }
         return list;
     }
 
-    private static boolean isPause(TaskManage manage, String name) {
-        return manage != null && manage.isPause(name);
+    private static boolean isPause(String name) {
+        return PlanPauseCacheHolder.isPause(name);
     }
 
     public static TimePlan get(String name) {
         Objects.requireNonNull(name, "name");
+
         TimePlanHolder holder = MAP.get(name);
-        if (holder == null) {
-            return null;
-        }
+        Objects.requireNonNull(holder, name);
+
         return holder.getPlan();
     }
 }

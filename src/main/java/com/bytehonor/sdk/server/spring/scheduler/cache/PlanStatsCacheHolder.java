@@ -21,9 +21,10 @@ public class PlanStatsCacheHolder {
             .concurrencyLevel(20) // 设置并发级别为10
             .build(); // .recordStats() // 开启缓存统计
 
-    public static void put(PlanStats stats) {
-        Objects.requireNonNull(stats, "stats");
+    public static void add(String name) {
+        Objects.requireNonNull(name, "name");
 
+        PlanStats stats = new PlanStats(name);
         CACHE.put(stats.getKey(), stats);
     }
 
