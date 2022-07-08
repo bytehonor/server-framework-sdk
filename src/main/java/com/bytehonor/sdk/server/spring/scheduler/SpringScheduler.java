@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SpringScheduleExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.cache.PlanPauseCacheHolder;
+import com.bytehonor.sdk.server.spring.scheduler.cache.PlanStatsCacheHolder;
 import com.bytehonor.sdk.server.spring.scheduler.lock.CacheTaskLocker;
 import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlan;
@@ -17,6 +18,7 @@ import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanFactory;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStatus;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanTask;
+import com.bytehonor.sdk.server.spring.scheduler.stats.PlanStats;
 import com.bytehonor.sdk.server.spring.scheduler.util.SchedulerUtils;
 
 /**
@@ -56,6 +58,10 @@ public class SpringScheduler {
         return TimePlanFactory.listPlanStatus();
     }
 
+    public static List<PlanStats> stats() {
+        return PlanStatsCacheHolder.list();
+    }
+
     public static void add(TimePlan plan) {
         TimePlanFactory.add(plan);
     }
@@ -72,4 +78,5 @@ public class SpringScheduler {
         TimePlan plan = TimePlanFactory.get(name);
         TimePlanExecutor.run(plan, LocalDateTime.now());
     }
+
 }
