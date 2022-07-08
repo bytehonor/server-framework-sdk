@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bytehonor.sdk.define.spring.result.DataListVO;
 import com.bytehonor.sdk.define.spring.result.StringResultVO;
-import com.bytehonor.sdk.server.spring.config.SpringBootStandardConfiguration;
 import com.bytehonor.sdk.server.spring.constant.SpringServerConstants;
 import com.bytehonor.sdk.server.spring.scheduler.SpringScheduler;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStats;
@@ -20,7 +19,7 @@ import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStatus;
 @ControllerEndpoint(id = SpringServerConstants.SCHEDULER_ENDPOINT)
 public class SchedulerControllerEndpoint {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SpringBootStandardConfiguration.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SchedulerControllerEndpoint.class);
 
     @ResponseBody
     @GetMapping("plans")
