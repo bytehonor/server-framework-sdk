@@ -28,7 +28,7 @@ public class TimePlanFactory {
         MAP.put(holder.getName(), holder);
     }
 
-    public static List<TimePlan> listPlanNonPause() {
+    public static List<TimePlan> listPlanPlay() {
         List<TimePlan> list = new ArrayList<TimePlan>();
         for (Entry<String, TimePlanHolder> item : MAP.entrySet()) {
             if (isPause(item.getKey())) {
@@ -41,7 +41,7 @@ public class TimePlanFactory {
         return list;
     }
 
-    public static List<TimePlanStatus> listStatus() {
+    public static List<TimePlanStatus> listPlanStatus() {
         List<TimePlanStatus> list = new ArrayList<TimePlanStatus>();
         for (Entry<String, TimePlanHolder> item : MAP.entrySet()) {
             list.add(new TimePlanStatus(item.getKey(), isPause(item.getKey())));

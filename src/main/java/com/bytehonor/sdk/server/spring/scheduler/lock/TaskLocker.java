@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.scheduler.handler;
+package com.bytehonor.sdk.server.spring.scheduler.lock;
 
 import java.time.LocalDateTime;
 
@@ -9,15 +9,15 @@ import com.bytehonor.sdk.lang.spring.util.StringObject;
 import com.bytehonor.sdk.server.spring.config.ServerConfig;
 import com.bytehonor.sdk.server.spring.scheduler.key.SchedulerKeygen;
 
-public abstract class TaskHandler implements TaskLock {
+public abstract class TaskLocker {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TaskHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TaskLocker.class);
 
-    private static final String CLAZZ = TaskHandler.class.getSimpleName();
+    private static final String CLAZZ = TaskLocker.class.getSimpleName();
 
     private final String name;
 
-    public TaskHandler() {
+    public TaskLocker() {
         this.name = name();
     }
 
@@ -47,4 +47,6 @@ public abstract class TaskHandler implements TaskLock {
     public String getName() {
         return name;
     }
+
+    public abstract boolean lock(String key);
 }

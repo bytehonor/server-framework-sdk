@@ -9,22 +9,22 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ThreadSleep;
-import com.bytehonor.sdk.server.spring.scheduler.handler.TaskHandler;
+import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
 
 public class TimePlanTask extends SafeTask {
 
     private static final Logger LOG = LoggerFactory.getLogger(TimePlanTask.class);
 
-    private final TaskHandler handler;
+    private final TaskLocker locker;
 
-    private TimePlanTask(TaskHandler handler) {
-        this.handler = handler;
+    private TimePlanTask(TaskLocker locker) {
+        this.locker = locker;
     }
 
-    public static TimePlanTask of(TaskHandler handler) {
-        Objects.requireNonNull(handler, "handler");
+    public static TimePlanTask of(TaskLocker locker) {
+        Objects.requireNonNull(locker, "locker");
 
-        return new TimePlanTask(handler);
+        return new TimePlanTask(locker);
     }
 
     @Override
@@ -33,11 +33,11 @@ public class TimePlanTask extends SafeTask {
 
         LocalDateTime ldt = LocalDateTime.now();
 
-        if (handler.accept(ldt) == false) {
+        if (locker.accept(ldt) == false) {
             return;
         }
 
-        List<TimePlan> plans = TimePlanFactory.listPlanNonPause();
+        List<TimePlan> plans = TimePlanFactory.listPlanPlay();
         if (plans.isEmpty()) {
             LOG.debug("plans isEmpty");
             return;
