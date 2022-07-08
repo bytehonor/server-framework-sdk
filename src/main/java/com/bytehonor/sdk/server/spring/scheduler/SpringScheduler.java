@@ -41,17 +41,17 @@ public class SpringScheduler {
         start(secondAt, new CacheTaskLocker());
     }
 
-    public static void start(TaskLocker handler) {
-        start(0, handler);
+    public static void start(TaskLocker locker) {
+        start(0, locker);
     }
 
-    public static void start(int secondAt, TaskLocker handler) {
-        Objects.requireNonNull(handler, "handler");
+    public static void start(int secondAt, TaskLocker locker) {
+        Objects.requireNonNull(locker, "locker");
 
         int secondNow = LocalTime.now().getSecond();
         long delays = SchedulerUtils.delaySeconds(secondAt, secondNow);
-        LOG.info("handler:{}, delays:{}, secondAt:{}, secondNow:{}", handler.getName(), delays, secondAt, secondNow);
-        SpringScheduleExecutor.schedule(TimePlanTask.of(handler), delays, PERIOD_SECONDS);
+        LOG.info("locker:{}, delays:{}, secondAt:{}, secondNow:{}", locker.getName(), delays, secondAt, secondNow);
+        SpringScheduleExecutor.schedule(TimePlanTask.of(locker), delays, PERIOD_SECONDS);
     }
 
     public static List<TimePlanStatus> plans() {
