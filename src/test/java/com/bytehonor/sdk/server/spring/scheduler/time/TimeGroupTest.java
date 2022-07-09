@@ -20,7 +20,7 @@ public class TimeGroupTest {
         TimeGroupBuilder builder = TimeGroup.builder();
         builder.mintues(1, 2, 3, 4, 5).hours(1, 2, 3, 4, 5).done();
         builder.mintues(6, 7, 8, 9, 10).hours(6, 7, 8, 9, 10).done();
-        builder.every(2).mintues(11, 12, 13, 14, 15).hours(11, 12, 13, 14, 15).done(); // every(2) 不生效
+        builder.every(0, 2).mintues(11, 12, 13, 14, 15).hours(11, 12, 13, 14, 15).done(); // every(0, 2) 不生效
         TimeGroup group = builder.build();
         List<DefineTimeCron> crons = group.getCrons();
         LOG.info("test size:{}", crons.size());
@@ -46,21 +46,30 @@ public class TimeGroupTest {
         for (DefineTimeCron cron : crons) {
             LOG.info("test2 {}", cron.toString());
         }
-        assertTrue("*test2*", size == 1);
+
+        boolean isOk1 = group.match(LocalDateTime.of(2022, 7, 5, 0, 1));
+        assertTrue("*test2*", size == 1 && isOk1);
     }
 
     @Test
     public void test3() {
         TimeGroupBuilder builder = TimeGroup.builder();
-        TimeGroup group = builder.every(2).every(3).build(); // every(2) 不生效
+        TimeGroup group = builder.every(0, 2).every(1, 3).build(); // every(0, 2) 不生效
+
+        TimeGroupPrinter.print(group);
+
         List<DefineTimeCron> crons = group.getCrons();
         int size = crons.size();
         LOG.info("test3 size:{}", size);
         for (DefineTimeCron cron : crons) {
             LOG.info("test3 {}", cron.toString());
         }
+        boolean isOk1 = group.match(LocalDateTime.of(2022, 7, 5, 0, 1));
+        boolean isOk2 = group.match(LocalDateTime.of(2022, 7, 5, 0, 3)) == false;
+        boolean isOk3 = group.match(LocalDateTime.of(2022, 7, 5, 0, 4));
+        boolean isOk = isOk1 && isOk2 && isOk3;
 
-        assertTrue("*test3*", size == 20);
+        assertTrue("*test3*", size == 20 && isOk);
     }
 
 }

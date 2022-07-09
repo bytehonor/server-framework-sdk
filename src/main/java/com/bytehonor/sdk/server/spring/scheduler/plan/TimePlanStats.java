@@ -3,6 +3,10 @@ package com.bytehonor.sdk.server.spring.scheduler.plan;
 import com.bytehonor.sdk.lang.spring.util.LocalDateTimeUtils;
 import com.bytehonor.sdk.server.spring.context.ServerContext;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class TimePlanStats {
 
     private final String server;

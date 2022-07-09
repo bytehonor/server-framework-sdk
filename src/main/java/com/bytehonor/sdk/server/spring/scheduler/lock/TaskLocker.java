@@ -1,6 +1,7 @@
 package com.bytehonor.sdk.server.spring.scheduler.lock;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,10 @@ import com.bytehonor.sdk.lang.spring.util.StringObject;
 import com.bytehonor.sdk.server.spring.context.ServerContext;
 import com.bytehonor.sdk.server.spring.scheduler.key.SchedulerKeygen;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public abstract class TaskLocker {
 
     private static final Logger LOG = LoggerFactory.getLogger(TaskLocker.class);
@@ -22,6 +27,8 @@ public abstract class TaskLocker {
     }
 
     public final boolean accept(LocalDateTime ldt) {
+        Objects.requireNonNull(ldt, "ldt");
+
         String key = SchedulerKeygen.make(name, ldt);
         if (lock(key) == false) {
             return false;

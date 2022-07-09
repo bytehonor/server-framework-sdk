@@ -1,5 +1,9 @@
 package com.bytehonor.sdk.server.spring.scheduler.plan;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class TimePlanStatus {
 
     private final String name;

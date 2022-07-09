@@ -68,12 +68,15 @@ public class TimeGroup implements TimeCron {
         }
 
         public TimeGroupBuilder every() {
-            return every(1);
+            return every(0, 1);
         }
 
-        public TimeGroupBuilder every(int step) {
-            if (step < 1) {
-                return this;
+        public TimeGroupBuilder every(int from, int step) {
+            if (from < 0 || from > 59) {
+                throw new SpringServerException("error, from:" + from);
+            }
+            if (step < 1 || step > 59) {
+                throw new SpringServerException("error, step:" + step);
             }
             minutes.clear(); // 先清
             if (step == 1) {
@@ -81,9 +84,9 @@ public class TimeGroup implements TimeCron {
                 return this;
             }
 
-            int value = step;
+            int value = from;
             for (int i = 0; i < 60; i++) {
-                value = i * step;
+                value = from + i * step;
                 if (value > 59) {
                     break;
                 }

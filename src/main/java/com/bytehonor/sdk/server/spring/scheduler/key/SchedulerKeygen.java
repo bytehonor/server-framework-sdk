@@ -6,6 +6,10 @@ import java.util.Objects;
 import com.bytehonor.sdk.define.spring.constant.DateConstants;
 import com.bytehonor.sdk.lang.spring.util.LocalDateTimeUtils;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class SchedulerKeygen {
 
     public static String make(String prefix, LocalDateTime ldt) {
