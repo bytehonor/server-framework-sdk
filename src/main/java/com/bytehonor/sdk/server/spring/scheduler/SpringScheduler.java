@@ -1,13 +1,13 @@
 package com.bytehonor.sdk.server.spring.scheduler;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.define.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.SpringScheduleExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.cache.PlanPauseCacheHolder;
 import com.bytehonor.sdk.server.spring.scheduler.cache.PlanStatsCacheHolder;
@@ -31,7 +31,7 @@ public class SpringScheduler {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringScheduler.class);
 
-    private static final long PERIOD_SECONDS = 60L;
+    private static final long PERIOD_MILLIS = TimeConstants.MINUTE;
 
     public static void start() {
         start(0);
@@ -48,10 +48,9 @@ public class SpringScheduler {
     public static void start(int secondAt, TaskLocker locker) {
         Objects.requireNonNull(locker, "locker");
 
-        int secondNow = LocalTime.now().getSecond();
-        long delays = SchedulerUtils.delaySeconds(secondAt, secondNow);
-        LOG.info("locker:{}, delays:{}, secondAt:{}, secondNow:{}", locker.getName(), delays, secondAt, secondNow);
-        SpringScheduleExecutor.schedule(TimePlanTask.of(locker), delays, PERIOD_SECONDS);
+        long delayMillis = SchedulerUtils.delayMillis(secondAt);
+        LOG.info("locker:{}, delayMillis:{}, secondAt:{}", locker.getName(), delayMillis, secondAt);
+        SpringScheduleExecutor.scheduleMillis(TimePlanTask.of(locker), delayMillis, PERIOD_MILLIS);
     }
 
     public static List<TimePlanStatus> plans() {

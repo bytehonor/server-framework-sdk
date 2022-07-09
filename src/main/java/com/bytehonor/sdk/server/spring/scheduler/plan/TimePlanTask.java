@@ -33,7 +33,7 @@ public class TimePlanTask extends SafeTask {
 
     @Override
     public final void runInSafe() {
-        ThreadSleep.rand(1, 19);
+        ThreadSleep.rand(1, 9);
 
         LocalDateTime ldt = LocalDateTime.now();
 
