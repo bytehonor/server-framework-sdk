@@ -27,7 +27,7 @@ public class ErrorConvertor {
     private static JsonResponse<?> first(StandardException se) {
         JsonResponse<Object> jsonResponse = new JsonResponse<Object>();
         jsonResponse.setCode(se.getCode());
-        jsonResponse.setMessage(ErrorMessage.format(se));
+        jsonResponse.setMessage(format(se));
         return jsonResponse;
     }
 
@@ -40,8 +40,17 @@ public class ErrorConvertor {
     private static JsonResponse<?> last(Exception ex) {
         JsonResponse<Object> jsonResponse = new JsonResponse<Object>();
         jsonResponse.setCode(StandardCode.BAD_REQUEST);
-        jsonResponse.setMessage(ErrorMessage.format(ex));
+        jsonResponse.setMessage(format(ex));
         return jsonResponse;
     }
 
+    /**
+     * @param ex
+     * @return
+     */
+    public static String format(Exception ex) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(ex.getClass().getSimpleName()).append(":").append(ex.getMessage());
+        return sb.toString();
+    }
 }

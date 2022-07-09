@@ -75,7 +75,7 @@ public class SpringScheduler {
     }
 
     public static void run(String name) {
-        TimePlan plan = TimePlanFactory.get(name);
+        TimePlan plan = TimePlanFactory.required(name);
         TimePlanExecutor.run(plan, LocalDateTime.now());
     }
 

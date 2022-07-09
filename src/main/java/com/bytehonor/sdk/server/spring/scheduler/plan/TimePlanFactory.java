@@ -19,31 +19,30 @@ public class TimePlanFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(TimePlanFactory.class);
 
-    private static final ConcurrentHashMap<String, TimePlanHolder> MAP = new ConcurrentHashMap<String, TimePlanHolder>();
+    private static final ConcurrentHashMap<String, TimePlan> MAP = new ConcurrentHashMap<String, TimePlan>();
 
     public static void add(TimePlan plan) {
         Objects.requireNonNull(plan, "plan");
 
-        TimePlanHolder holder = new TimePlanHolder(plan);
-        MAP.put(holder.getName(), holder);
+        MAP.put(plan.getClass().getSimpleName(), plan);
     }
 
     public static List<TimePlan> listPlanPlay() {
         List<TimePlan> list = new ArrayList<TimePlan>();
-        for (Entry<String, TimePlanHolder> item : MAP.entrySet()) {
+        for (Entry<String, TimePlan> item : MAP.entrySet()) {
             if (isPause(item.getKey())) {
                 LOG.warn("name:{} paused", item.getKey());
                 continue;
             }
             LOG.debug("name:{} prepare", item.getKey());
-            list.add(item.getValue().getPlan());
+            list.add(item.getValue());
         }
         return list;
     }
 
     public static List<TimePlanStatus> listPlanStatus() {
         List<TimePlanStatus> list = new ArrayList<TimePlanStatus>();
-        for (Entry<String, TimePlanHolder> item : MAP.entrySet()) {
+        for (Entry<String, TimePlan> item : MAP.entrySet()) {
             list.add(new TimePlanStatus(item.getKey(), isPause(item.getKey())));
         }
         return list;
@@ -53,12 +52,18 @@ public class TimePlanFactory {
         return PlanPauseCacheHolder.isPause(name);
     }
 
-    public static TimePlan get(String name) {
+    public static TimePlan required(String name) {
         Objects.requireNonNull(name, "name");
 
-        TimePlanHolder holder = MAP.get(name);
-        Objects.requireNonNull(holder, name);
+        TimePlan plan = optional(name);
+        Objects.requireNonNull(plan, name);
 
-        return holder.getPlan();
+        return plan;
+    }
+
+    public static TimePlan optional(String name) {
+        Objects.requireNonNull(name, "name");
+
+        return MAP.get(name);
     }
 }

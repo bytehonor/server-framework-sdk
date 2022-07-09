@@ -2,9 +2,13 @@ package com.bytehonor.sdk.server.spring;
 
 import java.util.Objects;
 
-import com.bytehonor.sdk.server.spring.config.ServerConfig;
 import com.bytehonor.sdk.server.spring.context.ApplicationContextHolder;
+import com.bytehonor.sdk.server.spring.context.ServerContext;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class SpringServer {
 
     public static <T> T getBean(Class<T> requiredType) {
@@ -14,22 +18,22 @@ public class SpringServer {
     }
 
     public static String id() {
-        return ServerConfig.self().getId();
+        return ServerContext.self().getId();
     }
 
     public static String ip() {
-        return ServerConfig.self().getIp();
+        return ServerContext.self().getIp();
     }
 
     public static String name() {
-        return ServerConfig.self().getName();
+        return ServerContext.self().getName();
     }
 
     public static int port() {
-        return ServerConfig.self().getPort();
+        return ServerContext.self().getPort();
     }
 
     public static String getProperty(String key) {
-        return ServerConfig.self().getEnv().getProperty(key);
+        return ServerContext.self().getEnv().getProperty(key);
     }
 }

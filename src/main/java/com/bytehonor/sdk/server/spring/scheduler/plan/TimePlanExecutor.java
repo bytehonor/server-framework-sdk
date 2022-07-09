@@ -28,7 +28,10 @@ public class TimePlanExecutor {
         String name = plan.getClass().getSimpleName();
         LOG.info("name:{} run", name);
 
+        // 加入执行
         add(plan.create(ldt));
+
+        // 统计
         PlanStatsCacheHolder.add(name);
     }
 

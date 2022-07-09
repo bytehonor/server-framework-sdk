@@ -7,6 +7,10 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class ServerWebMvcConfigurer implements WebMvcConfigurer {
 
     @Override

@@ -1,7 +1,7 @@
 package com.bytehonor.sdk.server.spring.scheduler.plan;
 
 import com.bytehonor.sdk.lang.spring.util.LocalDateTimeUtils;
-import com.bytehonor.sdk.server.spring.config.ServerConfig;
+import com.bytehonor.sdk.server.spring.context.ServerContext;
 
 public class TimePlanStats {
 
@@ -14,7 +14,7 @@ public class TimePlanStats {
     private final String date;
 
     public TimePlanStats(String name) {
-        this.server = ServerConfig.self().getId();
+        this.server = ServerContext.self().getId();
         this.name = name;
         this.time = System.currentTimeMillis();
         this.date = LocalDateTimeUtils.format(this.time);

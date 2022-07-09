@@ -23,11 +23,11 @@ public class ApplicationReadyEventListener implements ApplicationListener<Applic
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
 
-        LOG.info("** ApplicationReadyEventListener begin");
+        LOG.info("onApplicationEvent begin");
 
         SpringServerStarter.init(event.getApplicationContext());
 
-        LOG.info("** ApplicationReadyEventListener end");
+        LOG.info("onApplicationEvent end");
     }
 
 }

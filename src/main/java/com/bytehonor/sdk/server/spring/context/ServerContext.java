@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.config;
+package com.bytehonor.sdk.server.spring.context;
 
 import java.util.Objects;
 
@@ -8,7 +8,11 @@ import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
 import com.bytehonor.sdk.lang.spring.getter.StringGetter;
 import com.bytehonor.sdk.server.spring.util.LocalEnvUtils;
 
-public class ServerConfig {
+/**
+ * @author lijianqiang
+ *
+ */
+public class ServerContext {
 
     private String id;
 
@@ -20,15 +24,15 @@ public class ServerConfig {
 
     private Environment env;
 
-    private ServerConfig() {
+    private ServerContext() {
         this.port = 0;
     }
 
     private static class LazyHolder {
-        private static ServerConfig SINGLE = new ServerConfig();
+        private static ServerContext SINGLE = new ServerContext();
     }
 
-    public static ServerConfig self() {
+    public static ServerContext self() {
         return LazyHolder.SINGLE;
     }
 

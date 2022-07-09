@@ -11,6 +11,10 @@ import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ThreadSleep;
 import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
 
+/**
+ * @author lijianqiang
+ *
+ */
 public class TimePlanTask extends SafeTask {
 
     private static final Logger LOG = LoggerFactory.getLogger(TimePlanTask.class);
@@ -33,10 +37,12 @@ public class TimePlanTask extends SafeTask {
 
         LocalDateTime ldt = LocalDateTime.now();
 
+        // 检查锁
         if (locker.accept(ldt) == false) {
             return;
         }
 
+        // 列出允许计划
         List<TimePlan> plans = TimePlanFactory.listPlanPlay();
         if (plans.isEmpty()) {
             LOG.debug("plans isEmpty");
@@ -44,9 +50,12 @@ public class TimePlanTask extends SafeTask {
         }
 
         for (TimePlan plan : plans) {
+            // 检查时间
             if (plan.accept(ldt) == false) {
                 continue;
             }
+
+            // 执行
             TimePlanExecutor.run(plan, ldt);
         }
     }

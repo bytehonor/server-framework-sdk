@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.util.StringObject;
-import com.bytehonor.sdk.server.spring.config.ServerConfig;
+import com.bytehonor.sdk.server.spring.context.ServerContext;
 import com.bytehonor.sdk.server.spring.scheduler.key.SchedulerKeygen;
 
 public abstract class TaskLocker {
@@ -31,7 +31,7 @@ public abstract class TaskLocker {
     }
 
     private String name() {
-        String name = ServerConfig.self().getName();
+        String name = ServerContext.self().getName();
         if (StringObject.isEmpty(name) == false) {
             return name;
         }

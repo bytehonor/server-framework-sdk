@@ -11,13 +11,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bytehonor.sdk.define.spring.result.DataListVO;
 import com.bytehonor.sdk.define.spring.result.StringResultVO;
-import com.bytehonor.sdk.server.spring.config.ServerConfig;
-import com.bytehonor.sdk.server.spring.constant.SpringServerConstants;
+import com.bytehonor.sdk.server.spring.constant.ServerEndpointConstants;
+import com.bytehonor.sdk.server.spring.context.ServerContext;
 import com.bytehonor.sdk.server.spring.scheduler.SpringScheduler;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStats;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStatus;
 
-@ControllerEndpoint(id = SpringServerConstants.SCHEDULER_ENDPOINT)
+/**
+ * 注入controller, {@link Constants @ServerEndpointConstants}
+ * 
+ * @author lijianqiang
+ *
+ */
+@ControllerEndpoint(id = ServerEndpointConstants.SCHEDULER_ENDPOINT)
 public class SchedulerControllerEndpoint {
 
     private static final Logger LOG = LoggerFactory.getLogger(SchedulerControllerEndpoint.class);
@@ -29,7 +35,7 @@ public class SchedulerControllerEndpoint {
         List<TimePlanStatus> list = SpringScheduler.plans();
         return DataListVO.of(list);
     }
-    
+
     @ResponseBody
     @GetMapping("stats")
     public DataListVO<TimePlanStats> stats() {
@@ -43,7 +49,7 @@ public class SchedulerControllerEndpoint {
     public StringResultVO pause(@PathVariable("name") String name) {
         LOG.info("pause name:{}", name);
         SpringScheduler.pause(name);
-        return StringResultVO.of(ServerConfig.self().getId());
+        return StringResultVO.of(ServerContext.self().getId());
     }
 
     @ResponseBody
@@ -51,7 +57,7 @@ public class SchedulerControllerEndpoint {
     public StringResultVO play(@PathVariable("name") String name) {
         LOG.info("play name:{}", name);
         SpringScheduler.play(name);
-        return StringResultVO.of(ServerConfig.self().getId());
+        return StringResultVO.of(ServerContext.self().getId());
     }
 
     @ResponseBody
@@ -59,6 +65,6 @@ public class SchedulerControllerEndpoint {
     public StringResultVO run(@PathVariable("name") String name) {
         LOG.info("run name:{}", name);
         SpringScheduler.run(name);
-        return StringResultVO.of(ServerConfig.self().getId());
+        return StringResultVO.of(ServerContext.self().getId());
     }
 }

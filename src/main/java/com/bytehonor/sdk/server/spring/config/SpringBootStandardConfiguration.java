@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import com.bytehonor.sdk.server.spring.constant.SpringServerConstants;
+import com.bytehonor.sdk.server.spring.constant.ServerEndpointConstants;
 import com.bytehonor.sdk.server.spring.listener.ApplicationReadyEventListener;
 import com.bytehonor.sdk.server.spring.scheduler.controller.SchedulerControllerEndpoint;
 import com.bytehonor.sdk.server.spring.web.advisor.ErrorResponseAdvisor;
@@ -74,7 +74,7 @@ public class SpringBootStandardConfiguration {
     @ConditionalOnMissingBean(value = SchedulerControllerEndpoint.class)
     public SchedulerControllerEndpoint schedulerControllerEndpoint() {
         Set<String> include = webEndpointProperties.getExposure().getInclude();
-        include.add(SpringServerConstants.SCHEDULER_ENDPOINT);
+        include.add(ServerEndpointConstants.SCHEDULER_ENDPOINT);
         LOG.info("[Bytehonor] SchedulerControllerEndpoint, include:{}", include);
         return new SchedulerControllerEndpoint();
     }
