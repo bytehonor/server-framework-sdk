@@ -20,7 +20,7 @@ public class TimeGroupTest {
         TimeGroupBuilder builder = TimeGroup.builder();
         builder.mintues(1, 2, 3, 4, 5).hours(1, 2, 3, 4, 5).done();
         builder.mintues(6, 7, 8, 9, 10).hours(6, 7, 8, 9, 10).done();
-        builder.mintues(11, 12, 13, 14, 15).hours(11, 12, 13, 14, 15).done();
+        builder.every(2).mintues(11, 12, 13, 14, 15).hours(11, 12, 13, 14, 15).done(); // every(2) 不生效
         TimeGroup group = builder.build();
         List<DefineTimeCron> crons = group.getCrons();
         LOG.info("test size:{}", crons.size());
@@ -52,7 +52,7 @@ public class TimeGroupTest {
     @Test
     public void test3() {
         TimeGroupBuilder builder = TimeGroup.builder();
-        TimeGroup group = builder.every(3).build();
+        TimeGroup group = builder.every(2).every(3).build(); // every(2) 不生效
         List<DefineTimeCron> crons = group.getCrons();
         int size = crons.size();
         LOG.info("test3 size:{}", size);

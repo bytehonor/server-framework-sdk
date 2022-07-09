@@ -75,10 +75,12 @@ public class TimeGroup implements TimeCron {
             if (step < 1) {
                 return this;
             }
+            minutes.clear(); // 先清
             if (step == 1) {
                 minutes.add(SchedulerConstants.ANY);
                 return this;
             }
+
             int value = step;
             for (int i = 0; i < 60; i++) {
                 value = i * step;
@@ -91,21 +93,42 @@ public class TimeGroup implements TimeCron {
             return this;
         }
 
+        /**
+         * 链式操作中, 前面作废, 以本次为主
+         * 
+         * @param values
+         * @return
+         */
         public TimeGroupBuilder mintues(int... values) {
+            minutes.clear(); // 先清
             for (int value : values) {
                 this.minutes.add(value);
             }
             return this;
         }
 
+        /**
+         * 链式操作中, 前面作废, 以本次为主
+         * 
+         * @param values
+         * @return
+         */
         public TimeGroupBuilder hours(int... values) {
+            hours.clear(); // 先清
             for (int value : values) {
                 this.hours.add(value);
             }
             return this;
         }
 
+        /**
+         * 链式操作中, 前面作废, 以本次为主
+         * 
+         * @param values
+         * @return
+         */
         public TimeGroupBuilder days(int... values) {
+            days.clear(); // 先清
             for (int value : values) {
                 this.days.add(value);
             }
