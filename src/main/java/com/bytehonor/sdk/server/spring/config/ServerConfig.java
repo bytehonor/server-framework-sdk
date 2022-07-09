@@ -10,79 +10,76 @@ import com.bytehonor.sdk.server.spring.util.LocalEnvUtils;
 
 public class ServerConfig {
 
-    private String id;
+    private final String id;
 
-    private String ip;
+    private final String ip;
 
-    private String name;
+    private final String name;
 
-    private int port;
+    private final int port;
 
-    private Environment env;
+    private final Environment env;
 
-    private ServerConfig() {
-        this.id = "";
-        this.name = "";
-        this.port = 0;
-    }
-
-    private static class LazyHolder {
-        private static ServerConfig SINGLE = new ServerConfig();
-    }
-
-    public static ServerConfig self() {
-        return LazyHolder.SINGLE;
+    private ServerConfig(String id, String ip, String name, int port, Environment env) {
+        this.id = id;
+        this.ip = ip;
+        this.name = name;
+        this.port = port;
+        this.env = env;
     }
 
     public static void init(Environment env) {
-        Objects.requireNonNull(env, "env");
-        // Environment env = ApplicationContextHolder.getBean(Environment.class);
-        String name = StringGetter.optional(env.getProperty("spring.application.name"), "");
-        int port = IntegerGetter.optional(env.getProperty("server.port"), 0);
-        self().name = name;
-        self().port = port;
-        self().id = new StringBuilder().append(name).append("-").append(port).toString();
-        self().ip = LocalEnvUtils.localIp();
+        Holder.self().init(env);
+    }
+
+    public static ServerConfig self() {
+        return Holder.self().config;
+    }
+
+    private static class Holder {
+
+        private ServerConfig config;
+
+        private Holder() {
+
+        }
+
+        private static class LazyHolder {
+            private static Holder SINGLE = new Holder();
+        }
+
+        private static Holder self() {
+            return LazyHolder.SINGLE;
+        }
+
+        private void init(Environment env) {
+            Objects.requireNonNull(env, "env");
+            String name = StringGetter.optional(env.getProperty("spring.application.name"), "");
+            int port = IntegerGetter.optional(env.getProperty("server.port"), 0);
+            String id = new StringBuilder().append(name).append("-").append(port).toString();
+            String ip = LocalEnvUtils.localIp();
+            this.config = new ServerConfig(id, ip, name, port, env);
+        }
     }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getIp() {
         return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getPort() {
         return port;
     }
 
-    public void setPort(int port) {
-        this.port = port;
-    }
-
     public Environment getEnv() {
         return env;
-    }
-
-    public void setEnv(Environment env) {
-        this.env = env;
     }
 
 }

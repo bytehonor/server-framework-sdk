@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bytehonor.sdk.define.spring.result.DataListVO;
 import com.bytehonor.sdk.define.spring.result.StringResultVO;
+import com.bytehonor.sdk.server.spring.config.ServerConfig;
 import com.bytehonor.sdk.server.spring.constant.SpringServerConstants;
 import com.bytehonor.sdk.server.spring.scheduler.SpringScheduler;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStats;
@@ -42,7 +43,7 @@ public class SchedulerControllerEndpoint {
     public StringResultVO pause(@PathVariable("name") String name) {
         LOG.info("pause name:{}", name);
         SpringScheduler.pause(name);
-        return StringResultVO.ok();
+        return StringResultVO.of(ServerConfig.self().getId());
     }
 
     @ResponseBody
@@ -50,7 +51,7 @@ public class SchedulerControllerEndpoint {
     public StringResultVO play(@PathVariable("name") String name) {
         LOG.info("play name:{}", name);
         SpringScheduler.play(name);
-        return StringResultVO.ok();
+        return StringResultVO.of(ServerConfig.self().getId());
     }
 
     @ResponseBody
@@ -58,6 +59,6 @@ public class SchedulerControllerEndpoint {
     public StringResultVO run(@PathVariable("name") String name) {
         LOG.info("run name:{}", name);
         SpringScheduler.run(name);
-        return StringResultVO.ok();
+        return StringResultVO.of(ServerConfig.self().getId());
     }
 }
