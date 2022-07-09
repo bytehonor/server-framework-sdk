@@ -23,7 +23,7 @@ public class SpringServerStarter {
     public static void init(ConfigurableApplicationContext context) {
         Objects.requireNonNull(context, "context");
 
-        LOG.info("context, {}, {}", context.getId(), context.getApplicationName());
+        LOG.info("context, id:{}, name:{}", context.getId(), context.getApplicationName());
 
         ApplicationContextHolder.setContext(context);
 
