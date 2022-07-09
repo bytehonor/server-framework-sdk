@@ -10,56 +10,38 @@ import com.bytehonor.sdk.server.spring.util.LocalEnvUtils;
 
 public class ServerConfig {
 
-    private final String id;
+    private String id;
 
-    private final String ip;
+    private String ip;
 
-    private final String name;
+    private String name;
 
-    private final int port;
+    private int port;
 
-    private final Environment env;
+    private Environment env;
 
-    private ServerConfig(String id, String ip, String name, int port, Environment env) {
-        this.id = id;
-        this.ip = ip;
-        this.name = name;
-        this.port = port;
-        this.env = env;
+    private ServerConfig() {
+        this.port = 0;
     }
 
-    public static void init(Environment env) {
-        Holder.self().init(env);
+    private static class LazyHolder {
+        private static ServerConfig SINGLE = new ServerConfig();
     }
 
     public static ServerConfig self() {
-        return Holder.self().config;
+        return LazyHolder.SINGLE;
     }
 
-    private static class Holder {
-
-        private ServerConfig config;
-
-        private Holder() {
-
-        }
-
-        private static class LazyHolder {
-            private static Holder SINGLE = new Holder();
-        }
-
-        private static Holder self() {
-            return LazyHolder.SINGLE;
-        }
-
-        private void init(Environment env) {
-            Objects.requireNonNull(env, "env");
-            String name = StringGetter.optional(env.getProperty("spring.application.name"), "");
-            int port = IntegerGetter.optional(env.getProperty("server.port"), 0);
-            String id = new StringBuilder().append(name).append("-").append(port).toString();
-            String ip = LocalEnvUtils.localIp();
-            this.config = new ServerConfig(id, ip, name, port, env);
-        }
+    public static void init(Environment env) {
+        Objects.requireNonNull(env, "env");
+        String name = StringGetter.optional(env.getProperty("spring.application.name"), "");
+        int port = IntegerGetter.optional(env.getProperty("server.port"), 0);
+        String id = new StringBuilder().append(name).append("-").append(port).toString();
+        String ip = LocalEnvUtils.localIp();
+        self().name = name;
+        self().port = port;
+        self().id = id;
+        self().ip = ip;
     }
 
     public String getId() {
