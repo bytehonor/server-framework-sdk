@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.bytehonor.sdk.server.spring.scheduler.time.TimeCron;
+import com.bytehonor.sdk.server.spring.scheduler.time.TimeGroupPrinter;
 
 /**
  * @author lijianqiang
@@ -27,6 +28,11 @@ public abstract class TimeCronPlan implements TimePlan {
             }
         }
         return false;
+    }
+
+    @Override
+    public void print() {
+        TimeGroupPrinter.print(crons());
     }
 
 }

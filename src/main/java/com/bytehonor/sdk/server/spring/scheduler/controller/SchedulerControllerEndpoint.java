@@ -67,4 +67,12 @@ public class SchedulerControllerEndpoint {
         SpringScheduler.run(name);
         return StringResultVO.of(ServerContext.self().getId());
     }
+    
+    @ResponseBody
+    @GetMapping("print/{name}")
+    public StringResultVO print(@PathVariable("name") String name) {
+        LOG.info("run name:{}", name);
+        SpringScheduler.print(name);
+        return StringResultVO.of(ServerContext.self().getId());
+    }
 }

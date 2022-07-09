@@ -79,4 +79,8 @@ public class SpringScheduler {
         TimePlanExecutor.run(plan, LocalDateTime.now());
     }
 
+    public static void print(String name) {
+        TimePlan plan = TimePlanFactory.required(name);
+        plan.print();
+    }
 }

@@ -14,10 +14,17 @@ public class TimeGroupPrinter {
             LOG.error("group null");
             return;
         }
-        List<DefineTimeCron> crons = group.getCrons();
+        print(group.getCrons());
+    }
+    
+    public static void print(List<TimeCron> crons) {
+        if (crons == null) {
+            LOG.error("crons null");
+            return;
+        }
         int size = crons.size();
         LOG.info("crons size:{}", size);
-        for (DefineTimeCron cron : crons) {
+        for (TimeCron cron : crons) {
             LOG.info("cron:{}", cron.toString());
         }
     }

@@ -14,13 +14,13 @@ import com.bytehonor.sdk.server.spring.scheduler.constant.SchedulerConstants;
  */
 public class TimeGroup implements TimeCron {
 
-    private final List<DefineTimeCron> crons;
+    private final List<TimeCron> crons;
 
     public TimeGroup() {
-        this.crons = new ArrayList<DefineTimeCron>();
+        this.crons = new ArrayList<TimeCron>();
     }
 
-    public TimeGroup(List<DefineTimeCron> crons) {
+    public TimeGroup(List<TimeCron> crons) {
         this.crons = crons;
     }
 
@@ -38,11 +38,11 @@ public class TimeGroup implements TimeCron {
         return false;
     }
 
-    public List<DefineTimeCron> getCrons() {
+    public List<TimeCron> getCrons() {
         return crons;
     }
 
-    public void addCron(DefineTimeCron cron) {
+    public void addCron(TimeCron cron) {
         this.crons.add(cron);
     }
 
@@ -58,13 +58,13 @@ public class TimeGroup implements TimeCron {
 
         private final List<Integer> days;
 
-        private final List<DefineTimeCron> list;
+        private final List<TimeCron> list;
 
         private TimeGroupBuilder() {
             this.minutes = new ArrayList<Integer>(120);
             this.hours = new ArrayList<Integer>(48);
             this.days = new ArrayList<Integer>(60);
-            this.list = new ArrayList<DefineTimeCron>();
+            this.list = new ArrayList<TimeCron>();
         }
 
         public TimeGroupBuilder every() {
@@ -177,7 +177,7 @@ public class TimeGroup implements TimeCron {
             }
 
             TimeGroup group = new TimeGroup();
-            for (DefineTimeCron item : list) {
+            for (TimeCron item : list) {
                 group.addCron(item);
             }
 

@@ -13,4 +13,6 @@ public interface TimePlan {
     public boolean accept(LocalDateTime ldt);
 
     public SafeTask create(LocalDateTime ldt);
+    
+    public void print();
 }
