@@ -52,7 +52,7 @@ public class TimePlanFactory {
 
     public static TimePlanStatus getPlanStatus(String name) {
         Objects.requireNonNull(name, "name");
-        Objects.requireNonNull(MAP.get(name), name);
+        required(name);
 
         return toStatus(name);
     }
