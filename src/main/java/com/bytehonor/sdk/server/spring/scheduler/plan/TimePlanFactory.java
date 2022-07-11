@@ -60,10 +60,10 @@ public class TimePlanFactory {
     private static TimePlanStatus toStatus(String name) {
         TimePlanStatus model = new TimePlanStatus(name);
         model.setPaused(isPaused(name));
-        TimePlanRecord record = PlanRecordCacheHolder.get(name);
-        if (record != null) {
-            model.setTime(record.getTime());
-            model.setDate(LocalDateTimeUtils.format(record.getTime()));
+        Long time = PlanRecordCacheHolder.get(name);
+        if (time != null) {
+            model.setTime(time);
+            model.setDate(LocalDateTimeUtils.format(time));
         }
         return model;
     }
