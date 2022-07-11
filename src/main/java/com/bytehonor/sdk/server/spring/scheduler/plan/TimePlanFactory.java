@@ -9,7 +9,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.lang.spring.util.LocalDateTimeUtils;
 import com.bytehonor.sdk.server.spring.scheduler.cache.PlanPauseCacheHolder;
+import com.bytehonor.sdk.server.spring.scheduler.cache.PlanStatsCacheHolder;
 
 /**
  * @author lijianqiang
@@ -43,9 +45,27 @@ public class TimePlanFactory {
     public static List<TimePlanStatus> listPlanStatus() {
         List<TimePlanStatus> list = new ArrayList<TimePlanStatus>();
         for (Entry<String, TimePlan> item : MAP.entrySet()) {
-            list.add(new TimePlanStatus(item.getKey(), isPause(item.getKey())));
+            list.add(toStatus(item.getKey()));
         }
         return list;
+    }
+
+    public static TimePlanStatus getPlanStatus(String name) {
+        Objects.requireNonNull(name, "name");
+        Objects.requireNonNull(MAP.get(name), name);
+
+        return toStatus(name);
+    }
+
+    private static TimePlanStatus toStatus(String name) {
+        TimePlanStatus model = new TimePlanStatus(name);
+        model.setPaused(isPause(name));
+        TimePlanStats stats = PlanStatsCacheHolder.get(name);
+        if (stats != null) {
+            model.setTime(stats.getTime());
+            model.setDate(LocalDateTimeUtils.format(stats.getTime()));
+        }
+        return model;
     }
 
     private static boolean isPause(String name) {

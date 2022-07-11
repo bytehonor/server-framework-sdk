@@ -1,10 +1,6 @@
 package com.bytehonor.sdk.server.spring.scheduler.cache;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStats;
@@ -29,17 +25,9 @@ public class PlanStatsCacheHolder {
         CACHE.put(stats.getName(), stats);
     }
 
-    public static List<TimePlanStats> list() {
-        if (CACHE.size() < 1L) {
-            return new ArrayList<TimePlanStats>();
-        }
+    public static TimePlanStats get(String name) {
+        Objects.requireNonNull(name, "name");
 
-        List<TimePlanStats> list = new ArrayList<TimePlanStats>();
-        ConcurrentMap<String, TimePlanStats> map = CACHE.asMap();
-        for (Entry<String, TimePlanStats> item : map.entrySet()) {
-            list.add(item.getValue());
-        }
-
-        return list;
+        return CACHE.getIfPresent(name);
     }
 }

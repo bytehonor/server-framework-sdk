@@ -12,12 +12,42 @@ public class TimePlanStatus {
 
     private final String name;
 
-    private final Boolean paused;
+    private Boolean paused;
 
-    public TimePlanStatus(String name, Boolean paused) {
+    private Long time;
+
+    private String date;
+
+    public TimePlanStatus(String name) {
         this.server = ServerContext.self().getId();
         this.name = name;
+        this.paused = false;
+        this.time = 0L;
+        this.date = "";
+    }
+
+    public Boolean getPaused() {
+        return paused;
+    }
+
+    public void setPaused(Boolean paused) {
         this.paused = paused;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getServer() {
@@ -26,10 +56,6 @@ public class TimePlanStatus {
 
     public String getName() {
         return name;
-    }
-
-    public Boolean getPaused() {
-        return paused;
     }
 
 }
