@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
-import com.bytehonor.sdk.server.spring.scheduler.cache.PlanStatsCacheHolder;
+import com.bytehonor.sdk.server.spring.scheduler.cache.PlanRecordCacheHolder;
 
 /**
  * @author lijianqiang
@@ -31,8 +31,8 @@ public class TimePlanExecutor {
         // 加入执行
         add(plan.create(ldt));
 
-        // 统计
-        PlanStatsCacheHolder.add(name);
+        // 加入记录
+        PlanRecordCacheHolder.add(name);
     }
 
     private static void add(SafeTask task) {

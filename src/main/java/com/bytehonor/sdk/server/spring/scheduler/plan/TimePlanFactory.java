@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.util.LocalDateTimeUtils;
 import com.bytehonor.sdk.server.spring.scheduler.cache.PlanPauseCacheHolder;
-import com.bytehonor.sdk.server.spring.scheduler.cache.PlanStatsCacheHolder;
+import com.bytehonor.sdk.server.spring.scheduler.cache.PlanRecordCacheHolder;
 
 /**
  * @author lijianqiang
@@ -60,10 +60,10 @@ public class TimePlanFactory {
     private static TimePlanStatus toStatus(String name) {
         TimePlanStatus model = new TimePlanStatus(name);
         model.setPaused(isPause(name));
-        TimePlanStats stats = PlanStatsCacheHolder.get(name);
-        if (stats != null) {
-            model.setTime(stats.getTime());
-            model.setDate(LocalDateTimeUtils.format(stats.getTime()));
+        TimePlanRecord record = PlanRecordCacheHolder.get(name);
+        if (record != null) {
+            model.setTime(record.getTime());
+            model.setDate(LocalDateTimeUtils.format(record.getTime()));
         }
         return model;
     }

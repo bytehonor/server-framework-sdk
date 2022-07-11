@@ -6,7 +6,7 @@ import com.bytehonor.sdk.server.spring.context.ServerContext;
  * @author lijianqiang
  *
  */
-public class TimePlanStats {
+public class TimePlanRecord {
 
     private final String server;
 
@@ -14,7 +14,7 @@ public class TimePlanStats {
 
     private final Long time;
 
-    public TimePlanStats(String name) {
+    public TimePlanRecord(String name) {
         this.server = ServerContext.self().getId();
         this.name = name;
         this.time = System.currentTimeMillis();
