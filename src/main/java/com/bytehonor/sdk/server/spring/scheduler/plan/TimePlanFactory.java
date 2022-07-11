@@ -32,7 +32,7 @@ public class TimePlanFactory {
     public static List<TimePlan> listPlanPlay() {
         List<TimePlan> list = new ArrayList<TimePlan>();
         for (Entry<String, TimePlan> item : MAP.entrySet()) {
-            if (isPause(item.getKey())) {
+            if (isPaused(item.getKey())) {
                 LOG.warn("name:{} paused", item.getKey());
                 continue;
             }
@@ -59,7 +59,7 @@ public class TimePlanFactory {
 
     private static TimePlanStatus toStatus(String name) {
         TimePlanStatus model = new TimePlanStatus(name);
-        model.setPaused(isPause(name));
+        model.setPaused(isPaused(name));
         TimePlanRecord record = PlanRecordCacheHolder.get(name);
         if (record != null) {
             model.setTime(record.getTime());
@@ -68,8 +68,8 @@ public class TimePlanFactory {
         return model;
     }
 
-    private static boolean isPause(String name) {
-        return PlanPauseCacheHolder.isPause(name);
+    private static boolean isPaused(String name) {
+        return PlanPauseCacheHolder.isPaused(name);
     }
 
     public static TimePlan required(String name) {

@@ -20,7 +20,7 @@ public class PlanPauseCacheHolder {
         CACHE.remove(name);
     }
 
-    public static boolean isPause(String name) {
+    public static boolean isPaused(String name) {
         Objects.requireNonNull(name, "name");
 
         return CACHE.contains(name);
