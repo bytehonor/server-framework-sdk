@@ -25,6 +25,9 @@ public class ServerContext {
     private Environment env;
 
     private ServerContext() {
+        this.id = "";
+        this.ip = "";
+        this.name = "";
         this.port = 0;
     }
 

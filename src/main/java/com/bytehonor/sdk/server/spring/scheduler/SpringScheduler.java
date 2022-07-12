@@ -29,8 +29,6 @@ public class SpringScheduler {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringScheduler.class);
 
-    private static final long PERIOD_MILLIS = TimeConstants.MINUTE;
-
     public static void start() {
         start(0);
     }
@@ -48,7 +46,7 @@ public class SpringScheduler {
 
         long delayMillis = SchedulerUtils.delayMillis(secondAt);
         LOG.info("locker:{}, delayMillis:{}, secondAt:{}", locker.getName(), delayMillis, secondAt);
-        SpringScheduleExecutor.scheduleMillis(TimePlanTask.of(locker), delayMillis, PERIOD_MILLIS);
+        SpringScheduleExecutor.scheduleMillis(TimePlanTask.of(locker), delayMillis, TimeConstants.MINUTE);
     }
 
     public static List<TimePlanStatus> plans() {
