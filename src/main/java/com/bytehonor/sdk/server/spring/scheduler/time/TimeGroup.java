@@ -97,7 +97,7 @@ public class TimeGroup implements TimeCron {
         }
 
         /**
-         * 链式操作中, 前面作废, 以本次为主
+         * 链式操作中, 相同操作后面覆盖前面, 除非调用done方法
          * 
          * @param values
          * @return
@@ -111,7 +111,7 @@ public class TimeGroup implements TimeCron {
         }
 
         /**
-         * 链式操作中, 前面作废, 以本次为主
+         * 链式操作中, 相同操作后面覆盖前面, 除非调用done方法
          * 
          * @param values
          * @return
@@ -125,7 +125,7 @@ public class TimeGroup implements TimeCron {
         }
 
         /**
-         * 链式操作中, 前面作废, 以本次为主
+         * 链式操作中, 相同操作后面覆盖前面, 除非调用done方法
          * 
          * @param values
          * @return
