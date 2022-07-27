@@ -5,7 +5,7 @@ plugins {
 apply from: 'repository.gradle'
 
 group = 'com.bytehonor.sdk'
-version = '1.7.33'
+version = '1.7.34'
 sourceCompatibility = 1.8
 
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -22,13 +22,13 @@ repositories {
 }
 
 dependencies {
-    api('com.bytehonor.sdk:spring-lang-sdk:0.2.13')
-    implementation('org.springframework:spring-webmvc:5.3.20')
-    implementation('org.apache.tomcat.embed:tomcat-embed-core:9.0.63')
-    implementation('org.springframework.boot:spring-boot-actuator:2.6.8')
-    implementation('org.springframework.boot:spring-boot-actuator-autoconfigure:2.6.8')
-    implementation('org.springframework.boot:spring-boot-autoconfigure:2.6.8')
-    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor:2.6.8')
+    api('com.bytehonor.sdk:spring-lang-sdk:0.2.14')
+    implementation('org.springframework:spring-webmvc:5.3.22')
+    implementation('org.apache.tomcat.embed:tomcat-embed-core:9.0.65')
+    implementation('org.springframework.boot:spring-boot-actuator:2.7.2')
+    implementation('org.springframework.boot:spring-boot-actuator-autoconfigure:2.7.2')
+    implementation('org.springframework.boot:spring-boot-autoconfigure:2.7.2')
+    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor:2.7.2')
     implementation('org.slf4j:slf4j-api:1.7.36')
     implementation('ch.qos.logback:logback-classic:1.2.11')
     testImplementation('junit:junit:4.13.2')
