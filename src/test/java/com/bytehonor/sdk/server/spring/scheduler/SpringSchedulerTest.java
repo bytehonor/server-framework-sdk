@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.define.spring.constant.TimeConstants;
-import com.bytehonor.sdk.lang.spring.thread.ThreadSleep;
+import com.bytehonor.sdk.lang.spring.thread.Sleeping;
 import com.bytehonor.sdk.server.spring.scheduler.plan.PrintTimePlan;
 
 public class SpringSchedulerTest {
@@ -18,24 +18,24 @@ public class SpringSchedulerTest {
 
         SpringScheduler.add(new PrintTimePlan());
 
-        ThreadSleep.sleep(TimeConstants.MINUTE * 1);
+        Sleeping.sleep(TimeConstants.MINUTE * 1);
 
         String name = PrintTimePlan.class.getSimpleName();
 
         LOG.info("pause");
         SpringScheduler.pause(name);
 
-        ThreadSleep.sleep(TimeConstants.MINUTE * 1);
+        Sleeping.sleep(TimeConstants.MINUTE * 1);
 
         LOG.info("run");
         SpringScheduler.run(name);
 
-        ThreadSleep.sleep(TimeConstants.MINUTE * 5);
+        Sleeping.sleep(TimeConstants.MINUTE * 5);
 
         LOG.info("play");
         SpringScheduler.play(name);
 
-        ThreadSleep.sleep(TimeConstants.MINUTE * 10);
+        Sleeping.sleep(TimeConstants.MINUTE * 10);
     }
 
 }

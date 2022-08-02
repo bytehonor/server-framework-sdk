@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.define.spring.code.StandardCode;
-import com.bytehonor.sdk.define.spring.result.JsonResponse;
+import com.bytehonor.sdk.define.spring.response.JsonResponse;
 
 /**
  * @author lijianqiang

@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.lang.spring.util.LocalDateTimeUtils;
+import com.bytehonor.sdk.lang.spring.util.TimeFormatUtils;
 import com.bytehonor.sdk.server.spring.scheduler.cache.PlanPauseCacheHolder;
 import com.bytehonor.sdk.server.spring.scheduler.cache.PlanRecordCacheHolder;
 
@@ -63,7 +63,7 @@ public class TimePlanFactory {
         Long time = PlanRecordCacheHolder.get(name);
         if (time != null) {
             model.setTime(time);
-            model.setDate(LocalDateTimeUtils.format(time));
+            model.setDate(TimeFormatUtils.format(time));
         }
         return model;
     }

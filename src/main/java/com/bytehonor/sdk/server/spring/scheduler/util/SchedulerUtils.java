@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.bytehonor.sdk.define.spring.constant.TimeConstants;
-import com.bytehonor.sdk.lang.spring.util.LocalDateTimeUtils;
+import com.bytehonor.sdk.lang.spring.util.TimeFormatUtils;
 
 public class SchedulerUtils {
 
@@ -23,10 +23,10 @@ public class SchedulerUtils {
 
     public static long delayMillis(int secondAt) {
         long now = System.currentTimeMillis();
-        LocalDateTime later = LocalDateTimeUtils.fromTimestamp(now + TimeConstants.MINUTE);
+        LocalDateTime later = TimeFormatUtils.fromTimestamp(now + TimeConstants.MINUTE);
         LocalDateTime at = LocalDateTime.of(later.toLocalDate(),
                 LocalTime.of(later.getHour(), later.getMinute(), secondAt));
-        long delays = LocalDateTimeUtils.toTimestamp(at) - now;
+        long delays = TimeFormatUtils.toTimestamp(at) - now;
         if (delays > TimeConstants.MINUTE) {
             delays = delays - TimeConstants.MINUTE;
         }

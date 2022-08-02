@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.bytehonor.sdk.define.spring.constant.DateConstants;
-import com.bytehonor.sdk.lang.spring.util.LocalDateTimeUtils;
+import com.bytehonor.sdk.lang.spring.util.TimeFormatUtils;
 
 /**
  * @author lijianqiang
@@ -22,7 +22,7 @@ public class SchedulerKeygen {
     public static String make(String prefix, long time) {
         Objects.requireNonNull(prefix, "prefix");
 
-        return make(prefix, LocalDateTimeUtils.fromTimestamp(time));
+        return make(prefix, TimeFormatUtils.fromTimestamp(time));
     }
 
     private static String time(LocalDateTime ldt) {

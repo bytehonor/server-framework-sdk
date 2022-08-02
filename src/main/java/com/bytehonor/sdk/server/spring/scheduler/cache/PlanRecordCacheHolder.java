@@ -3,7 +3,7 @@ package com.bytehonor.sdk.server.spring.scheduler.cache;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import com.bytehonor.sdk.lang.spring.util.StringObject;
+import com.bytehonor.sdk.lang.spring.string.StringObject;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 

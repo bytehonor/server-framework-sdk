@@ -6,7 +6,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.lang.spring.util.StringObject;
+import com.bytehonor.sdk.lang.spring.string.StringObject;
 import com.bytehonor.sdk.server.spring.context.ServerContext;
 import com.bytehonor.sdk.server.spring.scheduler.key.SchedulerKeygen;
 

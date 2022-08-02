@@ -7,12 +7,12 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bytehonor.sdk.define.spring.constant.HttpConstants;
-import com.bytehonor.sdk.define.spring.query.QueryCondition;
 import com.bytehonor.sdk.lang.spring.getter.BooleanGetter;
 import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
 import com.bytehonor.sdk.lang.spring.getter.LongGetter;
 import com.bytehonor.sdk.lang.spring.getter.StringGetter;
-import com.bytehonor.sdk.lang.spring.util.StringObject;
+import com.bytehonor.sdk.lang.spring.query.QueryCondition;
+import com.bytehonor.sdk.lang.spring.string.StringObject;
 
 /**
  * @author lijianqiang

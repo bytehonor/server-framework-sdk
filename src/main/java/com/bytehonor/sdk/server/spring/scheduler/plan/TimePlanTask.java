@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
-import com.bytehonor.sdk.lang.spring.thread.ThreadSleep;
+import com.bytehonor.sdk.lang.spring.thread.Sleeping;
 import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
 
 /**
@@ -33,7 +33,7 @@ public class TimePlanTask extends SafeTask {
 
     @Override
     public final void runInSafe() {
-        ThreadSleep.rand(1, 9);
+        Sleeping.rand(1, 9);
 
         LocalDateTime ldt = LocalDateTime.now();
 
