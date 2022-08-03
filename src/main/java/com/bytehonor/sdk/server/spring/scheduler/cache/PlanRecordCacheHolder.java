@@ -3,7 +3,7 @@ package com.bytehonor.sdk.server.spring.scheduler.cache;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
@@ -18,7 +18,7 @@ public class PlanRecordCacheHolder {
             .build(); // .recordStats() // 开启缓存统计
 
     public static void add(String name) {
-        if (StringObject.isEmpty(name)) {
+        if (SpringString.isEmpty(name)) {
             return;
         }
 

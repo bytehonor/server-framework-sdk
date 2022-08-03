@@ -3,13 +3,13 @@ package com.bytehonor.sdk.server.spring.util;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bytehonor.sdk.define.spring.constant.HeaderKey;
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 public class GlobalValueUtils {
 
     public static String getFromTerminal(HttpServletRequest request) {
         String from = request.getHeader(HeaderKey.X_FROM_TERMINAL);
-        if (StringObject.isEmpty(from)) {
+        if (SpringString.isEmpty(from)) {
             from = "browser";
         }
         return from;
@@ -17,11 +17,11 @@ public class GlobalValueUtils {
 
     public static String getFromIp(HttpServletRequest request) {
         String ip = request.getHeader(HeaderKey.X_REAL_IP);
-        if (StringObject.isEmpty(ip) == false) {
+        if (SpringString.isEmpty(ip) == false) {
             return ip;
         }
         ip = request.getHeader(HeaderKey.X_FORWARDED_FOR);
-        if (StringObject.isEmpty(ip) == false) {
+        if (SpringString.isEmpty(ip) == false) {
             int at = ip.indexOf(",");
             if (at < 0) {
                 return ip;
@@ -34,7 +34,7 @@ public class GlobalValueUtils {
 
     public static String getUserUuid(HttpServletRequest request) {
         String val = request.getHeader(HeaderKey.X_USER_UUID);
-        if (StringObject.isEmpty(val)) {
+        if (SpringString.isEmpty(val)) {
             val = request.getParameter("uuid");
         }
         return val;
@@ -42,7 +42,7 @@ public class GlobalValueUtils {
 
     public static String getWeixinOpenid(HttpServletRequest request) {
         String val = request.getHeader(HeaderKey.X_WEIXIN_OPENID);
-        if (StringObject.isEmpty(val)) {
+        if (SpringString.isEmpty(val)) {
             val = request.getParameter("openid");
         }
         return val;

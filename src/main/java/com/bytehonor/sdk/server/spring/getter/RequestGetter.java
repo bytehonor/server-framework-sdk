@@ -6,13 +6,13 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.bytehonor.sdk.define.spring.constant.HttpConstants;
+import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
 import com.bytehonor.sdk.lang.spring.getter.BooleanGetter;
 import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
 import com.bytehonor.sdk.lang.spring.getter.LongGetter;
 import com.bytehonor.sdk.lang.spring.getter.StringGetter;
 import com.bytehonor.sdk.lang.spring.query.QueryCondition;
-import com.bytehonor.sdk.lang.spring.string.StringObject;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 /**
  * @author lijianqiang
@@ -206,7 +206,7 @@ public class RequestGetter {
 
     public static List<Long> longs(String src) {
         List<Long> list = new ArrayList<Long>();
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return list;
         }
         String[] arr = src.split(",");
@@ -218,7 +218,7 @@ public class RequestGetter {
 
     public static List<Integer> integers(String src) {
         List<Integer> list = new ArrayList<Integer>();
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return list;
         }
         String[] arr = src.split(",");
@@ -230,12 +230,12 @@ public class RequestGetter {
 
     public static List<String> strings(String src) {
         List<String> list = new ArrayList<String>();
-        if (StringObject.isEmpty(src)) {
+        if (SpringString.isEmpty(src)) {
             return list;
         }
         String[] arr = src.split(",");
         for (String a : arr) {
-            if (StringObject.isEmpty(a)) {
+            if (SpringString.isEmpty(a)) {
                 continue;
             }
             list.add(a.trim());

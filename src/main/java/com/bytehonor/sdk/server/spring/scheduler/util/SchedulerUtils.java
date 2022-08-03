@@ -3,7 +3,7 @@ package com.bytehonor.sdk.server.spring.scheduler.util;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import com.bytehonor.sdk.define.spring.constant.TimeConstants;
+import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.util.TimeFormatUtils;
 
 public class SchedulerUtils {
