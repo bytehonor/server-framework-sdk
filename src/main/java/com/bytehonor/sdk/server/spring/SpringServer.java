@@ -11,7 +11,7 @@ import com.bytehonor.sdk.server.spring.context.ServerContext;
  */
 public class SpringServer {
 
-    public static <T> T getBean(Class<T> requiredType) {
+    public static <T> T bean(Class<T> requiredType) {
         Objects.requireNonNull(requiredType, "requiredType");
 
         return ApplicationContextHolder.getBean(requiredType);
@@ -33,7 +33,9 @@ public class SpringServer {
         return ServerContext.self().getPort();
     }
 
-    public static String getProperty(String key) {
+    public static String property(String key) {
+        Objects.requireNonNull(key, "key");
+
         return ServerContext.self().getEnv().getProperty(key);
     }
 }

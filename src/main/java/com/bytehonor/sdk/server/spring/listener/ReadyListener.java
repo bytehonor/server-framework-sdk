@@ -6,7 +6,7 @@ package com.bytehonor.sdk.server.spring.listener;
  * @author lijianqiang
  *
  */
-public interface SpringServerListener {
+public interface ReadyListener {
 
     public void onStart();
 }

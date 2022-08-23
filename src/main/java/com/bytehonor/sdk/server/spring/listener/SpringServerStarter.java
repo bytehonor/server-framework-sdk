@@ -29,7 +29,7 @@ public class SpringServerStarter {
 
         ServerContext.init(ApplicationContextHolder.getBean(Environment.class));
 
-        SpringServerListener listener = ApplicationContextHolder.getBean(SpringServerListener.class);
+        ReadyListener listener = ApplicationContextHolder.getBean(ReadyListener.class);
         if (listener != null) {
             listener.onStart();
         } else {
