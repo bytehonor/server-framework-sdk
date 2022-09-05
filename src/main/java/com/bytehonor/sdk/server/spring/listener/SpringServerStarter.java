@@ -9,6 +9,7 @@ import org.springframework.core.env.Environment;
 
 import com.bytehonor.sdk.server.spring.context.ApplicationContextHolder;
 import com.bytehonor.sdk.server.spring.context.ServerContext;
+import com.bytehonor.sdk.server.spring.exception.ErrorConvertor;
 
 /**
  * 服务初始化动作
@@ -29,11 +30,15 @@ public class SpringServerStarter {
 
         ServerContext.init(ApplicationContextHolder.getBean(Environment.class));
 
-        ReadyListener listener = ApplicationContextHolder.getBean(ReadyListener.class);
-        if (listener != null) {
-            listener.onStart();
-        } else {
-            LOG.warn("no SpringServerListener");
+        try {
+            ReadyListener listener = ApplicationContextHolder.getBean(ReadyListener.class);
+            if (listener != null) {
+                listener.onStart();
+            } else {
+                LOG.warn("no SpringServerListener");
+            }
+        } catch (Exception e) {
+            LOG.warn("ReadyListener:{}", ErrorConvertor.format(e));
         }
     }
 }

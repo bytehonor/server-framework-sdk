@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.web.error;
+package com.bytehonor.sdk.server.spring.exception;
 
 import com.bytehonor.sdk.define.spring.code.StandardCode;
 import com.bytehonor.sdk.define.spring.exception.StandardException;
@@ -12,10 +12,10 @@ public class ErrorConvertor {
 
     public static JsonResponse<?> convert(Exception e) {
         if (e instanceof StandardException) {
-            return first((StandardException) e);
+            return standard((StandardException) e);
         }
 
-        return last(e);
+        return bad(e);
     }
 
     /**
@@ -24,7 +24,7 @@ public class ErrorConvertor {
      * @param se
      * @return
      */
-    private static JsonResponse<?> first(StandardException se) {
+    private static JsonResponse<?> standard(StandardException se) {
         JsonResponse<Object> jsonResponse = new JsonResponse<Object>();
         jsonResponse.setCode(se.getCode());
         jsonResponse.setMessage(format(se));
@@ -37,7 +37,7 @@ public class ErrorConvertor {
      * @param ex
      * @return
      */
-    private static JsonResponse<?> last(Exception ex) {
+    private static JsonResponse<?> bad(Exception ex) {
         JsonResponse<Object> jsonResponse = new JsonResponse<Object>();
         jsonResponse.setCode(StandardCode.BAD_REQUEST);
         jsonResponse.setMessage(format(ex));
