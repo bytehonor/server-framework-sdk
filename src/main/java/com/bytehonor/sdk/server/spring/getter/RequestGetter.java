@@ -33,7 +33,7 @@ public class RequestGetter {
      * @return
      */
     public static boolean isCount(HttpServletRequest request) {
-        return BooleanGetter.optional(getValue(request, HttpConstants.COUNT_KEY), false);
+        return BooleanGetter.optional(getValue(request, HttpConstants.COUNT_KEY), true);
     }
 
     /**
