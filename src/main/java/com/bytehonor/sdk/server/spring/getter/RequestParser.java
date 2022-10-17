@@ -73,8 +73,7 @@ public class RequestParser {
 
         int offset = RequestGetter.offset(request);
         int limit = RequestGetter.limit(request);
-
-        Enumeration<String> names = request.getAttributeNames();
+        Enumeration<String> names = request.getParameterNames();
         Set<String> keys = new HashSet<String>();
 
         while (names.hasMoreElements()) {
