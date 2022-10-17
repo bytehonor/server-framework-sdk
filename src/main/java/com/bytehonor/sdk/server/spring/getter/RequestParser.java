@@ -106,7 +106,7 @@ public class RequestParser {
             return;
         }
 
-        KeyAction ka = KeyAction.parse(key);
+        KeyValueAction ka = KeyValueAction.parse(key, request.getAttribute(key));
         doMake(ka);
     }
 
@@ -114,7 +114,7 @@ public class RequestParser {
 
     }
 
-    private void doMake(KeyAction ka) {
+    private void doMake(KeyValueAction ka) {
         if (ka == null || SpringString.isEmpty(ka.getKey())) {
             return;
         }
