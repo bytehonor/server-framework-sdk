@@ -10,7 +10,6 @@ import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
 import com.bytehonor.sdk.lang.spring.getter.BooleanGetter;
 import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
 import com.bytehonor.sdk.lang.spring.getter.LongGetter;
-import com.bytehonor.sdk.lang.spring.query.QueryCondition;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 /**
@@ -19,20 +18,12 @@ import com.bytehonor.sdk.lang.spring.string.SpringString;
  */
 public class RequestGetter {
 
-    public static QueryCondition create(HttpServletRequest request) {
-        Objects.requireNonNull(request, "request");
-        int offset = RequestGetter.offset(request);
-        int limit = RequestGetter.limit(request);
-
-        return QueryCondition.and(offset, limit);
-    }
-
     /**
      * @param request
      * @return
      */
     public static boolean counted(HttpServletRequest request) {
-        return BooleanGetter.optional(stringOptional(request, HttpConstants.COUNT_KEY), true);
+        return BooleanGetter.optional(optional(request, HttpConstants.COUNT_KEY), true);
     }
 
     /**
@@ -40,7 +31,7 @@ public class RequestGetter {
      * @return
      */
     public static int limit(HttpServletRequest request) {
-        int res = IntegerGetter.optional(stringOptional(request, HttpConstants.LIMIT_KEY), HttpConstants.LIMIT_DEF);
+        int res = IntegerGetter.optional(optional(request, HttpConstants.LIMIT_KEY), HttpConstants.LIMIT_DEF);
         if (res > HttpConstants.LIMIT_MAX) {
             res = HttpConstants.LIMIT_MAX;
         }
@@ -52,7 +43,7 @@ public class RequestGetter {
      * @return
      */
     public static int offset(HttpServletRequest request) {
-        return IntegerGetter.optional(stringOptional(request, HttpConstants.OFFSET_KEY), HttpConstants.OFFSET_DEF);
+        return IntegerGetter.optional(optional(request, HttpConstants.OFFSET_KEY), HttpConstants.OFFSET_DEF);
     }
 
     /**
@@ -60,7 +51,7 @@ public class RequestGetter {
      * @return
      */
     public static int page(HttpServletRequest request) {
-        return IntegerGetter.optional(stringOptional(request, HttpConstants.PAGE_KEY), HttpConstants.PAGE_DEF);
+        return IntegerGetter.optional(optional(request, HttpConstants.PAGE_KEY), HttpConstants.PAGE_DEF);
     }
 
     /**
@@ -79,7 +70,7 @@ public class RequestGetter {
      * @return
      */
     public static Integer integerOptional(HttpServletRequest request, String key, Integer def) {
-        return IntegerGetter.optional(stringOptional(request, key), def);
+        return IntegerGetter.optional(optional(request, key), def);
     }
 
     /**
@@ -100,7 +91,7 @@ public class RequestGetter {
      * @return
      */
     public static Long longOptional(HttpServletRequest request, String key, Long def) {
-        return LongGetter.optional(stringOptional(request, key), def);
+        return LongGetter.optional(optional(request, key), def);
     }
 
     /**
@@ -130,7 +121,7 @@ public class RequestGetter {
      * @return
      */
     public static Boolean booleanOptional(HttpServletRequest request, String key, Boolean def) {
-        return BooleanGetter.optional(stringOptional(request, key), def);
+        return BooleanGetter.optional(optional(request, key), def);
     }
 
     /**
@@ -159,8 +150,8 @@ public class RequestGetter {
      * @param def
      * @return
      */
-    public static String stringOptional(HttpServletRequest request, String key, String def) {
-        String val = stringOptional(request, key);
+    public static String optional(HttpServletRequest request, String key, String def) {
+        String val = optional(request, key);
         return val != null ? val : def;
     }
 
@@ -169,7 +160,7 @@ public class RequestGetter {
      * @param key
      * @return
      */
-    public static String stringOptional(HttpServletRequest request, String key) {
+    public static String optional(HttpServletRequest request, String key) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(key, "key");
         return request.getParameter(key);
@@ -181,7 +172,7 @@ public class RequestGetter {
      * @return
      */
     public static String required(HttpServletRequest request, String key) {
-        String val = stringOptional(request, key, null);
+        String val = optional(request, key);
         Objects.requireNonNull(val, key);
         return val;
     }
