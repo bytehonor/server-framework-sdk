@@ -1,5 +1,10 @@
 package com.bytehonor.sdk.server.spring.getter;
 
+import java.util.List;
+
+import com.bytehonor.sdk.lang.spring.string.SpringString;
+import com.bytehonor.sdk.lang.spring.string.StringSplitUtils;
+
 public class KeyValueAction {
 
     private String key;
@@ -7,6 +12,16 @@ public class KeyValueAction {
     private String value;
 
     private String action;
+
+    public KeyValueAction() {
+        this("", "", "");
+    }
+
+    public KeyValueAction(String key, String value, String action) {
+        this.key = key;
+        this.value = value;
+        this.action = action;
+    }
 
     public String getKey() {
         return key;
@@ -32,9 +47,18 @@ public class KeyValueAction {
         this.action = action;
     }
 
-    public static KeyValueAction parse(String raw, Object value) {
-        // TODO Auto-generated method stub
-        return null;
+    public static KeyValueAction parse(String raw, String value) {
+        if (SpringString.isEmpty(raw)) {
+            return new KeyValueAction();
+        }
+
+        List<String> list = StringSplitUtils.split(raw, '.');
+        int size = list.size();
+        if (size == 1) {
+            return new KeyValueAction(list.get(0), "eq", value);
+        }
+
+        return new KeyValueAction(list.get(0), list.get(1), value);
     }
 
 }

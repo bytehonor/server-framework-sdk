@@ -2,7 +2,6 @@ package com.bytehonor.sdk.server.spring.getter;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -13,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
+import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
 import com.bytehonor.sdk.lang.spring.match.KeyMatcher;
 import com.bytehonor.sdk.lang.spring.meta.MetaModel;
 import com.bytehonor.sdk.lang.spring.meta.MetaModelField;
@@ -20,6 +20,7 @@ import com.bytehonor.sdk.lang.spring.meta.MetaModelUtils;
 import com.bytehonor.sdk.lang.spring.query.QueryCondition;
 import com.bytehonor.sdk.lang.spring.query.QueryOrder;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
+import com.bytehonor.sdk.lang.spring.string.StringSplitUtils;
 import com.google.common.collect.Sets;
 
 /**
@@ -30,23 +31,13 @@ public class RequestParser {
 
     private static final Logger LOG = LoggerFactory.getLogger(RequestParser.class);
 
-    private static final Set<String> PAGES = Sets.newHashSet(HttpConstants.LIMIT_KEY, HttpConstants.OFFSET_KEY,
-            HttpConstants.PAGE_KEY);
-
-    private static final String EQ = "eq";
-    private static final String NEQ = "neq";
-    private static final String LT = "lt";
-    private static final String ELT = "elt";
-    private static final String GT = "gt";
-    private static final String EGT = "egt";
-    private static final String LIKE = "lk";
-    private static final String IN = "in";
+    private static final Set<String> PAGES = Sets.newHashSet(HttpConstants.COUNT_KEY, HttpConstants.LIMIT_KEY,
+            HttpConstants.OFFSET_KEY, HttpConstants.PAGE_KEY);
 
     private final HttpServletRequest request;
     private QueryOrder order;
     private final List<KeyMatcher> matchers;
-
-    private final Class<?> clazz;
+    private final MetaModel model;
 
     public RequestParser(Class<?> clazz, HttpServletRequest request) {
         Objects.requireNonNull(clazz, "clazz");
@@ -54,7 +45,7 @@ public class RequestParser {
         this.request = request;
         this.order = null;
         this.matchers = new ArrayList<KeyMatcher>();
-        this.clazz = clazz;
+        this.model = MetaModelUtils.parse(clazz);
     }
 
     public static RequestParser create(Class<?> clazz, HttpServletRequest request) {
@@ -62,36 +53,18 @@ public class RequestParser {
     }
 
     public QueryCondition build() {
-
-        MetaModel model = MetaModelUtils.parse(clazz);
-        LOG.info("name:{}", model.getName());
-
-        List<MetaModelField> fields = model.getFields();
-        for (MetaModelField field : fields) {
-            LOG.info("key:{}, column:{}, type:{}", field.getKey(), field.getColumn(), field.getType());
-        }
-
         int offset = RequestGetter.offset(request);
         int limit = RequestGetter.limit(request);
+        boolean counted = RequestGetter.counted(request);
         Enumeration<String> names = request.getParameterNames();
-        Set<String> keys = new HashSet<String>();
 
         while (names.hasMoreElements()) {
             doParse(names.nextElement());
         }
 
-//        for (String key : keys) {
-//            if (PAGES.contains(key)) {
-//                continue;
-//            }
-//            if (HttpConstants.SORT_KEY.equals(key)) {
-//                doMakeOrder(key);
-//                continue;
-//            }
-//            doMake(key);
-//        }
-
         QueryCondition condition = QueryCondition.and(offset, limit);
+        condition.count(counted);
+
         for (KeyMatcher matcher : matchers) {
             condition.add(matcher);
         }
@@ -100,24 +73,60 @@ public class RequestParser {
         return condition;
     }
 
-    private void doParse(String key) {
-        if (PAGES.contains(key)) {
+    private void doParse(String raw) {
+        if (PAGES.contains(raw)) {
             return;
         }
 
-        KeyValueAction ka = KeyValueAction.parse(key, request.getAttribute(key));
-        doMake(ka);
-    }
-
-    private void doMakeOrder(String key) {
-
-    }
-
-    private void doMake(KeyValueAction ka) {
-        if (ka == null || SpringString.isEmpty(ka.getKey())) {
+        String value = request.getParameter(raw);
+        if (HttpConstants.SORT_KEY.equals(raw)) {
+            doMakeOrder(value);
             return;
         }
 
+        String key = raw;
+        String opt = SqlOperator.EQ.getKey();
+        List<String> list = StringSplitUtils.split(raw, '.');
+        int size = list.size();
+        if (size == 2) {
+            key = list.get(0);
+            opt = list.get(1);
+        }
+        LOG.info("doParse key:{}, opt:{}, raw:{}", key, opt, raw);
+
+        MetaModelField field = model.getIfPresent(key);
+        if (field == null) {
+            LOG.warn("field null, key:{}, raw:{}", key, raw);
+            return;
+        }
+
+        SqlOperator sopt = SqlOperator.keyOf(opt);
+
+        KeyMatcher matcher = KeyMatcher.of(field.getKey(), value, field.getType(), sopt);
+        doAdd(matcher);
+    }
+
+    private void doMakeOrder(String value) {
+        List<String> list = StringSplitUtils.split(value, '.');
+        if (list.size() != 2) {
+            LOG.warn("doMakeOrder invalid value:{}", value);
+            return;
+        }
+        String key = list.get(0);
+        String opt = list.get(1);
+        if (SpringString.isEmpty(key) || SpringString.isEmpty(opt)) {
+            LOG.warn("doMakeOrder failed value:{}", value);
+            return;
+        }
+        if (HttpConstants.SORT_DESC.equals(opt)) {
+            order = QueryOrder.descOf(key);
+            return;
+        }
+
+        if (HttpConstants.SORT_ASC.equals(opt)) {
+            order = QueryOrder.ascOf(key);
+            return;
+        }
     }
 
     private RequestParser doAdd(KeyMatcher matcher) {

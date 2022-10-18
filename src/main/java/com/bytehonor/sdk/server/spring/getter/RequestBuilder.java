@@ -331,19 +331,19 @@ public class RequestBuilder {
     public <T> RequestBuilder ins(GetString<T> getter) {
         String field = Getters.field(getter);
         String value = RequestGetter.stringOptional(request, field + IN);
-        return this.doAdd(KeyMatcher.strings(field, RequestGetter.strings(value)));
+        return this.doAdd(KeyMatcher.ins(field, RequestGetter.strings(value)));
     }
 
     public <T> RequestBuilder inl(GetLong<T> getter) {
         String field = Getters.field(getter);
         String value = RequestGetter.stringOptional(request, field + IN);
-        return this.doAdd(KeyMatcher.longs(field, RequestGetter.longs(value)));
+        return this.doAdd(KeyMatcher.inl(field, RequestGetter.longs(value)));
     }
 
     public <T> RequestBuilder ini(GetInteger<T> getter) {
         String field = Getters.field(getter);
         String value = RequestGetter.stringOptional(request, field + IN);
-        return this.doAdd(KeyMatcher.integers(field, RequestGetter.integers(value)));
+        return this.doAdd(KeyMatcher.ini(field, RequestGetter.integers(value)));
     }
 
     public <T> RequestBuilder desc(ClassGetter<T, ?> getter) {
