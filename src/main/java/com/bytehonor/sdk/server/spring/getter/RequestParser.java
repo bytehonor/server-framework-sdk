@@ -84,6 +84,10 @@ public class RequestParser {
         }
 
         LOG.info("doMakeMatcher key:{}, opt:{}, raw:{}", key, opt, raw);
+        if (SqlOperator.IN.equals(sopt)) {
+            List<String> values = StringSplitUtils.split(value);
+            return KeyMatcher.in(field.getKey(), values, field.getType());
+        }
         return KeyMatcher.of(field.getKey(), value, field.getType(), sopt);
     }
 
