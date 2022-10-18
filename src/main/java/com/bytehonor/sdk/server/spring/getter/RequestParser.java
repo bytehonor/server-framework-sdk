@@ -70,7 +70,12 @@ public class RequestParser {
             key = list.get(0);
             opt = list.get(1);
         }
-        LOG.info("doMakeMatcher key:{}, opt:{}, raw:{}", key, opt, raw);
+
+        SqlOperator sopt = SqlOperator.keyOf(opt);
+        if (sopt == null) {
+            LOG.warn("doMakeMatcher opt null, opt:{}, raw:{}", opt, raw);
+            return null;
+        }
 
         MetaModelField field = model.getIfPresent(key);
         if (field == null) {
@@ -78,8 +83,7 @@ public class RequestParser {
             return null;
         }
 
-        SqlOperator sopt = SqlOperator.keyOf(opt);
-
+        LOG.info("doMakeMatcher key:{}, opt:{}, raw:{}", key, opt, raw);
         return KeyMatcher.of(field.getKey(), value, field.getType(), sopt);
     }
 
