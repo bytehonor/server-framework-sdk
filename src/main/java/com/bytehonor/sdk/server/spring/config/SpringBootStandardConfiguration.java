@@ -75,7 +75,7 @@ public class SpringBootStandardConfiguration {
     public SchedulerControllerEndpoint schedulerControllerEndpoint() {
         Set<String> include = webEndpointProperties.getExposure().getInclude();
         include.add(ServerEndpointConstants.SCHEDULER_ENDPOINT);
-        LOG.info("[Bytehonor] SchedulerControllerEndpoint, include:{}", include);
+        LOG.info("[Bytehonor] SchedulerControllerEndpoint");
         return new SchedulerControllerEndpoint();
     }
 
