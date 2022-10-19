@@ -5,7 +5,7 @@ plugins {
 apply from: 'repository.gradle'
 
 group = 'com.bytehonor.sdk'
-version = '1.8.19'
+version = '1.8.20'
 sourceCompatibility = 1.8
 
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -23,7 +23,7 @@ repositories {
 
 dependencies {
     api('com.bytehonor.sdk:spring-define-sdk:0.3.4')
-    api('com.bytehonor.sdk:spring-lang-sdk:0.3.28')
+    api('com.bytehonor.sdk:spring-lang-sdk:0.3.32')
     implementation('org.springframework:spring-webmvc:5.3.22')
     implementation('org.apache.tomcat.embed:tomcat-embed-core:9.0.65')
     implementation('org.springframework.boot:spring-boot-actuator:2.7.2')

@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
+import com.bytehonor.sdk.lang.spring.constant.QueryLogic;
 import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
 import com.bytehonor.sdk.lang.spring.match.KeyMatcher;
 import com.bytehonor.sdk.lang.spring.meta.MetaModel;
@@ -18,6 +19,7 @@ import com.bytehonor.sdk.lang.spring.meta.MetaModelField;
 import com.bytehonor.sdk.lang.spring.meta.MetaModelUtils;
 import com.bytehonor.sdk.lang.spring.query.QueryCondition;
 import com.bytehonor.sdk.lang.spring.query.QueryOrder;
+import com.bytehonor.sdk.lang.spring.query.QueryPager;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.bytehonor.sdk.lang.spring.string.StringSplitUtils;
 import com.google.common.collect.Sets;
@@ -33,7 +35,16 @@ public class RequestParser {
     private static final Set<String> IGNORES = Sets.newHashSet(HttpConstants.COUNT_KEY, HttpConstants.LIMIT_KEY,
             HttpConstants.OFFSET_KEY, HttpConstants.PAGE_KEY, HttpConstants.SORT_KEY, "token");
 
-    public static QueryCondition parse(Class<?> clazz, HttpServletRequest request) {
+    public static QueryCondition and(Class<?> clazz, HttpServletRequest request) {
+        return parse(QueryLogic.AND, clazz, request);
+    }
+
+    public static QueryCondition or(Class<?> clazz, HttpServletRequest request) {
+        return parse(QueryLogic.OR, clazz, request);
+    }
+
+    public static QueryCondition parse(QueryLogic logic, Class<?> clazz, HttpServletRequest request) {
+        Objects.requireNonNull(logic, "logic");
         Objects.requireNonNull(clazz, "clazz");
         Objects.requireNonNull(request, "request");
 
@@ -41,8 +52,7 @@ public class RequestParser {
         int limit = RequestGetter.limit(request);
         boolean counted = RequestGetter.counted(request);
 
-        QueryCondition condition = QueryCondition.and(offset, limit);
-        condition.count(counted);
+        QueryCondition condition = QueryCondition.create(logic, QueryPager.of(counted, offset, limit));
 
         MetaModel model = MetaModelUtils.parse(clazz);
         Enumeration<String> names = request.getParameterNames();
@@ -54,7 +64,7 @@ public class RequestParser {
             condition.add(doMakeMatcher(model, key, request.getParameter(key)));
         }
 
-        condition.setOrder(doMakeOrder(request.getParameter(HttpConstants.SORT_KEY)));
+        condition.order(doMakeOrder(request.getParameter(HttpConstants.SORT_KEY)));
         return condition;
     }
 

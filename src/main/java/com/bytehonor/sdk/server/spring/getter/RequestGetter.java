@@ -7,6 +7,7 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
+import com.bytehonor.sdk.lang.spring.constant.QueryLogic;
 import com.bytehonor.sdk.lang.spring.getter.BooleanGetter;
 import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
 import com.bytehonor.sdk.lang.spring.getter.LongGetter;
@@ -52,6 +53,11 @@ public class RequestGetter {
      */
     public static int page(HttpServletRequest request) {
         return IntegerGetter.optional(optional(request, HttpConstants.PAGE_KEY), HttpConstants.PAGE_DEF);
+    }
+
+    public static QueryLogic logic(HttpServletRequest request) {
+        String key = optional(request, "logic");
+        return QueryLogic.keyOf(key);
     }
 
     /**
@@ -215,4 +221,5 @@ public class RequestGetter {
         }
         return list;
     }
+
 }
