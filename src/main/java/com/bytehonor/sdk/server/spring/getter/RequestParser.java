@@ -35,24 +35,37 @@ public class RequestParser {
     private static final Set<String> IGNORES = Sets.newHashSet(HttpConstants.COUNT_KEY, HttpConstants.LIMIT_KEY,
             HttpConstants.OFFSET_KEY, HttpConstants.PAGE_KEY, HttpConstants.SORT_KEY, "token");
 
+    public static QueryCondition and(HttpServletRequest request) {
+        return QueryCondition.create(QueryLogic.AND, doMakePager(request));
+    }
+
+    public static QueryCondition or(HttpServletRequest request) {
+        return QueryCondition.create(QueryLogic.OR, doMakePager(request));
+    }
+
     public static QueryCondition and(Class<?> clazz, HttpServletRequest request) {
-        return parse(QueryLogic.AND, clazz, request);
+        return doParse(QueryLogic.AND, clazz, request);
     }
 
     public static QueryCondition or(Class<?> clazz, HttpServletRequest request) {
-        return parse(QueryLogic.OR, clazz, request);
+        return doParse(QueryLogic.OR, clazz, request);
     }
 
-    public static QueryCondition parse(QueryLogic logic, Class<?> clazz, HttpServletRequest request) {
-        Objects.requireNonNull(logic, "logic");
-        Objects.requireNonNull(clazz, "clazz");
+    private static QueryPager doMakePager(HttpServletRequest request) {
         Objects.requireNonNull(request, "request");
 
         int offset = RequestGetter.offset(request);
         int limit = RequestGetter.limit(request);
         boolean counted = RequestGetter.counted(request);
+        return QueryPager.of(counted, offset, limit);
+    }
 
-        QueryCondition condition = QueryCondition.create(logic, QueryPager.of(counted, offset, limit));
+    private static QueryCondition doParse(QueryLogic logic, Class<?> clazz, HttpServletRequest request) {
+        Objects.requireNonNull(logic, "logic");
+        Objects.requireNonNull(clazz, "clazz");
+        Objects.requireNonNull(request, "request");
+
+        QueryCondition condition = QueryCondition.create(logic, doMakePager(request));
 
         MetaModel model = MetaModelUtils.parse(clazz);
         Enumeration<String> names = request.getParameterNames();
