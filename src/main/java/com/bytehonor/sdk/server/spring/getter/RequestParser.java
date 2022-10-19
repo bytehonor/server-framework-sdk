@@ -77,7 +77,7 @@ public class RequestParser {
             condition.add(doMakeMatcher(model, key, request.getParameter(key)));
         }
 
-        condition.order(doMakeOrder(request.getParameter(HttpConstants.SORT_KEY)));
+        condition.order(doMakeOrder(model, request.getParameter(HttpConstants.SORT_KEY)));
         return condition;
     }
 
@@ -114,19 +114,24 @@ public class RequestParser {
         return KeyMatcher.of(field.getKey(), value, field.getType(), sopt);
     }
 
-    private static QueryOrder doMakeOrder(String value) {
+    private static QueryOrder doMakeOrder(MetaModel model, String value) {
         if (SpringString.isEmpty(value)) {
             return null;
         }
         List<String> list = StringSplitUtils.split(value, '.');
         if (list.size() != 2) {
-            LOG.warn("doMakeOrder invalid value:{}", value);
+            LOG.warn("doMakeOrder invalid, value:{}", value);
             return null;
         }
         String key = list.get(0);
         String opt = list.get(1);
         if (SpringString.isEmpty(key) || SpringString.isEmpty(opt)) {
-            LOG.warn("doMakeOrder failed value:{}", value);
+            LOG.warn("doMakeOrder failed, value:{}", value);
+            return null;
+        }
+
+        if (model.contains(key) == false) {
+            LOG.warn("doMakeOrder not field, value:{}", value);
             return null;
         }
 
