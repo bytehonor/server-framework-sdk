@@ -24,7 +24,7 @@ public class RequestGetter {
      * @return
      */
     public static boolean counted(HttpServletRequest request) {
-        return BooleanGetter.optional(optional(request, HttpConstants.COUNT_KEY), true);
+        return BooleanGetter.optional(optional(request, HttpConstants.COUNT_KEY), false);
     }
 
     /**

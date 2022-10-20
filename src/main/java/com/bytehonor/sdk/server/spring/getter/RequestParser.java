@@ -73,7 +73,11 @@ public class RequestParser {
                 offset = (page - 1) * limit;
             }
         }
-        boolean counted = RequestGetter.counted(request);
+
+        boolean counted = true;
+        if (offset > 0) {
+            counted = RequestGetter.counted(request);
+        }
         return QueryPager.of(counted, offset, limit);
     }
 
