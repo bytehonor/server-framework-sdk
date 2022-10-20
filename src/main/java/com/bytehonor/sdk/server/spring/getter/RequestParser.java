@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
 import com.bytehonor.sdk.lang.spring.constant.QueryLogic;
 import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
+import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
 import com.bytehonor.sdk.lang.spring.match.KeyMatcher;
 import com.bytehonor.sdk.lang.spring.meta.MetaModel;
 import com.bytehonor.sdk.lang.spring.meta.MetaModelField;
@@ -25,6 +26,7 @@ import com.bytehonor.sdk.lang.spring.string.StringSplitUtils;
 import com.google.common.collect.Sets;
 
 /**
+ * 
  * @author lijianqiang
  *
  */
@@ -51,11 +53,26 @@ public class RequestParser {
         return doParse(QueryLogic.OR, clazz, request);
     }
 
+    /**
+     * page和offset都存在则优先offset
+     * 
+     * @param request
+     * @return
+     */
     private static QueryPager doMakePager(HttpServletRequest request) {
         Objects.requireNonNull(request, "request");
 
-        int offset = RequestGetter.offset(request);
         int limit = RequestGetter.limit(request);
+        int offset = HttpConstants.OFFSET_DEF;
+        String offsetVal = RequestGetter.optional(request, HttpConstants.OFFSET_KEY);
+        if (SpringString.isEmpty(offsetVal) == false) {
+            offset = IntegerGetter.optional(offsetVal, HttpConstants.OFFSET_DEF);
+        } else {
+            int page = RequestGetter.page(request);
+            if (page > 1) {
+                offset = (page - 1) * limit;
+            }
+        }
         boolean counted = RequestGetter.counted(request);
         return QueryPager.of(counted, offset, limit);
     }
