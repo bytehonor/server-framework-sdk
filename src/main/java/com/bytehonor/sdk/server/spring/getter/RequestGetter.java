@@ -33,8 +33,8 @@ public class RequestGetter {
      */
     public static int limit(HttpServletRequest request) {
         int res = IntegerGetter.optional(optional(request, HttpConstants.LIMIT_KEY), HttpConstants.LIMIT_DEF);
-        if (res > HttpConstants.LIMIT_MAX) {
-            res = HttpConstants.LIMIT_MAX;
+        if (res > HttpConstants.LIMIT_MAX_TOP) {
+            res = HttpConstants.LIMIT_MAX_TOP;
         }
         return res;
     }
