@@ -18,26 +18,26 @@ public class ApplicationContextHolder {
         private static ApplicationContextHolder SINGLE = new ApplicationContextHolder();
     }
 
-    private static ApplicationContextHolder self() {
+    private static ApplicationContextHolder me() {
         return LazyHolder.SINGLE;
     }
 
     public static ConfigurableApplicationContext getContext() {
-        return self().applicationContext;
+        return me().applicationContext;
     }
 
     public static void setContext(ConfigurableApplicationContext context) {
-        self().applicationContext = context;
+        me().applicationContext = context;
     }
 
     public static <T> T getBean(Class<T> requiredType) {
-        if (self().applicationContext == null) {
+        if (me().applicationContext == null) {
             throw new RuntimeException("applicationContext null");
         }
-        return self().applicationContext.getBean(requiredType);
+        return me().applicationContext.getBean(requiredType);
     }
 
     public static boolean inited() {
-        return self().applicationContext != null;
+        return me().applicationContext != null;
     }
 }

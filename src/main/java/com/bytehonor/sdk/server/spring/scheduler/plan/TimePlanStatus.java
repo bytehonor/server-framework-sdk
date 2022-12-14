@@ -19,7 +19,7 @@ public class TimePlanStatus {
     private String date;
 
     public TimePlanStatus(String name) {
-        this.server = ServerContext.self().getId();
+        this.server = ServerContext.me().getId();
         this.name = name;
         this.paused = false;
         this.time = 0L;

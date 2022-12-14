@@ -2,13 +2,13 @@ package com.bytehonor.sdk.server.spring.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.bytehonor.sdk.define.spring.constant.HeaderKey;
+import com.bytehonor.sdk.define.spring.constant.OauthConstants;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 public class RequestValueUtils {
 
     public static String getTerminal(HttpServletRequest request) {
-        String from = request.getHeader(HeaderKey.REQUEST_TERMINAL);
+        String from = request.getHeader(OauthConstants.REQUEST_TERMINAL);
         if (SpringString.isEmpty(from)) {
             from = "browser";
         }
@@ -16,7 +16,7 @@ public class RequestValueUtils {
     }
 
     public static String getIp(HttpServletRequest request) {
-        String ip = request.getHeader(HeaderKey.REQUEST_IP);
+        String ip = request.getHeader(OauthConstants.REQUEST_IP);
         if (SpringString.isEmpty(ip) == false) {
             return ip;
         }
@@ -33,7 +33,7 @@ public class RequestValueUtils {
     }
 
     public static String getUuid(HttpServletRequest request) {
-        String val = request.getHeader(HeaderKey.REQUEST_UUID);
+        String val = request.getHeader(OauthConstants.REQUEST_UUID);
         if (SpringString.isEmpty(val)) {
             val = request.getParameter("uuid");
         }

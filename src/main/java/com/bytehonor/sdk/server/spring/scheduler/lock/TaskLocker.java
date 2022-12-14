@@ -38,7 +38,7 @@ public abstract class TaskLocker {
     }
 
     private String name() {
-        String name = ServerContext.self().getName();
+        String name = ServerContext.me().getName();
         if (SpringString.isEmpty(name) == false) {
             return name;
         }

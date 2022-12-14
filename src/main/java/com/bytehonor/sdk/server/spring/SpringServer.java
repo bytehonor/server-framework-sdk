@@ -18,24 +18,24 @@ public class SpringServer {
     }
 
     public static String id() {
-        return ServerContext.self().getId();
+        return ServerContext.me().getId();
     }
 
     public static String ip() {
-        return ServerContext.self().getIp();
+        return ServerContext.me().getIp();
     }
 
     public static String name() {
-        return ServerContext.self().getName();
+        return ServerContext.me().getName();
     }
 
     public static int port() {
-        return ServerContext.self().getPort();
+        return ServerContext.me().getPort();
     }
 
     public static String property(String key) {
         Objects.requireNonNull(key, "key");
 
-        return ServerContext.self().getEnv().getProperty(key);
+        return ServerContext.me().getEnv().getProperty(key);
     }
 }
