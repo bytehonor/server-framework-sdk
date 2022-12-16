@@ -40,9 +40,11 @@ public class RequestGetter {
     }
 
     /**
+     * 20221216开始废弃，用page
      * @param request
      * @return
      */
+    @Deprecated
     public static int offset(HttpServletRequest request) {
         return IntegerGetter.optional(optional(request, HttpConstants.OFFSET_KEY), HttpConstants.OFFSET_DEF);
     }

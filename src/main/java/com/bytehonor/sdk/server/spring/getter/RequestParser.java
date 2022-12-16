@@ -54,7 +54,7 @@ public class RequestParser {
     }
 
     /**
-     * page和offset都存在则优先offset
+     * page和offset都存在则优先page
      * 
      * @param request
      * @return
@@ -64,13 +64,13 @@ public class RequestParser {
 
         int limit = RequestGetter.limit(request);
         int offset = HttpConstants.OFFSET_DEF;
-        String offsetVal = RequestGetter.optional(request, HttpConstants.OFFSET_KEY);
-        if (SpringString.isEmpty(offsetVal) == false) {
-            offset = IntegerGetter.optional(offsetVal, HttpConstants.OFFSET_DEF);
+        int page = RequestGetter.page(request);
+        if (page > 1) {
+            offset = (page - 1) * limit;
         } else {
-            int page = RequestGetter.page(request);
-            if (page > 1) {
-                offset = (page - 1) * limit;
+            String offsetVal = RequestGetter.optional(request, HttpConstants.OFFSET_KEY);
+            if (SpringString.isEmpty(offsetVal) == false) {
+                offset = IntegerGetter.optional(offsetVal, HttpConstants.OFFSET_DEF);
             }
         }
 
