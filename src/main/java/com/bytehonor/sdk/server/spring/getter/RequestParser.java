@@ -103,8 +103,8 @@ public class RequestParser {
     }
 
     private static KeyMatcher doMakeMatcher(MetaModel model, String raw, String value) {
-        if (SpringString.isEmpty(raw)) {
-            return null;
+        if (SpringString.isEmpty(raw) || SpringString.isEmpty(value)) {
+            return null; // value为空字符则丢弃
         }
         String key = raw;
         String opt = SqlOperator.EQ.getKey();
