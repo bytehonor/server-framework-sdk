@@ -24,6 +24,9 @@ public class RequestKeyOpt {
             return model;
         }
         int at = raw.indexOf(SPL);
+        if (at < 1) {
+            at = raw.indexOf('.'); // TODO 兼容老的
+        }
         if (at > 1) {
             int length = raw.length();
             model.setKey(raw.substring(0, at));
