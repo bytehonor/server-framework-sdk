@@ -34,6 +34,8 @@ public class RequestParser {
 
     private static final Logger LOG = LoggerFactory.getLogger(RequestParser.class);
 
+    // private static final char SPL_DOT = '.';
+
     private static final Set<String> IGNORES = Sets.newHashSet(HttpConstants.COUNT_KEY, HttpConstants.LIMIT_KEY,
             HttpConstants.OFFSET_KEY, HttpConstants.PAGE_KEY, HttpConstants.SORT_KEY, "token");
 
@@ -106,17 +108,20 @@ public class RequestParser {
         if (SpringString.isEmpty(raw) || SpringString.isEmpty(value)) {
             return null; // value为空字符则丢弃
         }
-        String key = raw;
-        String opt = SqlOperator.EQ.getKey();
-        List<String> list = StringSplitUtils.split(raw, '.');
-        int size = list.size();
-        if (size == 2) {
-            key = list.get(0);
-            opt = list.get(1);
-        }
+//        String key = raw;
+//        String opt = SqlOperator.EQ.getKey();
+//        List<String> list = StringSplitUtils.split(raw, SPL_DOT);
+//        int size = list.size();
+//        if (size == 2) {
+//            key = list.get(0);
+//            opt = list.get(1);
+//        }
+        RequestKeyOpt keyOpt = RequestKeyOpt.parse(raw);
+        String key = keyOpt.getKey();
+        String opt = keyOpt.getOpt();
 
-        SqlOperator sopt = SqlOperator.keyOf(opt);
-        if (sopt == null) {
+        SqlOperator operator = SqlOperator.keyOf(opt);
+        if (operator == null) {
             LOG.warn("doMakeMatcher opt null, opt:{}, raw:{}", opt, raw);
             return null;
         }
@@ -128,24 +133,27 @@ public class RequestParser {
         }
 
         LOG.info("doMakeMatcher key:{}, opt:{}, raw:{}", key, opt, raw);
-        if (SqlOperator.IN.equals(sopt)) {
+        if (SqlOperator.IN.equals(operator)) {
             List<String> values = StringSplitUtils.split(value);
             return KeyMatcher.in(field.getKey(), values, field.getType());
         }
-        return KeyMatcher.of(field.getKey(), value, field.getType(), sopt);
+        return KeyMatcher.of(field.getKey(), value, field.getType(), operator);
     }
 
     private static QueryOrder doMakeOrder(MetaModel model, String value) {
         if (SpringString.isEmpty(value)) {
             return null;
         }
-        List<String> list = StringSplitUtils.split(value, '.');
-        if (list.size() != 2) {
-            LOG.warn("doMakeOrder invalid, value:{}", value);
-            return null;
-        }
-        String key = list.get(0);
-        String opt = list.get(1);
+//        List<String> list = StringSplitUtils.split(value, SPL_DOT);
+//        if (list.size() != 2) {
+//            LOG.warn("doMakeOrder invalid, value:{}", value);
+//            return null;
+//        }
+//        String key = list.get(0);
+//        String opt = list.get(1);
+        RequestKeyOpt keyOpt = RequestKeyOpt.parse(value);
+        String key = keyOpt.getKey();
+        String opt = keyOpt.getOpt();
         if (SpringString.isEmpty(key) || SpringString.isEmpty(opt)) {
             LOG.warn("doMakeOrder failed, value:{}", value);
             return null;
@@ -166,5 +174,4 @@ public class RequestParser {
         }
         return null;
     }
-
 }
