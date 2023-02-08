@@ -17,6 +17,10 @@ public class RequestKeyOpt {
         this.key = "";
         this.opt = EQ;
     }
+    
+    public static String make(String key, String opt) {
+        return new StringBuilder().append(key).append(SPL).append(opt).toString();
+    }
 
     public static RequestKeyOpt parse(String raw) {
         RequestKeyOpt model = new RequestKeyOpt();
