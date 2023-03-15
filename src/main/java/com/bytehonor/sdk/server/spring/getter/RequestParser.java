@@ -108,14 +108,7 @@ public class RequestParser {
         if (SpringString.isEmpty(raw) || SpringString.isEmpty(value)) {
             return null; // value为空字符则丢弃
         }
-//        String key = raw;
-//        String opt = SqlOperator.EQ.getKey();
-//        List<String> list = StringSplitUtils.split(raw, SPL_DOT);
-//        int size = list.size();
-//        if (size == 2) {
-//            key = list.get(0);
-//            opt = list.get(1);
-//        }
+
         RequestKeyOpt keyOpt = RequestKeyOpt.parse(raw);
         String key = keyOpt.getKey();
         String opt = keyOpt.getOpt();
@@ -132,7 +125,7 @@ public class RequestParser {
             return null;
         }
 
-        LOG.info("doMakeMatcher key:{}, opt:{}, raw:{}", key, opt, raw);
+        LOG.debug("doMakeMatcher key:{}, opt:{}, raw:{}", key, opt, raw);
         if (SqlOperator.IN.equals(operator)) {
             List<String> values = StringSplitUtils.split(value);
             return KeyMatcher.in(field.getKey(), values, field.getType());
@@ -144,13 +137,7 @@ public class RequestParser {
         if (SpringString.isEmpty(value)) {
             return null;
         }
-//        List<String> list = StringSplitUtils.split(value, SPL_DOT);
-//        if (list.size() != 2) {
-//            LOG.warn("doMakeOrder invalid, value:{}", value);
-//            return null;
-//        }
-//        String key = list.get(0);
-//        String opt = list.get(1);
+
         RequestKeyOpt keyOpt = RequestKeyOpt.parse(value);
         String key = keyOpt.getKey();
         String opt = keyOpt.getOpt();
