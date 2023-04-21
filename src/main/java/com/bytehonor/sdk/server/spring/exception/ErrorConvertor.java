@@ -50,9 +50,6 @@ public class ErrorConvertor {
      */
     public static String format(Exception ex) {
         StringBuilder sb = new StringBuilder();
-        if (!(ex instanceof StandardException)) {
-            sb.append(ex.getClass().getSimpleName()).append(":");
-        }
         sb.append(ex.getMessage());
         return sb.toString();
     }
