@@ -106,7 +106,7 @@ public class RequestParser {
 
     private static KeyMatcher doMakeMatcher(MetaModel model, String raw, String value) {
         if (SpringString.isEmpty(raw) || SpringString.isEmpty(value)) {
-            return null; // value为空字符则丢弃
+            return KeyMatcher.non(); // value为空字符则丢弃
         }
 
         RequestKeyOpt keyOpt = RequestKeyOpt.parse(raw);
@@ -116,13 +116,13 @@ public class RequestParser {
         SqlOperator operator = SqlOperator.keyOf(opt);
         if (operator == null) {
             LOG.warn("doMakeMatcher opt null, opt:{}, raw:{}", opt, raw);
-            return null;
+            return KeyMatcher.non();
         }
 
         MetaModelField field = model.getIfPresent(key);
         if (field == null) {
-            LOG.warn("doMakeMatcher field null, key:{}, raw:{}", key, raw);
-            return null;
+            LOG.debug("doMakeMatcher field null, key:{}, raw:{}", key, raw);
+            return KeyMatcher.non();
         }
 
         LOG.debug("doMakeMatcher key:{}, opt:{}, raw:{}", key, opt, raw);

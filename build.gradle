@@ -5,7 +5,7 @@ plugins {
 
 
 group = 'com.bytehonor.sdk'
-version = '1.8.43'
+version = '1.8.44'
 sourceCompatibility = 1.8
 
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -23,9 +23,9 @@ repositories {
 
 dependencies {
     api('com.bytehonor.sdk:spring-define-sdk:0.3.10')
-    api('com.bytehonor.sdk:spring-lang-sdk:0.4.8')
-    implementation('org.springframework:spring-webmvc:5.3.25')
-    implementation('org.apache.tomcat.embed:tomcat-embed-core:9.0.71')
+    api('com.bytehonor.sdk:spring-lang-sdk:0.4.9')
+    implementation('org.springframework:spring-webmvc:5.3.26')
+    implementation('org.apache.tomcat.embed:tomcat-embed-core:9.0.73')
     implementation('org.springframework.boot:spring-boot-actuator:2.7.8')
     implementation('org.springframework.boot:spring-boot-actuator-autoconfigure:2.7.8')
     implementation('org.springframework.boot:spring-boot-autoconfigure:2.7.8')
