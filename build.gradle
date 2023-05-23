@@ -5,7 +5,7 @@ plugins {
 
 
 group = 'com.bytehonor.sdk'
-version = '1.8.46'
+version = '1.8.47'
 sourceCompatibility = 1.8
 
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -23,15 +23,15 @@ repositories {
 
 dependencies {
     api('com.bytehonor.sdk:spring-define-sdk:0.3.10')
-    api('com.bytehonor.sdk:spring-lang-sdk:0.4.12')
-    implementation('org.springframework:spring-webmvc:5.3.26')
-    implementation('org.apache.tomcat.embed:tomcat-embed-core:9.0.73')
-    implementation('org.springframework.boot:spring-boot-actuator:2.7.8')
-    implementation('org.springframework.boot:spring-boot-actuator-autoconfigure:2.7.8')
-    implementation('org.springframework.boot:spring-boot-autoconfigure:2.7.8')
-    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor:2.7.8')
+    api('com.bytehonor.sdk:spring-lang-sdk:0.4.13')
+    implementation('org.springframework:spring-webmvc:5.3.27')
+    implementation('org.apache.tomcat.embed:tomcat-embed-core:9.0.75')
+    implementation('org.springframework.boot:spring-boot-actuator:2.7.12')
+    implementation('org.springframework.boot:spring-boot-actuator-autoconfigure:2.7.12')
+    implementation('org.springframework.boot:spring-boot-autoconfigure:2.7.12')
+    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor:2.7.12')
     implementation('org.slf4j:slf4j-api:1.7.36')
-    implementation('ch.qos.logback:logback-classic:1.2.11')
+    implementation('ch.qos.logback:logback-classic:1.2.12')
     testImplementation('junit:junit:4.13.2')
 }
 
