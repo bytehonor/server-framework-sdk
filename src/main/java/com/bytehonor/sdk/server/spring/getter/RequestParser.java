@@ -1,7 +1,9 @@
 package com.bytehonor.sdk.server.spring.getter;
 
-import java.util.Enumeration;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 
@@ -13,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
 import com.bytehonor.sdk.lang.spring.constant.QueryLogic;
 import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
+import com.bytehonor.sdk.lang.spring.core.KeyValueMap;
+import com.bytehonor.sdk.lang.spring.getter.BooleanGetter;
 import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
 import com.bytehonor.sdk.lang.spring.match.KeyMatcher;
 import com.bytehonor.sdk.lang.spring.meta.MetaModel;
@@ -39,79 +43,87 @@ public class RequestParser {
     private static final Set<String> IGNORES = Sets.newHashSet(HttpConstants.COUNT_KEY, HttpConstants.LIMIT_KEY,
             HttpConstants.OFFSET_KEY, HttpConstants.PAGE_KEY, HttpConstants.SORT_KEY, "token");
 
-    public static QueryCondition and(HttpServletRequest request) {
-        return QueryCondition.create(QueryLogic.AND, doMakePager(request));
-    }
-
-    public static QueryCondition or(HttpServletRequest request) {
-        return QueryCondition.create(QueryLogic.OR, doMakePager(request));
-    }
-
     public static QueryCondition and(Class<?> clazz, HttpServletRequest request) {
-        return doParse(QueryLogic.AND, clazz, request);
+        KeyValueMap map = RequestGetter.map(request);
+        return condition(clazz, QueryLogic.AND, map);
     }
 
     public static QueryCondition or(Class<?> clazz, HttpServletRequest request) {
-        return doParse(QueryLogic.OR, clazz, request);
+        KeyValueMap map = RequestGetter.map(request);
+        return condition(clazz, QueryLogic.OR, map);
+    }
+
+    public static QueryCondition condition(Class<?> clazz, QueryLogic logic, KeyValueMap map) {
+        Objects.requireNonNull(logic, "logic");
+        Objects.requireNonNull(clazz, "clazz");
+        Objects.requireNonNull(map, "map");
+
+        MetaModel model = MetaModelUtils.parse(clazz);
+
+        QueryCondition condition = QueryCondition.create(logic, pager(map));
+
+        List<KeyMatcher> matchers = matchers(model, map.map());
+        for (KeyMatcher matcher : matchers) {
+            condition.add(matcher);
+        }
+
+        condition.order(order(model, map.get(HttpConstants.SORT_KEY)));
+        return condition;
     }
 
     /**
-     * page和offset都存在则优先page
+     * page和offset都存在时，offset会覆盖page
      * 
      * @param request
      * @return
      */
-    private static QueryPager doMakePager(HttpServletRequest request) {
-        Objects.requireNonNull(request, "request");
+    public static QueryPager pager(KeyValueMap map) {
+        Objects.requireNonNull(map, "map");
 
-        int limit = RequestGetter.limit(request);
+        int limit = HttpConstants.LIMIT_DEF;
+        if (map.has(HttpConstants.LIMIT_KEY)) {
+            limit = IntegerGetter.optional(map.get(HttpConstants.LIMIT_KEY), HttpConstants.LIMIT_DEF);
+        }
+
         int offset = HttpConstants.OFFSET_DEF;
-        int page = RequestGetter.page(request);
-        if (page > 1) {
+        if (map.has(HttpConstants.PAGE_KEY)) {
+            int page = IntegerGetter.optional(map.get(HttpConstants.PAGE_KEY), HttpConstants.PAGE_DEF);
             offset = (page - 1) * limit;
-        } else {
-            String offsetVal = RequestGetter.optional(request, HttpConstants.OFFSET_KEY);
-            if (SpringString.isEmpty(offsetVal) == false) {
-                offset = IntegerGetter.optional(offsetVal, HttpConstants.OFFSET_DEF);
-            }
+        }
+        if (map.has(HttpConstants.OFFSET_KEY)) {
+            offset = IntegerGetter.optional(map.get(HttpConstants.OFFSET_KEY), HttpConstants.OFFSET_DEF);
         }
 
         boolean counted = true;
-        if (offset > 0) {
-            counted = RequestGetter.counted(request);
+        if (offset > 0 && map.has(HttpConstants.COUNT_KEY)) {
+            counted = BooleanGetter.optional(map.get(HttpConstants.COUNT_KEY), false);
+
         }
         return QueryPager.of(counted, offset, limit);
     }
 
-    private static QueryCondition doParse(QueryLogic logic, Class<?> clazz, HttpServletRequest request) {
-        Objects.requireNonNull(logic, "logic");
-        Objects.requireNonNull(clazz, "clazz");
-        Objects.requireNonNull(request, "request");
-
-        QueryCondition condition = QueryCondition.create(logic, doMakePager(request));
-
-        MetaModel model = MetaModelUtils.parse(clazz);
-        Enumeration<String> names = request.getParameterNames();
-        while (names.hasMoreElements()) {
-            String key = names.nextElement();
-            if (IGNORES.contains(key)) {
+    public static List<KeyMatcher> matchers(MetaModel model, Map<String, String> map) {
+        if (map.isEmpty()) {
+            return new ArrayList<KeyMatcher>();
+        }
+        List<KeyMatcher> matchers = new ArrayList<KeyMatcher>(map.size() * 2);
+        for (Entry<String, String> entry : map.entrySet()) {
+            if (IGNORES.contains(entry.getKey())) {
                 continue;
             }
-            condition.add(doMakeMatcher(model, key, request.getParameter(key)));
+            matchers.add(matcher(model, entry.getKey(), entry.getValue()));
         }
-
-        condition.order(doMakeOrder(model, request.getParameter(HttpConstants.SORT_KEY)));
-        return condition;
+        return matchers;
     }
 
-    private static KeyMatcher doMakeMatcher(MetaModel model, String raw, String value) {
+    public static KeyMatcher matcher(MetaModel model, String raw, String value) {
         if (SpringString.isEmpty(raw) || SpringString.isEmpty(value)) {
             return KeyMatcher.non(); // value为空字符则丢弃
         }
 
-        RequestKeyOpt keyOpt = RequestKeyOpt.parse(raw);
-        String key = keyOpt.getKey();
-        String opt = keyOpt.getOpt();
+        KeyOptPair pair = KeyOptPair.parse(raw);
+        String key = pair.getKey();
+        String opt = pair.getOpt();
 
         SqlOperator operator = SqlOperator.keyOf(opt);
         if (operator == null) {
@@ -133,12 +145,12 @@ public class RequestParser {
         return KeyMatcher.of(field.getKey(), value, field.getType(), operator);
     }
 
-    private static QueryOrder doMakeOrder(MetaModel model, String value) {
+    public static QueryOrder order(MetaModel model, String value) {
         if (SpringString.isEmpty(value)) {
             return null;
         }
 
-        RequestKeyOpt keyOpt = RequestKeyOpt.parse(value);
+        KeyOptPair keyOpt = KeyOptPair.parse(value);
         String key = keyOpt.getKey();
         String opt = keyOpt.getOpt();
         if (SpringString.isEmpty(key) || SpringString.isEmpty(opt)) {

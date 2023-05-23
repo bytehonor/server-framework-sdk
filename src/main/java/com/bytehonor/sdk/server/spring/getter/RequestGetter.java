@@ -1,6 +1,7 @@
 package com.bytehonor.sdk.server.spring.getter;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
 import com.bytehonor.sdk.lang.spring.constant.QueryLogic;
+import com.bytehonor.sdk.lang.spring.core.KeyValueMap;
 import com.bytehonor.sdk.lang.spring.getter.BooleanGetter;
 import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
 import com.bytehonor.sdk.lang.spring.getter.LongGetter;
@@ -18,6 +20,22 @@ import com.bytehonor.sdk.lang.spring.string.SpringString;
  *
  */
 public class RequestGetter {
+
+    /**
+     * @param request
+     * @return
+     */
+    public static KeyValueMap map(HttpServletRequest request) {
+        KeyValueMap map = new KeyValueMap();
+
+        Enumeration<String> names = request.getParameterNames();
+        while (names.hasMoreElements()) {
+            String key = names.nextElement();
+            map.put(key, request.getParameter(key));
+        }
+
+        return map;
+    }
 
     /**
      * @param request
@@ -37,16 +55,6 @@ public class RequestGetter {
             res = HttpConstants.LIMIT_MAX_TOP;
         }
         return res;
-    }
-
-    /**
-     * 20221216开始废弃，用page
-     * @param request
-     * @return
-     */
-    @Deprecated
-    public static int offset(HttpServletRequest request) {
-        return IntegerGetter.optional(optional(request, HttpConstants.OFFSET_KEY), HttpConstants.OFFSET_DEF);
     }
 
     /**

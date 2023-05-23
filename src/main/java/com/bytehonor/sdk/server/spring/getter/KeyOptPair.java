@@ -3,7 +3,7 @@ package com.bytehonor.sdk.server.spring.getter;
 import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 
-public class RequestKeyOpt {
+public class KeyOptPair {
 
     public static final String SPL = "__";
 
@@ -13,17 +13,17 @@ public class RequestKeyOpt {
 
     private String opt;
 
-    public RequestKeyOpt() {
+    public KeyOptPair() {
         this.key = "";
         this.opt = EQ;
     }
-    
+
     public static String make(String key, String opt) {
         return new StringBuilder().append(key).append(SPL).append(opt).toString();
     }
 
-    public static RequestKeyOpt parse(String raw) {
-        RequestKeyOpt model = new RequestKeyOpt();
+    public static KeyOptPair parse(String raw) {
+        KeyOptPair model = new KeyOptPair();
         if (SpringString.isEmpty(raw)) {
             return model;
         }
