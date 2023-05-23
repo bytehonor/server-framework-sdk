@@ -61,6 +61,14 @@ public class RequestGetter {
      * @param request
      * @return
      */
+    public static int offset(HttpServletRequest request) {
+        return IntegerGetter.optional(optional(request, HttpConstants.OFFSET_KEY), HttpConstants.OFFSET_DEF);
+    }
+
+    /**
+     * @param request
+     * @return
+     */
     public static int page(HttpServletRequest request) {
         return IntegerGetter.optional(optional(request, HttpConstants.PAGE_KEY), HttpConstants.PAGE_DEF);
     }
