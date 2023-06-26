@@ -6,7 +6,7 @@ import org.springframework.core.env.Environment;
 
 import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
 import com.bytehonor.sdk.lang.spring.getter.StringGetter;
-import com.bytehonor.sdk.server.spring.util.LocalEnvUtils;
+import com.bytehonor.sdk.lang.spring.util.LocalEnvUtils;
 
 /**
  * @author lijianqiang
