@@ -35,7 +35,7 @@ public class SpringServerStarter {
             if (listener != null) {
                 listener.onStart();
             } else {
-                LOG.warn("no SpringServerListener");
+                LOG.warn("ReadyListener null");
             }
         } catch (Exception e) {
             LOG.warn("ReadyListener:{}", ErrorConvertor.format(e));
