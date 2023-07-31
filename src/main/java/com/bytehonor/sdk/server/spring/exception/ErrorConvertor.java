@@ -45,12 +45,18 @@ public class ErrorConvertor {
     }
 
     /**
-     * @param ex
+     * @param e
      * @return
      */
-    public static String format(Exception ex) {
+    public static String format(Exception e) {
         StringBuilder sb = new StringBuilder();
-        sb.append(ex.getMessage());
+        sb.append(e.getMessage());
+        return sb.toString();
+    }
+
+    public static String formatx(Exception e) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(e.getClass().getSimpleName()).append(":").append(e.getMessage());
         return sb.toString();
     }
 }
