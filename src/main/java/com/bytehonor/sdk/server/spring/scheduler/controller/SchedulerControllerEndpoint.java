@@ -47,7 +47,7 @@ public class SchedulerControllerEndpoint {
     public DataString pause(@PathVariable("name") String name) {
         LOG.info("pause name:{}", name);
         SpringScheduler.pause(name);
-        return DataString.of(ServerContext.me().getId());
+        return DataString.of(ServerContext.self().getId());
     }
 
     @ResponseBody
@@ -55,7 +55,7 @@ public class SchedulerControllerEndpoint {
     public DataString play(@PathVariable("name") String name) {
         LOG.info("play name:{}", name);
         SpringScheduler.play(name);
-        return DataString.of(ServerContext.me().getId());
+        return DataString.of(ServerContext.self().getId());
     }
 
     @ResponseBody
@@ -63,7 +63,7 @@ public class SchedulerControllerEndpoint {
     public DataString run(@PathVariable("name") String name) {
         LOG.info("run name:{}", name);
         SpringScheduler.run(name);
-        return DataString.of(ServerContext.me().getId());
+        return DataString.of(ServerContext.self().getId());
     }
 
     @ResponseBody
@@ -71,6 +71,6 @@ public class SchedulerControllerEndpoint {
     public DataString print(@PathVariable("name") String name) {
         LOG.info("print name:{}", name);
         SpringScheduler.print(name);
-        return DataString.of(ServerContext.me().getId());
+        return DataString.of(ServerContext.self().getId());
     }
 }

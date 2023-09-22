@@ -35,7 +35,7 @@ public class ServerContext {
         private static ServerContext SINGLE = new ServerContext();
     }
 
-    public static ServerContext me() {
+    public static ServerContext self() {
         return LazyHolder.SINGLE;
     }
 
@@ -45,10 +45,10 @@ public class ServerContext {
         int port = IntegerGetter.optional(env.getProperty("server.port"), 0);
         String id = new StringBuilder().append(name).append("-").append(port).toString();
         String ip = LocalEnvUtils.localIp();
-        me().name = name;
-        me().port = port;
-        me().id = id;
-        me().ip = ip;
+        self().name = name;
+        self().port = port;
+        self().id = id;
+        self().ip = ip;
     }
 
     public String getId() {
