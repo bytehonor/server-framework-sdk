@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.getter;
+package com.bytehonor.sdk.server.spring.web.request;
 
 import java.util.ArrayList;
 import java.util.List;

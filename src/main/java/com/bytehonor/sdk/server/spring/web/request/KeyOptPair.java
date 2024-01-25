@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.getter;
+package com.bytehonor.sdk.server.spring.web.request;
 
 import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
