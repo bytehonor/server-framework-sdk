@@ -127,22 +127,22 @@ public class RequestParser {
 
         SqlOperator operator = SqlOperator.keyOf(opt);
         if (operator == null) {
-            LOG.warn("doMakeMatcher opt null, opt:{}, raw:{}", opt, raw);
+            LOG.warn("filter opt null, opt:{}, raw:{}", opt, raw);
             return QueryFilter.non();
         }
 
         MetaModelField field = model.getIfPresent(key);
         if (field == null) {
-            LOG.debug("doMakeMatcher field null, key:{}, raw:{}", key, raw);
+            LOG.debug("filter field null, key:{}, raw:{}", key, raw);
             return QueryFilter.non();
         }
 
-        LOG.debug("doMakeMatcher key:{}, opt:{}, raw:{}", key, opt, raw);
+        LOG.debug("filter key:{}, opt:{}, raw:{}", key, opt, raw);
         if (SqlOperator.IN.equals(operator)) {
             List<String> values = StringSplitUtils.split(value);
-            return QueryFilter.in(field.getKey(), values, field.getType());
+            return QueryFilter.in(field.getUnderline(), values, field.getType());
         }
-        return QueryFilter.of(field.getKey(), value, field.getType(), operator);
+        return QueryFilter.of(field.getUnderline(), value, field.getType(), operator);
     }
 
     public static QueryOrder order(MetaModel model, String value) {
