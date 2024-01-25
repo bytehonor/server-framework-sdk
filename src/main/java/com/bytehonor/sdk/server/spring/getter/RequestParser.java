@@ -18,11 +18,11 @@ import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
 import com.bytehonor.sdk.lang.spring.core.KeyValueMap;
 import com.bytehonor.sdk.lang.spring.getter.BooleanGetter;
 import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
-import com.bytehonor.sdk.lang.spring.match.KeyMatcher;
 import com.bytehonor.sdk.lang.spring.meta.MetaModel;
 import com.bytehonor.sdk.lang.spring.meta.MetaModelField;
 import com.bytehonor.sdk.lang.spring.meta.MetaModelUtils;
 import com.bytehonor.sdk.lang.spring.query.QueryCondition;
+import com.bytehonor.sdk.lang.spring.query.QueryFilter;
 import com.bytehonor.sdk.lang.spring.query.QueryOrder;
 import com.bytehonor.sdk.lang.spring.query.QueryPager;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
@@ -62,9 +62,9 @@ public class RequestParser {
 
         QueryCondition condition = QueryCondition.create(logic, pager(map));
 
-        List<KeyMatcher> matchers = matchers(model, map.map());
-        for (KeyMatcher matcher : matchers) {
-            condition.add(matcher);
+        List<QueryFilter> filters = filters(model, map.map());
+        for (QueryFilter filter : filters) {
+            condition.add(filter);
         }
 
         condition.order(order(model, map.get(HttpConstants.SORT_KEY)));
@@ -102,23 +102,23 @@ public class RequestParser {
         return QueryPager.of(counted, offset, limit);
     }
 
-    public static List<KeyMatcher> matchers(MetaModel model, Map<String, String> map) {
+    public static List<QueryFilter> filters(MetaModel model, Map<String, String> map) {
         if (map.isEmpty()) {
-            return new ArrayList<KeyMatcher>();
+            return new ArrayList<QueryFilter>();
         }
-        List<KeyMatcher> matchers = new ArrayList<KeyMatcher>(map.size() * 2);
+        List<QueryFilter> filters = new ArrayList<QueryFilter>(map.size() * 2);
         for (Entry<String, String> entry : map.entrySet()) {
             if (IGNORES.contains(entry.getKey())) {
                 continue;
             }
-            matchers.add(matcher(model, entry.getKey(), entry.getValue()));
+            filters.add(filter(model, entry.getKey(), entry.getValue()));
         }
-        return matchers;
+        return filters;
     }
 
-    public static KeyMatcher matcher(MetaModel model, String raw, String value) {
+    public static QueryFilter filter(MetaModel model, String raw, String value) {
         if (SpringString.isEmpty(raw) || SpringString.isEmpty(value)) {
-            return KeyMatcher.non(); // value为空字符则丢弃
+            return QueryFilter.non(); // value为空字符则丢弃
         }
 
         KeyOptPair pair = KeyOptPair.parse(raw);
@@ -128,21 +128,21 @@ public class RequestParser {
         SqlOperator operator = SqlOperator.keyOf(opt);
         if (operator == null) {
             LOG.warn("doMakeMatcher opt null, opt:{}, raw:{}", opt, raw);
-            return KeyMatcher.non();
+            return QueryFilter.non();
         }
 
         MetaModelField field = model.getIfPresent(key);
         if (field == null) {
             LOG.debug("doMakeMatcher field null, key:{}, raw:{}", key, raw);
-            return KeyMatcher.non();
+            return QueryFilter.non();
         }
 
         LOG.debug("doMakeMatcher key:{}, opt:{}, raw:{}", key, opt, raw);
         if (SqlOperator.IN.equals(operator)) {
             List<String> values = StringSplitUtils.split(value);
-            return KeyMatcher.in(field.getKey(), values, field.getType());
+            return QueryFilter.in(field.getKey(), values, field.getType());
         }
-        return KeyMatcher.of(field.getKey(), value, field.getType(), operator);
+        return QueryFilter.of(field.getKey(), value, field.getType(), operator);
     }
 
     public static QueryOrder order(MetaModel model, String value) {
