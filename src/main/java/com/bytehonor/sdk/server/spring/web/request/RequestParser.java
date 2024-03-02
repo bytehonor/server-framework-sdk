@@ -43,6 +43,11 @@ public class RequestParser {
     private static final Set<String> IGNORES = Sets.newHashSet(HttpConstants.COUNT_KEY, HttpConstants.LIMIT_KEY,
             HttpConstants.OFFSET_KEY, HttpConstants.PAGE_KEY, HttpConstants.SORT_KEY, "token");
 
+    public static QueryCondition and(HttpServletRequest request) {
+        KeyValueMap map = RequestGetter.map(request);
+        return QueryCondition.create(QueryLogic.AND, pager(map));
+    }
+
     public static QueryCondition and(Class<?> clazz, HttpServletRequest request) {
         KeyValueMap map = RequestGetter.map(request);
         return condition(clazz, QueryLogic.AND, map);
