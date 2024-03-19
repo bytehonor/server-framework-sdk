@@ -3,12 +3,15 @@ plugins {
     id 'maven-publish'
 }
 
-
 group = 'com.bytehonor.sdk'
-version = '1.8.59'
-sourceCompatibility = 1.8
+version = '1.8.60'
 
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+java {
+    sourceCompatibility = 1.8
+    withSourcesJar()
+}
 
 configurations {
     compileOnly {
@@ -22,8 +25,8 @@ repositories {
 }
 
 dependencies {
-    api('com.bytehonor.sdk:spring-define-sdk:0.3.13')
-    api('com.bytehonor.sdk:spring-lang-sdk:0.4.25')
+    api('com.bytehonor.sdk:spring-define-sdk:0.3.14')
+    api('com.bytehonor.sdk:spring-lang-sdk:0.4.26')
     implementation('org.springframework:spring-webmvc:5.3.31')
     implementation('org.apache.tomcat.embed:tomcat-embed-core:9.0.83')
     implementation('org.springframework.boot:spring-boot-actuator:2.7.18')
@@ -33,10 +36,6 @@ dependencies {
     implementation('org.slf4j:slf4j-api:1.7.36')
     implementation('ch.qos.logback:logback-classic:1.2.12')
     testImplementation('junit:junit:4.13.2')
-}
-
-java {
-    withSourcesJar()
 }
 
 publishing {
