@@ -11,7 +11,6 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import com.bytehonor.sdk.server.spring.annotation.ResponseNotWrap;
 import com.bytehonor.sdk.server.spring.annotation.ResponseWrap;
 import com.bytehonor.sdk.server.spring.web.response.ResponseConvertor;
 
@@ -26,7 +25,7 @@ public final class ResponseBeautifyAdvisor implements ResponseBodyAdvice<Object>
 
     private static final Class<ResponseWrap> ACCEPT = ResponseWrap.class;
 
-    private static final Class<ResponseNotWrap> IGNORE = ResponseNotWrap.class;
+//    private static final Class<ResponseNotWrap> IGNORE = ResponseNotWrap.class;
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -53,10 +52,10 @@ public final class ResponseBeautifyAdvisor implements ResponseBodyAdvice<Object>
             return body;
         }
 
-        if (returnType.hasMethodAnnotation(IGNORE)) {
-            LOG.info("ResponseNotWrap, uri{}", request.getURI().getPath());
-            return body;
-        }
+//        if (returnType.hasMethodAnnotation(IGNORE)) {
+//            LOG.info("ResponseNotWrap, uri{}", request.getURI().getPath());
+//            return body;
+//        }
 
         // 强制修改http状态头为200
         response.setStatusCode(HttpStatus.OK);
