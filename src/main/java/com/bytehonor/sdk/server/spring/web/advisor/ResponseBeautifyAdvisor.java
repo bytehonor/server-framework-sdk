@@ -27,7 +27,8 @@ public final class ResponseBeautifyAdvisor implements ResponseBodyAdvice<Object>
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return returnType.hasMethodAnnotation(ACCEPT);
+        boolean has = returnType.hasMethodAnnotation(ACCEPT);
+        return has;
     }
 
     @Override
@@ -50,7 +51,8 @@ public final class ResponseBeautifyAdvisor implements ResponseBodyAdvice<Object>
             return body;
         }
 
-        if (returnType.hasMethodAnnotation(ACCEPT) == false) {
+        boolean has = returnType.hasMethodAnnotation(ACCEPT);
+        if (has == false) {
             LOG.info("ResponseWrap non, uri{}", request.getURI().getPath());
             return body;
         }

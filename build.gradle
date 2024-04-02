@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.bytehonor.sdk'
-version = '1.9.2'
+version = '1.9.3'
 
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
