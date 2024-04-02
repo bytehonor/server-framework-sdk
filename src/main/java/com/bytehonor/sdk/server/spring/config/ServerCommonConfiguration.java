@@ -32,16 +32,13 @@ public class ServerCommonConfiguration {
 
     private static final Logger LOG = LoggerFactory.getLogger(ServerCommonConfiguration.class);
 
-    private final WebEndpointProperties webEndpointProperties;
-
     public ServerCommonConfiguration(WebEndpointProperties webEndpointProperties) {
-        LOG.info("[Bytehonor] ServerCommonConfiguration");
-        this.webEndpointProperties = webEndpointProperties;
-        this.initWebEndpoint();
+        this.initWebEndpoint(webEndpointProperties);
     }
 
-    private void initWebEndpoint() {
+    private void initWebEndpoint(WebEndpointProperties webEndpointProperties) {
         Set<String> include = webEndpointProperties.getExposure().getInclude();
+        include.add(ServerEndpointConstants.SCHEDULER_ENDPOINT);
         String[] defaults = EndpointExposure.WEB.getDefaultIncludes();
         for (String def : defaults) {
             include.add(def);
@@ -58,8 +55,6 @@ public class ServerCommonConfiguration {
     @Bean
     @ConditionalOnMissingBean(value = SchedulerControllerEndpoint.class)
     public SchedulerControllerEndpoint schedulerControllerEndpoint() {
-        Set<String> include = webEndpointProperties.getExposure().getInclude();
-        include.add(ServerEndpointConstants.SCHEDULER_ENDPOINT);
         LOG.info("[Bytehonor] SchedulerControllerEndpoint");
         return new SchedulerControllerEndpoint();
     }

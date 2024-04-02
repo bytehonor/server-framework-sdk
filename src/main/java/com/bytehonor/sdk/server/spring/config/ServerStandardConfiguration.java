@@ -24,7 +24,6 @@ public class ServerStandardConfiguration {
     private static final Logger LOG = LoggerFactory.getLogger(ServerStandardConfiguration.class);
 
     public ServerStandardConfiguration() {
-        LOG.info("[Bytehonor] ServerStandardConfiguration");
     }
 
     @Bean
