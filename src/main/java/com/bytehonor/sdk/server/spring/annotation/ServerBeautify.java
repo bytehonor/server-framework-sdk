@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 import org.springframework.context.annotation.Import;
 
-import com.bytehonor.sdk.server.spring.config.ServerBeautifyConfiguration;
+import com.bytehonor.sdk.server.spring.selector.ServerBeautifyImportSelector;
 
 /**
  * 启动注解，引入自定义Bean
@@ -17,6 +17,6 @@ import com.bytehonor.sdk.server.spring.config.ServerBeautifyConfiguration;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(ServerBeautifyConfiguration.class)
+@Import(ServerBeautifyImportSelector.class)
 public @interface ServerBeautify {
 }

@@ -26,8 +26,8 @@ import com.bytehonor.sdk.server.spring.web.mvc.ServerWebMvcConfigurer;
 @Configuration
 @ConditionalOnWebApplication
 @ConditionalOnClass({ Servlet.class, DispatcherServlet.class })
-@AutoConfigureAfter(WebEndpointAutoConfiguration.class)
 @EnableConfigurationProperties({ WebEndpointProperties.class })
+@AutoConfigureAfter(WebEndpointAutoConfiguration.class)
 public class ServerCommonConfiguration {
 
     private static final Logger LOG = LoggerFactory.getLogger(ServerCommonConfiguration.class);
@@ -35,6 +35,7 @@ public class ServerCommonConfiguration {
     private final WebEndpointProperties webEndpointProperties;
 
     public ServerCommonConfiguration(WebEndpointProperties webEndpointProperties) {
+        LOG.info("[Bytehonor] ServerCommonConfiguration");
         this.webEndpointProperties = webEndpointProperties;
         this.initWebEndpoint();
     }
