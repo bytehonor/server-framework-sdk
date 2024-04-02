@@ -29,14 +29,14 @@ public class ServerBeautifyConfiguration {
     @Bean
     @ConditionalOnMissingBean(value = ResponseExceptionAdvisor.class)
     public ResponseExceptionAdvisor responseExceptionAdvisor() {
-        LOG.info("[Bytehonor] responseExceptionAdvisor");
+        LOG.info("[Bytehonor] ResponseExceptionAdvisor");
         return new ResponseExceptionAdvisor();
     }
 
     @Bean
     @ConditionalOnMissingBean(value = ResponseBeautifyAdvisor.class)
     public ResponseBeautifyAdvisor responseBeautifyAdvisor() {
-        LOG.info("[Bytehonor] responseBeautifyAdvisor");
+        LOG.info("[Bytehonor] ResponseBeautifyAdvisor");
         return new ResponseBeautifyAdvisor();
     }
 }

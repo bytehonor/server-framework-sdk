@@ -29,14 +29,14 @@ public class ServerStandardConfiguration {
     @Bean
     @ConditionalOnMissingBean(value = ResponseExceptionAdvisor.class)
     public ResponseExceptionAdvisor responseExceptionAdvisor() {
-        LOG.info("[Bytehonor] responseExceptionAdvisor");
+        LOG.info("[Bytehonor] ResponseExceptionAdvisor");
         return new ResponseExceptionAdvisor();
     }
 
     @Bean
     @ConditionalOnMissingBean(value = ResponseStandardAdvisor.class)
     public ResponseStandardAdvisor responseStandardAdvisor() {
-        LOG.info("[Bytehonor] responseStandardAdvisor");
+        LOG.info("[Bytehonor] ResponseStandardAdvisor");
         return new ResponseStandardAdvisor();
     }
 }
