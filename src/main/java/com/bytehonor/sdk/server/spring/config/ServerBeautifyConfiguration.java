@@ -24,6 +24,7 @@ public class ServerBeautifyConfiguration {
     private static final Logger LOG = LoggerFactory.getLogger(ServerBeautifyConfiguration.class);
 
     public ServerBeautifyConfiguration() {
+        LOG.info("[Bytehonor] ServerBeautifyConfiguration");
     }
 
     @Bean
