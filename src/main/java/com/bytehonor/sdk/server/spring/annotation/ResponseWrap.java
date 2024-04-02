@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 直接输出响应，不用标准格式包装
+ * 更改输出响应，用标准格式包装
  * 
  * @author lijianqiang
  *
