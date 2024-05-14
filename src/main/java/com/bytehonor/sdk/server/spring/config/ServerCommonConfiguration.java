@@ -2,8 +2,6 @@ package com.bytehonor.sdk.server.spring.config;
 
 import java.util.Set;
 
-import javax.servlet.Servlet;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.EndpointExposure;
@@ -18,10 +16,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import com.bytehonor.sdk.server.spring.constant.ServerEndpointConstants;
 import com.bytehonor.sdk.server.spring.listener.ApplicationReadyEventListener;
+import com.bytehonor.sdk.server.spring.scheduler.constant.ServerEndpointConstants;
 import com.bytehonor.sdk.server.spring.scheduler.controller.SchedulerControllerEndpoint;
 import com.bytehonor.sdk.server.spring.web.mvc.ServerWebMvcConfigurer;
+
+import jakarta.servlet.Servlet;
 
 @Configuration
 @ConditionalOnWebApplication
@@ -47,21 +47,21 @@ public class ServerCommonConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(value = ServerWebMvcConfigurer.class)
-    public ServerWebMvcConfigurer serverWebMvcConfigurer() {
+    ServerWebMvcConfigurer serverWebMvcConfigurer() {
         LOG.info("[Bytehonor] ServerWebMvcConfigurer");
         return new ServerWebMvcConfigurer();
     }
 
     @Bean
     @ConditionalOnMissingBean(value = SchedulerControllerEndpoint.class)
-    public SchedulerControllerEndpoint schedulerControllerEndpoint() {
+    SchedulerControllerEndpoint schedulerControllerEndpoint() {
         LOG.info("[Bytehonor] SchedulerControllerEndpoint");
         return new SchedulerControllerEndpoint();
     }
 
     @Bean
     @ConditionalOnMissingBean(value = ApplicationReadyEventListener.class)
-    public ApplicationReadyEventListener applicationReadyEventListener() {
+    ApplicationReadyEventListener applicationReadyEventListener() {
         LOG.info("[Bytehonor] ApplicationReadyEventListener");
         return new ApplicationReadyEventListener();
     }

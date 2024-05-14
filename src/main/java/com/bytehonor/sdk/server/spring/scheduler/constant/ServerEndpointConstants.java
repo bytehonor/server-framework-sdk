@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.constant;
+package com.bytehonor.sdk.server.spring.scheduler.constant;
 
 /**
  * @author lijianqiang

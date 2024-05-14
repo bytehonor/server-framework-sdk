@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bytehonor.sdk.define.spring.response.DataList;
-import com.bytehonor.sdk.define.spring.response.DataString;
-import com.bytehonor.sdk.server.spring.constant.ServerEndpointConstants;
 import com.bytehonor.sdk.server.spring.context.ServerContext;
 import com.bytehonor.sdk.server.spring.scheduler.SpringScheduler;
+import com.bytehonor.sdk.server.spring.scheduler.constant.ServerEndpointConstants;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStatus;
+import com.bytehonor.sdk.server.spring.web.model.DataList;
+import com.bytehonor.sdk.server.spring.web.model.DataString;
 
 /**
  * 注入controller, {@link Constants @ServerEndpointConstants}
