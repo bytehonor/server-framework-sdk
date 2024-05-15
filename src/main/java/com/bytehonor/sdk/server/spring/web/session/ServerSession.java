@@ -1,5 +1,6 @@
-package com.bytehonor.sdk.server.spring.session;
+package com.bytehonor.sdk.server.spring.web.session;
 
+import com.bytehonor.sdk.base.spring.constant.OauthConstants;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 import jakarta.servlet.http.HttpServletRequest;

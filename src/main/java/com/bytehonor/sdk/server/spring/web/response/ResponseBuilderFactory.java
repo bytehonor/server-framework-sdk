@@ -2,7 +2,7 @@ package com.bytehonor.sdk.server.spring.web.response;
 
 import java.util.Objects;
 
-import com.bytehonor.sdk.server.spring.web.model.JsonResponse;
+import com.bytehonor.sdk.base.spring.response.JsonResponse;
 import com.bytehonor.sdk.server.spring.web.response.builder.DefaultResponseBuilder;
 import com.bytehonor.sdk.server.spring.web.response.builder.JsonResponseBuilder;
 
