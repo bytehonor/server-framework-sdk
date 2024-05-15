@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import com.bytehonor.sdk.server.spring.web.advisor.ResponseBeautifyAdvisor;
-import com.bytehonor.sdk.server.spring.web.advisor.ResponseExceptionAdvisor;
 
 import jakarta.servlet.Servlet;
 
@@ -23,12 +22,12 @@ public class ServerBeautifyConfiguration {
 
     private static final Logger LOG = LoggerFactory.getLogger(ServerBeautifyConfiguration.class);
 
-    @Bean
-    @ConditionalOnMissingBean(value = ResponseExceptionAdvisor.class)
-    ResponseExceptionAdvisor responseExceptionAdvisor() {
-        LOG.info("[Bytehonor] ResponseExceptionAdvisor");
-        return new ResponseExceptionAdvisor();
-    }
+//    @Bean
+//    @ConditionalOnMissingBean(value = ResponseExceptionAdvisor.class)
+//    ResponseExceptionAdvisor responseExceptionAdvisor() {
+//        LOG.info("[Bytehonor] ResponseExceptionAdvisor");
+//        return new ResponseExceptionAdvisor();
+//    }
 
     @Bean
     @ConditionalOnMissingBean(value = ResponseBeautifyAdvisor.class)
