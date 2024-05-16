@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import com.bytehonor.sdk.server.spring.web.feign.FeignRequestInterceptor;
 
 @Configuration
 @ConditionalOnWebApplication
-@ConditionalOnClass({ FeignClient.class, EnableFeignClients.class })
+@ConditionalOnClass({ FeignClient.class, FeignAutoConfiguration.class })
 @AutoConfigureAfter(ServerWebConfiguration.class)
 public class ServerFeignConfiguration {
 
