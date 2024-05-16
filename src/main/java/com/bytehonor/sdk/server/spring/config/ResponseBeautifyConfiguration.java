@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.bytehonor.sdk.server.spring.web.advisor.GlobalExceptionAdvisor;
 import com.bytehonor.sdk.server.spring.web.advisor.ResponseBeautifyAdvisor;
 
 import jakarta.servlet.Servlet;
@@ -22,12 +23,12 @@ public class ResponseBeautifyConfiguration {
 
     private static final Logger LOG = LoggerFactory.getLogger(ResponseBeautifyConfiguration.class);
 
-//    @Bean
-//    @ConditionalOnMissingBean(value = ResponseExceptionAdvisor.class)
-//    ResponseExceptionAdvisor responseExceptionAdvisor() {
-//        LOG.info("[Bytehonor] ResponseExceptionAdvisor");
-//        return new ResponseExceptionAdvisor();
-//    }
+    @Bean
+    @ConditionalOnMissingBean(value = GlobalExceptionAdvisor.class)
+    GlobalExceptionAdvisor globalExceptionAdvisor() {
+        LOG.info("[Bytehonor] GlobalExceptionAdvisor");
+        return new GlobalExceptionAdvisor();
+    }
 
     @Bean
     @ConditionalOnMissingBean(value = ResponseBeautifyAdvisor.class)

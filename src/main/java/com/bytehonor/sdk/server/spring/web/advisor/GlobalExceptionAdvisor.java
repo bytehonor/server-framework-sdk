@@ -15,9 +15,9 @@ import com.bytehonor.sdk.server.spring.exception.ErrorConvertor;
  *
  */
 @ControllerAdvice
-public class ResponseExceptionAdvisor {
+public class GlobalExceptionAdvisor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ResponseExceptionAdvisor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionAdvisor.class);
 
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
