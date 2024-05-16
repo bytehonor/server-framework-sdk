@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import com.bytehonor.sdk.server.spring.annotation.ResponseNotWrap;
-import com.bytehonor.sdk.server.spring.web.constant.WebServerConstants;
 import com.bytehonor.sdk.server.spring.web.response.ResponseConvertor;
 
 /**
@@ -40,10 +39,13 @@ public final class ResponseStandardAdvisor implements ResponseBodyAdvice<Object>
             LOG.debug("MediaType: {}", selectedContentType.toString());
         }
 
-        if (request.getHeaders().containsKey(WebServerConstants.X_FEIGN)) {
-            LOG.info("Feign request, uri{}", request.getURI().getPath());
-            return body;
-        }
+        // 统一JsonResponse格式，在ResponseInterceptor中解包
+//        if (request.getHeaders().containsKey(WebServerConstants.X_FEIGN)) {
+//            if (LOG.isDebugEnabled()) {
+//                LOG.debug("Feign request, uri:{}", request.getURI().getPath());
+//            }
+//            return body;
+//        }
 
         if (body == null) {
             LOG.error("BODY NULL, uri{}", request.getURI().getPath());
