@@ -3,7 +3,7 @@ package com.bytehonor.sdk.server.spring.selector;
 import org.springframework.context.annotation.ImportSelector;
 import org.springframework.core.type.AnnotationMetadata;
 
-import com.bytehonor.sdk.server.spring.config.ServerBeautifyConfiguration;
+import com.bytehonor.sdk.server.spring.config.ResponseBeautifyConfiguration;
 import com.bytehonor.sdk.server.spring.config.ServerCommonConfiguration;
 
 /**
@@ -14,6 +14,6 @@ public class ServerBeautifyImportSelector implements ImportSelector {
 
     @Override
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-        return new String[] { ServerCommonConfiguration.class.getName(), ServerBeautifyConfiguration.class.getName() };
+        return new String[] { ServerCommonConfiguration.class.getName(), ResponseBeautifyConfiguration.class.getName() };
     }
 }

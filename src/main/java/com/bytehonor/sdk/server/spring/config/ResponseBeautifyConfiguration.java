@@ -18,9 +18,9 @@ import jakarta.servlet.Servlet;
 @ConditionalOnWebApplication
 @ConditionalOnClass({ Servlet.class, DispatcherServlet.class })
 @AutoConfigureAfter(ServerCommonConfiguration.class)
-public class ServerBeautifyConfiguration {
+public class ResponseBeautifyConfiguration {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ServerBeautifyConfiguration.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ResponseBeautifyConfiguration.class);
 
 //    @Bean
 //    @ConditionalOnMissingBean(value = ResponseExceptionAdvisor.class)
