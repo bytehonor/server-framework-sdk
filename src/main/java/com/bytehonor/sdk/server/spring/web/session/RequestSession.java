@@ -5,7 +5,7 @@ import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-public class ServerSession {
+public class RequestSession {
 
     public static String getTerminal(HttpServletRequest request) {
         String from = request.getHeader(OauthConstants.REQUEST_TERMINAL);
