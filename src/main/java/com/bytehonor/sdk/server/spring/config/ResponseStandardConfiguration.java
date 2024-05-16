@@ -18,7 +18,7 @@ import jakarta.servlet.Servlet;
 @Configuration
 @ConditionalOnWebApplication
 @ConditionalOnClass({ Servlet.class, DispatcherServlet.class })
-@AutoConfigureAfter(ServerCommonConfiguration.class)
+@AutoConfigureAfter(ServerWebConfiguration.class)
 public class ResponseStandardConfiguration {
 
     private static final Logger LOG = LoggerFactory.getLogger(ResponseStandardConfiguration.class);

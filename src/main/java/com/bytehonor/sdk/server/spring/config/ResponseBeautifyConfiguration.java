@@ -17,7 +17,7 @@ import jakarta.servlet.Servlet;
 @Configuration
 @ConditionalOnWebApplication
 @ConditionalOnClass({ Servlet.class, DispatcherServlet.class })
-@AutoConfigureAfter(ServerCommonConfiguration.class)
+@AutoConfigureAfter(ServerWebConfiguration.class)
 public class ResponseBeautifyConfiguration {
 
     private static final Logger LOG = LoggerFactory.getLogger(ResponseBeautifyConfiguration.class);

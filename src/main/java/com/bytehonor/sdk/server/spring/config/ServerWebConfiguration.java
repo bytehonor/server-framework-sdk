@@ -28,11 +28,11 @@ import jakarta.servlet.Servlet;
 @ConditionalOnClass({ Servlet.class, DispatcherServlet.class })
 @EnableConfigurationProperties({ WebEndpointProperties.class })
 @AutoConfigureAfter(WebEndpointAutoConfiguration.class)
-public class ServerCommonConfiguration {
+public class ServerWebConfiguration {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ServerCommonConfiguration.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ServerWebConfiguration.class);
 
-    public ServerCommonConfiguration(WebEndpointProperties webEndpointProperties) {
+    public ServerWebConfiguration(WebEndpointProperties webEndpointProperties) {
         this.initWebEndpoint(webEndpointProperties);
     }
 
