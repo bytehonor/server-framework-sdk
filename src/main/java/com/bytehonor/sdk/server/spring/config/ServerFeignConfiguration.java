@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 
 import com.bytehonor.sdk.server.spring.web.feign.FeignRequestInterceptor;
 
-//@ConditionalOnClass(Feign.class)
 @Configuration
 @ConditionalOnWebApplication
 @AutoConfigureAfter(ServerWebConfiguration.class)
