@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,7 +17,7 @@ import feign.Feign;
 @Configuration
 @ConditionalOnWebApplication
 @ConditionalOnClass(Feign.class)
-@AutoConfigureAfter(ServerWebConfiguration.class)
+@AutoConfigureAfter(FeignAutoConfiguration.class)
 public class ServerFeignConfiguration {
 
     private static final Logger LOG = LoggerFactory.getLogger(ServerFeignConfiguration.class);
