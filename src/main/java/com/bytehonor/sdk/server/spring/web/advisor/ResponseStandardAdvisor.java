@@ -2,7 +2,6 @@ package com.bytehonor.sdk.server.spring.web.advisor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import com.bytehonor.sdk.server.spring.annotation.ResponseNotWrap;
-import com.bytehonor.sdk.server.spring.config.SpringBootStandardProperties;
 import com.bytehonor.sdk.server.spring.web.response.ResponseConvertor;
 
 /**
@@ -21,14 +19,11 @@ import com.bytehonor.sdk.server.spring.web.response.ResponseConvertor;
  *
  */
 @ControllerAdvice
-public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
+public final class ResponseStandardAdvisor implements ResponseBodyAdvice<Object> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(JsonResponseAdvisor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ResponseStandardAdvisor.class);
 
     private static final Class<ResponseNotWrap> IGNORE = ResponseNotWrap.class;
-
-    @Autowired
-    private SpringBootStandardProperties properties;
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -43,6 +38,14 @@ public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
         if (LOG.isDebugEnabled()) {
             LOG.debug("MediaType: {}", selectedContentType.toString());
         }
+
+        // 统一JsonResponse格式，在ResponseInterceptor中解包
+//        if (request.getHeaders().containsKey(WebServerConstants.X_FEIGN)) {
+//            if (LOG.isDebugEnabled()) {
+//                LOG.debug("Feign request, uri:{}", request.getURI().getPath());
+//            }
+//            return body;
+//        }
 
         if (body == null) {
             LOG.error("BODY NULL, uri{}", request.getURI().getPath());
@@ -61,9 +64,7 @@ public final class JsonResponseAdvisor implements ResponseBodyAdvice<Object> {
         }
 
         // 强制修改http状态头为200
-        if (properties.isForceHttpStatus()) {
-            response.setStatusCode(HttpStatus.OK);
-        }
+        response.setStatusCode(HttpStatus.OK);
 
         // 结果统一转换
         return ResponseConvertor.convert(body);

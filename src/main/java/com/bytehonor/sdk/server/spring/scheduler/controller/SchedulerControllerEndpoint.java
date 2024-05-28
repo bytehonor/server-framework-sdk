@@ -4,16 +4,16 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bytehonor.sdk.define.spring.response.DataList;
-import com.bytehonor.sdk.define.spring.response.DataString;
-import com.bytehonor.sdk.server.spring.constant.ServerEndpointConstants;
+import com.bytehonor.sdk.base.spring.response.DataList;
+import com.bytehonor.sdk.base.spring.response.DataString;
 import com.bytehonor.sdk.server.spring.context.ServerContext;
 import com.bytehonor.sdk.server.spring.scheduler.SpringScheduler;
+import com.bytehonor.sdk.server.spring.scheduler.constant.ServerEndpointConstants;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStatus;
 
 /**
@@ -22,7 +22,7 @@ import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStatus;
  * @author lijianqiang
  *
  */
-@ControllerEndpoint(id = ServerEndpointConstants.SCHEDULER_ENDPOINT)
+@WebEndpoint(id = ServerEndpointConstants.SCHEDULER_ENDPOINT)
 public class SchedulerControllerEndpoint {
 
     private static final Logger LOG = LoggerFactory.getLogger(SchedulerControllerEndpoint.class);

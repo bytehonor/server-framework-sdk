@@ -4,12 +4,10 @@ plugins {
 }
 
 group = 'com.bytehonor.sdk'
-version = '1.8.60'
-
-[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+version = '2.0.18'
 
 java {
-    sourceCompatibility = 1.8
+    sourceCompatibility = 17
     withSourcesJar()
 }
 
@@ -25,16 +23,17 @@ repositories {
 }
 
 dependencies {
-    api('com.bytehonor.sdk:spring-define-sdk:0.3.14')
-    api('com.bytehonor.sdk:spring-lang-sdk:0.4.26')
-    implementation('org.springframework:spring-webmvc:5.3.31')
-    implementation('org.apache.tomcat.embed:tomcat-embed-core:9.0.83')
-    implementation('org.springframework.boot:spring-boot-actuator:2.7.18')
-    implementation('org.springframework.boot:spring-boot-actuator-autoconfigure:2.7.18')
-    implementation('org.springframework.boot:spring-boot-autoconfigure:2.7.18')
-    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor:2.7.18')
-    implementation('org.slf4j:slf4j-api:1.7.36')
-    implementation('ch.qos.logback:logback-classic:1.2.12')
+    api('com.bytehonor.sdk:spring-base-sdk:0.1.1')
+    api('com.bytehonor.sdk:spring-lang-sdk:0.5.4')
+    implementation('org.springframework:spring-webmvc:6.1.8')
+    implementation('org.apache.tomcat.embed:tomcat-embed-core:10.1.24')
+    implementation('org.springframework.boot:spring-boot-actuator:3.3.0')
+    implementation('org.springframework.boot:spring-boot-actuator-autoconfigure:3.3.0')
+    implementation('org.springframework.boot:spring-boot-autoconfigure:3.3.0')
+    implementation('io.github.openfeign:feign-core:13.2.1')
+    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor:3.3.0')
+    implementation('org.slf4j:slf4j-api:2.0.13')
+    implementation('ch.qos.logback:logback-classic:1.5.6')
     testImplementation('junit:junit:4.13.2')
 }
 
@@ -55,3 +54,6 @@ publishing {
     }
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

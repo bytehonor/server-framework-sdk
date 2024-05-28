@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bytehonor.sdk.define.spring.response.JsonResponse;
+import com.bytehonor.sdk.base.spring.response.JsonResponse;
 import com.bytehonor.sdk.server.spring.exception.ErrorConvertor;
 
 /**
@@ -15,9 +15,9 @@ import com.bytehonor.sdk.server.spring.exception.ErrorConvertor;
  *
  */
 @ControllerAdvice
-public class ErrorResponseAdvisor {
+public class GlobalExceptionAdvisor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ErrorResponseAdvisor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionAdvisor.class);
 
     @ResponseBody
     @ExceptionHandler(value = Exception.class)

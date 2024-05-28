@@ -1,8 +1,7 @@
 package com.bytehonor.sdk.server.spring.exception;
 
-import com.bytehonor.sdk.define.spring.code.StandardCode;
-import com.bytehonor.sdk.define.spring.exception.StandardException;
-import com.bytehonor.sdk.define.spring.response.JsonResponse;
+import com.bytehonor.sdk.base.spring.response.JsonResponse;
+import com.bytehonor.sdk.server.spring.web.constant.StandardCode;
 
 /**
  * @author lijianqiang
@@ -11,24 +10,7 @@ import com.bytehonor.sdk.define.spring.response.JsonResponse;
 public class ErrorConvertor {
 
     public static JsonResponse<?> convert(Exception e) {
-        if (e instanceof StandardException) {
-            return standard((StandardException) e);
-        }
-
         return bad(e);
-    }
-
-    /**
-     * 有具体定义的
-     * 
-     * @param se
-     * @return
-     */
-    private static JsonResponse<?> standard(StandardException se) {
-        JsonResponse<Object> jsonResponse = new JsonResponse<Object>();
-        jsonResponse.setCode(se.getCode());
-        jsonResponse.setMessage(format(se));
-        return jsonResponse;
     }
 
     /**
