@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,13 @@ public class SchedulerControllerEndpoint {
 
     private static final Logger LOG = LoggerFactory.getLogger(SchedulerControllerEndpoint.class);
 
+    public DataList<TimePlanStatus> readPlans() {
+        LOG.info("readPlans");
+        List<TimePlanStatus> list = SpringScheduler.plans();
+        return DataList.of(list);
+    }
+
+    @ReadOperation
     @ResponseBody
     @GetMapping("plans")
     public DataList<TimePlanStatus> plans() {
