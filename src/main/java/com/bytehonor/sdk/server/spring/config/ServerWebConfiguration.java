@@ -43,6 +43,9 @@ public class ServerWebConfiguration {
         for (String def : defaults) {
             include.add(def);
         }
+        for (String path : include) {
+            LOG.info("path:{}", path);
+        }
     }
 
     @Bean
