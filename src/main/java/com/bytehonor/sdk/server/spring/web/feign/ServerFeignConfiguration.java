@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.config;
+package com.bytehonor.sdk.server.spring.web.feign;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,11 +8,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.bytehonor.sdk.server.spring.web.feign.FeignRequestInterceptor;
+import com.bytehonor.sdk.server.spring.web.SpringServerAutoConfiguration;
 
 @Configuration
 @ConditionalOnWebApplication
-@AutoConfigureAfter(ServerWebConfiguration.class)
+@AutoConfigureAfter(SpringServerAutoConfiguration.class)
 public class ServerFeignConfiguration {
 
     private static final Logger LOG = LoggerFactory.getLogger(ServerFeignConfiguration.class);

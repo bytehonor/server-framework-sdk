@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.listener;
+package com.bytehonor.sdk.server.spring.web.listener;
 
 import java.util.Objects;
 
@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
-import com.bytehonor.sdk.server.spring.context.ApplicationContextHolder;
-import com.bytehonor.sdk.server.spring.context.ServerContext;
 import com.bytehonor.sdk.server.spring.exception.ErrorConvertor;
+import com.bytehonor.sdk.server.spring.web.context.ApplicationContextHolder;
+import com.bytehonor.sdk.server.spring.web.context.ServerContext;
 
 /**
  * 服务初始化动作
@@ -17,9 +17,9 @@ import com.bytehonor.sdk.server.spring.exception.ErrorConvertor;
  * @author lijianqiang
  *
  */
-public class SpringServerStarter {
+public class ApplicationReadyWorker {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SpringServerStarter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ApplicationReadyWorker.class);
 
     public static void init(ConfigurableApplicationContext context) {
         Objects.requireNonNull(context, "context");

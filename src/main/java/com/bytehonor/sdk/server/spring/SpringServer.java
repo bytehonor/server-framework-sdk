@@ -2,8 +2,8 @@ package com.bytehonor.sdk.server.spring;
 
 import java.util.Objects;
 
-import com.bytehonor.sdk.server.spring.context.ApplicationContextHolder;
-import com.bytehonor.sdk.server.spring.context.ServerContext;
+import com.bytehonor.sdk.server.spring.web.context.ApplicationContextHolder;
+import com.bytehonor.sdk.server.spring.web.context.ServerContext;
 
 /**
  * @author lijianqiang

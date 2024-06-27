@@ -1,7 +1,7 @@
 package com.bytehonor.sdk.server.spring.web.feign;
 
-import com.bytehonor.sdk.server.spring.context.ServerContext;
-import com.bytehonor.sdk.server.spring.web.constant.WebServerConstants;
+import com.bytehonor.sdk.server.spring.web.constant.ServerFeignConstants;
+import com.bytehonor.sdk.server.spring.web.context.ServerContext;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
@@ -17,6 +17,6 @@ public class FeignRequestInterceptor implements RequestInterceptor {
 //            String accessToken = request.getHeader("Authorization");
 //            template.header("Authorization", "Bearer " + accessToken);
 //        }
-        template.header(WebServerConstants.X_FEIGN, ServerContext.self().getId());
+        template.header(ServerFeignConstants.X_FEIGN, ServerContext.self().getId());
     }
 }

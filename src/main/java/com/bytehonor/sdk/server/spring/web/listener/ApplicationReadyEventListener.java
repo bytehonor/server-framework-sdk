@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.listener;
+package com.bytehonor.sdk.server.spring.web.listener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ public class ApplicationReadyEventListener implements ApplicationListener<Applic
 
         LOG.info("onApplicationEvent begin");
 
-        SpringServerStarter.init(event.getApplicationContext());
+        ApplicationReadyWorker.init(event.getApplicationContext());
 
         LOG.info("onApplicationEvent end");
     }

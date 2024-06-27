@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.listener;
+package com.bytehonor.sdk.server.spring.web.listener;
 
 /**
  * 服务初始化监听器

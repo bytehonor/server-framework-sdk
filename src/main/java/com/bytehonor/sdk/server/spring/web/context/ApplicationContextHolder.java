@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.context;
+package com.bytehonor.sdk.server.spring.web.context;
 
 import org.springframework.context.ConfigurableApplicationContext;
 

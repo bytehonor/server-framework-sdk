@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 import org.springframework.context.annotation.Import;
 
-import com.bytehonor.sdk.server.spring.selector.ServerStandardImportSelector;
+import com.bytehonor.sdk.server.spring.web.selector.ServerStandardImportSelector;
 
 /**
  * 启动注解，引入自定义Bean

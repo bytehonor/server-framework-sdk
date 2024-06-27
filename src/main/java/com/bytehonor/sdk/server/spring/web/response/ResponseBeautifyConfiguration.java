@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.config;
+package com.bytehonor.sdk.server.spring.web.response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.bytehonor.sdk.server.spring.web.SpringServerAutoConfiguration;
 import com.bytehonor.sdk.server.spring.web.advisor.GlobalExceptionAdvisor;
 import com.bytehonor.sdk.server.spring.web.advisor.ResponseBeautifyAdvisor;
 
@@ -18,7 +19,7 @@ import jakarta.servlet.Servlet;
 @Configuration
 @ConditionalOnWebApplication
 @ConditionalOnClass({ Servlet.class, DispatcherServlet.class })
-@AutoConfigureAfter(ServerWebConfiguration.class)
+@AutoConfigureAfter(SpringServerAutoConfiguration.class)
 public class ResponseBeautifyConfiguration {
 
     private static final Logger LOG = LoggerFactory.getLogger(ResponseBeautifyConfiguration.class);
