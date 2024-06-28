@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.web.response;
+package com.bytehonor.sdk.server.spring.web.selector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import com.bytehonor.sdk.server.spring.web.SpringServerAutoConfiguration;
 import com.bytehonor.sdk.server.spring.web.advisor.GlobalExceptionAdvisor;
 import com.bytehonor.sdk.server.spring.web.advisor.ResponseStandardAdvisor;
 
@@ -20,9 +19,9 @@ import jakarta.servlet.Servlet;
 @ConditionalOnWebApplication
 @ConditionalOnClass({ Servlet.class, DispatcherServlet.class })
 @AutoConfigureAfter(SpringServerAutoConfiguration.class)
-public class ResponseStandardConfiguration {
+public class SpringStandardAutoConfiguration {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ResponseStandardConfiguration.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringStandardAutoConfiguration.class);
 
     @Bean
     @ConditionalOnMissingBean(value = GlobalExceptionAdvisor.class)

@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.web;
+package com.bytehonor.sdk.server.spring.web.selector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

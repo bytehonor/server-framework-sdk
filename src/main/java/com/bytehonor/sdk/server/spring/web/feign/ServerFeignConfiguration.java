@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.bytehonor.sdk.server.spring.web.SpringServerAutoConfiguration;
+import com.bytehonor.sdk.server.spring.web.selector.SpringServerAutoConfiguration;
 
 @Configuration
 @ConditionalOnWebApplication
