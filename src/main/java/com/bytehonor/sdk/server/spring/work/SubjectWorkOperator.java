@@ -87,11 +87,11 @@ public class SubjectWorkOperator {
 
     public SubjectWorkOperator add(SubjectWork work) {
         Objects.requireNonNull(work, "work");
-        if (SpringString.isEmpty(work.subject())) {
-            throw new RuntimeException("subject null");
+
+        if (SpringString.isEmpty(work.subject()) == false) {
+            works.add(work);
         }
 
-        works.add(work);
         return this;
     }
 
