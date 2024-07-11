@@ -77,13 +77,17 @@ public class SubjectWorkOperator {
     }
 
     public void start() {
+        if (CollectionUtils.isEmpty(works)) {
+            LOG.warn("works empty");
+            return;
+        }
         LOG.info("name:{}, start", name);
         thread.start();
     }
 
     public SubjectWorkOperator add(SubjectWork work) {
         Objects.requireNonNull(work, "work");
-        if (SpringString.isEmpty(work.subject()) == false) {
+        if (SpringString.isEmpty(work.subject())) {
             throw new RuntimeException("subject null");
         }
 
