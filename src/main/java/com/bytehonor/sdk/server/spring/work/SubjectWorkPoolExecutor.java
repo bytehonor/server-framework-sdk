@@ -17,14 +17,14 @@ public class SubjectWorkPoolExecutor {
 
     private SubjectWorkPoolExecutor() {
         int nThreads = Runtime.getRuntime().availableProcessors();
-        this.service = Executors.newScheduledThreadPool(nThreads + 2);
+        this.service = Executors.newScheduledThreadPool(nThreads + 1);
     }
 
     private static class LazyHolder {
         private static SubjectWorkPoolExecutor SINGLE = new SubjectWorkPoolExecutor();
     }
 
-    public static SubjectWorkPoolExecutor self() {
+    private static SubjectWorkPoolExecutor self() {
         return LazyHolder.SINGLE;
     }
 

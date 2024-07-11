@@ -13,7 +13,7 @@ import com.bytehonor.sdk.server.spring.scheduler.cache.PlanPauseCacheHolder;
 import com.bytehonor.sdk.server.spring.scheduler.lock.CacheTaskLocker;
 import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlan;
-import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanExecutor;
+import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanPoolExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanFactory;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStatus;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanTask;
@@ -71,7 +71,7 @@ public class SpringScheduler {
 
     public static void run(String name) {
         TimePlan plan = TimePlanFactory.required(name);
-        TimePlanExecutor.run(plan, LocalDateTime.now());
+        TimePlanPoolExecutor.run(plan, LocalDateTime.now());
     }
 
     public static void print(String name) {

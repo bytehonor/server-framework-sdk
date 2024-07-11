@@ -56,7 +56,7 @@ public class TimePlanTask extends SafeTask {
             }
 
             // 执行
-            TimePlanExecutor.run(plan, ldt);
+            TimePlanPoolExecutor.run(plan, ldt);
         }
     }
 
