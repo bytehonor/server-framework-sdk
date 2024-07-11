@@ -16,7 +16,8 @@ public class SubjectWorkPoolExecutor {
     private final ScheduledExecutorService service;
 
     private SubjectWorkPoolExecutor() {
-        this.service = Executors.newScheduledThreadPool(4);
+        int nThreads = Runtime.getRuntime().availableProcessors();
+        this.service = Executors.newScheduledThreadPool(nThreads + 2);
     }
 
     private static class LazyHolder {
