@@ -30,6 +30,10 @@ public class SubjectWorkOperator {
     private final Thread thread;
 
     private String subject;
+    
+    public SubjectWorkOperator(String name) {
+        this(name, TimeConstants.SECOND, TimeConstants.MINUTE, new HashSubjectLocker());
+    }
 
     public SubjectWorkOperator(String name, SubjectLocker locker) {
         this(name, TimeConstants.SECOND, TimeConstants.MINUTE, locker);
