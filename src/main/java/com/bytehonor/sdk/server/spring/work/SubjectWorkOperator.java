@@ -69,6 +69,7 @@ public class SubjectWorkOperator {
     }
 
     public void start() {
+        LOG.info("name:{}, start", name);
         thread.start();
     }
 
