@@ -82,16 +82,16 @@ public class SubjectWorkOperator {
 
     private void doWork() {
         try {
-            doCompete();
-            doKeep();
-            doCheck();
+            competeSubject();
+            keepAlive();
+            checkIdle();
         } catch (Exception e) {
             LOG.error("run error", e);
         }
 
     }
 
-    private void doCompete() {
+    private void competeSubject() {
         if (SpringString.isEmpty(subject) == false) {
             return;
         }
@@ -108,33 +108,33 @@ public class SubjectWorkOperator {
 
             subject = work.subject();
             work.start();
-            LOG.info("doCompete subject:{}, name:{}", subject, name);
+            LOG.info("competeSubject done, subject:{}, name:{}", subject, name);
             break;
         }
     }
 
-    private void doKeep() {
+    private void keepAlive() {
         if (SpringString.isEmpty(subject)) {
-            LOG.info("doKeep subject null, name:{}", name);
+            LOG.info("keepAlive end, subject empty, name:{}", name);
             return;
         }
 
         String which = locker.get(subject);
         boolean success = Objects.equals(which, name);
-        LOG.info("doKeep success:{}, subject:{}, name:{}", success, subject, name);
+        LOG.info("keepAlive success:{}, subject:{}, name:{}", success, subject, name);
         if (success) {
             locker.expireAt(subject, System.currentTimeMillis() + lockMillis);
         }
     }
 
-    private void doCheck() {
+    private void checkIdle() {
         if (CollectionUtils.isEmpty(works)) {
             return;
         }
 
         for (SubjectWork work : works) {
             if (SpringString.isEmpty(locker.get(work.subject()))) {
-                LOG.warn("doCheck subject:{} no worker", work.subject());
+                LOG.warn("checkIdle subject:{} no worker", work.subject());
             }
         }
     }
