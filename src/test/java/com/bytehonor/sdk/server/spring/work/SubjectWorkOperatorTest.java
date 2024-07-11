@@ -47,6 +47,10 @@ public class SubjectWorkOperatorTest {
             @Override
             public void start() {
                 LOG.info("job1 run");
+
+                Sleep.millis(TimeConstants.SECOND * 13);
+
+                LOG.info("job1 end");
             }
         };
         SubjectWork job2 = new SubjectWork() {
@@ -59,6 +63,10 @@ public class SubjectWorkOperatorTest {
             @Override
             public void start() {
                 LOG.info("job2 run");
+
+                Sleep.millis(TimeConstants.SECOND * 15);
+
+                LOG.info("job2 end");
             }
         };
 
@@ -67,7 +75,7 @@ public class SubjectWorkOperatorTest {
         thread.add(job2);
         thread.start();
 
-        Sleep.millis(TimeConstants.MINUTE * 10);
+        Sleep.millis(TimeConstants.MINUTE * 20);
     }
 
 }

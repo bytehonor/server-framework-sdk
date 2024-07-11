@@ -18,7 +18,7 @@ import com.bytehonor.sdk.lang.spring.thread.LoopIntervalTask;
  * @author lijianqiang
  *
  */
-public class SubjectWorkOperator extends LoopIntervalTask {
+public class SubjectWorkOperator {
 
     private static final Logger LOG = LoggerFactory.getLogger(SubjectWorkOperator.class);
 
@@ -26,8 +26,6 @@ public class SubjectWorkOperator extends LoopIntervalTask {
 
     private static final long TASK_INTERVAL_MILLIS = TimeConstants.SECOND * 60;
 
-    private final long delayMillis;
-    private final long intervalMillis;
     private final long lockMillis;
 
     private final String name;
@@ -41,17 +39,32 @@ public class SubjectWorkOperator extends LoopIntervalTask {
         this(name, TASK_DELAY_MILLIS, TASK_INTERVAL_MILLIS, locker);
     }
 
-    public SubjectWorkOperator(String name, long delayMillis, long intervalMillis, SubjectLocker locker) {
+    public SubjectWorkOperator(String name, final long delayMillis, final long intervalMillis, SubjectLocker locker) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(locker, "locker");
-        this.delayMillis = delayMillis;
-        this.intervalMillis = intervalMillis;
         this.lockMillis = intervalMillis * 2;
         this.name = name;
         this.locker = locker;
         this.works = new ArrayList<SubjectWork>();
         this.subject = "";
-        this.thread = new Thread(this);
+        this.thread = new Thread(new LoopIntervalTask() {
+
+            @Override
+            public long delays() {
+                return delayMillis;
+            }
+
+            @Override
+            public long intervals() {
+                return intervalMillis;
+            }
+
+            @Override
+            public void runThenSleep() {
+                doWork();
+            }
+
+        });
         this.thread.setName(SubjectWorkOperator.class.getSimpleName());
     }
 
@@ -65,6 +78,17 @@ public class SubjectWorkOperator extends LoopIntervalTask {
 
         works.add(work);
         return this;
+    }
+
+    private void doWork() {
+        try {
+            doCompete();
+            doKeep();
+            doCheck();
+        } catch (Exception e) {
+            LOG.error("run error", e);
+        }
+
     }
 
     private void doCompete() {
@@ -108,32 +132,10 @@ public class SubjectWorkOperator extends LoopIntervalTask {
             return;
         }
 
-        for (SubjectWork plan : works) {
-            if (SpringString.isEmpty(locker.get(plan.subject()))) {
-                LOG.warn("doCheck subject:{} no worker", plan.subject());
+        for (SubjectWork work : works) {
+            if (SpringString.isEmpty(locker.get(work.subject()))) {
+                LOG.warn("doCheck subject:{} no worker", work.subject());
             }
         }
-    }
-
-    @Override
-    public long delays() {
-        return delayMillis;
-    }
-
-    @Override
-    public long intervals() {
-        return intervalMillis;
-    }
-
-    @Override
-    public void runThenSleep() {
-        try {
-            doCompete();
-            doKeep();
-            doCheck();
-        } catch (Exception e) {
-            LOG.error("run error", e);
-        }
-
     }
 }
