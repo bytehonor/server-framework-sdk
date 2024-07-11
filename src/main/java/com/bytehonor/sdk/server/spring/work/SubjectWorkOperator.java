@@ -59,7 +59,7 @@ public class SubjectWorkOperator extends LoopIntervalTask {
         thread.start();
     }
 
-    public SubjectWorkOperator plan(SubjectWork work) {
+    public SubjectWorkOperator add(SubjectWork work) {
         Objects.requireNonNull(work, "work");
         Objects.requireNonNull(work.subject(), "subject");
 

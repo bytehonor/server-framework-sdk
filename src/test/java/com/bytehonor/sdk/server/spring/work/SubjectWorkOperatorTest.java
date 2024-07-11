@@ -63,8 +63,8 @@ public class SubjectWorkOperatorTest {
         };
 
         SubjectWorkOperator thread = new SubjectWorkOperator("testname", locker);
-        thread.plan(job1);
-        thread.plan(job2);
+        thread.add(job1);
+        thread.add(job2);
         thread.start();
 
         Sleep.millis(TimeConstants.MINUTE * 10);
