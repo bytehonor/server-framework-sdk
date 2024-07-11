@@ -12,7 +12,7 @@ import com.bytehonor.sdk.lang.spring.thread.SpringScheduleExecutor;
 public abstract class SubjectTask extends SafeTask implements SubjectWork {
 
     private static final Logger LOG = LoggerFactory.getLogger(SubjectTask.class);
-    
+
     /**
      * 主题
      * 
@@ -28,8 +28,9 @@ public abstract class SubjectTask extends SafeTask implements SubjectWork {
     public abstract long intervalMillis();
 
     public final void start() {
-        LOG.info("subject:{}, intervals:{}, start", subject(), intervalMillis());
-        SpringScheduleExecutor.scheduleMillis(this, 200L, intervalMillis());
+        long intervals = intervalMillis();
+        LOG.info("subject:{}, intervals:{}, start", subject(), intervals);
+        SpringScheduleExecutor.scheduleMillis(this, 100L, intervals);
     }
 
 }

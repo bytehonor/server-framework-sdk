@@ -22,10 +22,6 @@ public class SubjectWorkOperator {
 
     private static final Logger LOG = LoggerFactory.getLogger(SubjectWorkOperator.class);
 
-    private static final long TASK_DELAY_MILLIS = TimeConstants.SECOND * 3;
-
-    private static final long TASK_INTERVAL_MILLIS = TimeConstants.SECOND * 60;
-
     private final long lockMillis;
 
     private final String name;
@@ -36,7 +32,7 @@ public class SubjectWorkOperator {
     private String subject;
 
     public SubjectWorkOperator(String name, SubjectLocker locker) {
-        this(name, TASK_DELAY_MILLIS, TASK_INTERVAL_MILLIS, locker);
+        this(name, TimeConstants.SECOND, TimeConstants.MINUTE, locker);
     }
 
     public SubjectWorkOperator(String name, final long delayMillis, final long intervalMillis, SubjectLocker locker) {
@@ -75,7 +71,9 @@ public class SubjectWorkOperator {
 
     public SubjectWorkOperator add(SubjectWork work) {
         Objects.requireNonNull(work, "work");
-        Objects.requireNonNull(work.subject(), "subject");
+        if (SpringString.isEmpty(work.subject()) == false) {
+            throw new RuntimeException("subject null");
+        }
 
         works.add(work);
         return this;
@@ -98,7 +96,7 @@ public class SubjectWorkOperator {
         }
 
         if (CollectionUtils.isEmpty(works)) {
-            LOG.info("works empty");
+            LOG.warn("works empty");
             return;
         }
 
@@ -116,7 +114,7 @@ public class SubjectWorkOperator {
 
     private void keepAlive() {
         if (SpringString.isEmpty(subject)) {
-            LOG.info("keepAlive end, subject empty, name:{}", name);
+            LOG.debug("keepAlive end, subject empty, name:{}", name);
             return;
         }
 
