@@ -30,7 +30,7 @@ public class SubjectWorkOperator {
     private final Thread thread;
 
     private String subject;
-    
+
     public SubjectWorkOperator(String name) {
         this(name, TimeConstants.SECOND, TimeConstants.MINUTE, new HashSubjectLocker());
     }
@@ -66,6 +66,14 @@ public class SubjectWorkOperator {
 
         });
         this.thread.setName(SubjectWorkOperator.class.getSimpleName());
+    }
+
+    public static SubjectWorkOperator standalone(String name) {
+        return new SubjectWorkOperator(name);
+    }
+
+    public static SubjectWorkOperator cluster(String name, SubjectLocker locker) {
+        return new SubjectWorkOperator(name, locker);
     }
 
     public void start() {
