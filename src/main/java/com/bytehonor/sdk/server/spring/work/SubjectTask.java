@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
-import com.bytehonor.sdk.lang.spring.thread.SpringScheduleExecutor;
 
 /**
  * 升级的主题工作，循环执行
@@ -29,8 +28,8 @@ public abstract class SubjectTask extends SafeTask implements SubjectWork {
 
     public final void start() {
         long intervals = intervalMillis();
-        LOG.info("subject:{}, intervals:{}, start", subject(), intervals);
-        SpringScheduleExecutor.scheduleMillis(this, 100L, intervals);
+        LOG.info("start subject:{}, intervals:{}", subject(), intervals);
+        SubjectWorkPoolExecutor.schedule(this, 100L, intervals);
     }
 
 }

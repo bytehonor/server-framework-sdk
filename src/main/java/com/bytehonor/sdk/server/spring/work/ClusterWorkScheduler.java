@@ -10,58 +10,42 @@ import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
-import com.bytehonor.sdk.lang.spring.thread.LoopIntervalTask;
+import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 
 /**
- * 竞争任务线程
+ * 集群承担任务，单点独占一个任务
  * 
  * @author lijianqiang
  *
  */
-public class SubjectWorkOperator {
+public class ClusterWorkScheduler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SubjectWorkOperator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkScheduler.class);
 
+    private final long delayMillis;
+    private final long intervalMillis;
     private final long lockMillis;
 
     private final String name;
     private final SubjectLocker locker;
     private final List<SubjectWork> works;
-    private final Thread thread;
 
     private String subject;
 
-    public SubjectWorkOperator(String name, SubjectLocker locker) {
+    public ClusterWorkScheduler(String name, SubjectLocker locker) {
         this(name, TimeConstants.SECOND, TimeConstants.MINUTE, locker);
     }
 
-    public SubjectWorkOperator(String name, final long delayMillis, final long intervalMillis, SubjectLocker locker) {
+    public ClusterWorkScheduler(String name, final long delayMillis, final long intervalMillis, SubjectLocker locker) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(locker, "locker");
+        this.delayMillis = delayMillis;
+        this.intervalMillis = intervalMillis;
         this.lockMillis = intervalMillis * 2;
         this.name = name;
         this.locker = locker;
         this.works = new ArrayList<SubjectWork>();
         this.subject = "";
-        this.thread = new Thread(new LoopIntervalTask() {
-
-            @Override
-            public long delays() {
-                return delayMillis;
-            }
-
-            @Override
-            public long intervals() {
-                return intervalMillis;
-            }
-
-            @Override
-            public void runThenSleep() {
-                doWork();
-            }
-
-        });
-        this.thread.setName(SubjectWorkOperator.class.getSimpleName());
     }
 
     public void start() {
@@ -70,10 +54,18 @@ public class SubjectWorkOperator {
             return;
         }
         LOG.info("name:{}, start", name);
-        thread.start();
+
+        SubjectWorkPoolExecutor.schedule(new SafeTask() {
+
+            @Override
+            public void runInSafe() {
+                doWork();
+            }
+
+        }, delayMillis, intervalMillis);
     }
 
-    public SubjectWorkOperator add(SubjectWork work) {
+    public ClusterWorkScheduler add(SubjectWork work) {
         Objects.requireNonNull(work, "work");
 
         if (SpringString.isEmpty(work.subject()) == false) {
