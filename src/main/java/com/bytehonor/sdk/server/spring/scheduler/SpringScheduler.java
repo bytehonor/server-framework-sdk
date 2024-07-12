@@ -8,16 +8,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
-import com.bytehonor.sdk.lang.spring.thread.SpringScheduleExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.cache.PlanPauseCacheHolder;
 import com.bytehonor.sdk.server.spring.scheduler.lock.CacheTaskLocker;
 import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlan;
-import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanPoolExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanFactory;
+import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanPoolExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStatus;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanTask;
 import com.bytehonor.sdk.server.spring.scheduler.util.SchedulerUtils;
+import com.bytehonor.sdk.server.spring.work.SubjectWorkPoolExecutor;
 
 /**
  * 每分钟循环任务 启动类
@@ -46,7 +46,7 @@ public class SpringScheduler {
 
         long delayMillis = SchedulerUtils.delayMillis(secondAt);
         LOG.info("locker:{}, delayMillis:{}, secondAt:{}", locker.getName(), delayMillis, secondAt);
-        SpringScheduleExecutor.scheduleMillis(TimePlanTask.of(locker), delayMillis, TimeConstants.MINUTE);
+        SubjectWorkPoolExecutor.schedule(TimePlanTask.of(locker), delayMillis, TimeConstants.MINUTE);
     }
 
     public static List<TimePlanStatus> plans() {
