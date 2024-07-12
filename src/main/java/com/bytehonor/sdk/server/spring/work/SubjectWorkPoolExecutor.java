@@ -17,7 +17,7 @@ public class SubjectWorkPoolExecutor {
 
     private SubjectWorkPoolExecutor() {
         int nThreads = Runtime.getRuntime().availableProcessors();
-        this.service = Executors.newScheduledThreadPool(nThreads + 1);
+        this.service = Executors.newScheduledThreadPool(nThreads);
     }
 
     private static class LazyHolder {
