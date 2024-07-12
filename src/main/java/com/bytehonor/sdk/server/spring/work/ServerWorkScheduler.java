@@ -24,6 +24,9 @@ public class ServerWorkScheduler {
 
     private static final Logger LOG = LoggerFactory.getLogger(ServerWorkScheduler.class);
 
+    private static final long DELAYS = TimeConstants.SECOND * 3;
+    private static final long INTERVALS = TimeConstants.MINUTE;
+
     private final long delayMillis;
     private final long intervalMillis;
 
@@ -31,7 +34,7 @@ public class ServerWorkScheduler {
     private final Set<String> subjects;
 
     public ServerWorkScheduler() {
-        this(TimeConstants.SECOND, TimeConstants.MINUTE);
+        this(DELAYS, INTERVALS);
     }
 
     public ServerWorkScheduler(long delayMillis, long intervalMillis) {

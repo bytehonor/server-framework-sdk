@@ -22,6 +22,9 @@ public class ClusterWorkScheduler {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkScheduler.class);
 
+    private static final long DELAYS = TimeConstants.SECOND * 6;
+    private static final long INTERVALS = TimeConstants.MINUTE;
+
     private final long delayMillis;
     private final long intervalMillis;
     private final long lockMillis;
@@ -33,7 +36,7 @@ public class ClusterWorkScheduler {
     private String subject;
 
     public ClusterWorkScheduler(String name, SubjectLocker locker) {
-        this(name, TimeConstants.SECOND, TimeConstants.MINUTE, locker);
+        this(name, DELAYS, INTERVALS, locker);
     }
 
     public ClusterWorkScheduler(String name, final long delayMillis, final long intervalMillis, SubjectLocker locker) {
