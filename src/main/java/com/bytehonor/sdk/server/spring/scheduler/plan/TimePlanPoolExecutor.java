@@ -12,6 +12,8 @@ import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.server.spring.scheduler.cache.PlanRecordCacheHolder;
 
 /**
+ * 单线程执行
+ * 
  * @author lijianqiang
  *
  */
@@ -22,8 +24,8 @@ public class TimePlanPoolExecutor {
     private final ExecutorService service;
 
     private TimePlanPoolExecutor() {
-        int nThreads = Runtime.getRuntime().availableProcessors();
-        this.service = Executors.newFixedThreadPool(nThreads + 1);
+        // int nThreads = Runtime.getRuntime().availableProcessors();
+        this.service = Executors.newSingleThreadExecutor();
     }
 
     private static class LazyHolder {
