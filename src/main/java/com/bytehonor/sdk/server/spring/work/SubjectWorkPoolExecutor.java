@@ -5,6 +5,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
+
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 
 /**
@@ -13,11 +15,13 @@ import com.bytehonor.sdk.lang.spring.thread.SafeTask;
  */
 public class SubjectWorkPoolExecutor {
 
+    private static final String NAMED = "subject-work-thread-";
+
     private final ScheduledExecutorService service;
 
     private SubjectWorkPoolExecutor() {
         int nThreads = Runtime.getRuntime().availableProcessors();
-        this.service = Executors.newScheduledThreadPool(nThreads);
+        this.service = Executors.newScheduledThreadPool(nThreads, new CustomizableThreadFactory(NAMED));
     }
 
     private static class LazyHolder {

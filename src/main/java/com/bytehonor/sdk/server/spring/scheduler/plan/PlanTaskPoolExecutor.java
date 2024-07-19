@@ -16,22 +16,22 @@ import com.bytehonor.sdk.server.spring.scheduler.cache.PlanRecordCacheHolder;
  * @author lijianqiang
  *
  */
-public class TimePlanPoolExecutor {
+public class PlanTaskPoolExecutor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TimePlanPoolExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PlanTaskPoolExecutor.class);
 
     private final ExecutorService service;
 
-    private TimePlanPoolExecutor() {
+    private PlanTaskPoolExecutor() {
         int nThreads = Runtime.getRuntime().availableProcessors();
         this.service = Executors.newFixedThreadPool(nThreads);
     }
 
     private static class LazyHolder {
-        private static TimePlanPoolExecutor SINGLE = new TimePlanPoolExecutor();
+        private static PlanTaskPoolExecutor SINGLE = new PlanTaskPoolExecutor();
     }
 
-    private static TimePlanPoolExecutor self() {
+    private static PlanTaskPoolExecutor self() {
         return LazyHolder.SINGLE;
     }
 
