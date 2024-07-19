@@ -50,7 +50,7 @@ public class ServerWorkScheduler {
             return;
         }
 
-        SubjectWorkPoolExecutor.schedule(new SafeTask() {
+        ScheduleWorkPoolExecutor.schedule(new SafeTask() {
 
             @Override
             public void runInSafe() {

@@ -29,7 +29,7 @@ public abstract class SubjectTask extends SafeTask implements SubjectWork {
     public final void start() {
         long intervals = intervalMillis();
         LOG.info("start subject:{}, intervals:{}", subject(), intervals);
-        SubjectWorkPoolExecutor.schedule(this, 100L, intervals);
+        ScheduleWorkPoolExecutor.schedule(this, 100L, intervals);
     }
 
 }

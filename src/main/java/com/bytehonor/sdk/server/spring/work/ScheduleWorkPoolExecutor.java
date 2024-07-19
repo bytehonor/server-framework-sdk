@@ -13,22 +13,22 @@ import com.bytehonor.sdk.lang.spring.thread.SafeTask;
  * @author lijianqiang
  *
  */
-public class SubjectWorkPoolExecutor {
+public class ScheduleWorkPoolExecutor {
 
-    private static final String NAMED = "subject-work-thread-";
+    private static final String NAMED = "schedule-work-thread-";
 
     private final ScheduledExecutorService service;
 
-    private SubjectWorkPoolExecutor() {
+    private ScheduleWorkPoolExecutor() {
         int nThreads = Runtime.getRuntime().availableProcessors();
         this.service = Executors.newScheduledThreadPool(nThreads, new CustomizableThreadFactory(NAMED));
     }
 
     private static class LazyHolder {
-        private static SubjectWorkPoolExecutor SINGLE = new SubjectWorkPoolExecutor();
+        private static ScheduleWorkPoolExecutor SINGLE = new ScheduleWorkPoolExecutor();
     }
 
-    private static SubjectWorkPoolExecutor self() {
+    private static ScheduleWorkPoolExecutor self() {
         return LazyHolder.SINGLE;
     }
 

@@ -58,7 +58,7 @@ public class ClusterWorkScheduler {
         }
         LOG.info("name:{}, start", name);
 
-        SubjectWorkPoolExecutor.schedule(new SafeTask() {
+        ScheduleWorkPoolExecutor.schedule(new SafeTask() {
 
             @Override
             public void runInSafe() {

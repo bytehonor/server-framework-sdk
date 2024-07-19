@@ -17,7 +17,7 @@ import com.bytehonor.sdk.server.spring.scheduler.plan.PlanTaskPoolExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStatus;
 import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanTask;
 import com.bytehonor.sdk.server.spring.scheduler.util.SchedulerUtils;
-import com.bytehonor.sdk.server.spring.work.SubjectWorkPoolExecutor;
+import com.bytehonor.sdk.server.spring.work.ScheduleWorkPoolExecutor;
 
 /**
  * 每分钟循环任务 启动类
@@ -46,7 +46,7 @@ public class SpringScheduler {
 
         long delayMillis = SchedulerUtils.delayMillis(secondAt);
         LOG.info("locker:{}, delayMillis:{}, secondAt:{}", locker.getName(), delayMillis, secondAt);
-        SubjectWorkPoolExecutor.schedule(TimePlanTask.of(locker), delayMillis, TimeConstants.MINUTE);
+        ScheduleWorkPoolExecutor.schedule(TimePlanTask.of(locker), delayMillis, TimeConstants.MINUTE);
     }
 
     public static List<TimePlanStatus> plans() {
