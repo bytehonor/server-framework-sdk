@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.server.spring.scheduler.cache.PlanRecordCacheHolder;
@@ -20,11 +21,13 @@ public class PlanTaskPoolExecutor {
 
     private static final Logger LOG = LoggerFactory.getLogger(PlanTaskPoolExecutor.class);
 
+    private static final String NAMED = "plan-task-thread-";
+
     private final ExecutorService service;
 
     private PlanTaskPoolExecutor() {
         int nThreads = Runtime.getRuntime().availableProcessors();
-        this.service = Executors.newFixedThreadPool(nThreads);
+        this.service = Executors.newFixedThreadPool(nThreads, new CustomizableThreadFactory(NAMED));
     }
 
     private static class LazyHolder {
