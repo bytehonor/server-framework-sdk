@@ -1,6 +1,7 @@
 package com.bytehonor.sdk.server.spring.scheduler.plan;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -47,6 +48,13 @@ public class TimePlanFactory {
         for (Entry<String, TimePlan> item : MAP.entrySet()) {
             list.add(toStatus(item.getKey()));
         }
+        list.sort(new Comparator<TimePlanStatus>() {
+
+            @Override
+            public int compare(TimePlanStatus o1, TimePlanStatus o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
         return list;
     }
 
