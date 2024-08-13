@@ -27,7 +27,9 @@ public class TimePlanFactory {
     public static void add(TimePlan plan) {
         Objects.requireNonNull(plan, "plan");
 
-        MAP.put(plan.getClass().getSimpleName(), plan);
+        String name = plan.getClass().getSimpleName();
+        LOG.info("name:{}", name);
+        MAP.put(name, plan);
     }
 
     public static List<TimePlan> listPlanPlay() {
