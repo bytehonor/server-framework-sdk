@@ -71,6 +71,8 @@ public class ClusterWorkScheduler {
     public ClusterWorkScheduler add(SubjectWork work) {
         Objects.requireNonNull(work, "work");
 
+        LOG.info("subject:{}", work.subject());
+
         if (SpringString.isEmpty(work.subject()) == false) {
             works.add(work);
         }
