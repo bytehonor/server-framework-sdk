@@ -14,15 +14,15 @@ import com.bytehonor.sdk.server.spring.web.context.ServerContext;
  * @author lijianqiang
  *
  */
-public abstract class TaskLocker {
+public abstract class PlanLocker {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TaskLocker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PlanLocker.class);
 
-    private static final String CLAZZ = TaskLocker.class.getSimpleName();
+    private static final String CLAZZ = PlanLocker.class.getSimpleName();
 
     private final String name;
 
-    public TaskLocker() {
+    public PlanLocker() {
         this.name = name();
     }
 

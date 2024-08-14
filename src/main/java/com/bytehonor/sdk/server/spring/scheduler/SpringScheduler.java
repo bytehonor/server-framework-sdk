@@ -9,13 +9,13 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.server.spring.scheduler.cache.PlanPauseCacheHolder;
-import com.bytehonor.sdk.server.spring.scheduler.lock.CacheTaskLocker;
-import com.bytehonor.sdk.server.spring.scheduler.lock.TaskLocker;
-import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlan;
-import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanFactory;
-import com.bytehonor.sdk.server.spring.scheduler.plan.PlanTaskPoolExecutor;
-import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStatus;
-import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanTask;
+import com.bytehonor.sdk.server.spring.scheduler.lock.CachePlanLocker;
+import com.bytehonor.sdk.server.spring.scheduler.lock.PlanLocker;
+import com.bytehonor.sdk.server.spring.scheduler.task.PlanTaskPoolExecutor;
+import com.bytehonor.sdk.server.spring.scheduler.task.TimePlanTask;
+import com.bytehonor.sdk.server.spring.scheduler.time.TimePlan;
+import com.bytehonor.sdk.server.spring.scheduler.time.TimePlanFactory;
+import com.bytehonor.sdk.server.spring.scheduler.time.TimePlanStatus;
 import com.bytehonor.sdk.server.spring.scheduler.util.SchedulerUtils;
 import com.bytehonor.sdk.server.spring.work.ScheduleWorkPoolExecutor;
 
@@ -34,14 +34,14 @@ public class SpringScheduler {
     }
 
     public static void start(int secondAt) {
-        start(secondAt, new CacheTaskLocker());
+        start(secondAt, new CachePlanLocker());
     }
 
-    public static void start(TaskLocker locker) {
+    public static void start(PlanLocker locker) {
         start(0, locker);
     }
 
-    public static void start(int secondAt, TaskLocker locker) {
+    public static void start(int secondAt, PlanLocker locker) {
         Objects.requireNonNull(locker, "locker");
 
         long delayMillis = SchedulerUtils.delayMillis(secondAt);
