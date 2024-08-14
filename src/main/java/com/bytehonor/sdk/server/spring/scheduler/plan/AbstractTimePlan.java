@@ -9,7 +9,7 @@ import com.bytehonor.sdk.server.spring.scheduler.time.TimeGroupPrinter;
  * @author lijianqiang
  *
  */
-public abstract class TimeGroupPlan implements TimePlan {
+public abstract class AbstractTimePlan implements TimePlan {
 
     public abstract TimeGroup group();
 
