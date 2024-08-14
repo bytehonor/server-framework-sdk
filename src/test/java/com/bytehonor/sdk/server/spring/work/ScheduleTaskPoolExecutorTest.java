@@ -8,14 +8,14 @@ import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
 
-public class ScheduleWorkPoolExecutorTest {
+public class ScheduleTaskPoolExecutorTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ScheduleWorkPoolExecutorTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ScheduleTaskPoolExecutorTest.class);
 
     @Test
     public void test() {
         // nThreads = 1 就得排队
-        ScheduleWorkPoolExecutor.schedule(new SafeTask() {
+        ScheduleTaskPoolExecutor.schedule(new SafeTask() {
 
             @Override
             public void runInSafe() {
@@ -26,7 +26,7 @@ public class ScheduleWorkPoolExecutorTest {
 
         }, 1000L, TimeConstants.MINUTE);
 
-        ScheduleWorkPoolExecutor.schedule(new SafeTask() {
+        ScheduleTaskPoolExecutor.schedule(new SafeTask() {
 
             @Override
             public void runInSafe() {
@@ -37,7 +37,7 @@ public class ScheduleWorkPoolExecutorTest {
 
         }, 1000L, TimeConstants.MINUTE);
 
-        ScheduleWorkPoolExecutor.schedule(new SafeTask() {
+        ScheduleTaskPoolExecutor.schedule(new SafeTask() {
 
             @Override
             public void runInSafe() {
@@ -48,7 +48,7 @@ public class ScheduleWorkPoolExecutorTest {
 
         }, 1000L, TimeConstants.MINUTE);
 
-        ScheduleWorkPoolExecutor.schedule(new SafeTask() {
+        ScheduleTaskPoolExecutor.schedule(new SafeTask() {
 
             @Override
             public void runInSafe() {
