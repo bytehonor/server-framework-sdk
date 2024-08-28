@@ -76,6 +76,11 @@ public class RequestParser {
         return condition;
     }
 
+    public static QueryPager pager(HttpServletRequest request) {
+        KeyValueMap map = RequestGetter.map(request);
+        return pager(map);
+    }
+
     /**
      * page和offset都存在时，offset会覆盖page
      * 
