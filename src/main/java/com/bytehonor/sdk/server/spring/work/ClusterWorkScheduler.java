@@ -11,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
+import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
 
 /**
  * 集群承担任务，单点独占一个任务

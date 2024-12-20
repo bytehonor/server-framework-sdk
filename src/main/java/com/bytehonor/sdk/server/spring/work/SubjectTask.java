@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
+import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
 
 /**
  * 升级的主题工作，循环执行
