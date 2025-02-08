@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.bytehonor.sdk'
-version = '2.0.55'
+version = '2.0.56'
 
 java {
     sourceCompatibility = 17
@@ -24,16 +24,16 @@ repositories {
 
 dependencies {
     api('com.bytehonor.sdk:spring-base-sdk:0.1.1')
-    api('com.bytehonor.sdk:spring-lang-sdk:0.5.12')
-    implementation('org.springframework:spring-webmvc:6.2.1')
+    api('com.bytehonor.sdk:spring-lang-sdk:0.5.18')
+    implementation('org.springframework:spring-webmvc:6.2.2')
     implementation('org.apache.tomcat.embed:tomcat-embed-core:10.1.34')
-    implementation('org.springframework.boot:spring-boot-actuator:3.4.1')
-    implementation('org.springframework.boot:spring-boot-actuator-autoconfigure:3.4.1')
-    implementation('org.springframework.boot:spring-boot-autoconfigure:3.4.1')
-    implementation('io.github.openfeign:feign-core:13.3')
-    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor:3.4.1')
+    implementation('org.springframework.boot:spring-boot-actuator:3.4.2')
+    implementation('org.springframework.boot:spring-boot-actuator-autoconfigure:3.4.2')
+    implementation('org.springframework.boot:spring-boot-autoconfigure:3.4.2')
+    implementation('io.github.openfeign:feign-core:13.5')
+    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor:3.4.2')
     implementation('org.slf4j:slf4j-api:2.0.16')
-    implementation('ch.qos.logback:logback-classic:1.5.12')
+    implementation('ch.qos.logback:logback-classic:1.5.16')
     testImplementation('junit:junit:4.13.2')
 }
 

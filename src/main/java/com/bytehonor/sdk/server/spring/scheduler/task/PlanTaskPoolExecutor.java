@@ -3,13 +3,12 @@ package com.bytehonor.sdk.server.spring.scheduler.task;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
+import com.bytehonor.sdk.lang.spring.thread.ThreadPoolBuilder;
 import com.bytehonor.sdk.server.spring.scheduler.cache.PlanRecordCacheHolder;
 import com.bytehonor.sdk.server.spring.scheduler.time.TimePlan;
 
@@ -24,11 +23,10 @@ public class PlanTaskPoolExecutor {
 
     private static final String NAMED = "plan-task-thread-";
 
-    private final ExecutorService service;
+    private final ExecutorService executor;
 
     private PlanTaskPoolExecutor() {
-        int nThreads = Runtime.getRuntime().availableProcessors();
-        this.service = Executors.newFixedThreadPool(nThreads, new CustomizableThreadFactory(NAMED));
+        this.executor = ThreadPoolBuilder.half(NAMED);
     }
 
     private static class LazyHolder {
@@ -68,6 +66,6 @@ public class PlanTaskPoolExecutor {
     }
 
     private void execute(SafeTask task) {
-        service.execute(task);
+        executor.execute(task);
     }
 }
