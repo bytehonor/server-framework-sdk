@@ -21,7 +21,7 @@ import com.bytehonor.sdk.lang.spring.meta.MetaModelField;
 import com.bytehonor.sdk.lang.spring.meta.MetaModelUtils;
 import com.bytehonor.sdk.lang.spring.query.QueryCondition;
 import com.bytehonor.sdk.lang.spring.query.QueryFilter;
-import com.bytehonor.sdk.lang.spring.query.QueryOrder;
+import com.bytehonor.sdk.lang.spring.query.QueryOrder.QueryOrderColumn;
 import com.bytehonor.sdk.lang.spring.query.QueryPager;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.bytehonor.sdk.lang.spring.string.StringSplitUtils;
@@ -72,7 +72,7 @@ public class RequestParser {
             condition.add(filter);
         }
 
-        condition.order(order(model, map.get(HttpConstants.SORT_KEY)));
+        condition.orders(orders(model, map.get(HttpConstants.SORT_KEY)));
         return condition;
     }
 
@@ -155,32 +155,41 @@ public class RequestParser {
         return QueryFilter.of(field.getUnderline(), value, field.getType(), operator);
     }
 
-    public static QueryOrder order(MetaModel model, String value) {
+    public static List<QueryOrderColumn> orders(MetaModel model, String value) {
+        List<QueryOrderColumn> columns = new ArrayList<QueryOrderColumn>();
         if (SpringString.isEmpty(value)) {
-            return null;
+            return columns;
         }
 
+        List<String> list = StringSplitUtils.split(value);
+        for (String src : list) {
+            columns.add(order(model, src));
+        }
+        return columns;
+    }
+
+    public static QueryOrderColumn order(MetaModel model, String value) {
         KeyOptPair keyOpt = KeyOptPair.parse(value);
         String key = keyOpt.getKey();
         String opt = keyOpt.getOpt();
         if (SpringString.isEmpty(key) || SpringString.isEmpty(opt)) {
             LOG.warn("doMakeOrder failed, value:{}", value);
-            return null;
+            return new QueryOrderColumn();
         }
 
         if (model.contains(key) == false) {
             LOG.warn("doMakeOrder not field, value:{}", value);
-            return null;
+            return new QueryOrderColumn();
         }
 
         LOG.info("doMakeOrder key:{}, opt:{}, value:{}", key, opt, value);
         if (HttpConstants.SORT_DESC.equals(opt)) {
-            return QueryOrder.descOf(key);
+            return QueryOrderColumn.desc(key);
         }
 
         if (HttpConstants.SORT_ASC.equals(opt)) {
-            return QueryOrder.ascOf(key);
+            return QueryOrderColumn.asc(key);
         }
-        return null;
+        return new QueryOrderColumn();
     }
 }
