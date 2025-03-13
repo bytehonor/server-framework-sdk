@@ -20,7 +20,7 @@ import com.bytehonor.sdk.lang.spring.meta.MetaModel;
 import com.bytehonor.sdk.lang.spring.meta.MetaModelField;
 import com.bytehonor.sdk.lang.spring.meta.MetaModelUtils;
 import com.bytehonor.sdk.lang.spring.query.QueryCondition;
-import com.bytehonor.sdk.lang.spring.query.QueryFilter;
+import com.bytehonor.sdk.lang.spring.query.QueryFilter.QueryFilterColumn;
 import com.bytehonor.sdk.lang.spring.query.QueryOrder.QueryOrderColumn;
 import com.bytehonor.sdk.lang.spring.query.QueryPager;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
@@ -66,12 +66,7 @@ public class RequestParser {
         MetaModel model = MetaModelUtils.parse(clazz);
 
         QueryCondition condition = QueryCondition.create(logic, pager(map));
-
-        List<QueryFilter> filters = filters(model, map.map());
-        for (QueryFilter filter : filters) {
-            condition.add(filter);
-        }
-
+        condition.filters(filters(model, map.map()));
         condition.orders(orders(model, map.get(HttpConstants.SORT_KEY)));
         return condition;
     }
@@ -112,11 +107,11 @@ public class RequestParser {
         return QueryPager.of(counted, offset, limit);
     }
 
-    public static List<QueryFilter> filters(MetaModel model, Map<String, String> map) {
+    public static List<QueryFilterColumn> filters(MetaModel model, Map<String, String> map) {
         if (map.isEmpty()) {
-            return new ArrayList<QueryFilter>();
+            return new ArrayList<QueryFilterColumn>();
         }
-        List<QueryFilter> filters = new ArrayList<QueryFilter>(map.size() * 2);
+        List<QueryFilterColumn> filters = new ArrayList<QueryFilterColumn>(map.size() * 2);
         for (Entry<String, String> entry : map.entrySet()) {
             if (IGNORES.contains(entry.getKey())) {
                 continue;
@@ -126,9 +121,9 @@ public class RequestParser {
         return filters;
     }
 
-    public static QueryFilter filter(MetaModel model, String raw, String value) {
+    public static QueryFilterColumn filter(MetaModel model, String raw, String value) {
         if (SpringString.isEmpty(raw) || SpringString.isEmpty(value)) {
-            return QueryFilter.non(); // value为空字符则丢弃
+            return QueryFilterColumn.non(); // value为空字符则丢弃
         }
 
         KeyOptPair pair = KeyOptPair.parse(raw);
@@ -138,21 +133,21 @@ public class RequestParser {
         SqlOperator operator = SqlOperator.keyOf(opt);
         if (operator == null) {
             LOG.warn("filter opt null, opt:{}, raw:{}", opt, raw);
-            return QueryFilter.non();
+            return QueryFilterColumn.non();
         }
 
         MetaModelField field = model.getIfPresent(key);
         if (field == null) {
             LOG.debug("filter field null, key:{}, raw:{}", key, raw);
-            return QueryFilter.non();
+            return QueryFilterColumn.non();
         }
 
         LOG.debug("filter key:{}, opt:{}, raw:{}", key, opt, raw);
         if (SqlOperator.IN.equals(operator)) {
             List<String> values = StringSplitUtils.split(value);
-            return QueryFilter.in(field.getUnderline(), values, field.getType());
+            return QueryFilterColumn.in(field.getUnderline(), values, field.getType());
         }
-        return QueryFilter.of(field.getUnderline(), value, field.getType(), operator);
+        return QueryFilterColumn.of(field.getUnderline(), value, field.getType(), operator);
     }
 
     public static List<QueryOrderColumn> orders(MetaModel model, String value) {
