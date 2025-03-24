@@ -3,8 +3,8 @@ package com.bytehonor.sdk.server.spring.web.request;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Objects;
 
+import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
 import com.bytehonor.sdk.lang.spring.constant.QueryLogic;
 import com.bytehonor.sdk.lang.spring.core.KeyValueMap;
@@ -104,7 +104,7 @@ public class RequestGetter {
      */
     public static Integer integerRequried(HttpServletRequest request, String key) {
         Integer val = integerOptional(request, key);
-        Objects.requireNonNull(val, key);
+        Java.requireNonNull(val, key);
         return val;
     }
 
@@ -134,7 +134,7 @@ public class RequestGetter {
      */
     public static Long longRequired(HttpServletRequest request, String key) {
         Long val = longOptional(request, key, null);
-        Objects.requireNonNull(val, key);
+        Java.requireNonNull(val, key);
         return val;
     }
 
@@ -164,7 +164,7 @@ public class RequestGetter {
      */
     public static Boolean booleanRequired(HttpServletRequest request, String key) {
         Boolean val = booleanOptional(request, key, null);
-        Objects.requireNonNull(val, key);
+        Java.requireNonNull(val, key);
         return val;
     }
 
@@ -185,8 +185,8 @@ public class RequestGetter {
      * @return
      */
     public static String optional(HttpServletRequest request, String key) {
-        Objects.requireNonNull(request, "request");
-        Objects.requireNonNull(key, "key");
+        Java.requireNonNull(request, "request");
+        Java.requireNonNull(key, "key");
         return request.getParameter(key);
     }
 
@@ -197,7 +197,7 @@ public class RequestGetter {
      */
     public static String required(HttpServletRequest request, String key) {
         String val = optional(request, key);
-        Objects.requireNonNull(val, key);
+        Java.requireNonNull(val, key);
         return val;
     }
 

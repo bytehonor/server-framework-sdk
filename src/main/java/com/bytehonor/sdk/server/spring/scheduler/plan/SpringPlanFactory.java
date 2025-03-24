@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.lang.spring.util.TimeFormatUtils;
 import com.bytehonor.sdk.server.spring.scheduler.plan.cache.SpringPlanPauseCache;
 import com.bytehonor.sdk.server.spring.scheduler.plan.cache.SpringPlanRecordCache;
@@ -25,7 +25,7 @@ public final class SpringPlanFactory {
     private static final ConcurrentHashMap<String, SpringPlan> MAP = new ConcurrentHashMap<String, SpringPlan>();
 
     public static void add(SpringPlan plan) {
-        Objects.requireNonNull(plan, "plan");
+        Java.requireNonNull(plan, "plan");
 
         String name = plan.getClass().getSimpleName();
         LOG.info("name:{}", name);
@@ -61,7 +61,7 @@ public final class SpringPlanFactory {
     }
 
     public static SpringPlanStatus getPlanStatus(String name) {
-        Objects.requireNonNull(name, "name");
+        Java.requireNonNull(name, "name");
         required(name);
 
         return toStatus(name);
@@ -83,16 +83,16 @@ public final class SpringPlanFactory {
     }
 
     public static SpringPlan required(String name) {
-        Objects.requireNonNull(name, "name");
+        Java.requireNonNull(name, "name");
 
         SpringPlan plan = optional(name);
-        Objects.requireNonNull(plan, name);
+        Java.requireNonNull(plan, name);
 
         return plan;
     }
 
     public static SpringPlan optional(String name) {
-        Objects.requireNonNull(name, "name");
+        Java.requireNonNull(name, "name");
 
         return MAP.get(name);
     }

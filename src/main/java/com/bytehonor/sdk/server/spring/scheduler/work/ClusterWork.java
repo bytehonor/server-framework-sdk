@@ -2,7 +2,8 @@ package com.bytehonor.sdk.server.spring.scheduler.work;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
+import com.bytehonor.sdk.lang.spring.Java;
 
 public abstract class ClusterWork implements SpringWork {
 
@@ -22,7 +23,7 @@ public abstract class ClusterWork implements SpringWork {
     }
     
     public final ClusterWork add(SpringWorkTask task) {
-        Objects.requireNonNull(task, "task");
+        Java.requireNonNull(task, "task");
 
         tasks.add(task);
         return this;

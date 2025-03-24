@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.server.spring.scheduler.plan.time.TimeCron;
 import com.bytehonor.sdk.server.spring.scheduler.plan.time.TimeGroup;
-import com.bytehonor.sdk.server.spring.scheduler.plan.time.TimeGroupPrinter;
 import com.bytehonor.sdk.server.spring.scheduler.plan.time.TimeGroup.TimeGroupBuilder;
+import com.bytehonor.sdk.server.spring.scheduler.plan.time.TimeGroupPrinter;
 
 public class TimeGroupTest {
 

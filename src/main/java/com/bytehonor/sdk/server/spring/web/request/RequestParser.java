@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.lang.spring.constant.HttpConstants;
 import com.bytehonor.sdk.lang.spring.constant.QueryLogic;
 import com.bytehonor.sdk.lang.spring.constant.SqlOperator;
@@ -59,9 +59,9 @@ public class RequestParser {
     }
 
     public static QueryCondition condition(Class<?> clazz, QueryLogic logic, KeyValueMap map) {
-        Objects.requireNonNull(logic, "logic");
-        Objects.requireNonNull(clazz, "clazz");
-        Objects.requireNonNull(map, "map");
+        Java.requireNonNull(logic, "logic");
+        Java.requireNonNull(clazz, "clazz");
+        Java.requireNonNull(map, "map");
 
         MetaModel model = MetaModelUtils.parse(clazz);
 
@@ -83,7 +83,7 @@ public class RequestParser {
      * @return
      */
     public static QueryPager pager(KeyValueMap map) {
-        Objects.requireNonNull(map, "map");
+        Java.requireNonNull(map, "map");
 
         int limit = HttpConstants.LIMIT_DEF;
         if (map.has(HttpConstants.LIMIT_KEY)) {

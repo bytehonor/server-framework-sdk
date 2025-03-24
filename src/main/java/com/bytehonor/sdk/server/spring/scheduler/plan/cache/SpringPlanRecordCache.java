@@ -1,8 +1,8 @@
 package com.bytehonor.sdk.server.spring.scheduler.plan.cache;
 
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -39,7 +39,7 @@ public class SpringPlanRecordCache {
     }
 
     public static Long get(String name) {
-        Objects.requireNonNull(name, "name");
+        Java.requireNonNull(name, "name");
 
         return self().cache.getIfPresent(name);
     }

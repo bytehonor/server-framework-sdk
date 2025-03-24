@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
 
-public class SpringWorkServerExecutorTest {
+public class ServerWorkExecutorTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SpringWorkServerExecutorTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ServerWorkExecutorTest.class);
 
     @Test
     public void test() {
@@ -46,7 +46,7 @@ public class SpringWorkServerExecutorTest {
             }
         };
 
-        SpringWorkServerExecutor scheduler = new SpringWorkServerExecutor();
+        ServerWorkExecutor scheduler = new ServerWorkExecutor();
         scheduler.add(task1);
         scheduler.add(task2);
         scheduler.start();

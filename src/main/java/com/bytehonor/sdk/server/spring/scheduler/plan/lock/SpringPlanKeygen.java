@@ -1,8 +1,8 @@
 package com.bytehonor.sdk.server.spring.scheduler.plan.lock;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
+import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.lang.spring.constant.DateConstants;
 import com.bytehonor.sdk.lang.spring.util.TimeFormatUtils;
 
@@ -13,14 +13,14 @@ import com.bytehonor.sdk.lang.spring.util.TimeFormatUtils;
 public class SpringPlanKeygen {
 
     public static String make(String prefix, LocalDateTime ldt) {
-        Objects.requireNonNull(prefix, "prefix");
-        Objects.requireNonNull(ldt, "ldt");
+        Java.requireNonNull(prefix, "prefix");
+        Java.requireNonNull(ldt, "ldt");
 
         return new StringBuilder().append(prefix).append(":").append(time(ldt)).toString();
     }
 
     public static String make(String prefix, long time) {
-        Objects.requireNonNull(prefix, "prefix");
+        Java.requireNonNull(prefix, "prefix");
 
         return make(prefix, TimeFormatUtils.fromTimestamp(time));
     }

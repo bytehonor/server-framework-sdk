@@ -1,14 +1,15 @@
 package com.bytehonor.sdk.server.spring.scheduler.work;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
+import com.bytehonor.sdk.lang.spring.thread.Sleep;
 
 /**
  * 单点模式，仅有一个work
@@ -16,20 +17,20 @@ import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
  * @author lijianqiang
  *
  */
-public class SpringWorkServerExecutor {
+public class ServerWorkExecutor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SpringWorkServerExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ServerWorkExecutor.class);
 
     private static final long DELAYS = TimeConstants.SECOND * 3;
 
     private final long delayMillis;
     private final ServerWork work;
 
-    public SpringWorkServerExecutor() {
+    public ServerWorkExecutor() {
         this(DELAYS);
     }
 
-    public SpringWorkServerExecutor(long delayMillis) {
+    public ServerWorkExecutor(long delayMillis) {
         this.delayMillis = delayMillis;
         this.work = new ServerWork();
     }
@@ -50,8 +51,8 @@ public class SpringWorkServerExecutor {
         }, delayMillis);
     }
 
-    public SpringWorkServerExecutor add(SpringWorkTask task) {
-        Objects.requireNonNull(task, "task");
+    public ServerWorkExecutor add(SpringWorkTask task) {
+        Java.requireNonNull(task, "task");
 
         work.add(task);
 
@@ -64,6 +65,7 @@ public class SpringWorkServerExecutor {
             LOG.info("doWork tasks:{}", tasks.size());
             for (SpringWorkTask task : tasks) {
                 task.start();
+                Sleep.millis(200L);
             }
         } catch (Exception e) {
             LOG.error("doWork error", e);

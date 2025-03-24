@@ -11,9 +11,9 @@ import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
-public class SpringWorkClusterExecutorTest {
+public class ClusterWorkExecutorTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SpringWorkClusterExecutorTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkExecutorTest.class);
 
     @Test
     public void test() {
@@ -83,7 +83,7 @@ public class SpringWorkClusterExecutorTest {
         work.add(job1);
         work.add(job2);
 
-        SpringWorkClusterExecutor scheduler = new SpringWorkClusterExecutor("testname", locker);
+        ClusterWorkExecutor scheduler = new ClusterWorkExecutor("testname", locker);
         scheduler.add(work);
         scheduler.start();
 

@@ -1,12 +1,12 @@
 package com.bytehonor.sdk.server.spring.scheduler.plan;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ThreadPoolBuilder;
 import com.bytehonor.sdk.server.spring.scheduler.plan.cache.SpringPlanRecordCache;
@@ -41,8 +41,8 @@ public class SpringPlanPoolExecutor {
      * @param ldt
      */
     public static void run(SpringPlan plan, LocalDateTime ldt) {
-        Objects.requireNonNull(plan, "plan");
-        Objects.requireNonNull(ldt, "ldt");
+        Java.requireNonNull(plan, "plan");
+        Java.requireNonNull(ldt, "ldt");
 
         String name = plan.getClass().getSimpleName();
         LOG.info("name:{} run", name);
@@ -59,7 +59,7 @@ public class SpringPlanPoolExecutor {
      * @param task
      */
     public static void add(SafeTask task) {
-        Objects.requireNonNull(task, "task");
+        Java.requireNonNull(task, "task");
 
         self().execute(task);
     }

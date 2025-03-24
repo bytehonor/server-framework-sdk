@@ -1,9 +1,8 @@
 package com.bytehonor.sdk.server.spring.web.context;
 
-import java.util.Objects;
-
 import org.springframework.core.env.Environment;
 
+import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.lang.spring.getter.IntegerGetter;
 import com.bytehonor.sdk.lang.spring.getter.StringGetter;
 import com.bytehonor.sdk.lang.spring.util.LocalEnvUtils;
@@ -40,7 +39,7 @@ public class ServerContext {
     }
 
     public static void init(Environment env) {
-        Objects.requireNonNull(env, "env");
+        Java.requireNonNull(env, "env");
         String name = StringGetter.optional(env.getProperty("spring.application.name"), "");
         int port = IntegerGetter.optional(env.getProperty("server.port"), 0);
         String id = new StringBuilder().append(name).append("-").append(port).toString();

@@ -2,16 +2,17 @@ package com.bytehonor.sdk.server.spring.scheduler.work;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
+import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
+import com.bytehonor.sdk.lang.spring.thread.Sleep;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
 /**
@@ -20,9 +21,9 @@ import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
  * @author lijianqiang
  *
  */
-public class SpringWorkClusterExecutor {
+public class ClusterWorkExecutor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SpringWorkClusterExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkExecutor.class);
 
     private static final long DELAYS = TimeConstants.SECOND * 6;
     private static final long INTERVALS = TimeConstants.MINUTE;
@@ -37,13 +38,13 @@ public class SpringWorkClusterExecutor {
 
     private String subject;
 
-    public SpringWorkClusterExecutor(String server, SpringWorkLocker locker) {
+    public ClusterWorkExecutor(String server, SpringWorkLocker locker) {
         this(server, locker, DELAYS, INTERVALS);
     }
 
-    public SpringWorkClusterExecutor(String server, SpringWorkLocker locker, long delayMillis, long intervalMillis) {
-        Objects.requireNonNull(server, "server");
-        Objects.requireNonNull(locker, "locker");
+    public ClusterWorkExecutor(String server, SpringWorkLocker locker, long delayMillis, long intervalMillis) {
+        Java.requireNonNull(server, "server");
+        Java.requireNonNull(locker, "locker");
         this.delayMillis = delayMillis;
         this.intervalMillis = intervalMillis;
         this.lockMillis = intervalMillis * 2;
@@ -70,8 +71,8 @@ public class SpringWorkClusterExecutor {
         }, delayMillis, intervalMillis);
     }
 
-    public SpringWorkClusterExecutor add(ClusterWork work) {
-        Objects.requireNonNull(work, "work");
+    public ClusterWorkExecutor add(ClusterWork work) {
+        Java.requireNonNull(work, "work");
 
         LOG.info("add subject:{}", work.subject());
 
@@ -121,6 +122,7 @@ public class SpringWorkClusterExecutor {
             LOG.info("doWork subject:{}, tasks:{}", subject, tasks.size());
             for (SpringWorkTask task : tasks) {
                 task.start();
+                Sleep.millis(200L);
             }
         } catch (Exception e) {
             LOG.error("doWork error", e);
@@ -134,7 +136,7 @@ public class SpringWorkClusterExecutor {
         }
 
         String which = locker.get(subject);
-        boolean success = Objects.equals(which, server);
+        boolean success = Java.equals(which, server);
         LOG.info("server:{} keepAlive success:{}, subject:{}", server, success, subject);
         if (success) {
             locker.expireAt(subject, System.currentTimeMillis() + lockMillis);

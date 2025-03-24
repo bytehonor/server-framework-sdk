@@ -1,7 +1,6 @@
 package com.bytehonor.sdk.server.spring;
 
-import java.util.Objects;
-
+import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.server.spring.web.context.ApplicationContextHolder;
 import com.bytehonor.sdk.server.spring.web.context.ServerContext;
 
@@ -12,7 +11,7 @@ import com.bytehonor.sdk.server.spring.web.context.ServerContext;
 public class SpringServer {
 
     public static <T> T bean(Class<T> requiredType) {
-        Objects.requireNonNull(requiredType, "requiredType");
+        Java.requireNonNull(requiredType, "requiredType");
 
         return ApplicationContextHolder.getBean(requiredType);
     }
@@ -34,7 +33,7 @@ public class SpringServer {
     }
 
     public static String property(String key) {
-        Objects.requireNonNull(key, "key");
+        Java.requireNonNull(key, "key");
 
         return ServerContext.self().getEnv().getProperty(key);
     }

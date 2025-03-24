@@ -1,11 +1,11 @@
 package com.bytehonor.sdk.server.spring.scheduler.plan.lock;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.bytehonor.sdk.server.spring.web.context.ServerContext;
 
@@ -26,7 +26,7 @@ public abstract class SpringPlanLocker {
     }
 
     public final boolean accept(LocalDateTime ldt) {
-        Objects.requireNonNull(ldt, "ldt");
+        Java.requireNonNull(ldt, "ldt");
 
         String key = SpringPlanKeygen.make(name, ldt);
         if (lock(key) == false) {
