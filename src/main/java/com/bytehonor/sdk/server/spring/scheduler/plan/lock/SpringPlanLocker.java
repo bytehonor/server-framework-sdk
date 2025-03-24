@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.string.SpringString;
-import com.bytehonor.sdk.server.spring.scheduler.plan.key.SchedulerKeygen;
 import com.bytehonor.sdk.server.spring.web.context.ServerContext;
 
 /**
@@ -29,7 +28,7 @@ public abstract class SpringPlanLocker {
     public final boolean accept(LocalDateTime ldt) {
         Objects.requireNonNull(ldt, "ldt");
 
-        String key = SchedulerKeygen.make(name, ldt);
+        String key = SpringPlanKeygen.make(name, ldt);
         if (lock(key) == false) {
             return false;
         }
