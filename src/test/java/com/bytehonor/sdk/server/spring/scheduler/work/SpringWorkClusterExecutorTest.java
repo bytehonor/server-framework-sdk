@@ -11,9 +11,9 @@ import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
-public class SpringWorkClusterSchedulerTest {
+public class SpringWorkClusterExecutorTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SpringWorkClusterSchedulerTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringWorkClusterExecutorTest.class);
 
     @Test
     public void test() {
@@ -41,11 +41,6 @@ public class SpringWorkClusterSchedulerTest {
         SpringWorkTask job1 = new SpringWorkTask() {
 
             @Override
-            public String subject() {
-                return "job1";
-            }
-
-            @Override
             public long intervalMillis() {
 
                 return TimeConstants.SECOND * 10;
@@ -62,11 +57,6 @@ public class SpringWorkClusterSchedulerTest {
         SpringWorkTask job2 = new SpringWorkTask() {
 
             @Override
-            public String subject() {
-                return "job2";
-            }
-
-            @Override
             public long intervalMillis() {
 
                 return TimeConstants.SECOND * 15;
@@ -80,10 +70,21 @@ public class SpringWorkClusterSchedulerTest {
 
             }
         };
+        
+        ClusterWork work = new ClusterWork() {
 
-        SpringWorkClusterScheduler scheduler = new SpringWorkClusterScheduler("testname", locker);
-        scheduler.add(job1);
-        scheduler.add(job2);
+            @Override
+            public String subject() {
+                return "ClusterWork1";
+            }
+            
+        };
+        
+        work.add(job1);
+        work.add(job2);
+
+        SpringWorkClusterExecutor scheduler = new SpringWorkClusterExecutor("testname", locker);
+        scheduler.add(work);
         scheduler.start();
 
         Sleep.millis(TimeConstants.MINUTE * 20);

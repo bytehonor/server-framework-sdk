@@ -7,23 +7,17 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
 
-public class SpringWorkServerSchedulerTest {
+public class SpringWorkServerExecutorTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SpringWorkServerSchedulerTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringWorkServerExecutorTest.class);
 
     @Test
     public void test() {
 
-        SpringWorkTask job1 = new SpringWorkTask() {
-
-            @Override
-            public String subject() {
-                return "job1";
-            }
+        SpringWorkTask task1 = new SpringWorkTask() {
 
             @Override
             public long intervalMillis() {
-
                 return TimeConstants.SECOND * 5;
             }
 
@@ -35,12 +29,7 @@ public class SpringWorkServerSchedulerTest {
 
             }
         };
-        SpringWorkTask job2 = new SpringWorkTask() {
-
-            @Override
-            public String subject() {
-                return "job2";
-            }
+        SpringWorkTask task2 = new SpringWorkTask() {
 
             @Override
             public long intervalMillis() {
@@ -57,9 +46,9 @@ public class SpringWorkServerSchedulerTest {
             }
         };
 
-        SpringWorkServerScheduler scheduler = new SpringWorkServerScheduler();
-        scheduler.add(job1);
-        scheduler.add(job2);
+        SpringWorkServerExecutor scheduler = new SpringWorkServerExecutor();
+        scheduler.add(task1);
+        scheduler.add(task2);
         scheduler.start();
 
         Sleep.millis(TimeConstants.MINUTE * 20);

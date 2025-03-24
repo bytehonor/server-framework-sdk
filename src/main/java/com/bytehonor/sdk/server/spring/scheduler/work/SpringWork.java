@@ -1,19 +1,11 @@
 package com.bytehonor.sdk.server.spring.scheduler.work;
 
+import java.util.List;
+
 /**
- * 简单的主题工作，start方法仅执行一次
+ * 简单的主题工作
  */
 public interface SpringWork {
 
-    /**
-     * 主题
-     * 
-     * @return
-     */
-    public String subject();
-
-    /**
-     * 启动，只启动一次
-     */
-    public void start();
+    public List<SpringWorkTask> tasks();
 }

@@ -3,22 +3,16 @@ package com.bytehonor.sdk.server.spring.scheduler.work;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
 
 /**
  * 升级的主题工作，循环执行
  */
-public abstract class SpringWorkTask extends SafeTask implements SpringWork {
+public abstract class SpringWorkTask extends SafeTask  {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringWorkTask.class);
-
-    /**
-     * 主题
-     * 
-     * @return
-     */
-    public abstract String subject();
 
     /**
      * 循环间隔毫秒数
@@ -29,8 +23,15 @@ public abstract class SpringWorkTask extends SafeTask implements SpringWork {
 
     public final void start() {
         long intervals = intervalMillis();
-        LOG.info("start subject:{}, intervals:{}", subject(), intervals);
+        LOG.info("start {}, intervals:{}", name(), intervals);
         ScheduleTaskPoolExecutor.schedule(this, 100L, intervals);
     }
 
+    private String name() {
+        String name = this.getClass().getSimpleName();
+        if (SpringString.isEmpty(name)) {
+            name = "Anonymous";
+        }
+        return name;
+    }
 }
