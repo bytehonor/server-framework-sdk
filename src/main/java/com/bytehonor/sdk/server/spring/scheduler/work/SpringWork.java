@@ -3,7 +3,9 @@ package com.bytehonor.sdk.server.spring.scheduler.work;
 import java.util.List;
 
 /**
- * 简单的主题工作
+ * 一组循环task当成一个work
+ * 
+ * @author lijianqiang
  */
 public interface SpringWork {
 

@@ -11,7 +11,7 @@ import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
 
 /**
- * 本地承担任务，有多少任务启动多少
+ * 单点模式，仅有一个work
  * 
  * @author lijianqiang
  *
@@ -61,7 +61,7 @@ public class SpringWorkServerExecutor {
     private void doWork() {
         try {
             List<SpringWorkTask> tasks = work.tasks();
-            LOG.info("begin tasks:{}", tasks.size());
+            LOG.info("doWork tasks:{}", tasks.size());
             for (SpringWorkTask task : tasks) {
                 task.start();
             }

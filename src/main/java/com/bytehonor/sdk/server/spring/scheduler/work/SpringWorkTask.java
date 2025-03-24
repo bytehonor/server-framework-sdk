@@ -8,7 +8,7 @@ import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
 
 /**
- * 升级的主题工作，循环执行
+ * 循环执行的任务
  */
 public abstract class SpringWorkTask extends SafeTask  {
 
@@ -23,11 +23,11 @@ public abstract class SpringWorkTask extends SafeTask  {
 
     public final void start() {
         long intervals = intervalMillis();
-        LOG.info("start {}, intervals:{}", name(), intervals);
+        LOG.info("start {}, intervals:{}", thisName(), intervals);
         ScheduleTaskPoolExecutor.schedule(this, 100L, intervals);
     }
 
-    private String name() {
+    private String thisName() {
         String name = this.getClass().getSimpleName();
         if (SpringString.isEmpty(name)) {
             name = "Anonymous";

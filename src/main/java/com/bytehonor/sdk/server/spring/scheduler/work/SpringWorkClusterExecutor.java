@@ -15,7 +15,7 @@ import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
 /**
- * 集群承担任务，单点独占一个任务
+ * 集群模式，一个server独占一个work
  * 
  * @author lijianqiang
  *
