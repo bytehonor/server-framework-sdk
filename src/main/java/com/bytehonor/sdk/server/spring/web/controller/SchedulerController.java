@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bytehonor.sdk.base.spring.response.DataList;
 import com.bytehonor.sdk.base.spring.response.DataString;
-import com.bytehonor.sdk.server.spring.scheduler.SpringPlanScheduler;
+import com.bytehonor.sdk.server.spring.scheduler.plan.SpringPlanScheduler;
 import com.bytehonor.sdk.server.spring.scheduler.plan.SpringPlanStatus;
 import com.bytehonor.sdk.server.spring.web.context.ServerContext;
 

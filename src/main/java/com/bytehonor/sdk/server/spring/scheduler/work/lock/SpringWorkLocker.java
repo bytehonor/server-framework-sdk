@@ -1,6 +1,6 @@
-package com.bytehonor.sdk.server.spring.scheduler.work;
+package com.bytehonor.sdk.server.spring.scheduler.work.lock;
 
-public interface SubjectLocker {
+public interface SpringWorkLocker {
 
     public boolean lock(String key, String value, long millis);
 

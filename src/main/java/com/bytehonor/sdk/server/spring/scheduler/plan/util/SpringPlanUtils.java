@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.util.TimeFormatUtils;
 
-public class SchedulerUtils {
+public class SpringPlanUtils {
 
     public static long delaySeconds(int secondAt) {
         int secondNow = LocalTime.now().getSecond();

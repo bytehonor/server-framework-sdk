@@ -14,15 +14,15 @@ import com.bytehonor.sdk.server.spring.web.context.ServerContext;
  * @author lijianqiang
  *
  */
-public abstract class PlanLocker {
+public abstract class SpringPlanLocker {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PlanLocker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringPlanLocker.class);
 
-    private static final String CLAZZ = PlanLocker.class.getSimpleName();
+    private static final String CLAZZ = SpringPlanLocker.class.getSimpleName();
 
     private final String name;
 
-    public PlanLocker() {
+    public SpringPlanLocker() {
         this.name = name();
     }
 

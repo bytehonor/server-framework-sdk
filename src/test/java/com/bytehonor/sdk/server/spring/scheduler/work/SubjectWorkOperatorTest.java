@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
+import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
 public class SubjectWorkOperatorTest {
 
@@ -16,7 +17,7 @@ public class SubjectWorkOperatorTest {
 
     @Test
     public void test() {
-        SubjectLocker locker = new SubjectLocker() {
+        SpringWorkLocker locker = new SpringWorkLocker() {
 
             private Map<String, String> map = new HashMap<String, String>();
 

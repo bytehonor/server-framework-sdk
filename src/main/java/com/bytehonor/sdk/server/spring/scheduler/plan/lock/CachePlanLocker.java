@@ -6,7 +6,7 @@ import com.bytehonor.sdk.lang.spring.cache.CacheLocker;
  * @author lijianqiang
  *
  */
-public class CachePlanLocker extends PlanLocker {
+public class CachePlanLocker extends SpringPlanLocker {
 
     @Override
     public boolean lock(String key) {

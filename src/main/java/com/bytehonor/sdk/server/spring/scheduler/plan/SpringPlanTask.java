@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
-import com.bytehonor.sdk.server.spring.scheduler.plan.lock.PlanLocker;
+import com.bytehonor.sdk.server.spring.scheduler.plan.lock.SpringPlanLocker;
 
 /**
  * @author lijianqiang
@@ -19,13 +19,13 @@ public class SpringPlanTask extends SafeTask {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringPlanTask.class);
 
-    private final PlanLocker locker;
+    private final SpringPlanLocker locker;
 
-    private SpringPlanTask(PlanLocker locker) {
+    private SpringPlanTask(SpringPlanLocker locker) {
         this.locker = locker;
     }
 
-    public static SpringPlanTask of(PlanLocker locker) {
+    public static SpringPlanTask of(SpringPlanLocker locker) {
         Objects.requireNonNull(locker, "locker");
 
         return new SpringPlanTask(locker);

@@ -11,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.bytehonor.sdk.lang.spring.thread.LoopIntervalTask;
+import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
 /**
  * 竞争任务线程
@@ -25,17 +26,17 @@ public class SubjectWorkOperator {
     private final long lockMillis;
 
     private final String name;
-    private final SubjectLocker locker;
+    private final SpringWorkLocker locker;
     private final List<SpringWork> works;
     private final Thread thread;
 
     private String subject;
 
-    public SubjectWorkOperator(String name, SubjectLocker locker) {
+    public SubjectWorkOperator(String name, SpringWorkLocker locker) {
         this(name, TimeConstants.SECOND, TimeConstants.MINUTE, locker);
     }
 
-    public SubjectWorkOperator(String name, final long delayMillis, final long intervalMillis, SubjectLocker locker) {
+    public SubjectWorkOperator(String name, final long delayMillis, final long intervalMillis, SpringWorkLocker locker) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(locker, "locker");
         this.lockMillis = intervalMillis * 2;

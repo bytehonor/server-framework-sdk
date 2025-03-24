@@ -12,6 +12,7 @@ import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
+import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
 /**
  * 集群承担任务，单点独占一个任务
@@ -31,16 +32,16 @@ public class ClusterWorkScheduler {
     private final long lockMillis;
 
     private final String name;
-    private final SubjectLocker locker;
+    private final SpringWorkLocker locker;
     private final List<SpringWork> works;
 
     private String subject;
 
-    public ClusterWorkScheduler(String name, SubjectLocker locker) {
+    public ClusterWorkScheduler(String name, SpringWorkLocker locker) {
         this(name, DELAYS, INTERVALS, locker);
     }
 
-    public ClusterWorkScheduler(String name, final long delayMillis, final long intervalMillis, SubjectLocker locker) {
+    public ClusterWorkScheduler(String name, final long delayMillis, final long intervalMillis, SpringWorkLocker locker) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(locker, "locker");
         this.delayMillis = delayMillis;
