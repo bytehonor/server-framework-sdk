@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
 import com.bytehonor.sdk.server.spring.scheduler.plan.PrintTimePlan;
-import com.bytehonor.sdk.server.spring.scheduler.plan.SpringPlanScheduler;
 
 public class SpringPlanSchedulerTest {
 
