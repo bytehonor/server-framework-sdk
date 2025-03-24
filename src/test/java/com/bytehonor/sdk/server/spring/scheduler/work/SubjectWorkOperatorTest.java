@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.work;
+package com.bytehonor.sdk.server.spring.scheduler.work;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
 
-public class SubjectTaskTest {
+public class SubjectWorkOperatorTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SubjectTaskTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SubjectWorkOperatorTest.class);
 
     @Test
     public void test() {
@@ -37,7 +37,7 @@ public class SubjectTaskTest {
             }
         };
 
-        SubjectTask job1 = new SubjectTask() {
+        SubjectWork job1 = new SubjectWork() {
 
             @Override
             public String subject() {
@@ -45,20 +45,15 @@ public class SubjectTaskTest {
             }
 
             @Override
-            public long intervalMillis() {
+            public void start() {
+                LOG.info("job1 run");
 
-                return TimeConstants.SECOND * 10;
-            }
+                Sleep.millis(TimeConstants.SECOND * 13);
 
-            @Override
-            public void runInSafe() {
-                LOG.info("job1 begin");
-                Sleep.millis(TimeConstants.SECOND * 5);
                 LOG.info("job1 end");
-
             }
         };
-        SubjectTask job2 = new SubjectTask() {
+        SubjectWork job2 = new SubjectWork() {
 
             @Override
             public String subject() {
@@ -66,24 +61,19 @@ public class SubjectTaskTest {
             }
 
             @Override
-            public long intervalMillis() {
+            public void start() {
+                LOG.info("job2 run");
 
-                return TimeConstants.SECOND * 15;
-            }
+                Sleep.millis(TimeConstants.SECOND * 15);
 
-            @Override
-            public void runInSafe() {
-                LOG.info("job2 begin");
-                Sleep.millis(TimeConstants.SECOND * 10);
                 LOG.info("job2 end");
-
             }
         };
 
-        SubjectWorkOperator operator = new SubjectWorkOperator("testname", locker);
-        operator.add(job1);
-        operator.add(job2);
-        operator.start();
+        SubjectWorkOperator thread = new SubjectWorkOperator("testname", locker);
+        thread.add(job1);
+        thread.add(job2);
+        thread.start();
 
         Sleep.millis(TimeConstants.MINUTE * 20);
     }

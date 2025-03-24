@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.scheduler.time;
+package com.bytehonor.sdk.server.spring.scheduler.plan;
 
 import static org.junit.Assert.assertTrue;
 

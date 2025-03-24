@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.work;
+package com.bytehonor.sdk.server.spring.scheduler.work;
 
 public interface SubjectLocker {
 

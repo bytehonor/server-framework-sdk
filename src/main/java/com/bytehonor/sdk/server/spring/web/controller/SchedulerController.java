@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bytehonor.sdk.base.spring.response.DataList;
 import com.bytehonor.sdk.base.spring.response.DataString;
 import com.bytehonor.sdk.server.spring.scheduler.SpringScheduler;
-import com.bytehonor.sdk.server.spring.scheduler.time.TimePlanStatus;
+import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStatus;
 import com.bytehonor.sdk.server.spring.web.context.ServerContext;
 
 /**

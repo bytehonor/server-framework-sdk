@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.work;
+package com.bytehonor.sdk.server.spring.scheduler.work;
 
 /**
  * 简单的主题工作，start方法仅执行一次

@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.scheduler.time;
+package com.bytehonor.sdk.server.spring.scheduler.plan;
 
 import static org.junit.Assert.assertTrue;
 
@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.server.spring.scheduler.time.TimeGroup.TimeGroupBuilder;
+import com.bytehonor.sdk.server.spring.scheduler.plan.TimeGroup.TimeGroupBuilder;
 
 public class TimeGroupTest {
 
