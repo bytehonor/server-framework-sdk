@@ -38,10 +38,10 @@ public class SpringWorkClusterScheduler {
     private String subject;
 
     public SpringWorkClusterScheduler(String name, SpringWorkLocker locker) {
-        this(name, DELAYS, INTERVALS, locker);
+        this(name, locker, DELAYS, INTERVALS);
     }
 
-    public SpringWorkClusterScheduler(String name, final long delayMillis, final long intervalMillis, SpringWorkLocker locker) {
+    public SpringWorkClusterScheduler(String name, SpringWorkLocker locker, long delayMillis, long intervalMillis) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(locker, "locker");
         this.delayMillis = delayMillis;
