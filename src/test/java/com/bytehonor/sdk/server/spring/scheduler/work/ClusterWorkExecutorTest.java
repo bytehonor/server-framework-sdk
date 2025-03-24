@@ -28,7 +28,7 @@ public class ClusterWorkExecutorTest {
             }
 
             @Override
-            public String get(String key) {
+            public String which(String key) {
                 return map.get(key);
             }
 

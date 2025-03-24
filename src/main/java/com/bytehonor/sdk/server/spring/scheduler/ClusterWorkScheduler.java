@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.lang.spring.Java;
-import com.bytehonor.sdk.server.spring.SpringServer;
 import com.bytehonor.sdk.server.spring.scheduler.work.ClusterWork;
 import com.bytehonor.sdk.server.spring.scheduler.work.ClusterWorkExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
@@ -20,12 +19,9 @@ import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
  */
 public class ClusterWorkScheduler {
 
-    private final List<ClusterWork> works;
-    
     private ClusterWorkExecutor executor;
     
     private ClusterWorkScheduler() {
-        this.works = new ArrayList<ClusterWork>();
     }
     
     private static class LazyHolder {
@@ -36,25 +32,45 @@ public class ClusterWorkScheduler {
         return LazyHolder.SINGLE;
     }
     
-    public static void start(SpringWorkLocker locker) {
-        self().doStart(locker);
-    }
-    
-    public ClusterWorkScheduler add(ClusterWork work) {
-        works.add(work);
-        return this;
-    }
-    
-    private void doStart(SpringWorkLocker locker) {
+    private void init(String server, SpringWorkLocker locker, List<ClusterWork> works) {
         Java.requireNonNull(locker, "locker");
         if (CollectionUtils.isEmpty(works)) {
             throw new RuntimeException("works empty");
         }
         
-        executor = new ClusterWorkExecutor(SpringServer.id(), locker);
+        executor = new ClusterWorkExecutor(server, locker);
         for (ClusterWork work : works) {
             executor.add(work);
         }
+        
         executor.start();
     }    
+    
+    public static Starter starter(String server, SpringWorkLocker locker) {
+        return new Starter(server, locker);
+    }
+    
+    public static class Starter {
+        
+        private final String server;
+        
+        private final SpringWorkLocker locker;
+
+        private final List<ClusterWork> works;
+        
+        private Starter(String server ,SpringWorkLocker locker) {
+            this.server = server;
+            this.locker = locker;
+            this.works = new ArrayList<ClusterWork>();
+        }
+        
+        public Starter with(ClusterWork work) {
+            works.add(work);
+            return this;
+        }
+        
+        public void start() {
+            self().init(server, locker, works);
+        }
+    }
 }

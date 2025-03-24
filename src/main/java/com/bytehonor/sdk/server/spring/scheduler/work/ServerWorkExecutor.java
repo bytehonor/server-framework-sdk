@@ -9,7 +9,6 @@ import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
-import com.bytehonor.sdk.lang.spring.thread.Sleep;
 
 /**
  * 单点模式，仅有一个work
@@ -65,7 +64,6 @@ public class ServerWorkExecutor {
             LOG.info("doWork tasks:{}", tasks.size());
             for (SpringWorkTask task : tasks) {
                 task.start();
-                Sleep.millis(200L);
             }
         } catch (Exception e) {
             LOG.error("doWork error", e);

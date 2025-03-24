@@ -26,12 +26,22 @@ public class ServerWorkScheduler {
         return LazyHolder.SINGLE;
     }
     
-    public static void start() {
-        self().executor.start();
+    public static Starter starter() {
+        return new Starter();
     }
     
-    public ServerWorkScheduler add(SpringWorkTask task) {
-        executor.add(task);
-        return this;
+    public static class Starter {
+        
+        private Starter() {
+        }
+        
+        public Starter with(SpringWorkTask task) {
+            self().executor.add(task);
+            return this;
+        }
+        
+        public void start() {
+            self().executor.start();
+        }
     }
 }

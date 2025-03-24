@@ -12,7 +12,6 @@ import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
-import com.bytehonor.sdk.lang.spring.thread.Sleep;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
 /**
@@ -59,7 +58,7 @@ public class ClusterWorkExecutor {
             LOG.warn("works empty");
             return;
         }
-        LOG.info("server:{}, start", server);
+        LOG.info("server:{} start", server);
 
         ScheduleTaskPoolExecutor.schedule(new SafeTask() {
 
@@ -122,7 +121,6 @@ public class ClusterWorkExecutor {
             LOG.info("doWork subject:{}, tasks:{}", subject, tasks.size());
             for (SpringWorkTask task : tasks) {
                 task.start();
-                Sleep.millis(200L);
             }
         } catch (Exception e) {
             LOG.error("doWork error", e);
@@ -135,7 +133,7 @@ public class ClusterWorkExecutor {
             return;
         }
 
-        String which = locker.get(subject);
+        String which = locker.which(subject);
         boolean success = Java.equals(which, server);
         LOG.info("server:{} keepAlive success:{}, subject:{}", server, success, subject);
         if (success) {
@@ -149,7 +147,7 @@ public class ClusterWorkExecutor {
         }
 
         for (ClusterWork work : works) {
-            if (SpringString.isEmpty(locker.get(work.subject()))) {
+            if (SpringString.isEmpty(locker.which(work.subject()))) {
                 LOG.warn("server:{} checkIdle subject:{} no worker", server, work.subject());
             }
         }
