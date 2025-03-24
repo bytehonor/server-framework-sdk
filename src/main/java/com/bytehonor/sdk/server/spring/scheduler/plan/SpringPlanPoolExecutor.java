@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ThreadPoolBuilder;
-import com.bytehonor.sdk.server.spring.scheduler.cache.PlanRecordCacheHolder;
+import com.bytehonor.sdk.server.spring.scheduler.plan.cache.PlanRecordCacheHolder;
 
 /**
  * 

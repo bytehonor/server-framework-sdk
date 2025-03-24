@@ -8,6 +8,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.server.spring.scheduler.plan.time.DefineTimeCron;
+import com.bytehonor.sdk.server.spring.scheduler.plan.time.TimeCronBuilder;
+
 public class TimeCronBuilderTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(TimeCronBuilderTest.class);

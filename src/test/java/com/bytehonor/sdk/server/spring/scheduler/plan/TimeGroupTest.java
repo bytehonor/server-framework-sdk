@@ -9,7 +9,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.server.spring.scheduler.plan.TimeGroup.TimeGroupBuilder;
+import com.bytehonor.sdk.server.spring.scheduler.plan.time.TimeCron;
+import com.bytehonor.sdk.server.spring.scheduler.plan.time.TimeGroup;
+import com.bytehonor.sdk.server.spring.scheduler.plan.time.TimeGroupPrinter;
+import com.bytehonor.sdk.server.spring.scheduler.plan.time.TimeGroup.TimeGroupBuilder;
 
 public class TimeGroupTest {
 

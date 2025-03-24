@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.server.spring.scheduler.key;
+package com.bytehonor.sdk.server.spring.scheduler.plan.key;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

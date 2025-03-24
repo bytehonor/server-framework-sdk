@@ -3,7 +3,8 @@ package com.bytehonor.sdk.server.spring.scheduler.plan;
 import java.time.LocalDateTime;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
-import com.bytehonor.sdk.server.spring.scheduler.plan.TimeGroup.TimeGroupBuilder;
+import com.bytehonor.sdk.server.spring.scheduler.plan.time.TimeGroup;
+import com.bytehonor.sdk.server.spring.scheduler.plan.time.TimeGroup.TimeGroupBuilder;
 import com.bytehonor.sdk.server.spring.scheduler.task.PrintTimeTask;
 
 public class PrintTimePlan extends AbstractSpringPlan {

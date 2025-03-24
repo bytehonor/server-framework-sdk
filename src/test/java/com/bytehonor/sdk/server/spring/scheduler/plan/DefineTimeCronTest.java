@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import org.junit.Test;
 
 import com.bytehonor.sdk.server.spring.scheduler.constant.SchedulerConstants;
+import com.bytehonor.sdk.server.spring.scheduler.plan.time.DefineTimeCron;
 
 public class DefineTimeCronTest {
 
