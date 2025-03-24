@@ -30,7 +30,8 @@ public class ServerWorkScheduler {
         self().executor.start();
     }
     
-    public static void add(SpringWorkTask task) {
-        self().executor.add(task);
+    public ServerWorkScheduler add(SpringWorkTask task) {
+        executor.add(task);
+        return this;
     }
 }

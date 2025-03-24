@@ -40,8 +40,9 @@ public class ClusterWorkScheduler {
         self().doStart(locker);
     }
     
-    public static void add(ClusterWork work) {
-        self().works.add(work);
+    public ClusterWorkScheduler add(ClusterWork work) {
+        works.add(work);
+        return this;
     }
     
     private void doStart(SpringWorkLocker locker) {
