@@ -20,9 +20,9 @@ import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
  * @author lijianqiang
  *
  */
-public class ClusterWorkScheduler {
+public class SpringWorkClusterScheduler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkScheduler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringWorkClusterScheduler.class);
 
     private static final long DELAYS = TimeConstants.SECOND * 6;
     private static final long INTERVALS = TimeConstants.MINUTE;
@@ -37,11 +37,11 @@ public class ClusterWorkScheduler {
 
     private String subject;
 
-    public ClusterWorkScheduler(String name, SpringWorkLocker locker) {
+    public SpringWorkClusterScheduler(String name, SpringWorkLocker locker) {
         this(name, DELAYS, INTERVALS, locker);
     }
 
-    public ClusterWorkScheduler(String name, final long delayMillis, final long intervalMillis, SpringWorkLocker locker) {
+    public SpringWorkClusterScheduler(String name, final long delayMillis, final long intervalMillis, SpringWorkLocker locker) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(locker, "locker");
         this.delayMillis = delayMillis;
@@ -70,7 +70,7 @@ public class ClusterWorkScheduler {
         }, delayMillis, intervalMillis);
     }
 
-    public ClusterWorkScheduler add(SpringWork work) {
+    public SpringWorkClusterScheduler add(SpringWork work) {
         Objects.requireNonNull(work, "work");
 
         LOG.info("subject:{}", work.subject());

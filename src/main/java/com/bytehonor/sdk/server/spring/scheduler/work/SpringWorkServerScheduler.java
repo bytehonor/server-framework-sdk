@@ -21,9 +21,9 @@ import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
  * @author lijianqiang
  *
  */
-public class ServerWorkScheduler {
+public class SpringWorkServerScheduler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ServerWorkScheduler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringWorkServerScheduler.class);
 
     private static final long DELAYS = TimeConstants.SECOND * 3;
     private static final long INTERVALS = TimeConstants.MINUTE;
@@ -34,11 +34,11 @@ public class ServerWorkScheduler {
     private final List<SpringWork> works;
     private final Set<String> subjects;
 
-    public ServerWorkScheduler() {
+    public SpringWorkServerScheduler() {
         this(DELAYS, INTERVALS);
     }
 
-    public ServerWorkScheduler(long delayMillis, long intervalMillis) {
+    public SpringWorkServerScheduler(long delayMillis, long intervalMillis) {
         this.delayMillis = delayMillis;
         this.intervalMillis = intervalMillis;
         this.works = new ArrayList<SpringWork>();
@@ -61,7 +61,7 @@ public class ServerWorkScheduler {
         }, delayMillis, intervalMillis);
     }
 
-    public ServerWorkScheduler add(SpringWork work) {
+    public SpringWorkServerScheduler add(SpringWork work) {
         Objects.requireNonNull(work, "work");
 
         LOG.info("subject:{}", work.subject());

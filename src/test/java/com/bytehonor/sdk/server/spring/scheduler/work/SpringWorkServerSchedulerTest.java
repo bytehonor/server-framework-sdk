@@ -1,42 +1,18 @@
 package com.bytehonor.sdk.server.spring.scheduler.work;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
-import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
-public class ClusterWorkSchedulerTest {
+public class SpringWorkServerSchedulerTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkSchedulerTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringWorkServerSchedulerTest.class);
 
     @Test
     public void test() {
-        SpringWorkLocker locker = new SpringWorkLocker() {
-
-            private Map<String, String> map = new HashMap<String, String>();
-
-            @Override
-            public boolean lock(String key, String value, long millis) {
-                map.put(key, value);
-                return true;
-            }
-
-            @Override
-            public String get(String key) {
-                return map.get(key);
-            }
-
-            @Override
-            public void expireAt(String key, long timestamp) {
-
-            }
-        };
 
         SpringWorkTask job1 = new SpringWorkTask() {
 
@@ -48,13 +24,13 @@ public class ClusterWorkSchedulerTest {
             @Override
             public long intervalMillis() {
 
-                return TimeConstants.SECOND * 10;
+                return TimeConstants.SECOND * 5;
             }
 
             @Override
             public void runInSafe() {
                 LOG.info("job1 begin");
-                Sleep.millis(TimeConstants.SECOND * 5);
+                Sleep.millis(TimeConstants.SECOND * 2);
                 LOG.info("job1 end");
 
             }
@@ -69,19 +45,19 @@ public class ClusterWorkSchedulerTest {
             @Override
             public long intervalMillis() {
 
-                return TimeConstants.SECOND * 15;
+                return TimeConstants.SECOND * 30;
             }
 
             @Override
             public void runInSafe() {
                 LOG.info("job2 begin");
-                Sleep.millis(TimeConstants.SECOND * 10);
+                Sleep.millis(TimeConstants.SECOND * 15);
                 LOG.info("job2 end");
 
             }
         };
 
-        ClusterWorkScheduler scheduler = new ClusterWorkScheduler("testname", locker);
+        SpringWorkServerScheduler scheduler = new SpringWorkServerScheduler();
         scheduler.add(job1);
         scheduler.add(job2);
         scheduler.start();
