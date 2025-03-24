@@ -6,7 +6,7 @@ import com.bytehonor.sdk.server.spring.web.context.ServerContext;
  * @author lijianqiang
  *
  */
-public class TimePlanStatus {
+public class SpringPlanStatus {
 
     private final String server;
 
@@ -18,7 +18,7 @@ public class TimePlanStatus {
 
     private String date;
 
-    public TimePlanStatus(String name) {
+    public SpringPlanStatus(String name) {
         this.server = ServerContext.self().getId();
         this.name = name;
         this.paused = false;

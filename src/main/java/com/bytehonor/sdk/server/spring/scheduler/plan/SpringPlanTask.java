@@ -15,20 +15,20 @@ import com.bytehonor.sdk.server.spring.scheduler.lock.PlanLocker;
  * @author lijianqiang
  *
  */
-public class TimePlanTask extends SafeTask {
+public class SpringPlanTask extends SafeTask {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TimePlanTask.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringPlanTask.class);
 
     private final PlanLocker locker;
 
-    private TimePlanTask(PlanLocker locker) {
+    private SpringPlanTask(PlanLocker locker) {
         this.locker = locker;
     }
 
-    public static TimePlanTask of(PlanLocker locker) {
+    public static SpringPlanTask of(PlanLocker locker) {
         Objects.requireNonNull(locker, "locker");
 
-        return new TimePlanTask(locker);
+        return new SpringPlanTask(locker);
     }
 
     @Override
@@ -43,20 +43,20 @@ public class TimePlanTask extends SafeTask {
         }
 
         // 列出允许计划
-        List<TimePlan> plans = TimePlanFactory.listPlanPlay();
+        List<SpringPlan> plans = SpringPlanFactory.listPlanPlay();
         if (plans.isEmpty()) {
             LOG.debug("plans isEmpty");
             return;
         }
 
-        for (TimePlan plan : plans) {
+        for (SpringPlan plan : plans) {
             // 检查时间
             if (plan.accept(ldt) == false) {
                 continue;
             }
 
             // 执行
-            PlanTaskPoolExecutor.run(plan, ldt);
+            SpringPlanPoolExecutor.run(plan, ldt);
         }
     }
 

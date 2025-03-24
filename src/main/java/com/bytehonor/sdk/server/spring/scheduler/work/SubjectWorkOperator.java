@@ -26,7 +26,7 @@ public class SubjectWorkOperator {
 
     private final String name;
     private final SubjectLocker locker;
-    private final List<SubjectWork> works;
+    private final List<SpringWork> works;
     private final Thread thread;
 
     private String subject;
@@ -41,7 +41,7 @@ public class SubjectWorkOperator {
         this.lockMillis = intervalMillis * 2;
         this.name = name;
         this.locker = locker;
-        this.works = new ArrayList<SubjectWork>();
+        this.works = new ArrayList<SpringWork>();
         this.subject = "";
         this.thread = new Thread(new LoopIntervalTask() {
 
@@ -73,7 +73,7 @@ public class SubjectWorkOperator {
         thread.start();
     }
 
-    public SubjectWorkOperator add(SubjectWork work) {
+    public SubjectWorkOperator add(SpringWork work) {
         Objects.requireNonNull(work, "work");
 
         if (SpringString.isEmpty(work.subject()) == false) {
@@ -104,7 +104,7 @@ public class SubjectWorkOperator {
             return;
         }
 
-        for (SubjectWork work : works) {
+        for (SpringWork work : works) {
             if (locker.lock(work.subject(), name, lockMillis) == false) {
                 continue;
             }
@@ -135,7 +135,7 @@ public class SubjectWorkOperator {
             return;
         }
 
-        for (SubjectWork work : works) {
+        for (SpringWork work : works) {
             if (SpringString.isEmpty(locker.get(work.subject()))) {
                 LOG.warn("checkIdle subject:{} no worker", work.subject());
             }

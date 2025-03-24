@@ -18,13 +18,13 @@ import com.bytehonor.sdk.server.spring.scheduler.cache.PlanRecordCacheHolder;
  * @author lijianqiang
  *
  */
-public class TimePlanFactory {
+public class SpringPlanFactory {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TimePlanFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringPlanFactory.class);
 
-    private static final ConcurrentHashMap<String, TimePlan> MAP = new ConcurrentHashMap<String, TimePlan>();
+    private static final ConcurrentHashMap<String, SpringPlan> MAP = new ConcurrentHashMap<String, SpringPlan>();
 
-    public static void add(TimePlan plan) {
+    public static void add(SpringPlan plan) {
         Objects.requireNonNull(plan, "plan");
 
         String name = plan.getClass().getSimpleName();
@@ -32,9 +32,9 @@ public class TimePlanFactory {
         MAP.put(name, plan);
     }
 
-    public static List<TimePlan> listPlanPlay() {
-        List<TimePlan> list = new ArrayList<TimePlan>();
-        for (Entry<String, TimePlan> item : MAP.entrySet()) {
+    public static List<SpringPlan> listPlanPlay() {
+        List<SpringPlan> list = new ArrayList<SpringPlan>();
+        for (Entry<String, SpringPlan> item : MAP.entrySet()) {
             if (isPaused(item.getKey())) {
                 LOG.warn("name:{} paused", item.getKey());
                 continue;
@@ -45,30 +45,30 @@ public class TimePlanFactory {
         return list;
     }
 
-    public static List<TimePlanStatus> listPlanStatus() {
-        List<TimePlanStatus> list = new ArrayList<TimePlanStatus>();
-        for (Entry<String, TimePlan> item : MAP.entrySet()) {
+    public static List<SpringPlanStatus> listPlanStatus() {
+        List<SpringPlanStatus> list = new ArrayList<SpringPlanStatus>();
+        for (Entry<String, SpringPlan> item : MAP.entrySet()) {
             list.add(toStatus(item.getKey()));
         }
-        list.sort(new Comparator<TimePlanStatus>() {
+        list.sort(new Comparator<SpringPlanStatus>() {
 
             @Override
-            public int compare(TimePlanStatus o1, TimePlanStatus o2) {
+            public int compare(SpringPlanStatus o1, SpringPlanStatus o2) {
                 return o1.getName().compareTo(o2.getName());
             }
         });
         return list;
     }
 
-    public static TimePlanStatus getPlanStatus(String name) {
+    public static SpringPlanStatus getPlanStatus(String name) {
         Objects.requireNonNull(name, "name");
         required(name);
 
         return toStatus(name);
     }
 
-    private static TimePlanStatus toStatus(String name) {
-        TimePlanStatus model = new TimePlanStatus(name);
+    private static SpringPlanStatus toStatus(String name) {
+        SpringPlanStatus model = new SpringPlanStatus(name);
         model.setPaused(isPaused(name));
         Long time = PlanRecordCacheHolder.get(name);
         if (time != null) {
@@ -82,16 +82,16 @@ public class TimePlanFactory {
         return PlanPauseCacheHolder.isPaused(name);
     }
 
-    public static TimePlan required(String name) {
+    public static SpringPlan required(String name) {
         Objects.requireNonNull(name, "name");
 
-        TimePlan plan = optional(name);
+        SpringPlan plan = optional(name);
         Objects.requireNonNull(plan, name);
 
         return plan;
     }
 
-    public static TimePlan optional(String name) {
+    public static SpringPlan optional(String name) {
         Objects.requireNonNull(name, "name");
 
         return MAP.get(name);

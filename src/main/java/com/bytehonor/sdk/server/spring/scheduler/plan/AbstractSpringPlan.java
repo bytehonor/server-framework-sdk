@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * @author lijianqiang
  *
  */
-public abstract class AbstractTimePlan implements TimePlan {
+public abstract class AbstractSpringPlan implements SpringPlan {
 
     public abstract TimeGroup group();
 

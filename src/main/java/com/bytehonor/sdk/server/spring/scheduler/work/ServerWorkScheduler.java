@@ -31,7 +31,7 @@ public class ServerWorkScheduler {
     private final long delayMillis;
     private final long intervalMillis;
 
-    private final List<SubjectWork> works;
+    private final List<SpringWork> works;
     private final Set<String> subjects;
 
     public ServerWorkScheduler() {
@@ -41,7 +41,7 @@ public class ServerWorkScheduler {
     public ServerWorkScheduler(long delayMillis, long intervalMillis) {
         this.delayMillis = delayMillis;
         this.intervalMillis = intervalMillis;
-        this.works = new ArrayList<SubjectWork>();
+        this.works = new ArrayList<SpringWork>();
         this.subjects = new HashSet<String>();
     }
 
@@ -61,7 +61,7 @@ public class ServerWorkScheduler {
         }, delayMillis, intervalMillis);
     }
 
-    public ServerWorkScheduler add(SubjectWork work) {
+    public ServerWorkScheduler add(SpringWork work) {
         Objects.requireNonNull(work, "work");
 
         LOG.info("subject:{}", work.subject());
@@ -81,7 +81,7 @@ public class ServerWorkScheduler {
         LOG.info("begin works:{}", works.size());
 
         try {
-            for (SubjectWork work : works) {
+            for (SpringWork work : works) {
                 subjects.add(work.subject());
                 work.start();
                 LOG.info("start done, subject:{}", work.subject());

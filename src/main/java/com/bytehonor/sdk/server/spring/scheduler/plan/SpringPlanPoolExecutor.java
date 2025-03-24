@@ -16,23 +16,23 @@ import com.bytehonor.sdk.server.spring.scheduler.cache.PlanRecordCacheHolder;
  * @author lijianqiang
  *
  */
-public class PlanTaskPoolExecutor {
+public class SpringPlanPoolExecutor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PlanTaskPoolExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringPlanPoolExecutor.class);
 
-    private static final String NAMED = "plan-task-thread-";
+    private static final String NAMED = "spring-plan-thread-";
 
     private final ExecutorService executor;
 
-    private PlanTaskPoolExecutor() {
+    private SpringPlanPoolExecutor() {
         this.executor = ThreadPoolBuilder.half(NAMED);
     }
 
     private static class LazyHolder {
-        private static PlanTaskPoolExecutor SINGLE = new PlanTaskPoolExecutor();
+        private static SpringPlanPoolExecutor SINGLE = new SpringPlanPoolExecutor();
     }
 
-    private static PlanTaskPoolExecutor self() {
+    private static SpringPlanPoolExecutor self() {
         return LazyHolder.SINGLE;
     }
 
@@ -40,7 +40,7 @@ public class PlanTaskPoolExecutor {
      * @param plan
      * @param ldt
      */
-    public static void run(TimePlan plan, LocalDateTime ldt) {
+    public static void run(SpringPlan plan, LocalDateTime ldt) {
         Objects.requireNonNull(plan, "plan");
         Objects.requireNonNull(ldt, "ldt");
 

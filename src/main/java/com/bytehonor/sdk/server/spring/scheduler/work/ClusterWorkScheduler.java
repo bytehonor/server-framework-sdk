@@ -32,7 +32,7 @@ public class ClusterWorkScheduler {
 
     private final String name;
     private final SubjectLocker locker;
-    private final List<SubjectWork> works;
+    private final List<SpringWork> works;
 
     private String subject;
 
@@ -48,7 +48,7 @@ public class ClusterWorkScheduler {
         this.lockMillis = intervalMillis * 2;
         this.name = name;
         this.locker = locker;
-        this.works = new ArrayList<SubjectWork>();
+        this.works = new ArrayList<SpringWork>();
         this.subject = "";
     }
 
@@ -69,7 +69,7 @@ public class ClusterWorkScheduler {
         }, delayMillis, intervalMillis);
     }
 
-    public ClusterWorkScheduler add(SubjectWork work) {
+    public ClusterWorkScheduler add(SpringWork work) {
         Objects.requireNonNull(work, "work");
 
         LOG.info("subject:{}", work.subject());
@@ -102,7 +102,7 @@ public class ClusterWorkScheduler {
             return;
         }
 
-        for (SubjectWork work : works) {
+        for (SpringWork work : works) {
             if (locker.lock(work.subject(), name, lockMillis) == false) {
                 continue;
             }
@@ -133,7 +133,7 @@ public class ClusterWorkScheduler {
             return;
         }
 
-        for (SubjectWork work : works) {
+        for (SpringWork work : works) {
             if (SpringString.isEmpty(locker.get(work.subject()))) {
                 LOG.warn("checkIdle subject:{} no worker", work.subject());
             }

@@ -14,7 +14,7 @@ public class ServerWorkSchedulerTest {
     @Test
     public void test() {
 
-        SubjectTask job1 = new SubjectTask() {
+        SpringWorkTask job1 = new SpringWorkTask() {
 
             @Override
             public String subject() {
@@ -35,7 +35,7 @@ public class ServerWorkSchedulerTest {
 
             }
         };
-        SubjectTask job2 = new SubjectTask() {
+        SpringWorkTask job2 = new SpringWorkTask() {
 
             @Override
             public String subject() {

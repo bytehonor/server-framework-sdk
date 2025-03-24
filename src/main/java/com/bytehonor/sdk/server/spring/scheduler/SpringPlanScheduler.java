@@ -12,11 +12,11 @@ import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.cache.PlanPauseCacheHolder;
 import com.bytehonor.sdk.server.spring.scheduler.lock.CachePlanLocker;
 import com.bytehonor.sdk.server.spring.scheduler.lock.PlanLocker;
-import com.bytehonor.sdk.server.spring.scheduler.plan.PlanTaskPoolExecutor;
-import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlan;
-import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanFactory;
-import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanStatus;
-import com.bytehonor.sdk.server.spring.scheduler.plan.TimePlanTask;
+import com.bytehonor.sdk.server.spring.scheduler.plan.SpringPlanPoolExecutor;
+import com.bytehonor.sdk.server.spring.scheduler.plan.SpringPlan;
+import com.bytehonor.sdk.server.spring.scheduler.plan.SpringPlanFactory;
+import com.bytehonor.sdk.server.spring.scheduler.plan.SpringPlanStatus;
+import com.bytehonor.sdk.server.spring.scheduler.plan.SpringPlanTask;
 import com.bytehonor.sdk.server.spring.scheduler.util.SchedulerUtils;
 
 /**
@@ -25,9 +25,9 @@ import com.bytehonor.sdk.server.spring.scheduler.util.SchedulerUtils;
  * @author lijianqiang
  *
  */
-public class SpringScheduler {
+public class SpringPlanScheduler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SpringScheduler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringPlanScheduler.class);
 
     public static void start() {
         start(0);
@@ -46,19 +46,19 @@ public class SpringScheduler {
 
         long delayMillis = SchedulerUtils.delayMillis(secondAt);
         LOG.info("locker:{}, delayMillis:{}, secondAt:{}", locker.getName(), delayMillis, secondAt);
-        ScheduleTaskPoolExecutor.schedule(TimePlanTask.of(locker), delayMillis, TimeConstants.MINUTE);
+        ScheduleTaskPoolExecutor.schedule(SpringPlanTask.of(locker), delayMillis, TimeConstants.MINUTE);
     }
 
-    public static List<TimePlanStatus> plans() {
-        return TimePlanFactory.listPlanStatus();
+    public static List<SpringPlanStatus> plans() {
+        return SpringPlanFactory.listPlanStatus();
     }
 
-    public static TimePlanStatus detail(String name) {
-        return TimePlanFactory.getPlanStatus(name);
+    public static SpringPlanStatus detail(String name) {
+        return SpringPlanFactory.getPlanStatus(name);
     }
 
-    public static void add(TimePlan plan) {
-        TimePlanFactory.add(plan);
+    public static void add(SpringPlan plan) {
+        SpringPlanFactory.add(plan);
     }
 
     public static void pause(String name) {
@@ -70,12 +70,12 @@ public class SpringScheduler {
     }
 
     public static void run(String name) {
-        TimePlan plan = TimePlanFactory.required(name);
-        PlanTaskPoolExecutor.run(plan, LocalDateTime.now());
+        SpringPlan plan = SpringPlanFactory.required(name);
+        SpringPlanPoolExecutor.run(plan, LocalDateTime.now());
     }
 
     public static void print(String name) {
-        TimePlan plan = TimePlanFactory.required(name);
+        SpringPlan plan = SpringPlanFactory.required(name);
         plan.print();
     }
 }

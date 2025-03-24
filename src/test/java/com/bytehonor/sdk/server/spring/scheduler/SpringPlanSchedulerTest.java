@@ -8,32 +8,32 @@ import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
 import com.bytehonor.sdk.server.spring.scheduler.plan.PrintTimePlan;
 
-public class SpringSchedulerTest {
+public class SpringPlanSchedulerTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SpringSchedulerTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringPlanSchedulerTest.class);
 
     @Test
     public void testStart() {
-        SpringScheduler.start();
+        SpringPlanScheduler.start();
 
-        SpringScheduler.add(new PrintTimePlan());
+        SpringPlanScheduler.add(new PrintTimePlan());
 
         Sleep.millis(TimeConstants.MINUTE * 1);
 
         String name = PrintTimePlan.class.getSimpleName();
 
         LOG.info("pause");
-        SpringScheduler.pause(name);
+        SpringPlanScheduler.pause(name);
 
         Sleep.millis(TimeConstants.MINUTE * 1);
 
         LOG.info("run");
-        SpringScheduler.run(name);
+        SpringPlanScheduler.run(name);
 
         Sleep.millis(TimeConstants.MINUTE * 5);
 
         LOG.info("play");
-        SpringScheduler.play(name);
+        SpringPlanScheduler.play(name);
 
         Sleep.millis(TimeConstants.MINUTE * 10);
     }

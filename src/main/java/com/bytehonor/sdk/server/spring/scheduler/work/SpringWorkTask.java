@@ -9,9 +9,9 @@ import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
 /**
  * 升级的主题工作，循环执行
  */
-public abstract class SubjectTask extends SafeTask implements SubjectWork {
+public abstract class SpringWorkTask extends SafeTask implements SpringWork {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SubjectTask.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringWorkTask.class);
 
     /**
      * 主题

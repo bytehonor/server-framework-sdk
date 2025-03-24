@@ -37,7 +37,7 @@ public class ClusterWorkSchedulerTest {
             }
         };
 
-        SubjectTask job1 = new SubjectTask() {
+        SpringWorkTask job1 = new SpringWorkTask() {
 
             @Override
             public String subject() {
@@ -58,7 +58,7 @@ public class ClusterWorkSchedulerTest {
 
             }
         };
-        SubjectTask job2 = new SubjectTask() {
+        SpringWorkTask job2 = new SpringWorkTask() {
 
             @Override
             public String subject() {

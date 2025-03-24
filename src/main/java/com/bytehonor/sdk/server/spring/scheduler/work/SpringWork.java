@@ -3,7 +3,7 @@ package com.bytehonor.sdk.server.spring.scheduler.work;
 /**
  * 简单的主题工作，start方法仅执行一次
  */
-public interface SubjectWork {
+public interface SpringWork {
 
     /**
      * 主题

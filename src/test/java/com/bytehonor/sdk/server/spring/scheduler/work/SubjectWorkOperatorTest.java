@@ -37,7 +37,7 @@ public class SubjectWorkOperatorTest {
             }
         };
 
-        SubjectWork job1 = new SubjectWork() {
+        SpringWork job1 = new SpringWork() {
 
             @Override
             public String subject() {
@@ -53,7 +53,7 @@ public class SubjectWorkOperatorTest {
                 LOG.info("job1 end");
             }
         };
-        SubjectWork job2 = new SubjectWork() {
+        SpringWork job2 = new SpringWork() {
 
             @Override
             public String subject() {

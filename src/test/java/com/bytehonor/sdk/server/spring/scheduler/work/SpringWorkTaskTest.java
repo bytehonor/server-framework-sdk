@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
 
-public class SubjectTaskTest {
+public class SpringWorkTaskTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SubjectTaskTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringWorkTaskTest.class);
 
     @Test
     public void test() {
@@ -37,7 +37,7 @@ public class SubjectTaskTest {
             }
         };
 
-        SubjectTask job1 = new SubjectTask() {
+        SpringWorkTask job1 = new SpringWorkTask() {
 
             @Override
             public String subject() {
@@ -58,7 +58,7 @@ public class SubjectTaskTest {
 
             }
         };
-        SubjectTask job2 = new SubjectTask() {
+        SpringWorkTask job2 = new SpringWorkTask() {
 
             @Override
             public String subject() {
