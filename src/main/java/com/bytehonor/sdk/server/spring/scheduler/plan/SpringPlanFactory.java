@@ -18,7 +18,7 @@ import com.bytehonor.sdk.server.spring.scheduler.plan.cache.SpringPlanRecordCach
  * @author lijianqiang
  *
  */
-public class SpringPlanFactory {
+public final class SpringPlanFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringPlanFactory.class);
 
