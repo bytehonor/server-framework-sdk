@@ -7,13 +7,13 @@ import com.bytehonor.sdk.lang.spring.string.SpringString;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
-public class PlanRecordCacheHolder {
+public class SpringPlanRecordCache {
 
     private static final int CAPACITY = 4096;
 
     private Cache<String, Long> cache;
 
-    private PlanRecordCacheHolder() {
+    private SpringPlanRecordCache() {
         cache = CacheBuilder.newBuilder().initialCapacity(CAPACITY) // 设置初始容量为100
                 .maximumSize(128 * CAPACITY) // 设置缓存的最大容量
                 .expireAfterWrite(2, TimeUnit.DAYS) // 设置缓存在写入一分钟后失效
@@ -22,10 +22,10 @@ public class PlanRecordCacheHolder {
     }
 
     private static class LazyHolder {
-        private static PlanRecordCacheHolder SINGLE = new PlanRecordCacheHolder();
+        private static SpringPlanRecordCache SINGLE = new SpringPlanRecordCache();
     }
 
-    private static PlanRecordCacheHolder self() {
+    private static SpringPlanRecordCache self() {
         return LazyHolder.SINGLE;
     }
 

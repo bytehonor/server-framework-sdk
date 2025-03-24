@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.SafeTask;
 import com.bytehonor.sdk.lang.spring.thread.ThreadPoolBuilder;
-import com.bytehonor.sdk.server.spring.scheduler.plan.cache.PlanRecordCacheHolder;
+import com.bytehonor.sdk.server.spring.scheduler.plan.cache.SpringPlanRecordCache;
 
 /**
  * 
@@ -51,7 +51,7 @@ public class SpringPlanPoolExecutor {
         add(plan.create(ldt));
 
         // 加入记录
-        PlanRecordCacheHolder.add(name);
+        SpringPlanRecordCache.add(name);
     }
 
     /**

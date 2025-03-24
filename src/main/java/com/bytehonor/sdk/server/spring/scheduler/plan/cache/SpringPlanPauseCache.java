@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class PlanPauseCacheHolder {
+public class SpringPlanPauseCache {
 
     private static final Set<String> CACHE = new HashSet<String>(1024);
 

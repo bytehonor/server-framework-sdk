@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
-import com.bytehonor.sdk.server.spring.scheduler.plan.cache.PlanPauseCacheHolder;
+import com.bytehonor.sdk.server.spring.scheduler.plan.cache.SpringPlanPauseCache;
 import com.bytehonor.sdk.server.spring.scheduler.plan.lock.CachePlanLocker;
 import com.bytehonor.sdk.server.spring.scheduler.plan.lock.SpringPlanLocker;
 import com.bytehonor.sdk.server.spring.scheduler.plan.util.SpringPlanUtils;
@@ -57,11 +57,11 @@ public class SpringPlanScheduler {
     }
 
     public static void pause(String name) {
-        PlanPauseCacheHolder.pause(name);
+        SpringPlanPauseCache.pause(name);
     }
 
     public static void play(String name) {
-        PlanPauseCacheHolder.play(name);
+        SpringPlanPauseCache.play(name);
     }
 
     public static void run(String name) {

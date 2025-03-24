@@ -11,8 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.util.TimeFormatUtils;
-import com.bytehonor.sdk.server.spring.scheduler.plan.cache.PlanPauseCacheHolder;
-import com.bytehonor.sdk.server.spring.scheduler.plan.cache.PlanRecordCacheHolder;
+import com.bytehonor.sdk.server.spring.scheduler.plan.cache.SpringPlanPauseCache;
+import com.bytehonor.sdk.server.spring.scheduler.plan.cache.SpringPlanRecordCache;
 
 /**
  * @author lijianqiang
@@ -70,7 +70,7 @@ public class SpringPlanFactory {
     private static SpringPlanStatus toStatus(String name) {
         SpringPlanStatus model = new SpringPlanStatus(name);
         model.setPaused(isPaused(name));
-        Long time = PlanRecordCacheHolder.get(name);
+        Long time = SpringPlanRecordCache.get(name);
         if (time != null) {
             model.setTime(time);
             model.setDate(TimeFormatUtils.format(time));
@@ -79,7 +79,7 @@ public class SpringPlanFactory {
     }
 
     private static boolean isPaused(String name) {
-        return PlanPauseCacheHolder.isPaused(name);
+        return SpringPlanPauseCache.isPaused(name);
     }
 
     public static SpringPlan required(String name) {
