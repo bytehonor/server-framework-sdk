@@ -26,6 +26,7 @@ import com.bytehonor.sdk.server.spring.scheduler.plan.util.SpringPlanUtils;
  * 每分钟循环任务 启动类
  * 
  * </pre>
+ * 
  * @author lijianqiang
  *
  */

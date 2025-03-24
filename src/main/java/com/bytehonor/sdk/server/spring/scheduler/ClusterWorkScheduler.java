@@ -20,10 +20,10 @@ import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 public class ClusterWorkScheduler {
 
     private ClusterWorkExecutor executor;
-    
+
     private ClusterWorkScheduler() {
     }
-    
+
     private static class LazyHolder {
         private static ClusterWorkScheduler SINGLE = new ClusterWorkScheduler();
     }
@@ -31,46 +31,56 @@ public class ClusterWorkScheduler {
     private static ClusterWorkScheduler self() {
         return LazyHolder.SINGLE;
     }
-    
+
     private void init(String server, SpringWorkLocker locker, List<ClusterWork> works) {
+        Java.requireNonNull(server, "server");
         Java.requireNonNull(locker, "locker");
+
         if (CollectionUtils.isEmpty(works)) {
             throw new RuntimeException("works empty");
         }
-        
+
         executor = new ClusterWorkExecutor(server, locker);
         for (ClusterWork work : works) {
             executor.add(work);
         }
-        
+
         executor.start();
-    }    
-    
+    }
+
     public static Starter starter(String server, SpringWorkLocker locker) {
         return new Starter(server, locker);
     }
-    
+
     public static class Starter {
-        
+
         private final String server;
-        
+
         private final SpringWorkLocker locker;
 
-        private final List<ClusterWork> works;
-        
-        private Starter(String server ,SpringWorkLocker locker) {
+        private final List<ClusterWork> list;
+
+        private Starter(String server, SpringWorkLocker locker) {
             this.server = server;
             this.locker = locker;
-            this.works = new ArrayList<ClusterWork>();
+            this.list = new ArrayList<ClusterWork>();
         }
-        
+
         public Starter with(ClusterWork work) {
-            works.add(work);
+            list.add(work);
             return this;
         }
-        
+
+        public Starter works(ClusterWork... works) {
+            Java.requireNonNull(works, "works");
+            for (ClusterWork work : works) {
+                list.add(work);
+            }
+            return this;
+        }
+
         public void start() {
-            self().init(server, locker, works);
+            self().init(server, locker, list);
         }
     }
 }
