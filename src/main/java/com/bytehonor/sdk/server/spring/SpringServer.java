@@ -1,5 +1,8 @@
 package com.bytehonor.sdk.server.spring;
 
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.Environment;
+
 import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.server.spring.web.context.ApplicationContextHolder;
 import com.bytehonor.sdk.server.spring.web.context.ServerContext;
@@ -8,7 +11,7 @@ import com.bytehonor.sdk.server.spring.web.context.ServerContext;
  * @author lijianqiang
  *
  */
-public class SpringServer {
+public final class SpringServer {
 
     public static <T> T bean(Class<T> requiredType) {
         Java.requireNonNull(requiredType, "requiredType");
@@ -36,5 +39,10 @@ public class SpringServer {
         Java.requireNonNull(key, "key");
 
         return ServerContext.self().getEnv().getProperty(key);
+    }
+
+    public static void init(ConfigurableApplicationContext context) {
+        ApplicationContextHolder.setContext(context);
+        ServerContext.init(ApplicationContextHolder.getBean(Environment.class));
     }
 }

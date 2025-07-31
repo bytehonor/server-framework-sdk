@@ -13,7 +13,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import com.bytehonor.sdk.server.spring.web.controller.ExampleController;
 import com.bytehonor.sdk.server.spring.web.controller.SchedulerController;
-import com.bytehonor.sdk.server.spring.web.listener.ApplicationReadyEventListener;
+import com.bytehonor.sdk.server.spring.web.listener.ApplicationReadyListener;
 import com.bytehonor.sdk.server.spring.web.mvc.ServerWebMvcConfigurer;
 
 import jakarta.servlet.Servlet;
@@ -34,10 +34,10 @@ public class SpringServerAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(value = ApplicationReadyEventListener.class)
-    ApplicationReadyEventListener applicationReadyEventListener() {
-        LOG.info("[Bytehonor] ApplicationReadyEventListener");
-        return new ApplicationReadyEventListener();
+    @ConditionalOnMissingBean(value = ApplicationReadyListener.class)
+    ApplicationReadyListener applicationReadyEventListener() {
+        LOG.info("[Bytehonor] ApplicationReadyListener");
+        return new ApplicationReadyListener();
     }
 
     @Bean

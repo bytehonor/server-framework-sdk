@@ -8,5 +8,5 @@ package com.bytehonor.sdk.server.spring.web.listener;
  */
 public interface SpringStarter {
 
-    public void onStart();
+    public void start();
 }

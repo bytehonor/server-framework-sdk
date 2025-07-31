@@ -16,16 +16,16 @@ import org.springframework.context.ApplicationListener;
  *
  */
 //@Component
-public class ApplicationReadyEventListener implements ApplicationListener<ApplicationReadyEvent> {
+public class ApplicationReadyListener implements ApplicationListener<ApplicationReadyEvent> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ApplicationReadyEventListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ApplicationReadyListener.class);
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
 
         LOG.info("onApplicationEvent begin");
 
-        ApplicationReadyHandler.init(event.getApplicationContext());
+        ApplicationReadyHandler.handle(event.getApplicationContext());
 
         LOG.info("onApplicationEvent end");
     }
