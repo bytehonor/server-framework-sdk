@@ -25,7 +25,7 @@ public class ApplicationReadyEventListener implements ApplicationListener<Applic
 
         LOG.info("onApplicationEvent begin");
 
-        ApplicationReadyWorker.init(event.getApplicationContext());
+        ApplicationReadyHandler.init(event.getApplicationContext());
 
         LOG.info("onApplicationEvent end");
     }

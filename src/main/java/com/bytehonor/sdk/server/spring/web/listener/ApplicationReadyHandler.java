@@ -6,6 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
 import com.bytehonor.sdk.lang.spring.Java;
+import com.bytehonor.sdk.server.spring.SpringServer;
 import com.bytehonor.sdk.server.spring.exception.ErrorConvertor;
 import com.bytehonor.sdk.server.spring.web.context.ApplicationContextHolder;
 import com.bytehonor.sdk.server.spring.web.context.ServerContext;
@@ -16,9 +17,9 @@ import com.bytehonor.sdk.server.spring.web.context.ServerContext;
  * @author lijianqiang
  *
  */
-public class ApplicationReadyWorker {
+public class ApplicationReadyHandler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ApplicationReadyWorker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ApplicationReadyHandler.class);
 
     public static void init(ConfigurableApplicationContext context) {
         Java.requireNonNull(context, "context");
@@ -30,14 +31,14 @@ public class ApplicationReadyWorker {
         ServerContext.init(ApplicationContextHolder.getBean(Environment.class));
 
         try {
-            ReadyListener listener = ApplicationContextHolder.getBean(ReadyListener.class);
-            if (listener != null) {
-                listener.onStart();
+            ApplicationStarter starter = SpringServer.bean(ApplicationStarter.class);
+            if (starter != null) {
+                starter.onStart();
             } else {
-                LOG.warn("ReadyListener null");
+                LOG.warn("ApplicationStarter null");
             }
         } catch (Exception e) {
-            LOG.warn("ReadyListener:{}", ErrorConvertor.format(e));
+            LOG.warn("ApplicationStarter:{}", ErrorConvertor.format(e));
         }
     }
 }
