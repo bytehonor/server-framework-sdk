@@ -6,7 +6,7 @@ package com.bytehonor.sdk.server.spring.web.listener;
  * @author lijianqiang
  *
  */
-public interface ApplicationStarter {
+public interface SpringStarter {
 
     public void onStart();
 }

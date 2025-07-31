@@ -31,14 +31,14 @@ public class ApplicationReadyHandler {
         ServerContext.init(ApplicationContextHolder.getBean(Environment.class));
 
         try {
-            ApplicationStarter starter = SpringServer.bean(ApplicationStarter.class);
+            SpringStarter starter = SpringServer.bean(SpringStarter.class);
             if (starter != null) {
                 starter.onStart();
             } else {
-                LOG.warn("ApplicationStarter null");
+                LOG.warn("SpringStarter null");
             }
         } catch (Exception e) {
-            LOG.warn("ApplicationStarter:{}", ErrorConvertor.format(e));
+            LOG.warn("SpringStarter:{}", ErrorConvertor.format(e));
         }
     }
 }
