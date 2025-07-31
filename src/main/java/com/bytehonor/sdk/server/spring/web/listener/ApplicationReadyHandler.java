@@ -21,11 +21,12 @@ public class ApplicationReadyHandler {
     public static void handle(ConfigurableApplicationContext context) {
         Java.requireNonNull(context, "context");
 
-        // LOG.info("context, id:{}", context.getId());
-        
+        LOG.info("context, id:{}", context.getId());
+
         SpringServer.init(context);
-        LOG.info("server, id:{}", SpringServer.id());
         
+        LOG.info("server, id:{}, ip:{}", SpringServer.id(), SpringServer.ip());
+
         try {
             SpringStarter starter = SpringServer.bean(SpringStarter.class);
             if (starter != null) {
