@@ -1,7 +1,5 @@
 package com.bytehonor.sdk.server.spring.scheduler.work;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +21,8 @@ public class ServerWorkExecutor {
     private static final long DELAYS = TimeConstants.SECOND * 3;
 
     private final long delayMillis;
-    private final ServerWork work;
+    
+    private final ServerWorkFactory factory;
 
     public ServerWorkExecutor() {
         this(DELAYS);
@@ -31,11 +30,11 @@ public class ServerWorkExecutor {
 
     public ServerWorkExecutor(long delayMillis) {
         this.delayMillis = delayMillis;
-        this.work = new ServerWork();
+        this.factory = new ServerWorkFactory();
     }
 
     public void start() {
-        if (work.isEmpty()) {
+        if (factory.isEmpty()) {
             LOG.warn("work empty");
             return;
         }
@@ -44,29 +43,21 @@ public class ServerWorkExecutor {
 
             @Override
             public void runInSafe() {
-                doWork();
+                doStart();
             }
 
         }, delayMillis);
     }
 
-    public ServerWorkExecutor add(SpringWorkTask task) {
-        Java.requireNonNull(task, "task");
+    public ServerWorkExecutor add(ServerWork work) {
+        Java.requireNonNull(work, "work");
 
-        work.add(task);
+        factory.add(work);
 
         return this;
     }
 
-    private void doWork() {
-        try {
-            List<SpringWorkTask> tasks = work.tasks();
-            LOG.info("doWork tasks:{}", tasks.size());
-            for (SpringWorkTask task : tasks) {
-                task.start();
-            }
-        } catch (Exception e) {
-            LOG.error("doWork error", e);
-        }
+    private void doStart() {
+        factory.run();
     }
 }

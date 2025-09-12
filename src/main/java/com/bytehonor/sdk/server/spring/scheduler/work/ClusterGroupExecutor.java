@@ -15,14 +15,14 @@ import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
 /**
- * 集群模式，一个server独占一个work
+ * 集群模式，一个server独占一个group
  * 
  * @author lijianqiang
  *
  */
-public class ClusterWorkExecutor {
+public class ClusterGroupExecutor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupExecutor.class);
 
     private static final long DELAYS = TimeConstants.SECOND * 6;
     private static final long INTERVALS = TimeConstants.MINUTE;
@@ -33,15 +33,15 @@ public class ClusterWorkExecutor {
 
     private final String server;
     private final SpringWorkLocker locker;
-    private final List<ClusterWork> works;
+    private final List<ClusterGroup> groups;
 
     private String subject;
 
-    public ClusterWorkExecutor(String server, SpringWorkLocker locker) {
+    public ClusterGroupExecutor(String server, SpringWorkLocker locker) {
         this(server, locker, DELAYS, INTERVALS);
     }
 
-    public ClusterWorkExecutor(String server, SpringWorkLocker locker, long delayMillis, long intervalMillis) {
+    public ClusterGroupExecutor(String server, SpringWorkLocker locker, long delayMillis, long intervalMillis) {
         Java.requireNonNull(server, "server");
         Java.requireNonNull(locker, "locker");
         this.delayMillis = delayMillis;
@@ -49,12 +49,12 @@ public class ClusterWorkExecutor {
         this.lockMillis = intervalMillis * 2;
         this.server = server;
         this.locker = locker;
-        this.works = new ArrayList<ClusterWork>();
+        this.groups = new ArrayList<ClusterGroup>();
         this.subject = "";
     }
 
     public void start() {
-        if (CollectionUtils.isEmpty(works)) {
+        if (CollectionUtils.isEmpty(groups)) {
             LOG.warn("works empty");
             return;
         }
@@ -70,13 +70,13 @@ public class ClusterWorkExecutor {
         }, delayMillis, intervalMillis);
     }
 
-    public ClusterWorkExecutor add(ClusterWork work) {
-        Java.requireNonNull(work, "work");
+    public ClusterGroupExecutor add(ClusterGroup group) {
+        Java.requireNonNull(group, "group");
 
-        LOG.info("add subject:{}", work.subject());
+        LOG.info("add subject:{}", group.subject());
 
-        if (SpringString.isEmpty(work.subject()) == false) {
-            works.add(work);
+        if (SpringString.isEmpty(group.subject()) == false) {
+            groups.add(group);
         }
 
         return this;
@@ -98,33 +98,26 @@ public class ClusterWorkExecutor {
             return;
         }
 
-        if (CollectionUtils.isEmpty(works)) {
-            LOG.warn("works empty");
+        if (CollectionUtils.isEmpty(groups)) {
+            LOG.warn("groups empty");
             return;
         }
 
-        for (ClusterWork work : works) {
-            if (locker.lock(work.subject(), server, lockMillis) == false) {
+        for (ClusterGroup group : groups) {
+            if (locker.lock(group.subject(), server, lockMillis) == false) {
                 continue;
             }
 
             // 只启动一次
-            doWork(work);
+            doStart(group);
             break;
         }
     }
     
-    private void doWork(ClusterWork work) {
-        try {
-            subject = work.subject();
-            List<SpringWorkTask> tasks = work.tasks();
-            LOG.info("doWork subject:{}, tasks:{}", subject, tasks.size());
-            for (SpringWorkTask task : tasks) {
-                task.start();
-            }
-        } catch (Exception e) {
-            LOG.error("doWork error", e);
-        }
+    private void doStart(ClusterGroup group) {
+        subject = group.subject();
+        LOG.info("doStart subject:{}", subject);
+        group.factory().run();
     }
     
     private void keepAlive() {
@@ -142,13 +135,13 @@ public class ClusterWorkExecutor {
     }
 
     private void checkIdle() {
-        if (CollectionUtils.isEmpty(works)) {
+        if (CollectionUtils.isEmpty(groups)) {
             return;
         }
 
-        for (ClusterWork work : works) {
-            if (SpringString.isEmpty(locker.which(work.subject()))) {
-                LOG.warn("server:{} checkIdle subject:{} no worker", server, work.subject());
+        for (ClusterGroup group : groups) {
+            if (SpringString.isEmpty(locker.which(group.subject()))) {
+                LOG.warn("server:{} checkIdle subject:{} no worker", server, group.subject());
             }
         }
     }

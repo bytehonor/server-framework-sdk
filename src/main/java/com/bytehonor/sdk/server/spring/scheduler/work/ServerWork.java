@@ -1,31 +1,37 @@
 package com.bytehonor.sdk.server.spring.scheduler.work;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.lang.spring.Java;
+import com.bytehonor.sdk.lang.spring.string.SpringString;
+import com.bytehonor.sdk.lang.spring.thread.SafeTask;
+import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
 
-public final class ServerWork implements SpringWork {
+/**
+ * 循环执行的任务
+ */
+public abstract class ServerWork extends SafeTask  {
 
-    private final List<SpringWorkTask> tasks;
-    
-    public ServerWork() {
-        this.tasks = new ArrayList<SpringWorkTask>();
+    private static final Logger LOG = LoggerFactory.getLogger(ServerWork.class);
+
+    /**
+     * 循环间隔毫秒数
+     * 
+     * @return
+     */
+    public abstract long intervals();
+
+    public final void start() {
+        long intervals = intervals();
+        LOG.info("start {}, intervals:{}", thisName(), intervals);
+        ScheduleTaskPoolExecutor.schedule(this, 100L, intervals);
     }
 
-    @Override
-    public List<SpringWorkTask> tasks() {
-        return tasks;
-    }
-
-    public boolean isEmpty() {
-        return tasks.isEmpty();
-    }
-    
-    public ServerWork add(SpringWorkTask task) {
-        Java.requireNonNull(task, "task");
-
-        tasks.add(task);
-        return this;
+    private String thisName() {
+        String name = this.getClass().getSimpleName();
+        if (SpringString.isEmpty(name)) {
+            name = "Anonymous";
+        }
+        return name;
     }
 }

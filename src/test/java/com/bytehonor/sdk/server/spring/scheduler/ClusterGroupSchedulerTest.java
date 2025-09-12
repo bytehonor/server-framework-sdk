@@ -5,40 +5,40 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
-import com.bytehonor.sdk.server.spring.scheduler.work.ClusterWork;
-import com.bytehonor.sdk.server.spring.scheduler.work.SpringWorkTask;
+import com.bytehonor.sdk.server.spring.scheduler.work.ClusterGroup;
+import com.bytehonor.sdk.server.spring.scheduler.work.ServerWork;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
-public class ClusterWorkSchedulerTest {
+public class ClusterGroupSchedulerTest {
 
-private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkSchedulerTest.class);
+private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupSchedulerTest.class);
     
     @Test
     public void test() {
-        SpringWorkTask task = new SpringWorkTask() {
+        ServerWork work = new ServerWork() {
 
             @Override
-            public long intervalMillis() {
+            public long intervals() {
                 return 1000L;
             }
 
             @Override
             public void runInSafe() {
-                LOG.info("runInSafe");
+                LOG.info("work run");
             }
             
         };
         
-        ClusterWork work = new ClusterWork() {
+        ClusterGroup cluser = new ClusterGroup() {
 
             @Override
             public String subject() {
-                return "ClusterWork1";
+                return "ClusterGroup";
             }
             
         };
         
-        work.add(task);
+        cluser.add(work);
         
         String server = "test";
         SpringWorkLocker locker = new SpringWorkLocker() {
@@ -59,7 +59,7 @@ private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkSchedulerTe
             }
         };
         
-        ClusterWorkScheduler.starter(server, locker).with(work).start();
+        ClusterGroupScheduler.starter(server, locker).with(cluser).start();
         
         Sleep.millis(60000L);
     }

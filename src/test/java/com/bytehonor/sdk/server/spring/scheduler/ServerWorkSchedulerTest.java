@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
-import com.bytehonor.sdk.server.spring.scheduler.work.SpringWorkTask;
+import com.bytehonor.sdk.server.spring.scheduler.work.ServerWork;
 
 public class ServerWorkSchedulerTest {
 
@@ -13,10 +13,10 @@ public class ServerWorkSchedulerTest {
     
     @Test
     public void test() {
-        SpringWorkTask task = new SpringWorkTask() {
+        ServerWork work = new ServerWork() {
 
             @Override
-            public long intervalMillis() {
+            public long intervals() {
                 return 1000L;
             }
 
@@ -27,7 +27,7 @@ public class ServerWorkSchedulerTest {
             
         };
         
-        ServerWorkScheduler.starter().with(task).start();
+        ServerWorkScheduler.starter().with(work).start();
         
         Sleep.millis(9000L);
     }

@@ -2,7 +2,7 @@ package com.bytehonor.sdk.server.spring.scheduler;
 
 import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.server.spring.scheduler.work.ServerWorkExecutor;
-import com.bytehonor.sdk.server.spring.scheduler.work.SpringWorkTask;
+import com.bytehonor.sdk.server.spring.scheduler.work.ServerWork;
 
 /**
  * <pre>
@@ -36,16 +36,10 @@ public class ServerWorkScheduler {
         private Starter() {
         }
 
-        public Starter with(SpringWorkTask task) {
-            self().executor.add(task);
-            return this;
-        }
-
-        public Starter tasks(SpringWorkTask... tasks) {
-            Java.requireNonNull(tasks, "tasks");
-            for (SpringWorkTask task : tasks) {
-                self().executor.add(task);
-            }
+        public Starter with(ServerWork work) {
+            Java.requireNonNull(work, "work");
+            
+            self().executor.add(work);
             return this;
         }
 

@@ -14,10 +14,10 @@ public class ServerWorkExecutorTest {
     @Test
     public void test() {
 
-        SpringWorkTask task1 = new SpringWorkTask() {
+        ServerWork work1 = new ServerWork() {
 
             @Override
-            public long intervalMillis() {
+            public long intervals() {
                 return TimeConstants.SECOND * 5;
             }
 
@@ -29,10 +29,10 @@ public class ServerWorkExecutorTest {
 
             }
         };
-        SpringWorkTask task2 = new SpringWorkTask() {
+        ServerWork work2 = new ServerWork() {
 
             @Override
-            public long intervalMillis() {
+            public long intervals() {
 
                 return TimeConstants.SECOND * 30;
             }
@@ -47,8 +47,8 @@ public class ServerWorkExecutorTest {
         };
 
         ServerWorkExecutor scheduler = new ServerWorkExecutor();
-        scheduler.add(task1);
-        scheduler.add(task2);
+        scheduler.add(work1);
+        scheduler.add(work2);
         scheduler.start();
 
         Sleep.millis(TimeConstants.MINUTE * 20);
