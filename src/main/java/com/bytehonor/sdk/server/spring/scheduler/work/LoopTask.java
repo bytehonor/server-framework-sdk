@@ -10,9 +10,9 @@ import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
 /**
  * 循环执行的任务
  */
-public abstract class ServerWork extends SafeTask  {
+public abstract class LoopTask extends SafeTask  {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ServerWork.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoopTask.class);
 
     /**
      * 循环间隔毫秒数

@@ -22,7 +22,7 @@ public class ServerWorkExecutor {
 
     private final long delayMillis;
     
-    private final ServerWorkFactory factory;
+    private final LoopTaskFactory factory;
 
     public ServerWorkExecutor() {
         this(DELAYS);
@@ -30,7 +30,7 @@ public class ServerWorkExecutor {
 
     public ServerWorkExecutor(long delayMillis) {
         this.delayMillis = delayMillis;
-        this.factory = new ServerWorkFactory();
+        this.factory = new LoopTaskFactory();
     }
 
     public void start() {
@@ -49,10 +49,10 @@ public class ServerWorkExecutor {
         }, delayMillis);
     }
 
-    public ServerWorkExecutor add(ServerWork work) {
-        Java.requireNonNull(work, "work");
+    public ServerWorkExecutor add(LoopTask task) {
+        Java.requireNonNull(task, "task");
 
-        factory.add(work);
+        factory.add(task);
 
         return this;
     }

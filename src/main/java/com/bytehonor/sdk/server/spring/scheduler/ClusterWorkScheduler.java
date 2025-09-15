@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.lang.spring.Java;
-import com.bytehonor.sdk.server.spring.scheduler.work.ClusterGroup;
+import com.bytehonor.sdk.server.spring.scheduler.work.SubjectGroup;
 import com.bytehonor.sdk.server.spring.scheduler.work.ClusterWorkExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
@@ -32,7 +32,7 @@ public class ClusterWorkScheduler {
         return LazyHolder.SINGLE;
     }
 
-    private void init(String server, SpringWorkLocker locker, List<ClusterGroup> groups) {
+    private void init(String server, SpringWorkLocker locker, List<SubjectGroup> groups) {
         Java.requireNonNull(server, "server");
         Java.requireNonNull(locker, "locker");
 
@@ -41,7 +41,7 @@ public class ClusterWorkScheduler {
         }
 
         executor = new ClusterWorkExecutor(server, locker);
-        for (ClusterGroup group : groups) {
+        for (SubjectGroup group : groups) {
             executor.add(group);
         }
 
@@ -58,15 +58,15 @@ public class ClusterWorkScheduler {
 
         private final SpringWorkLocker locker;
 
-        private final List<ClusterGroup> groups;
+        private final List<SubjectGroup> groups;
 
         private Starter(String server, SpringWorkLocker locker) {
             this.server = server;
             this.locker = locker;
-            this.groups = new ArrayList<ClusterGroup>();
+            this.groups = new ArrayList<SubjectGroup>();
         }
 
-        public Starter with(ClusterGroup group) {
+        public Starter with(SubjectGroup group) {
             groups.add(group);
             return this;
         }

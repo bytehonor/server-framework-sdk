@@ -33,7 +33,7 @@ public class ClusterWorkExecutor {
 
     private final String server;
     private final SpringWorkLocker locker;
-    private final List<ClusterGroup> groups;
+    private final List<SubjectGroup> groups;
 
     private String subject;
 
@@ -49,7 +49,7 @@ public class ClusterWorkExecutor {
         this.lockMillis = intervalMillis * 2;
         this.server = server;
         this.locker = locker;
-        this.groups = new ArrayList<ClusterGroup>();
+        this.groups = new ArrayList<SubjectGroup>();
         this.subject = "";
     }
 
@@ -70,7 +70,7 @@ public class ClusterWorkExecutor {
         }, delayMillis, intervalMillis);
     }
 
-    public ClusterWorkExecutor add(ClusterGroup group) {
+    public ClusterWorkExecutor add(SubjectGroup group) {
         Java.requireNonNull(group, "group");
 
         LOG.info("add subject:{}", group.subject());
@@ -103,7 +103,7 @@ public class ClusterWorkExecutor {
             return;
         }
 
-        for (ClusterGroup group : groups) {
+        for (SubjectGroup group : groups) {
             if (locker.lock(group.subject(), server, lockMillis) == false) {
                 continue;
             }
@@ -114,7 +114,7 @@ public class ClusterWorkExecutor {
         }
     }
     
-    private void doStart(ClusterGroup group) {
+    private void doStart(SubjectGroup group) {
         subject = group.subject();
         LOG.info("doStart subject:{}", subject);
         group.factory().run();
@@ -139,7 +139,7 @@ public class ClusterWorkExecutor {
             return;
         }
 
-        for (ClusterGroup group : groups) {
+        for (SubjectGroup group : groups) {
             if (SpringString.isEmpty(locker.which(group.subject()))) {
                 LOG.warn("server:{} checkIdle subject:{} no worker", server, group.subject());
             }

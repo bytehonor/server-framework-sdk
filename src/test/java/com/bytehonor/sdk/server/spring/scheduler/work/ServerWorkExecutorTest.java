@@ -14,7 +14,7 @@ public class ServerWorkExecutorTest {
     @Test
     public void test() {
 
-        ServerWork work1 = new ServerWork() {
+        LoopTask task1 = new LoopTask() {
 
             @Override
             public long intervals() {
@@ -29,7 +29,7 @@ public class ServerWorkExecutorTest {
 
             }
         };
-        ServerWork work2 = new ServerWork() {
+        LoopTask task2 = new LoopTask() {
 
             @Override
             public long intervals() {
@@ -47,8 +47,8 @@ public class ServerWorkExecutorTest {
         };
 
         ServerWorkExecutor scheduler = new ServerWorkExecutor();
-        scheduler.add(work1);
-        scheduler.add(work2);
+        scheduler.add(task1);
+        scheduler.add(task2);
         scheduler.start();
 
         Sleep.millis(TimeConstants.MINUTE * 20);

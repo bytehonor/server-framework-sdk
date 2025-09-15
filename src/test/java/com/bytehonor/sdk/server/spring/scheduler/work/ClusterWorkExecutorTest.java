@@ -38,7 +38,7 @@ public class ClusterWorkExecutorTest {
             }
         };
 
-        ServerWork work1 = new ServerWork() {
+        LoopTask task1 = new LoopTask() {
 
             @Override
             public long intervals() {
@@ -54,7 +54,7 @@ public class ClusterWorkExecutorTest {
 
             }
         };
-        ServerWork work2 = new ServerWork() {
+        LoopTask task2 = new LoopTask() {
 
             @Override
             public long intervals() {
@@ -71,7 +71,7 @@ public class ClusterWorkExecutorTest {
             }
         };
         
-        ClusterGroup group = new ClusterGroup() {
+        SubjectGroup group = new SubjectGroup() {
 
             @Override
             public String subject() {
@@ -80,8 +80,8 @@ public class ClusterWorkExecutorTest {
             
         };
         
-        group.add(work1);
-        group.add(work2);
+        group.add(task1);
+        group.add(task2);
 
         ClusterWorkExecutor scheduler = new ClusterWorkExecutor("testname", locker);
         scheduler.add(group);
