@@ -11,9 +11,9 @@ import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
-public class ClusterWorkExecutorTest {
+public class ClusterGroupExecutorTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkExecutorTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupExecutorTest.class);
 
     @Test
     public void test() {
@@ -38,7 +38,7 @@ public class ClusterWorkExecutorTest {
             }
         };
 
-        LoopTask task1 = new LoopTask() {
+        ServerWork task1 = new ServerWork() {
 
             @Override
             public long intervals() {
@@ -54,7 +54,7 @@ public class ClusterWorkExecutorTest {
 
             }
         };
-        LoopTask task2 = new LoopTask() {
+        ServerWork task2 = new ServerWork() {
 
             @Override
             public long intervals() {
@@ -71,7 +71,7 @@ public class ClusterWorkExecutorTest {
             }
         };
         
-        SubjectGroup group = new SubjectGroup() {
+        ClusterGroup group = new ClusterGroup() {
 
             @Override
             public String subject() {
@@ -83,7 +83,7 @@ public class ClusterWorkExecutorTest {
         group.add(task1);
         group.add(task2);
 
-        ClusterWorkExecutor scheduler = new ClusterWorkExecutor("testname", locker);
+        ClusterGroupExecutor scheduler = new ClusterGroupExecutor("testname", locker);
         scheduler.add(group);
         scheduler.start();
 

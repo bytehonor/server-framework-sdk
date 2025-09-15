@@ -14,7 +14,7 @@ public class ServerWorkExecutorTest {
     @Test
     public void test() {
 
-        LoopTask task1 = new LoopTask() {
+        ServerWork task1 = new ServerWork() {
 
             @Override
             public long intervals() {
@@ -29,7 +29,7 @@ public class ServerWorkExecutorTest {
 
             }
         };
-        LoopTask task2 = new LoopTask() {
+        ServerWork task2 = new ServerWork() {
 
             @Override
             public long intervals() {

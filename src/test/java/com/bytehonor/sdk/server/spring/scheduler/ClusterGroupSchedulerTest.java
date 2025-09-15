@@ -5,17 +5,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
-import com.bytehonor.sdk.server.spring.scheduler.work.SubjectGroup;
-import com.bytehonor.sdk.server.spring.scheduler.work.LoopTask;
+import com.bytehonor.sdk.server.spring.scheduler.work.ClusterGroup;
+import com.bytehonor.sdk.server.spring.scheduler.work.ServerWork;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
-public class ClusterWorkSchedulerTest {
+public class ClusterGroupSchedulerTest {
 
-private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkSchedulerTest.class);
+private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupSchedulerTest.class);
     
     @Test
     public void test() {
-        LoopTask task = new LoopTask() {
+        ServerWork task = new ServerWork() {
 
             @Override
             public long intervals() {
@@ -29,7 +29,7 @@ private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkSchedulerTe
             
         };
         
-        SubjectGroup group = new SubjectGroup() {
+        ClusterGroup group = new ClusterGroup() {
 
             @Override
             public String subject() {
@@ -59,7 +59,7 @@ private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkSchedulerTe
             }
         };
         
-        ClusterWorkScheduler.starter(server, locker).with(group).start();
+        ClusterGroupScheduler.starter(server, locker).with(group).start();
         
         Sleep.millis(60000L);
     }

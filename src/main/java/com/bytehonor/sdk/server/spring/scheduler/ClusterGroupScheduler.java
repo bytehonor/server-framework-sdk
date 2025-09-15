@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.lang.spring.Java;
-import com.bytehonor.sdk.server.spring.scheduler.work.SubjectGroup;
-import com.bytehonor.sdk.server.spring.scheduler.work.ClusterWorkExecutor;
+import com.bytehonor.sdk.server.spring.scheduler.work.ClusterGroup;
+import com.bytehonor.sdk.server.spring.scheduler.work.ClusterGroupExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
 /**
@@ -17,22 +17,22 @@ import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
  * 
  * @author lijianqiang
  */
-public class ClusterWorkScheduler {
+public class ClusterGroupScheduler {
 
-    private ClusterWorkExecutor executor;
+    private ClusterGroupExecutor executor;
 
-    private ClusterWorkScheduler() {
+    private ClusterGroupScheduler() {
     }
 
     private static class LazyHolder {
-        private static ClusterWorkScheduler SINGLE = new ClusterWorkScheduler();
+        private static ClusterGroupScheduler SINGLE = new ClusterGroupScheduler();
     }
 
-    private static ClusterWorkScheduler self() {
+    private static ClusterGroupScheduler self() {
         return LazyHolder.SINGLE;
     }
 
-    private void init(String server, SpringWorkLocker locker, List<SubjectGroup> groups) {
+    private void init(String server, SpringWorkLocker locker, List<ClusterGroup> groups) {
         Java.requireNonNull(server, "server");
         Java.requireNonNull(locker, "locker");
 
@@ -40,8 +40,8 @@ public class ClusterWorkScheduler {
             throw new RuntimeException("groups empty");
         }
 
-        executor = new ClusterWorkExecutor(server, locker);
-        for (SubjectGroup group : groups) {
+        executor = new ClusterGroupExecutor(server, locker);
+        for (ClusterGroup group : groups) {
             executor.add(group);
         }
 
@@ -58,15 +58,15 @@ public class ClusterWorkScheduler {
 
         private final SpringWorkLocker locker;
 
-        private final List<SubjectGroup> groups;
+        private final List<ClusterGroup> groups;
 
         private Starter(String server, SpringWorkLocker locker) {
             this.server = server;
             this.locker = locker;
-            this.groups = new ArrayList<SubjectGroup>();
+            this.groups = new ArrayList<ClusterGroup>();
         }
 
-        public Starter with(SubjectGroup group) {
+        public Starter with(ClusterGroup group) {
             groups.add(group);
             return this;
         }

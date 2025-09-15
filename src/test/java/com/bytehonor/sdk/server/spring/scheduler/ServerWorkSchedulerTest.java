@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
-import com.bytehonor.sdk.server.spring.scheduler.work.LoopTask;
+import com.bytehonor.sdk.server.spring.scheduler.work.ServerWork;
 
 public class ServerWorkSchedulerTest {
 
@@ -13,7 +13,7 @@ public class ServerWorkSchedulerTest {
     
     @Test
     public void test() {
-        LoopTask task = new LoopTask() {
+        ServerWork task = new ServerWork() {
 
             @Override
             public long intervals() {

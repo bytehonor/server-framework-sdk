@@ -20,9 +20,9 @@ import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
  * @author lijianqiang
  *
  */
-public class ClusterWorkExecutor {
+public class ClusterGroupExecutor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupExecutor.class);
 
     private static final long DELAYS = TimeConstants.SECOND * 6;
     private static final long INTERVALS = TimeConstants.MINUTE;
@@ -33,15 +33,15 @@ public class ClusterWorkExecutor {
 
     private final String server;
     private final SpringWorkLocker locker;
-    private final List<SubjectGroup> groups;
+    private final List<ClusterGroup> groups;
 
     private String subject;
 
-    public ClusterWorkExecutor(String server, SpringWorkLocker locker) {
+    public ClusterGroupExecutor(String server, SpringWorkLocker locker) {
         this(server, locker, DELAYS, INTERVALS);
     }
 
-    public ClusterWorkExecutor(String server, SpringWorkLocker locker, long delayMillis, long intervalMillis) {
+    public ClusterGroupExecutor(String server, SpringWorkLocker locker, long delayMillis, long intervalMillis) {
         Java.requireNonNull(server, "server");
         Java.requireNonNull(locker, "locker");
         this.delayMillis = delayMillis;
@@ -49,7 +49,7 @@ public class ClusterWorkExecutor {
         this.lockMillis = intervalMillis * 2;
         this.server = server;
         this.locker = locker;
-        this.groups = new ArrayList<SubjectGroup>();
+        this.groups = new ArrayList<ClusterGroup>();
         this.subject = "";
     }
 
@@ -70,7 +70,7 @@ public class ClusterWorkExecutor {
         }, delayMillis, intervalMillis);
     }
 
-    public ClusterWorkExecutor add(SubjectGroup group) {
+    public ClusterGroupExecutor add(ClusterGroup group) {
         Java.requireNonNull(group, "group");
 
         LOG.info("add subject:{}", group.subject());
@@ -103,7 +103,7 @@ public class ClusterWorkExecutor {
             return;
         }
 
-        for (SubjectGroup group : groups) {
+        for (ClusterGroup group : groups) {
             if (locker.lock(group.subject(), server, lockMillis) == false) {
                 continue;
             }
@@ -114,7 +114,7 @@ public class ClusterWorkExecutor {
         }
     }
     
-    private void doStart(SubjectGroup group) {
+    private void doStart(ClusterGroup group) {
         subject = group.subject();
         LOG.info("doStart subject:{}", subject);
         group.factory().run();
@@ -139,7 +139,7 @@ public class ClusterWorkExecutor {
             return;
         }
 
-        for (SubjectGroup group : groups) {
+        for (ClusterGroup group : groups) {
             if (SpringString.isEmpty(locker.which(group.subject()))) {
                 LOG.warn("server:{} checkIdle subject:{} no worker", server, group.subject());
             }

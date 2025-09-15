@@ -2,11 +2,11 @@ package com.bytehonor.sdk.server.spring.scheduler;
 
 import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.server.spring.scheduler.work.ServerWorkExecutor;
-import com.bytehonor.sdk.server.spring.scheduler.work.LoopTask;
+import com.bytehonor.sdk.server.spring.scheduler.work.ServerWork;
 
 /**
  * <pre>
- * 单点task
+ * 单点work
  * </pre>
  * 
  * @author lijianqiang
@@ -36,10 +36,10 @@ public class ServerWorkScheduler {
         private Starter() {
         }
 
-        public Starter with(LoopTask task) {
-            Java.requireNonNull(task, "task");
+        public Starter with(ServerWork work) {
+            Java.requireNonNull(work, "work");
             
-            self().executor.add(task);
+            self().executor.add(work);
             return this;
         }
 
