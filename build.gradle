@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.bytehonor.sdk'
-version = '2.0.70'
+version = '2.0.71'
 
 java {
     sourceCompatibility = 17
@@ -25,13 +25,13 @@ repositories {
 dependencies {
     api('com.bytehonor.sdk:spring-base-sdk:0.1.1')
     api('com.bytehonor.sdk:spring-lang-sdk:0.5.24')
-    implementation('org.springframework:spring-webmvc:6.2.9')
-    implementation('org.apache.tomcat.embed:tomcat-embed-core:10.1.43')
-    implementation('org.springframework.boot:spring-boot-actuator:3.5.4')
-    implementation('org.springframework.boot:spring-boot-actuator-autoconfigure:3.5.4')
-    implementation('org.springframework.boot:spring-boot-autoconfigure:3.5.4')
+    implementation('org.springframework:spring-webmvc:6.2.10')
+    implementation('org.apache.tomcat.embed:tomcat-embed-core:10.1.44')
+    implementation('org.springframework.boot:spring-boot-actuator:3.5.5')
+    implementation('org.springframework.boot:spring-boot-actuator-autoconfigure:3.5.5')
+    implementation('org.springframework.boot:spring-boot-autoconfigure:3.5.5')
     implementation('io.github.openfeign:feign-core:13.6')
-    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor:3.5.4')
+    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor:3.5.5')
     implementation('org.slf4j:slf4j-api:2.0.17')
     implementation('ch.qos.logback:logback-classic:1.5.18')
     testImplementation('junit:junit:4.13.2')
