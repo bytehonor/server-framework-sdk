@@ -2,17 +2,13 @@ package com.bytehonor.sdk.server.spring.scheduler.work;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.lang.spring.Java;
-import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.string.SpringString;
-import com.bytehonor.sdk.lang.spring.thread.SafeTask;
-import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
 /**
@@ -21,67 +17,32 @@ import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
  * @author lijianqiang
  *
  */
-@Deprecated
-public class ClusterGroupExecutor {
+public class ClusterGroupFactory {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupFactory.class);
 
-    private static final long DELAYS = TimeConstants.SECOND * 5;
-    private static final long INTERVALS = TimeConstants.MINUTE;
-
-    private final long delays;
-    private final long intervals;
     private final long locks;
-
     private final List<ClusterGroup> groups;
-
-    private String server;
     private SpringWorkLocker locker;
+    private String server;
     private String subject;
 
-    public ClusterGroupExecutor() {
-        this(DELAYS, INTERVALS);
-    }
-
-    public ClusterGroupExecutor(long delays, long intervals) {
-        Java.requireNonNull(server, "server");
-        Java.requireNonNull(locker, "locker");
-        this.delays = delays;
-        this.intervals = intervals;
-        this.locks = intervals * 2;
+    public ClusterGroupFactory(long locks) {
+        this.locks = locks;
         this.groups = new ArrayList<ClusterGroup>();
         this.subject = "";
+        this.server = "";
     }
-
-    public void start(String server, SpringWorkLocker locker) {
-        Objects.requireNonNull(server, "server");
-        Objects.requireNonNull(locker, "locker");
+    
+    public void init(String server, SpringWorkLocker locker) {
+        Java.requireNonNull(server, "server");
+        Java.requireNonNull(locker, "locker");
         
-        LOG.info("server:{} start", server);
-        
-        if (SpringString.isEmpty(server)) {
-            throw new RuntimeException("invalid server:" + server);
-        }
-
         this.server = server;
         this.locker = locker;
-        
-        if (CollectionUtils.isEmpty(groups)) {
-            LOG.warn("works empty");
-            return;
-        }
-
-        ScheduleTaskPoolExecutor.schedule(new SafeTask() {
-
-            @Override
-            public void runInSafe() {
-                process();
-            }
-
-        }, delays, intervals);
     }
 
-    public ClusterGroupExecutor add(ClusterGroup group) {
+    public ClusterGroupFactory add(ClusterGroup group) {
         Java.requireNonNull(group, "group");
 
         LOG.info("add subject:{}", group.subject());
@@ -93,18 +54,24 @@ public class ClusterGroupExecutor {
         return this;
     }
 
-    private void process() {
-        try {
-            competeWork();
-            keepAlive();
-            checkIdle();
-        } catch (Exception e) {
-            LOG.error("run error", e);
+    public void process() {
+        prepare();
+        applyWork();
+        keepAlive();
+        checkIdle();
+    }
+    
+    private void prepare() {
+        if (SpringString.isEmpty(server)) {
+            throw new RuntimeException("server invalid");
         }
-
+        
+        if (locker == null) {
+            throw new RuntimeException("locker invalid");
+        }
     }
 
-    private void competeWork() {
+    private void applyWork() {
         if (SpringString.isEmpty(subject) == false) {
             return;
         }
@@ -127,7 +94,7 @@ public class ClusterGroupExecutor {
     
     private void gotAndStart(ClusterGroup group) {
         subject = group.subject();
-        LOG.info("doStart subject:{}", subject);
+        LOG.info("gotAndStart subject:{}, server:{}", subject, server);
         group.factory().run();
     }
     
@@ -155,5 +122,9 @@ public class ClusterGroupExecutor {
                 LOG.warn("server:{} checkIdle subject:{} no worker", server, group.subject());
             }
         }
+    }
+
+    public boolean isEmpty() {
+        return groups.isEmpty();
     }
 }

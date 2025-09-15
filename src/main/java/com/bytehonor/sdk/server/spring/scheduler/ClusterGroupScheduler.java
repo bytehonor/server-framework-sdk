@@ -1,13 +1,15 @@
 package com.bytehonor.sdk.server.spring.scheduler;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
-import org.springframework.util.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.lang.spring.Java;
+import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
+import com.bytehonor.sdk.lang.spring.thread.SafeTask;
+import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
+import com.bytehonor.sdk.server.spring.scheduler.work.ClusterGroupFactory;
 import com.bytehonor.sdk.server.spring.scheduler.work.ClusterGroup;
-import com.bytehonor.sdk.server.spring.scheduler.work.ClusterGroupExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
 /**
@@ -18,10 +20,20 @@ import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
  * @author lijianqiang
  */
 public final class ClusterGroupScheduler {
+    
+    private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupScheduler.class);
+    
+    private static final long DELAYS = TimeConstants.SECOND * 5;
+    private static final long INTERVALS = TimeConstants.MINUTE;
 
-    private ClusterGroupExecutor executor;
+    private final ClusterGroupFactory factory;
+    private final long delays;
+    private final long intervals;
 
     private ClusterGroupScheduler() {
+        this.factory = new ClusterGroupFactory(INTERVALS * 2);
+        this.delays = DELAYS;
+        this.intervals = INTERVALS;
     }
 
     private static class LazyHolder {
@@ -31,21 +43,25 @@ public final class ClusterGroupScheduler {
     private static ClusterGroupScheduler self() {
         return LazyHolder.SINGLE;
     }
-
-    private void init(String server, SpringWorkLocker locker, List<ClusterGroup> groups) {
-        Java.requireNonNull(server, "server");
-        Java.requireNonNull(locker, "locker");
-
-        if (CollectionUtils.isEmpty(groups)) {
-            throw new RuntimeException("groups empty");
+    
+    private void start() {
+        if (factory.isEmpty()) {
+            LOG.warn("competitor empty");
+            return;
         }
+        
+        ScheduleTaskPoolExecutor.schedule(new SafeTask() {
 
-        executor = new ClusterGroupExecutor(server, locker);
-        for (ClusterGroup group : groups) {
-            executor.add(group);
-        }
+            @Override
+            public void runInSafe() {
+                process();
+            }
 
-        executor.schedule();
+        }, delays, intervals);
+    }
+
+    private void process() {
+        factory.process();
     }
 
     public static Starter starter(String server, SpringWorkLocker locker) {
@@ -54,25 +70,19 @@ public final class ClusterGroupScheduler {
 
     public static class Starter {
 
-        private final String server;
-
-        private final SpringWorkLocker locker;
-
-        private final List<ClusterGroup> groups;
-
         private Starter(String server, SpringWorkLocker locker) {
-            this.server = server;
-            this.locker = locker;
-            this.groups = new ArrayList<ClusterGroup>();
+            self().factory.init(server, locker);
         }
 
-        public Starter with(ClusterGroup group) {
-            groups.add(group);
+        public Starter add(ClusterGroup group) {
+            Objects.requireNonNull(group, "group");
+            
+            self().factory.add(group);
             return this;
         }
 
         public void start() {
-            self().init(server, locker, groups);
+            self().start();
         }
     }
 }

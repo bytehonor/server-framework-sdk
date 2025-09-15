@@ -37,12 +37,11 @@ public final class ServerWorkScheduler {
         return LazyHolder.SINGLE;
     }
 
-    private void schedule() {
+    private void start() {
         if (factory.isEmpty()) {
-            LOG.warn("work empty");
+            LOG.warn("factory empty");
             return;
         }
-
         ScheduleTaskPoolExecutor.schedule(new SafeTask() {
 
             @Override
@@ -57,13 +56,6 @@ public final class ServerWorkScheduler {
         factory.run();
     }
     
-    public ServerWorkScheduler add(ServerWork work) {
-        Java.requireNonNull(work, "work");
-
-        factory.add(work);
-        return this;
-    }
-
     public static Starter starter() {
         return new Starter();
     }
@@ -76,12 +68,12 @@ public final class ServerWorkScheduler {
         public Starter add(ServerWork work) {
             Java.requireNonNull(work, "work");
             
-            self().add(work);
+            self().factory.add(work);
             return this;
         }
 
         public void start() {
-            self().schedule();
+            self().start();
         }
     }
 }

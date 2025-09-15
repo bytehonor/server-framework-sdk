@@ -59,7 +59,7 @@ private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupSchedulerT
             }
         };
         
-        ClusterGroupScheduler.starter(server, locker).with(group).start();
+        ClusterGroupScheduler.starter(server, locker).add(group).start();
         
         Sleep.millis(60000L);
     }

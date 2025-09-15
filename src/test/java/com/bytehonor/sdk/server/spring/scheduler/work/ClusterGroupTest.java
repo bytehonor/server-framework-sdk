@@ -11,10 +11,10 @@ import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
-@Deprecated
-public class ClusterGroupExecutorTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupExecutorTest.class);
+public class ClusterGroupTest {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupTest.class);
 
     @Test
     public void test() {
@@ -55,6 +55,7 @@ public class ClusterGroupExecutorTest {
 
             }
         };
+        
         ServerWork work2 = new ServerWork() {
 
             @Override
@@ -84,11 +85,12 @@ public class ClusterGroupExecutorTest {
         group.add(work1);
         group.add(work2);
 
-        ClusterGroupExecutor scheduler = new ClusterGroupExecutor();
-        scheduler.add(group);
-        scheduler.start("testname", locker);
+        ClusterGroupFactory factory = new ClusterGroupFactory(TimeConstants.SECOND);
+        factory.add(group);
+        factory.init("testname", locker);
+        
+        factory.process();
 
         Sleep.millis(TimeConstants.MINUTE * 20);
     }
-
 }
