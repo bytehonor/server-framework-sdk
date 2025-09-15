@@ -9,9 +9,9 @@ import com.bytehonor.sdk.server.spring.scheduler.work.ClusterGroup;
 import com.bytehonor.sdk.server.spring.scheduler.work.ServerWork;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
-public class ClusterGroupSchedulerTest {
+public class ClusterWorkSchedulerTest {
 
-private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupSchedulerTest.class);
+private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkSchedulerTest.class);
     
     @Test
     public void test() {
@@ -59,7 +59,7 @@ private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupSchedulerT
             }
         };
         
-        ClusterGroupScheduler.starter(server, locker).with(cluser).start();
+        ClusterWorkScheduler.starter(server, locker).with(cluser).start();
         
         Sleep.millis(60000L);
     }

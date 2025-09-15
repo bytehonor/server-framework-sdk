@@ -7,7 +7,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.lang.spring.Java;
 import com.bytehonor.sdk.server.spring.scheduler.work.ClusterGroup;
-import com.bytehonor.sdk.server.spring.scheduler.work.ClusterGroupExecutor;
+import com.bytehonor.sdk.server.spring.scheduler.work.ClusterWorkExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
 
 /**
@@ -17,18 +17,18 @@ import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
  * 
  * @author lijianqiang
  */
-public class ClusterGroupScheduler {
+public class ClusterWorkScheduler {
 
-    private ClusterGroupExecutor executor;
+    private ClusterWorkExecutor executor;
 
-    private ClusterGroupScheduler() {
+    private ClusterWorkScheduler() {
     }
 
     private static class LazyHolder {
-        private static ClusterGroupScheduler SINGLE = new ClusterGroupScheduler();
+        private static ClusterWorkScheduler SINGLE = new ClusterWorkScheduler();
     }
 
-    private static ClusterGroupScheduler self() {
+    private static ClusterWorkScheduler self() {
         return LazyHolder.SINGLE;
     }
 
@@ -40,7 +40,7 @@ public class ClusterGroupScheduler {
             throw new RuntimeException("groups empty");
         }
 
-        executor = new ClusterGroupExecutor(server, locker);
+        executor = new ClusterWorkExecutor(server, locker);
         for (ClusterGroup group : groups) {
             executor.add(group);
         }

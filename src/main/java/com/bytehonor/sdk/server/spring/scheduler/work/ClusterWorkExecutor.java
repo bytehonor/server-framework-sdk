@@ -20,9 +20,9 @@ import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
  * @author lijianqiang
  *
  */
-public class ClusterGroupExecutor {
+public class ClusterWorkExecutor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClusterWorkExecutor.class);
 
     private static final long DELAYS = TimeConstants.SECOND * 6;
     private static final long INTERVALS = TimeConstants.MINUTE;
@@ -37,11 +37,11 @@ public class ClusterGroupExecutor {
 
     private String subject;
 
-    public ClusterGroupExecutor(String server, SpringWorkLocker locker) {
+    public ClusterWorkExecutor(String server, SpringWorkLocker locker) {
         this(server, locker, DELAYS, INTERVALS);
     }
 
-    public ClusterGroupExecutor(String server, SpringWorkLocker locker, long delayMillis, long intervalMillis) {
+    public ClusterWorkExecutor(String server, SpringWorkLocker locker, long delayMillis, long intervalMillis) {
         Java.requireNonNull(server, "server");
         Java.requireNonNull(locker, "locker");
         this.delayMillis = delayMillis;
@@ -70,7 +70,7 @@ public class ClusterGroupExecutor {
         }, delayMillis, intervalMillis);
     }
 
-    public ClusterGroupExecutor add(ClusterGroup group) {
+    public ClusterWorkExecutor add(ClusterGroup group) {
         Java.requireNonNull(group, "group");
 
         LOG.info("add subject:{}", group.subject());
