@@ -30,7 +30,7 @@ import com.bytehonor.sdk.server.spring.scheduler.plan.util.SpringPlanUtils;
  * @author lijianqiang
  *
  */
-public class SpringPlanScheduler {
+public final class SpringPlanScheduler {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringPlanScheduler.class);
 

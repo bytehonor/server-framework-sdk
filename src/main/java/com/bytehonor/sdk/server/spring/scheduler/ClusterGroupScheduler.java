@@ -17,7 +17,7 @@ import com.bytehonor.sdk.server.spring.scheduler.work.lock.SpringWorkLocker;
  * 
  * @author lijianqiang
  */
-public class ClusterGroupScheduler {
+public final class ClusterGroupScheduler {
 
     private ClusterGroupExecutor executor;
 
@@ -45,7 +45,7 @@ public class ClusterGroupScheduler {
             executor.add(group);
         }
 
-        executor.start();
+        executor.schedule();
     }
 
     public static Starter starter(String server, SpringWorkLocker locker) {

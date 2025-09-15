@@ -85,7 +85,7 @@ public class ClusterGroupExecutorTest {
 
         ClusterGroupExecutor scheduler = new ClusterGroupExecutor("testname", locker);
         scheduler.add(group);
-        scheduler.start();
+        scheduler.schedule();
 
         Sleep.millis(TimeConstants.MINUTE * 20);
     }

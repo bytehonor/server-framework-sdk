@@ -24,12 +24,12 @@ public class ClusterGroupExecutor {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupExecutor.class);
 
-    private static final long DELAYS = TimeConstants.SECOND * 6;
+    private static final long DELAYS = TimeConstants.SECOND * 5;
     private static final long INTERVALS = TimeConstants.MINUTE;
 
-    private final long delayMillis;
-    private final long intervalMillis;
-    private final long lockMillis;
+    private final long delays;
+    private final long intervals;
+    private final long locks;
 
     private final String server;
     private final SpringWorkLocker locker;
@@ -41,19 +41,19 @@ public class ClusterGroupExecutor {
         this(server, locker, DELAYS, INTERVALS);
     }
 
-    public ClusterGroupExecutor(String server, SpringWorkLocker locker, long delayMillis, long intervalMillis) {
+    public ClusterGroupExecutor(String server, SpringWorkLocker locker, long delays, long intervals) {
         Java.requireNonNull(server, "server");
         Java.requireNonNull(locker, "locker");
-        this.delayMillis = delayMillis;
-        this.intervalMillis = intervalMillis;
-        this.lockMillis = intervalMillis * 2;
+        this.delays = delays;
+        this.intervals = intervals;
+        this.locks = intervals * 2;
         this.server = server;
         this.locker = locker;
         this.groups = new ArrayList<ClusterGroup>();
         this.subject = "";
     }
 
-    public void start() {
+    public void schedule() {
         if (CollectionUtils.isEmpty(groups)) {
             LOG.warn("works empty");
             return;
@@ -67,7 +67,7 @@ public class ClusterGroupExecutor {
                 process();
             }
 
-        }, delayMillis, intervalMillis);
+        }, delays, intervals);
     }
 
     public ClusterGroupExecutor add(ClusterGroup group) {
@@ -104,7 +104,7 @@ public class ClusterGroupExecutor {
         }
 
         for (ClusterGroup group : groups) {
-            if (locker.lock(group.subject(), server, lockMillis) == false) {
+            if (locker.lock(group.subject(), server, locks) == false) {
                 continue;
             }
 
@@ -130,7 +130,7 @@ public class ClusterGroupExecutor {
         boolean success = Java.equals(which, server);
         LOG.info("server:{} keepAlive success:{}, subject:{}", server, success, subject);
         if (success) {
-            locker.expireAt(subject, System.currentTimeMillis() + lockMillis);
+            locker.expireAt(subject, System.currentTimeMillis() + locks);
         }
     }
 

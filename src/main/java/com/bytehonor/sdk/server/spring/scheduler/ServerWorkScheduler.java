@@ -1,8 +1,14 @@
 package com.bytehonor.sdk.server.spring.scheduler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.bytehonor.sdk.lang.spring.Java;
-import com.bytehonor.sdk.server.spring.scheduler.work.ServerWorkExecutor;
+import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
+import com.bytehonor.sdk.lang.spring.thread.SafeTask;
+import com.bytehonor.sdk.lang.spring.thread.ScheduleTaskPoolExecutor;
 import com.bytehonor.sdk.server.spring.scheduler.work.ServerWork;
+import com.bytehonor.sdk.server.spring.scheduler.work.ServerWorkFactory;
 
 /**
  * <pre>
@@ -11,12 +17,16 @@ import com.bytehonor.sdk.server.spring.scheduler.work.ServerWork;
  * 
  * @author lijianqiang
  */
-public class ServerWorkScheduler {
+public final class ServerWorkScheduler {
+    
+    private static final Logger LOG = LoggerFactory.getLogger(ServerWorkScheduler.class);
 
-    private final ServerWorkExecutor executor;
+    private static final long DELAYS = TimeConstants.SECOND * 2;
+
+    private final ServerWorkFactory factory;
 
     private ServerWorkScheduler() {
-        this.executor = new ServerWorkExecutor();
+        this.factory = new ServerWorkFactory();
     }
 
     private static class LazyHolder {
@@ -25,6 +35,33 @@ public class ServerWorkScheduler {
 
     private static ServerWorkScheduler self() {
         return LazyHolder.SINGLE;
+    }
+
+    private void schedule() {
+        if (factory.isEmpty()) {
+            LOG.warn("work empty");
+            return;
+        }
+
+        ScheduleTaskPoolExecutor.schedule(new SafeTask() {
+
+            @Override
+            public void runInSafe() {
+                process();
+            }
+
+        }, DELAYS);
+    }
+    
+    private void process() {
+        factory.run();
+    }
+    
+    public ServerWorkScheduler add(ServerWork work) {
+        Java.requireNonNull(work, "work");
+
+        factory.add(work);
+        return this;
     }
 
     public static Starter starter() {
@@ -36,15 +73,15 @@ public class ServerWorkScheduler {
         private Starter() {
         }
 
-        public Starter with(ServerWork work) {
+        public Starter add(ServerWork work) {
             Java.requireNonNull(work, "work");
             
-            self().executor.add(work);
+            self().add(work);
             return this;
         }
 
         public void start() {
-            self().executor.start();
+            self().schedule();
         }
     }
 }

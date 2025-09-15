@@ -6,15 +6,16 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.lang.spring.constant.TimeConstants;
 import com.bytehonor.sdk.lang.spring.thread.Sleep;
+import com.bytehonor.sdk.server.spring.scheduler.ServerWorkScheduler;
 
-public class ServerWorkExecutorTest {
+public class ServerWorkTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ServerWorkExecutorTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ServerWorkTest.class);
 
     @Test
     public void test() {
 
-        ServerWork task1 = new ServerWork() {
+        ServerWork work1 = new ServerWork() {
 
             @Override
             public long intervals() {
@@ -29,7 +30,7 @@ public class ServerWorkExecutorTest {
 
             }
         };
-        ServerWork task2 = new ServerWork() {
+        ServerWork work2 = new ServerWork() {
 
             @Override
             public long intervals() {
@@ -46,10 +47,7 @@ public class ServerWorkExecutorTest {
             }
         };
 
-        ServerWorkExecutor scheduler = new ServerWorkExecutor();
-        scheduler.add(task1);
-        scheduler.add(task2);
-        scheduler.start();
+        ServerWorkScheduler.starter().add(work1).add(work2).start();
 
         Sleep.millis(TimeConstants.MINUTE * 20);
     }

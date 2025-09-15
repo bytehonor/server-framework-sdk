@@ -13,7 +13,7 @@ public class ServerWorkSchedulerTest {
     
     @Test
     public void test() {
-        ServerWork task = new ServerWork() {
+        ServerWork work = new ServerWork() {
 
             @Override
             public long intervals() {
@@ -27,7 +27,7 @@ public class ServerWorkSchedulerTest {
             
         };
         
-        ServerWorkScheduler.starter().with(task).start();
+        ServerWorkScheduler.starter().add(work).start();
         
         Sleep.millis(9000L);
     }
