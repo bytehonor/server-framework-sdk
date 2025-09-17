@@ -5,6 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.bytehonor.sdk.lang.spring.Java;
+import com.bytehonor.sdk.lang.spring.thread.SafeTask;
+import com.bytehonor.sdk.lang.spring.thread.Sleep;
+import com.bytehonor.sdk.lang.spring.thread.SpringTaskPoolExecutor;
 import com.bytehonor.sdk.server.spring.SpringServer;
 import com.bytehonor.sdk.server.spring.exception.ErrorConvertor;
 
@@ -27,15 +30,26 @@ public class ApplicationReadyHandler {
         
         LOG.info("server, id:{}, ip:{}", SpringServer.id(), SpringServer.ip());
 
-        try {
-            SpringStarter starter = SpringServer.bean(SpringStarter.class);
-            if (starter != null) {
-                starter.start();
-            } else {
-                LOG.warn("SpringStarter null");
+        SpringTaskPoolExecutor.put(new SafeTask() {
+            
+            @Override
+            public void runInSafe() {
+                
+                Sleep.millis(500L);
+                
+                SpringStarter starter = SpringServer.bean(SpringStarter.class);
+                if (starter == null) {
+                    LOG.warn("SpringStarter null");
+                    return;
+                }
+                
+                try {
+                    starter.start();
+                } catch (Exception e) {
+                    LOG.warn("SpringStarter:{}", ErrorConvertor.format(e));
+                }
             }
-        } catch (Exception e) {
-            LOG.warn("SpringStarter:{}", ErrorConvertor.format(e));
-        }
+            
+        });
     }
 }
