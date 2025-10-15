@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.framework.lang.Java;
-import com.bytehonor.sdk.framework.lang.util.TimeFormatUtils;
+import com.bytehonor.sdk.framework.lang.util.TimeFormatter;
 import com.bytehonor.sdk.framework.server.scheduler.plan.cache.SpringPlanPauseCache;
 import com.bytehonor.sdk.framework.server.scheduler.plan.cache.SpringPlanRecordCache;
 
@@ -73,7 +73,7 @@ public final class SpringPlanFactory {
         Long time = SpringPlanRecordCache.get(name);
         if (time != null) {
             model.setTime(time);
-            model.setDate(TimeFormatUtils.format(time));
+            model.setDate(TimeFormatter.format(time));
         }
         return model;
     }
