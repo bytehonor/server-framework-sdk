@@ -1,2 +1,2 @@
-# spring-server-sdk
-spring-server-sdk
+# server-framework-sdk
+server-framework-sdk
