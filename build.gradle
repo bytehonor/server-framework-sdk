@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.bytehonor.sdk'
-version = '2.0.76'
+version = '2.0.77'
 
 java {
     sourceCompatibility = 17
@@ -23,8 +23,8 @@ repositories {
 }
 
 dependencies {
-    api('com.bytehonor.sdk:spring-base-sdk:0.1.1')
-    api('com.bytehonor.sdk:spring-lang-sdk:0.5.24')
+    api('com.bytehonor.sdk:spring-framework-sdk:0.1.2')
+    api('com.bytehonor.sdk:lang-framework-sdk:0.5.25')
     implementation('org.springframework:spring-webmvc:6.2.11')
     implementation('org.apache.tomcat.embed:tomcat-embed-core:10.1.46')
     implementation('org.springframework.boot:spring-boot-actuator:3.5.6')
