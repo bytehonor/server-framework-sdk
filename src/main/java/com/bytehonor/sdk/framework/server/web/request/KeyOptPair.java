@@ -1,7 +1,7 @@
 package com.bytehonor.sdk.framework.server.web.request;
 
 import com.bytehonor.sdk.framework.lang.constant.SqlOperator;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 public class KeyOptPair {
 
@@ -24,7 +24,7 @@ public class KeyOptPair {
 
     public static KeyOptPair parse(String raw) {
         KeyOptPair model = new KeyOptPair();
-        if (SpringString.isEmpty(raw)) {
+        if (StringKit.isEmpty(raw)) {
             return model;
         }
         int diff = 2;

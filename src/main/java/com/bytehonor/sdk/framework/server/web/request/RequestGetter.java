@@ -11,7 +11,7 @@ import com.bytehonor.sdk.framework.lang.core.KeyValueMap;
 import com.bytehonor.sdk.framework.lang.getter.BooleanGetter;
 import com.bytehonor.sdk.framework.lang.getter.IntegerGetter;
 import com.bytehonor.sdk.framework.lang.getter.LongGetter;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -203,7 +203,7 @@ public class RequestGetter {
 
     public static List<Long> longs(String src) {
         List<Long> list = new ArrayList<Long>();
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return list;
         }
         String[] arr = src.split(",");
@@ -215,7 +215,7 @@ public class RequestGetter {
 
     public static List<Integer> integers(String src) {
         List<Integer> list = new ArrayList<Integer>();
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return list;
         }
         String[] arr = src.split(",");
@@ -227,12 +227,12 @@ public class RequestGetter {
 
     public static List<String> strings(String src) {
         List<String> list = new ArrayList<String>();
-        if (SpringString.isEmpty(src)) {
+        if (StringKit.isEmpty(src)) {
             return list;
         }
         String[] arr = src.split(",");
         for (String a : arr) {
-            if (SpringString.isEmpty(a)) {
+            if (StringKit.isEmpty(a)) {
                 continue;
             }
             list.add(a.trim());

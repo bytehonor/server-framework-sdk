@@ -5,7 +5,7 @@ import com.bytehonor.sdk.framework.lang.Java;
 public abstract class ClusterGroup {
 
     private final ServerWorkFactory factory;
-    
+
     public ClusterGroup() {
         this.factory = new ServerWorkFactory();
     }
@@ -20,7 +20,7 @@ public abstract class ClusterGroup {
         factory.add(work);
         return this;
     }
-    
+
     /**
      * 主题
      * 

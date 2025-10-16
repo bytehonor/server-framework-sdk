@@ -3,7 +3,7 @@ package com.bytehonor.sdk.framework.server.scheduler.work;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 import com.bytehonor.sdk.framework.lang.thread.SafeTask;
 import com.bytehonor.sdk.framework.lang.thread.ScheduleTaskPoolExecutor;
 import com.bytehonor.sdk.framework.server.exception.SpringServerException;
@@ -35,7 +35,7 @@ public abstract class ServerWork extends SafeTask  {
 
     private String thisName() {
         String name = this.getClass().getSimpleName();
-        if (SpringString.isEmpty(name)) {
+        if (StringKit.isEmpty(name)) {
             name = "Anonymous";
         }
         return name;

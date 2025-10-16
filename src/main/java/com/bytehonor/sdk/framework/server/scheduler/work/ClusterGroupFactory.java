@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.framework.lang.Java;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 import com.bytehonor.sdk.framework.server.scheduler.work.lock.SpringWorkLocker;
 
 /**
@@ -47,7 +47,7 @@ public class ClusterGroupFactory {
 
         LOG.info("add subject:{}", group.subject());
 
-        if (SpringString.isEmpty(group.subject()) == false) {
+        if (StringKit.isEmpty(group.subject()) == false) {
             groups.add(group);
         }
 
@@ -62,7 +62,7 @@ public class ClusterGroupFactory {
     }
     
     private void prepare() {
-        if (SpringString.isEmpty(server)) {
+        if (StringKit.isEmpty(server)) {
             throw new RuntimeException("server invalid");
         }
         
@@ -72,7 +72,7 @@ public class ClusterGroupFactory {
     }
 
     private void applyWork() {
-        if (SpringString.isEmpty(subject) == false) {
+        if (StringKit.isEmpty(subject) == false) {
             return;
         }
 
@@ -99,7 +99,7 @@ public class ClusterGroupFactory {
     }
     
     private void keepAlive() {
-        if (SpringString.isEmpty(subject)) {
+        if (StringKit.isEmpty(subject)) {
             LOG.debug("server:{} keepAlive end, subject empty", server);
             return;
         }
@@ -118,7 +118,7 @@ public class ClusterGroupFactory {
         }
 
         for (ClusterGroup group : groups) {
-            if (SpringString.isEmpty(locker.which(group.subject()))) {
+            if (StringKit.isEmpty(locker.which(group.subject()))) {
                 LOG.warn("server:{} checkIdle subject:{} no worker", server, group.subject());
             }
         }

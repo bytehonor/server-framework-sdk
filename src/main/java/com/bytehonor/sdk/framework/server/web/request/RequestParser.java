@@ -23,7 +23,7 @@ import com.bytehonor.sdk.framework.lang.query.QueryCondition;
 import com.bytehonor.sdk.framework.lang.query.QueryFilter.QueryFilterColumn;
 import com.bytehonor.sdk.framework.lang.query.QueryOrder.QueryOrderColumn;
 import com.bytehonor.sdk.framework.lang.query.QueryPager;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 import com.bytehonor.sdk.framework.lang.string.StringSplitUtils;
 import com.google.common.collect.Sets;
 
@@ -122,7 +122,7 @@ public class RequestParser {
     }
 
     public static QueryFilterColumn filter(MetaModel model, String raw, String value) {
-        if (SpringString.isEmpty(raw) || SpringString.isEmpty(value)) {
+        if (StringKit.isEmpty(raw) || StringKit.isEmpty(value)) {
             return QueryFilterColumn.non(); // value为空字符则丢弃
         }
 
@@ -152,7 +152,7 @@ public class RequestParser {
 
     public static List<QueryOrderColumn> orders(MetaModel model, String value) {
         List<QueryOrderColumn> columns = new ArrayList<QueryOrderColumn>();
-        if (SpringString.isEmpty(value)) {
+        if (StringKit.isEmpty(value)) {
             return columns;
         }
 
@@ -167,7 +167,7 @@ public class RequestParser {
         KeyOptPair keyOpt = KeyOptPair.parse(value);
         String key = keyOpt.getKey();
         String opt = keyOpt.getOpt();
-        if (SpringString.isEmpty(key) || SpringString.isEmpty(opt)) {
+        if (StringKit.isEmpty(key) || StringKit.isEmpty(opt)) {
             LOG.warn("doMakeOrder failed, value:{}", value);
             return new QueryOrderColumn();
         }

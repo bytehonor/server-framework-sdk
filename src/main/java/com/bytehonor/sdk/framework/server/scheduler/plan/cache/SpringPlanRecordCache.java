@@ -3,7 +3,7 @@ package com.bytehonor.sdk.framework.server.scheduler.plan.cache;
 import java.util.concurrent.TimeUnit;
 
 import com.bytehonor.sdk.framework.lang.Java;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
@@ -30,7 +30,7 @@ public class SpringPlanRecordCache {
     }
 
     public static void add(String name) {
-        if (SpringString.isEmpty(name)) {
+        if (StringKit.isEmpty(name)) {
             return;
         }
 

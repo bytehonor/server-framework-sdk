@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.framework.lang.Java;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 import com.bytehonor.sdk.framework.server.web.context.ServerContext;
 
 /**
@@ -38,12 +38,12 @@ public abstract class SpringPlanLocker {
 
     private String name() {
         String name = ServerContext.self().getName();
-        if (SpringString.isEmpty(name) == false) {
+        if (StringKit.isEmpty(name) == false) {
             return name;
         }
 
         name = getClass().getSimpleName();
-        if (SpringString.isEmpty(name) == false) {
+        if (StringKit.isEmpty(name) == false) {
             return name;
         }
 
