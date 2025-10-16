@@ -22,7 +22,7 @@ public class ServerWorkSchedulerTest {
 
             @Override
             public void handle() {
-                LOG.info("runInSafe");
+                LOG.info("handle");
             }
             
         };
