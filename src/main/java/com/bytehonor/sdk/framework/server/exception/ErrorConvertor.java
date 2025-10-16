@@ -1,7 +1,7 @@
 package com.bytehonor.sdk.framework.server.exception;
 
+import com.bytehonor.sdk.framework.core.response.JsonResponse;
 import com.bytehonor.sdk.framework.server.web.constant.StandardCode;
-import com.bytehonor.sdk.framework.spring.response.JsonResponse;
 
 /**
  * @author lijianqiang

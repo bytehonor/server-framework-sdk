@@ -1,7 +1,7 @@
 package com.bytehonor.sdk.framework.server.web.request;
 
+import com.bytehonor.sdk.framework.core.constant.OauthConstants;
 import com.bytehonor.sdk.framework.lang.string.SpringString;
-import com.bytehonor.sdk.framework.spring.constant.OauthConstants;
 
 import jakarta.servlet.http.HttpServletRequest;
 

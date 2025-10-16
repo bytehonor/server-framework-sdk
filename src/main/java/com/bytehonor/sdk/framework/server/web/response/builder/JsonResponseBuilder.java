@@ -3,8 +3,8 @@ package com.bytehonor.sdk.framework.server.web.response.builder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bytehonor.sdk.framework.core.response.JsonResponse;
 import com.bytehonor.sdk.framework.server.web.response.ResponseBuilder;
-import com.bytehonor.sdk.framework.spring.response.JsonResponse;
 
 /**
  * @author lijianqiang
