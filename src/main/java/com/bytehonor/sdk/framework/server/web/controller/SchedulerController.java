@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bytehonor.sdk.framework.core.response.DataList;
-import com.bytehonor.sdk.framework.core.response.DataString;
+import com.bytehonor.sdk.concept.spring.response.DataList;
+import com.bytehonor.sdk.concept.spring.response.DataString;
 import com.bytehonor.sdk.framework.server.scheduler.SpringPlanScheduler;
 import com.bytehonor.sdk.framework.server.scheduler.plan.SpringPlanStatus;
 import com.bytehonor.sdk.framework.server.web.context.ServerContext;
