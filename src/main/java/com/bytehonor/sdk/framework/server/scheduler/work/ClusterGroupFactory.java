@@ -17,7 +17,7 @@ import com.bytehonor.sdk.framework.server.scheduler.work.lock.SpringWorkLocker;
  * @author lijianqiang
  *
  */
-public class ClusterGroupFactory {
+public final class ClusterGroupFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupFactory.class);
 
@@ -33,11 +33,11 @@ public class ClusterGroupFactory {
         this.subject = "";
         this.server = "";
     }
-    
+
     public void init(String server, SpringWorkLocker locker) {
         Java.requireNonNull(server, "server");
         Java.requireNonNull(locker, "locker");
-        
+
         this.server = server;
         this.locker = locker;
     }
@@ -54,24 +54,24 @@ public class ClusterGroupFactory {
         return this;
     }
 
-    public void process() {
+    public void play() {
         prepare();
-        applyWork();
+        findWork();
         keepAlive();
         checkIdle();
     }
-    
+
     private void prepare() {
         if (StringKit.isEmpty(server)) {
             throw new RuntimeException("server invalid");
         }
-        
+
         if (locker == null) {
             throw new RuntimeException("locker invalid");
         }
     }
 
-    private void applyWork() {
+    private void findWork() {
         if (StringKit.isEmpty(subject) == false) {
             return;
         }
@@ -87,17 +87,17 @@ public class ClusterGroupFactory {
             }
 
             // 只启动一次
-            gotAndStart(group);
+            gotThenStart(group);
             break;
         }
     }
-    
-    private void gotAndStart(ClusterGroup group) {
+
+    private void gotThenStart(ClusterGroup group) {
         subject = group.subject();
         LOG.info("gotAndStart subject:{}, server:{}", subject, server);
-        group.factory().run();
+        group.start();
     }
-    
+
     private void keepAlive() {
         if (StringKit.isEmpty(subject)) {
             LOG.debug("server:{} keepAlive end, subject empty", server);

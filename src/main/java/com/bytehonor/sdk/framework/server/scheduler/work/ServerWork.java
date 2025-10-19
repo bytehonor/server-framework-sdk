@@ -6,31 +6,32 @@ import org.slf4j.LoggerFactory;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 import com.bytehonor.sdk.framework.lang.thread.SafeTask;
 import com.bytehonor.sdk.framework.lang.thread.ScheduleTaskPoolExecutor;
-import com.bytehonor.sdk.framework.server.exception.SpringServerException;
 
 /**
  * 循环执行的任务
  */
-public abstract class ServerWork extends SafeTask  {
+public abstract class ServerWork extends SafeTask {
 
     private static final Logger LOG = LoggerFactory.getLogger(ServerWork.class);
 
     /**
      * 循环间隔毫秒数
      * 
+     * 小于1则不循环，仅执行一次
+     * 
      * @return
      */
     public abstract long intervals();
 
-    public final void start() {
+    public final void schedule() {
         long intervals = intervals();
         LOG.info("start {}, intervals:{}", thisName(), intervals);
-        
+
         if (intervals < 1L) {
-            throw new SpringServerException("invalid intervals:" + intervals);
+            ScheduleTaskPoolExecutor.schedule(this, 100L);
+        } else {
+            ScheduleTaskPoolExecutor.schedule(this, 100L, intervals);
         }
-        
-        ScheduleTaskPoolExecutor.schedule(this, 100L, intervals);
     }
 
     private String thisName() {

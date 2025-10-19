@@ -20,9 +20,9 @@ import com.bytehonor.sdk.framework.server.scheduler.work.lock.SpringWorkLocker;
  * @author lijianqiang
  */
 public final class ClusterGroupScheduler {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ClusterGroupScheduler.class);
-    
+
     private static final long DELAYS = TimeConstants.SECOND * 5;
     private static final long INTERVALS = TimeConstants.MINUTE;
 
@@ -43,25 +43,24 @@ public final class ClusterGroupScheduler {
     private static ClusterGroupScheduler self() {
         return LazyHolder.SINGLE;
     }
-    
-    private void start() {
-        if (factory.isEmpty()) {
-            LOG.warn("competitor empty");
-            return;
-        }
-        
+
+    private void doStart() {
         ScheduleTaskPoolExecutor.schedule(new SafeTask() {
 
             @Override
             public void handle() {
-                process();
+                doHandle();
             }
 
         }, delays, intervals);
     }
 
-    private void process() {
-        factory.process();
+    private void doHandle() {
+        if (factory.isEmpty()) {
+            LOG.warn("competitor empty");
+            return;
+        }
+        factory.play();
     }
 
     public static Starter starter(String server, SpringWorkLocker locker) {
@@ -76,13 +75,13 @@ public final class ClusterGroupScheduler {
 
         public Starter add(ClusterGroup group) {
             Objects.requireNonNull(group, "group");
-            
+
             self().factory.add(group);
             return this;
         }
 
         public void start() {
-            self().start();
+            self().doStart();
         }
     }
 }

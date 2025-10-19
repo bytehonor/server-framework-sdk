@@ -4,20 +4,16 @@ import com.bytehonor.sdk.framework.lang.Java;
 
 public abstract class ClusterGroup {
 
-    private final ServerWorkFactory factory;
+    private final ServerWorkFactory fatcory;
 
     public ClusterGroup() {
-        this.factory = new ServerWorkFactory();
-    }
-
-    public final ServerWorkFactory factory() {
-        return factory;
+        this.fatcory = new ServerWorkFactory();
     }
 
     public final ClusterGroup add(ServerWork work) {
         Java.requireNonNull(work, "work");
 
-        factory.add(work);
+        fatcory.add(work);
         return this;
     }
 
@@ -27,4 +23,8 @@ public abstract class ClusterGroup {
      * @return
      */
     public abstract String subject();
+
+    public final void start() {
+        this.fatcory.play();
+    }
 }

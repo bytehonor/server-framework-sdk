@@ -89,7 +89,7 @@ public class ClusterGroupTest {
         factory.add(group);
         factory.init("testname", locker);
         
-        factory.process();
+        factory.play();
 
         Sleep.millis(TimeConstants.MINUTE * 20);
     }

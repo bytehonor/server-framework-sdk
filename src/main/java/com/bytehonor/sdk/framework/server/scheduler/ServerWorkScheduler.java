@@ -18,7 +18,7 @@ import com.bytehonor.sdk.framework.server.scheduler.work.ServerWorkFactory;
  * @author lijianqiang
  */
 public final class ServerWorkScheduler {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ServerWorkScheduler.class);
 
     private static final long DELAYS = TimeConstants.SECOND * 2;
@@ -37,25 +37,26 @@ public final class ServerWorkScheduler {
         return LazyHolder.SINGLE;
     }
 
-    private void start() {
-        if (factory.isEmpty()) {
-            LOG.warn("factory empty");
-            return;
-        }
+    private void doStart() {
         ScheduleTaskPoolExecutor.schedule(new SafeTask() {
 
             @Override
             public void handle() {
-                process();
+                doHandle();
             }
 
         }, DELAYS);
     }
-    
-    private void process() {
-        factory.run();
+
+    private void doHandle() {
+        if (factory.isEmpty()) {
+            LOG.warn("worker empty");
+            return;
+        }
+
+        factory.play();
     }
-    
+
     public static Starter starter() {
         return new Starter();
     }
@@ -67,13 +68,13 @@ public final class ServerWorkScheduler {
 
         public Starter add(ServerWork work) {
             Java.requireNonNull(work, "work");
-            
+
             self().factory.add(work);
             return this;
         }
 
         public void start() {
-            self().start();
+            self().doStart();
         }
     }
 }

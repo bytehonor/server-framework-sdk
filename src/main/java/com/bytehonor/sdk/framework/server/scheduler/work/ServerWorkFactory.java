@@ -33,14 +33,14 @@ public final class ServerWorkFactory {
         return this;
     }
 
-    public void run() {
+    public void play() {
         try {
-            LOG.info("run works:{}", works.size());
+            LOG.info("play works:{}", works.size());
             for (ServerWork work : works) {
-                work.start();
+                work.schedule();
             }
         } catch (Exception e) {
-            LOG.error("run error", e);
+            LOG.error("play error", e);
         }
     }
 }
