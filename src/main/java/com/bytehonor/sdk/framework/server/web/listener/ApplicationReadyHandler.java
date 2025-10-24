@@ -9,7 +9,6 @@ import com.bytehonor.sdk.framework.lang.thread.SafeTask;
 import com.bytehonor.sdk.framework.lang.thread.Sleep;
 import com.bytehonor.sdk.framework.lang.thread.SpringTaskPoolExecutor;
 import com.bytehonor.sdk.framework.server.SpringServer;
-import com.bytehonor.sdk.framework.server.exception.ErrorConvertor;
 
 /**
  * 服务初始化动作
@@ -34,19 +33,18 @@ public class ApplicationReadyHandler {
             
             @Override
             public void handle() {
-                
-                Sleep.millis(500L);
-                
                 SpringStarter starter = SpringServer.bean(SpringStarter.class);
                 if (starter == null) {
                     LOG.warn("SpringStarter null");
                     return;
                 }
                 
+                Sleep.millis(500L);
+
                 try {
                     starter.start();
                 } catch (Exception e) {
-                    LOG.warn("SpringStarter:{}", ErrorConvertor.format(e));
+                    LOG.error("start error", e);
                 }
             }
             
