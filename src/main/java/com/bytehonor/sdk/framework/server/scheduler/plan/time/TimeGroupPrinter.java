@@ -16,7 +16,7 @@ public class TimeGroupPrinter {
         }
         print(group.getCrons());
     }
-    
+
     public static void print(List<TimeCron> crons) {
         if (crons == null) {
             LOG.error("crons null");

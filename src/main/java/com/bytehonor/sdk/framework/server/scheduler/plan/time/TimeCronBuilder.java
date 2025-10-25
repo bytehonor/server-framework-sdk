@@ -17,6 +17,8 @@ public class TimeCronBuilder {
 
     private int[] days;
 
+    private int[] weeks;
+
     private TimeCronBuilder() {
     }
 
@@ -39,7 +41,12 @@ public class TimeCronBuilder {
         return this;
     }
 
-    public List<DefineTimeCron> build() {
+    public TimeCronBuilder weekAt(int... weeks) {
+        this.weeks = weeks;
+        return this;
+    }
+
+    public List<TimeCron> build() {
         if (minutes == null || minutes.length < 1) {
             minutes = new int[] { SchedulerConstants.ANY };
         }
@@ -49,17 +56,23 @@ public class TimeCronBuilder {
         if (days == null || days.length < 1) {
             days = new int[] { SchedulerConstants.ANY };
         }
+        if (weeks == null || weeks.length < 1) {
+            weeks = new int[] { SchedulerConstants.ANY };
+        }
         int mSize = minutes.length;
         int hSize = hours.length;
         int dSize = days.length;
-        int size = mSize * hSize * dSize;
+        int wSize = weeks.length;
+        int size = mSize * hSize * dSize * wSize;
 
-        List<DefineTimeCron> result = new ArrayList<DefineTimeCron>(size * 2);
+        List<TimeCron> result = new ArrayList<TimeCron>(size * 2);
 
         for (int m : minutes) {
             for (int h : hours) {
                 for (int d : days) {
-                    result.add(new DefineTimeCron(m, h, d));
+                    for (int w : weeks) {
+                        result.add(new TimeCron(m, h, d, w));
+                    }
                 }
             }
         }

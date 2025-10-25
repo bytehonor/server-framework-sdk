@@ -1,5 +1,6 @@
 package com.bytehonor.sdk.framework.server.scheduler.plan.time;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,9 @@ import com.bytehonor.sdk.framework.server.scheduler.constant.SchedulerConstants;
  * @author lijianqiang
  *
  */
-public class TimeGroup implements TimeCron {
+public final class TimeGroup implements Serializable {
+
+    private static final long serialVersionUID = 6754981161585745276L;
 
     private final List<TimeCron> crons;
 
@@ -24,7 +27,6 @@ public class TimeGroup implements TimeCron {
         this.crons = crons;
     }
 
-    @Override
     public boolean match(LocalDateTime ldt) {
         if (crons == null || crons.isEmpty()) {
             return false;
@@ -42,7 +44,7 @@ public class TimeGroup implements TimeCron {
         return crons;
     }
 
-    public void addCron(TimeCron cron) {
+    public void add(TimeCron cron) {
         this.crons.add(cron);
     }
 
@@ -58,13 +60,16 @@ public class TimeGroup implements TimeCron {
 
         private final List<Integer> days;
 
-        private final List<TimeCron> list;
+        private final List<Integer> weeks;
+
+        private final List<TimeCron> items;
 
         private TimeGroupBuilder() {
             this.minutes = new ArrayList<Integer>(120);
             this.hours = new ArrayList<Integer>(48);
             this.days = new ArrayList<Integer>(60);
-            this.list = new ArrayList<TimeCron>();
+            this.weeks = new ArrayList<Integer>(16);
+            this.items = new ArrayList<TimeCron>();
         }
 
         public TimeGroupBuilder every() {
@@ -138,6 +143,20 @@ public class TimeGroup implements TimeCron {
             return this;
         }
 
+        /**
+         * 链式操作中, 相同操作后面覆盖前面, 除非调用done方法
+         * 
+         * @param values
+         * @return
+         */
+        public TimeGroupBuilder weeks(int... values) {
+            weeks.clear(); // 先清
+            for (int value : values) {
+                this.weeks.add(value);
+            }
+            return this;
+        }
+
         public TimeGroupBuilder done() {
             if (isEmpty()) {
                 return this;
@@ -152,11 +171,16 @@ public class TimeGroup implements TimeCron {
             if (days.isEmpty()) {
                 days.add(SchedulerConstants.ANY);
             }
+            if (weeks.isEmpty()) {
+                weeks.add(SchedulerConstants.ANY);
+            }
 
             for (int m : minutes) {
                 for (int h : hours) {
                     for (int d : days) {
-                        list.add(new DefineTimeCron(m, h, d));
+                        for (int w : weeks) {
+                            items.add(new TimeCron(m, h, d, w));
+                        }
                     }
                 }
             }
@@ -164,6 +188,7 @@ public class TimeGroup implements TimeCron {
             minutes.clear();
             hours.clear();
             days.clear();
+            weeks.clear();
             return this;
         }
 
@@ -172,16 +197,16 @@ public class TimeGroup implements TimeCron {
                 done();
             }
 
-            if (list.isEmpty()) {
+            if (items.isEmpty()) {
                 throw new SpringServerException("no crons");
             }
 
             TimeGroup group = new TimeGroup();
-            for (TimeCron item : list) {
-                group.addCron(item);
+            for (TimeCron item : items) {
+                group.add(item);
             }
 
-            list.clear();
+            items.clear();
             return group;
         }
 
