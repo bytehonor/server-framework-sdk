@@ -157,6 +157,24 @@ public final class TimeGroup implements Serializable {
             return this;
         }
 
+        /**
+         * 工作日一到五
+         * 
+         * @return
+         */
+        public TimeGroupBuilder weekday() {
+            return this.weeks(1, 2, 3, 4, 5);
+        }
+
+        /**
+         * 休息日周末
+         * 
+         * @return
+         */
+        public TimeGroupBuilder weekend() {
+            return this.weeks(6, 7);
+        }
+
         public TimeGroupBuilder done() {
             if (isEmpty()) {
                 return this;
