@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.framework.server.web.listener;
+package com.bytehonor.sdk.framework.server.listener;
 
 /**
  * 服务初始化监听器

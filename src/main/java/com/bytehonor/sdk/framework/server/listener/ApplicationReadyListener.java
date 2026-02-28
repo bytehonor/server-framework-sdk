@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.framework.server.web.listener;
+package com.bytehonor.sdk.framework.server.listener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

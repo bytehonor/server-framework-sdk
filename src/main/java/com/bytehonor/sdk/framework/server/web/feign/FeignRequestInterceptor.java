@@ -1,7 +1,7 @@
 package com.bytehonor.sdk.framework.server.web.feign;
 
+import com.bytehonor.sdk.framework.server.context.ServerContext;
 import com.bytehonor.sdk.framework.server.web.constant.ServerFeignConstants;
-import com.bytehonor.sdk.framework.server.web.context.ServerContext;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

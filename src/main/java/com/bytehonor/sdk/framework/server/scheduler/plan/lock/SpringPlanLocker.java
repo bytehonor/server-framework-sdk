@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.bytehonor.sdk.framework.lang.Java;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
-import com.bytehonor.sdk.framework.server.web.context.ServerContext;
+import com.bytehonor.sdk.framework.server.context.ServerContext;
 
 /**
  * @author lijianqiang

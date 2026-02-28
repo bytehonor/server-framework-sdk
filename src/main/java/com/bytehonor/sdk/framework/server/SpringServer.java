@@ -4,8 +4,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
 import com.bytehonor.sdk.framework.lang.Java;
-import com.bytehonor.sdk.framework.server.web.context.ApplicationContextHolder;
-import com.bytehonor.sdk.framework.server.web.context.ServerContext;
+import com.bytehonor.sdk.framework.server.context.ApplicationContextHolder;
+import com.bytehonor.sdk.framework.server.context.ServerContext;
 
 /**
  * @author lijianqiang

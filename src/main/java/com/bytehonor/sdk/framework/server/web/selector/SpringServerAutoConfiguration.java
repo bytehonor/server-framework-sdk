@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.bytehonor.sdk.framework.server.listener.ApplicationReadyListener;
 import com.bytehonor.sdk.framework.server.web.controller.ExampleController;
 import com.bytehonor.sdk.framework.server.web.controller.SchedulerController;
-import com.bytehonor.sdk.framework.server.web.listener.ApplicationReadyListener;
 import com.bytehonor.sdk.framework.server.web.mvc.ServerWebMvcConfigurer;
 
 import jakarta.servlet.Servlet;
