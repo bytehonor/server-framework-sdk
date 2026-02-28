@@ -14,14 +14,14 @@ import com.bytehonor.sdk.framework.lang.constant.HttpConstants;
 import com.bytehonor.sdk.framework.lang.constant.QueryLogic;
 import com.bytehonor.sdk.framework.lang.constant.SqlOperator;
 import com.bytehonor.sdk.framework.lang.core.KeyValueMap;
+import com.bytehonor.sdk.framework.lang.core.meta.MetaField;
+import com.bytehonor.sdk.framework.lang.core.meta.MetaModel;
+import com.bytehonor.sdk.framework.lang.core.meta.MetaParser;
 import com.bytehonor.sdk.framework.lang.getter.BooleanGetter;
 import com.bytehonor.sdk.framework.lang.getter.IntegerGetter;
-import com.bytehonor.sdk.framework.lang.meta.MetaModel;
-import com.bytehonor.sdk.framework.lang.meta.MetaModelField;
-import com.bytehonor.sdk.framework.lang.meta.MetaModelUtils;
 import com.bytehonor.sdk.framework.lang.query.QueryCondition;
-import com.bytehonor.sdk.framework.lang.query.QueryFilter.QueryFilterColumn;
-import com.bytehonor.sdk.framework.lang.query.QueryOrder.QueryOrderColumn;
+import com.bytehonor.sdk.framework.lang.query.QueryFilterColumn;
+import com.bytehonor.sdk.framework.lang.query.QueryOrderColumn;
 import com.bytehonor.sdk.framework.lang.query.QueryPager;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 import com.bytehonor.sdk.framework.lang.string.StringSplitUtils;
@@ -63,7 +63,7 @@ public class RequestParser {
         Java.requireNonNull(clazz, "clazz");
         Java.requireNonNull(map, "map");
 
-        MetaModel model = MetaModelUtils.parse(clazz);
+        MetaModel model = MetaParser.parse(clazz);
 
         QueryCondition condition = QueryCondition.create(logic, pager(map));
         condition.filters(filters(model, map.map()));
@@ -136,7 +136,7 @@ public class RequestParser {
             return QueryFilterColumn.non();
         }
 
-        MetaModelField field = model.getIfPresent(key);
+        MetaField field = model.getIfPresent(key);
         if (field == null) {
             LOG.debug("filter field null, key:{}, raw:{}", key, raw);
             return QueryFilterColumn.non();

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import com.bytehonor.sdk.framework.lang.Java;
 import com.bytehonor.sdk.framework.lang.constant.DateConstants;
-import com.bytehonor.sdk.framework.lang.util.TimeFormatter;
+import com.bytehonor.sdk.framework.lang.util.TimeKit;
 
 /**
  * @author lijianqiang
@@ -22,7 +22,7 @@ public class SpringPlanKeygen {
     public static String make(String prefix, long time) {
         Java.requireNonNull(prefix, "prefix");
 
-        return make(prefix, TimeFormatter.fromTimestamp(time));
+        return make(prefix, TimeKit.fromTimestamp(time));
     }
 
     private static String time(LocalDateTime ldt) {

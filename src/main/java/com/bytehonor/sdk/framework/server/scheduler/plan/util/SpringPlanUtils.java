@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.bytehonor.sdk.framework.lang.constant.TimeConstants;
-import com.bytehonor.sdk.framework.lang.util.TimeFormatter;
+import com.bytehonor.sdk.framework.lang.util.TimeKit;
 
 public class SpringPlanUtils {
 
@@ -23,10 +23,10 @@ public class SpringPlanUtils {
 
     public static long delayMillis(int secondAt) {
         long now = System.currentTimeMillis();
-        LocalDateTime later = TimeFormatter.fromTimestamp(now + TimeConstants.MINUTE);
+        LocalDateTime later = TimeKit.fromTimestamp(now + TimeConstants.MINUTE);
         LocalDateTime at = LocalDateTime.of(later.toLocalDate(),
                 LocalTime.of(later.getHour(), later.getMinute(), secondAt));
-        long delays = TimeFormatter.toTimestamp(at) - now;
+        long delays = TimeKit.toTimestamp(at) - now;
         if (delays > TimeConstants.MINUTE) {
             delays = delays - TimeConstants.MINUTE;
         }
