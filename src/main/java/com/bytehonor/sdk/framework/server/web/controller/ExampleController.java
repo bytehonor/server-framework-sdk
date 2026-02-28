@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bytehonor.sdk.framework.concept.response.DataString;
+import com.bytehonor.sdk.concept.applet.response.DataString;
 
 @RestController
 @RequestMapping("/actuator/example")

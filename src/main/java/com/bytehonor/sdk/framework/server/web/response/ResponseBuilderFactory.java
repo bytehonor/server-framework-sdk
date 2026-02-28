@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.framework.server.web.response;
 
-import com.bytehonor.sdk.framework.concept.response.JsonResponse;
+import com.bytehonor.sdk.concept.applet.response.JsonResponse;
 import com.bytehonor.sdk.framework.lang.Java;
 import com.bytehonor.sdk.framework.server.web.response.builder.DefaultResponseBuilder;
 import com.bytehonor.sdk.framework.server.web.response.builder.JsonResponseBuilder;
