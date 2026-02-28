@@ -1,6 +1,6 @@
 package com.bytehonor.sdk.framework.server.web.response;
 
-import com.bytehonor.sdk.concept.spring.response.JsonResponse;
+import com.bytehonor.sdk.framework.concept.response.JsonResponse;
 
 /**
  * @author lijianqiang

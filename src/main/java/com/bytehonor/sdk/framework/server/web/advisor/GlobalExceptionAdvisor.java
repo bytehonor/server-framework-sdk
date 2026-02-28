@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bytehonor.sdk.concept.spring.response.JsonResponse;
+import com.bytehonor.sdk.framework.concept.response.JsonResponse;
 import com.bytehonor.sdk.framework.server.exception.ErrorConvertor;
 
 /**
