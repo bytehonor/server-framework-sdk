@@ -24,8 +24,9 @@ public class TimeGroupPrinter {
         }
         int size = crons.size();
         LOG.info("crons size:{}", size);
-        for (TimeCron cron : crons) {
-            LOG.info("cron:{}", cron.toString());
+        for (int i = 0; i < size; i++) {
+            TimeCron cron = crons.get(i);
+            LOG.info("cron[{}]:{}", i, cron);
         }
     }
 }

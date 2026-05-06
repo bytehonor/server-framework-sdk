@@ -26,9 +26,26 @@ public class TimeCronBuilder {
         return new TimeCronBuilder();
     }
 
-    public TimeCronBuilder mintueAt(int... minutes) {
+    /**
+     * 分钟匹配配置。
+     * 
+     * @param minutes 分钟值
+     * @return 构建器
+     */
+    public TimeCronBuilder minuteAt(int... minutes) {
         this.minutes = minutes;
         return this;
+    }
+
+    /**
+     * 兼容旧拼写，建议使用 {@link #minuteAt(int...)}。
+     * 
+     * @param minutes 分钟值
+     * @return 构建器
+     */
+    @Deprecated
+    public TimeCronBuilder mintueAt(int... minutes) {
+        return minuteAt(minutes);
     }
 
     public TimeCronBuilder hourAt(int... hours) {

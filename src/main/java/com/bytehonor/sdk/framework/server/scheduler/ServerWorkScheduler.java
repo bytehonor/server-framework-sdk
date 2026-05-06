@@ -2,6 +2,7 @@ package com.bytehonor.sdk.framework.server.scheduler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.bytehonor.sdk.framework.lang.Java;
 import com.bytehonor.sdk.framework.lang.constant.TimeConstants;
@@ -22,6 +23,7 @@ public final class ServerWorkScheduler {
     private static final Logger LOG = LoggerFactory.getLogger(ServerWorkScheduler.class);
 
     private static final long DELAYS = TimeConstants.SECOND * 2;
+    private static final AtomicBoolean STARTED = new AtomicBoolean(false);
 
     private final ServerWorkFactory factory;
 
@@ -74,6 +76,10 @@ public final class ServerWorkScheduler {
         }
 
         public void start() {
+            if (STARTED.compareAndSet(false, true) == false) {
+                LOG.warn("ServerWorkScheduler already started, ignore duplicate start");
+                return;
+            }
             self().doStart();
         }
     }

@@ -2,6 +2,7 @@ package com.bytehonor.sdk.framework.server.scheduler;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,7 @@ import com.bytehonor.sdk.framework.server.scheduler.plan.util.SpringPlanUtils;
 public final class SpringPlanScheduler {
 
     private static final Logger LOG = LoggerFactory.getLogger(SpringPlanScheduler.class);
+    private static final AtomicBoolean STARTED = new AtomicBoolean(false);
 
     public static void start() {
         start(0);
@@ -48,6 +50,10 @@ public final class SpringPlanScheduler {
 
     public static void start(int secondAt, SpringPlanLocker locker) {
         Java.requireNonNull(locker, "locker");
+        if (STARTED.compareAndSet(false, true) == false) {
+            LOG.warn("SpringPlanScheduler already started, ignore duplicate start");
+            return;
+        }
 
         long delayMillis = SpringPlanUtils.delayMillis(secondAt);
         LOG.info("locker:{}, delayMillis:{}, secondAt:{}", locker.getName(), delayMillis, secondAt);

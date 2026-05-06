@@ -1,6 +1,7 @@
 package com.bytehonor.sdk.framework.server.scheduler;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,7 @@ public final class ClusterGroupScheduler {
 
     private static final long DELAYS = TimeConstants.SECOND * 5;
     private static final long INTERVALS = TimeConstants.MINUTE;
+    private static final AtomicBoolean STARTED = new AtomicBoolean(false);
 
     private final ClusterGroupFactory factory;
     private final long delays;
@@ -81,6 +83,10 @@ public final class ClusterGroupScheduler {
         }
 
         public void start() {
+            if (STARTED.compareAndSet(false, true) == false) {
+                LOG.warn("ClusterGroupScheduler already started, ignore duplicate start");
+                return;
+            }
             self().doStart();
         }
     }

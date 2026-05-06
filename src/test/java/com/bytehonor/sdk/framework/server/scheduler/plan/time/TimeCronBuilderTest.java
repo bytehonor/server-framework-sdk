@@ -14,7 +14,7 @@ public class TimeCronBuilderTest {
 
     @Test
     public void test() {
-        List<TimeCron> list = TimeCronBuilder.make().mintueAt(2, 11, 22, 31, 43, 52)
+        List<TimeCron> list = TimeCronBuilder.make().minuteAt(2, 11, 22, 31, 43, 52)
                 .hourAt(10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21).build();
         boolean isOk = list != null && list.size() == (6 * 11);
 

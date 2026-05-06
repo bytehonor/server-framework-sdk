@@ -3,6 +3,7 @@ package com.bytehonor.sdk.framework.server.scheduler.plan.time;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.bytehonor.sdk.framework.server.exception.SpringServerException;
 import com.bytehonor.sdk.framework.server.scheduler.constant.SchedulerConstants;
 
 /**
@@ -30,10 +31,23 @@ public final class TimeCron implements Serializable {
     }
 
     public TimeCron(int minute, int hour, int day, int week) {
+        validOrThrow(minute, ANY, 0, 59, "minute");
+        validOrThrow(hour, ANY, 0, 23, "hour");
+        validOrThrow(day, ANY, 1, 31, "day");
+        validOrThrow(week, ANY, 1, 7, "week");
         this.minute = minute;
         this.hour = hour;
         this.day = day;
         this.week = week;
+    }
+
+    private static void validOrThrow(int value, int any, int min, int max, String name) {
+        if (value == any) {
+            return;
+        }
+        if (value < min || value > max) {
+            throw new SpringServerException("invalid " + name + ":" + value);
+        }
     }
 
     public boolean match(LocalDateTime ldt) {
@@ -58,7 +72,15 @@ public final class TimeCron implements Serializable {
 
     @Override
     public String toString() {
-        return new StringBuilder().append(day).append(":").append(hour).append(":").append(minute).toString();
+        return new StringBuilder().append("week=").append(show(week)).append(", day=").append(show(day))
+                .append(", hour=").append(show(hour)).append(", minute=").append(show(minute)).toString();
+    }
+
+    private static String show(int value) {
+        if (value == ANY) {
+            return "*";
+        }
+        return String.valueOf(value);
     }
 
     public int getMinute() {

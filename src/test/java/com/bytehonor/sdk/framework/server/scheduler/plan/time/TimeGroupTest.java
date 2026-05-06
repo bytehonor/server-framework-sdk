@@ -18,9 +18,9 @@ public class TimeGroupTest {
     @Test
     public void test() {
         TimeGroupBuilder builder = TimeGroup.builder();
-        builder.mintues(1, 2, 3, 4, 5).hours(1, 2, 3, 4, 5).done();
-        builder.mintues(6, 7, 8, 9, 10).hours(6, 7, 8, 9, 10).done();
-        builder.every(0, 2).mintues(11, 12, 13, 14, 15).hours(11, 12, 13, 14, 15).done(); // every(0, 2) 不生效
+        builder.minutes(1, 2, 3, 4, 5).hours(1, 2, 3, 4, 5).done();
+        builder.minutes(6, 7, 8, 9, 10).hours(6, 7, 8, 9, 10).done();
+        builder.every(0, 2).minutes(11, 12, 13, 14, 15).hours(11, 12, 13, 14, 15).done(); // every(0, 2) 不生效
         TimeGroup group = builder.build();
         List<TimeCron> crons = group.getCrons();
         LOG.info("test size:{}", crons.size());

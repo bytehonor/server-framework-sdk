@@ -9,10 +9,10 @@ import com.bytehonor.sdk.framework.lang.Java;
  */
 public abstract class ClusterGroup {
 
-    private final ServerWorkFactory fatcory;
+    private final ServerWorkFactory factory;
 
     public ClusterGroup() {
-        this.fatcory = new ServerWorkFactory();
+        this.factory = new ServerWorkFactory();
     }
 
     /**
@@ -24,7 +24,7 @@ public abstract class ClusterGroup {
     public final ClusterGroup add(ServerWork work) {
         Java.requireNonNull(work, "work");
 
-        fatcory.add(work);
+        factory.add(work);
         return this;
     }
 
@@ -39,6 +39,6 @@ public abstract class ClusterGroup {
      * 启动当前分组内的全部任务。
      */
     public final void start() {
-        this.fatcory.play();
+        this.factory.play();
     }
 }
