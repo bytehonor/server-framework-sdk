@@ -37,17 +37,6 @@ public class TimeCronBuilder {
         return this;
     }
 
-    /**
-     * 兼容旧拼写，建议使用 {@link #minuteAt(int...)}。
-     * 
-     * @param minutes 分钟值
-     * @return 构建器
-     */
-    @Deprecated
-    public TimeCronBuilder mintueAt(int... minutes) {
-        return minuteAt(minutes);
-    }
-
     public TimeCronBuilder hourAt(int... hours) {
         this.hours = hours;
         return this;
