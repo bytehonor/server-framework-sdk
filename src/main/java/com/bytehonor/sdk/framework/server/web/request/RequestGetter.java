@@ -26,6 +26,7 @@ public class RequestGetter {
      * @return
      */
     public static KeyValueMap map(HttpServletRequest request) {
+        Java.requireNonNull(request, "request");
         KeyValueMap map = new KeyValueMap();
 
         Enumeration<String> names = request.getParameterNames();
@@ -102,7 +103,7 @@ public class RequestGetter {
      * @param key
      * @return
      */
-    public static Integer integerRequried(HttpServletRequest request, String key) {
+    public static Integer integerRequired(HttpServletRequest request, String key) {
         Integer val = integerOptional(request, key);
         Java.requireNonNull(val, key);
         return val;
@@ -208,7 +209,14 @@ public class RequestGetter {
         }
         String[] arr = src.split(",");
         for (String a : arr) {
-            list.add(Long.valueOf(a));
+            if (StringKit.isEmpty(a)) {
+                continue;
+            }
+            String value = a.trim();
+            if (StringKit.isEmpty(value)) {
+                continue;
+            }
+            list.add(Long.valueOf(value));
         }
         return list;
     }
@@ -220,7 +228,14 @@ public class RequestGetter {
         }
         String[] arr = src.split(",");
         for (String a : arr) {
-            list.add(Integer.valueOf(a));
+            if (StringKit.isEmpty(a)) {
+                continue;
+            }
+            String value = a.trim();
+            if (StringKit.isEmpty(value)) {
+                continue;
+            }
+            list.add(Integer.valueOf(value));
         }
         return list;
     }
@@ -235,7 +250,11 @@ public class RequestGetter {
             if (StringKit.isEmpty(a)) {
                 continue;
             }
-            list.add(a.trim());
+            String value = a.trim();
+            if (StringKit.isEmpty(value)) {
+                continue;
+            }
+            list.add(value);
         }
         return list;
     }

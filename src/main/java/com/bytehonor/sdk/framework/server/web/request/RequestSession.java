@@ -1,6 +1,7 @@
 package com.bytehonor.sdk.framework.server.web.request;
 
 import com.bytehonor.sdk.concept.applet.constant.OauthConstants;
+import com.bytehonor.sdk.framework.lang.Java;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class RequestSession {
 
     public static String getTerminal(HttpServletRequest request) {
+        Java.requireNonNull(request, "request");
         String from = request.getHeader(OauthConstants.REQUEST_TERMINAL);
         if (StringKit.isEmpty(from)) {
             from = "browser";
@@ -16,6 +18,7 @@ public class RequestSession {
     }
 
     public static String getIp(HttpServletRequest request) {
+        Java.requireNonNull(request, "request");
         String ip = request.getHeader(OauthConstants.REQUEST_IP);
         if (StringKit.isEmpty(ip) == false) {
             return ip;
@@ -24,6 +27,7 @@ public class RequestSession {
     }
 
     public static String getUuid(HttpServletRequest request) {
+        Java.requireNonNull(request, "request");
         String val = request.getHeader(OauthConstants.REQUEST_UUID);
         if (StringKit.isEmpty(val)) {
             val = request.getParameter("uuid");

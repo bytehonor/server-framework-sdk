@@ -116,14 +116,25 @@ public class RequestParser {
             if (IGNORES.contains(entry.getKey())) {
                 continue;
             }
-            filters.add(filter(model, entry.getKey(), entry.getValue()));
+            QueryFilterColumn filter = filterNullable(model, entry.getKey(), entry.getValue());
+            if (filter != null) {
+                filters.add(filter);
+            }
         }
         return filters;
     }
 
     public static QueryFilterColumn filter(MetaModel model, String raw, String value) {
+        QueryFilterColumn filter = filterNullable(model, raw, value);
+        if (filter == null) {
+            return QueryFilterColumn.non();
+        }
+        return filter;
+    }
+
+    private static QueryFilterColumn filterNullable(MetaModel model, String raw, String value) {
         if (StringKit.isEmpty(raw) || StringKit.isEmpty(value)) {
-            return QueryFilterColumn.non(); // value为空字符则丢弃
+            return null; // value为空字符则丢弃
         }
 
         KeyOptPair pair = KeyOptPair.parse(raw);
@@ -133,13 +144,13 @@ public class RequestParser {
         SqlOperator operator = SqlOperator.keyOf(opt);
         if (operator == null) {
             LOG.warn("filter opt null, opt:{}, raw:{}", opt, raw);
-            return QueryFilterColumn.non();
+            return null;
         }
 
         MetaField field = model.getIfPresent(key);
         if (field == null) {
             LOG.debug("filter field null, key:{}, raw:{}", key, raw);
-            return QueryFilterColumn.non();
+            return null;
         }
 
         LOG.debug("filter key:{}, opt:{}, raw:{}", key, opt, raw);
@@ -158,23 +169,34 @@ public class RequestParser {
 
         List<String> list = StringSplitUtils.split(value);
         for (String src : list) {
-            columns.add(order(model, src));
+            QueryOrderColumn order = orderNullable(model, src);
+            if (order != null) {
+                columns.add(order);
+            }
         }
         return columns;
     }
 
     public static QueryOrderColumn order(MetaModel model, String value) {
+        QueryOrderColumn order = orderNullable(model, value);
+        if (order == null) {
+            return new QueryOrderColumn();
+        }
+        return order;
+    }
+
+    private static QueryOrderColumn orderNullable(MetaModel model, String value) {
         KeyOptPair keyOpt = KeyOptPair.parse(value);
         String key = keyOpt.getKey();
         String opt = keyOpt.getOpt();
         if (StringKit.isEmpty(key) || StringKit.isEmpty(opt)) {
             LOG.warn("doMakeOrder failed, value:{}", value);
-            return new QueryOrderColumn();
+            return null;
         }
 
         if (model.contains(key) == false) {
             LOG.warn("doMakeOrder not field, value:{}", value);
-            return new QueryOrderColumn();
+            return null;
         }
 
         LOG.info("doMakeOrder key:{}, opt:{}, value:{}", key, opt, value);
@@ -185,6 +207,6 @@ public class RequestParser {
         if (HttpConstants.SORT_ASC.equals(opt)) {
             return QueryOrderColumn.asc(key);
         }
-        return new QueryOrderColumn();
+        return null;
     }
 }
