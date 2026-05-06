@@ -104,17 +104,6 @@ public final class TimeGroup implements Serializable {
         /**
          * 链式操作中, 相同操作后面覆盖前面, 除非调用done方法
          * 
-         * @param values
-         * @return
-         */
-        @Deprecated
-        public TimeGroupBuilder mintues(int... values) {
-            return minutes(values);
-        }
-
-        /**
-         * 链式操作中, 相同操作后面覆盖前面, 除非调用done方法
-         * 
          * @param values 分钟值
          * @return 当前构建器
          */
