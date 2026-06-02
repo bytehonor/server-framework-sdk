@@ -18,7 +18,7 @@ public class KeyOptPair {
     /**
      * 默认操作符：等于。
      */
-    public static final String EQ = SqlOperator.EQ.getKey();
+    public static final String EQ = SqlOperator.EQ.key();
 
     private String key;
 
